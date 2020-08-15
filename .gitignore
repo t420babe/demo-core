@@ -1,0 +1,8 @@
+osc-proxy/
+rsc/
+*.png
+*.jpeg
+*.wav
+*.swp
+.DS_Store
+
