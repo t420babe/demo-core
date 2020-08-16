@@ -1,228 +1,177 @@
-#ifndef FNC_EASING
-#define FNC_EASING
+#ifndef FNC_EASING_FUNCTIONS
+#define FNC_EASING_FUNCTIONS
 
 #ifndef FNC_MATH_CONSTANTS
 #include "math-constants.glsl"
 #endif
 
-float easeInSine(float x) {
-  return 1.0 - cos((x * PI) / 2.0);
+
+// Robert Penner's easing functions in GLSL
+// https://github.com/stackgl/glsl-easings
+float linear(float t) {
+  return t;
 }
 
-float easeOutSine(float x) {
-  return sin((x * PI) / 2.0);
+float exp_in(float t) {
+  return t == 0.0 ? t : pow(2.0, 10.0 * (t - 1.0));
 }
 
-float easeInOutSine(float x) {
-  return -(cos((x * PI) - 1.0) / 2.0);
+float exp_out(float t) {
+  return t == 1.0 ? t : 1.0 - pow(2.0, -10.0 * t);
 }
 
-float easeInQuad(float x) {
-  return x * x;
+float exp_in_out(float t) {
+  return t == 0.0 || t == 1.0
+    ? t
+    : t < 0.5
+      ? +0.5 * pow(2.0, (20.0 * t) - 10.0)
+      : -0.5 * pow(2.0, 10.0 - (t * 20.0)) + 1.0;
 }
 
-float easeOutQuad(float x) {
-  return 1.0 - (1.0 - x) * (1.0 - x);
+float sin_in(float t) {
+  return sin((t - 1.0) * HALF_PI) + 1.0;
 }
 
-float easeInOutQuad(float x) {
-  if (x < 0.5) {
-    return (2.0 * easeInQuad(x));
-  } else {
-    return 1.0 - pow(-2.0 * x + 2.0, 2.0) / 2.0;
-  }
+float sin_out(float t) {
+  return sin(t * HALF_PI);
 }
 
-float easeInCubic(float x) {
-  return pow(x, 3.0);
+float sin_in_out(float t) {
+  return -0.5 * (cos(PI * t) - 1.0);
 }
 
-float easeOutCubic(float x) {
-  return 1.0 - pow(1.0 - x, 3.0);
+float quintic_in(float t) {
+  return pow(t, 5.0);
 }
 
-float easeInOutCubic(float x) {
-  if (x < 0.5) {
-    return 4.0 * easeInCubic(x);
-  } else {
-    return 1.0 - pow(-2.0 * x + 2.0, 3.0) / 2.0;
-  }
+float quintic_out(float t) {
+  return 1.0 - (pow(t - 1.0, 5.0));
 }
 
-float easeInQuart(float x) {
-  return pow(x, 4.0);
+float quintic_in_out(float t) {
+  return t < 0.5
+    ? +16.0 * pow(t, 5.0)
+    : -0.5 * pow(2.0 * t - 2.0, 5.0) + 1.0;
 }
 
-float easeOutQuart(float x) {
-  return 1.0 - pow(1.0 - x, 4.0);
+float quartic_in(float t) {
+  return pow(t, 4.0);
 }
 
-float easeInOutQuart(float x) {
-  if (x < 0.5) {
-    return 8.0 * easeInQuart(x);
-  } else {
-    return 1.0 - pow(-2.0 * x + 2.0, 4.0);
-  }
+float quartic_out(float t) {
+  return pow(t - 1.0, 3.0) * (1.0 - t) + 1.0;
 }
 
-float easeInQuint(float x) {
-  return pow(x, 5.0);
+float quartic_in_out(float t) {
+  return t < 0.5
+    ? +8.0 * pow(t, 4.0)
+    : -8.0 * pow(t - 1.0, 4.0) + 1.0;
 }
 
-float easeOutQuint(float x) {
-  return 1.0 - pow(1.0 - x, 5.0);
+float quadratic_in_out(float t) {
+  float p = 2.0 * t * t;
+  return t < 0.5 ? p : -p + (4.0 * t) - 1.0;
 }
 
-float easeInOutQuint(float x) {
-  if (x < 0.5) {
-    return 16.0 * pow(x, 5.0);
-  } else {
-    return 1.0 - pow(-2.0 * x + 2.0, 5.0);
-  }
+float quadratic_in(float t) {
+  return t * t;
 }
 
-float easeInExpo(float x) {
-  if ( x == 0.0) {
-    return 0.0;
-  } else {
-    return pow(2.0, 10.0 * x - 10.0);
-  }
+float quadratic_out(float t) {
+  return -t * (t - 2.0);
 }
 
-// https://easings.net/#easeOutExpo
-float easeOutExpo(float x) {
-  if (x == 1.0) {
-    return 1.0;
-  } else {
-    return 1.0 - pow(2.0, -10.0 * x);
-  }
+float cubic_in(float t) {
+  return t * t * t;
 }
 
-// https://easings.net/#easeInOutExpo
-// float easeInOutExpo(float x) {
-//   if (x == 0.0) {
-//     return 0.0;
-//   } else if (x == 1.0) {
-//     if (x < 0.5) {
-//       return pow(2.0, 20.0 * x - 10.0) / 2.0;
-//     }
-//   }
-// }
-
-// https://easings.net/#easeInCirc
-float easeInCirc(float x) {
-  return 1.0 - sqrt(1.0 - pow(x, 2.0));
+float cubic_out(float t) {
+  float f = t - 1.0;
+  return f * f * f + 1.0;
 }
 
-// https://easings.net/#easeOutCirc
-float easeOutCirc(float x) {
-  return sqrt(1.0 - pow(x - 1.0, 2.0));
+float cubic_in_out(float t) {
+  return t < 0.5
+    ? 4.0 * t * t * t
+    : 0.5 * pow(2.0 * t - 2.0, 3.0) + 1.0;
 }
 
-// https://easings.net/#easeInOutCirc
-float easeInOutCirc(float x) {
-  if (x < 0.5) {
-    return (1.0 - sqrt(1.0 - pow(2.0 * x, 2.0))) / 2.0;
-  } else {
-    return (sqrt(1.0 - pow(-2.0 * x + 2.0, 2.0)) + 1.0) / 2.0;
-  }
+float elastic_in(float t) {
+  return sin(13.0 * t * HALF_PI) * pow(2.0, 10.0 * (t - 1.0));
 }
 
-// https://easings.net/#easeInBack
-float easeInBack(float x) {
-  float c1 = 1.70158;
-  float c3 = c1 + 1.0;
-  return c3 * x * x * x - c1 * x * x;
+float elastic_out(float t) {
+  return sin(-13.0 * (t + 1.0) * HALF_PI) * pow(2.0, -10.0 * t) + 1.0;
 }
 
-// https://easings.net/#easeOutBack
-float easeOutBack(float x) {
-  float c1 = 1.70158;
-  float c3 = c1 + 1.0;
-  return 1.0 + c3 * pow(x - 1.0, 3.0) + c1 * pow(x - 1.0, 2.0);
+float elastic_in_out(float t) {
+  return t < 0.5
+    ? 0.5 * sin(+13.0 * HALF_PI * 2.0 * t) * pow(2.0, 10.0 * (2.0 * t - 1.0))
+    : 0.5 * sin(-13.0 * HALF_PI * ((2.0 * t - 1.0) + 1.0)) * pow(2.0, -10.0 * (2.0 * t - 1.0)) + 1.0;
 }
 
-// https://easings.net/#easeInOutBack
-float easeInOutBack(float x) {
-  float c1 = 1.70158;
-  float c2 = c1 + 1.525;
-
-  if (x < 0.5) {
-    return (pow(2.0 * x, 2.0) * ((c2 + 1.0) * 2.0 * x - c2)) / 2.0;
-  } else {
-    return (pow(2.0 * x - 2.0, 2.0) * ((c2 + 1.0) * (x * 2.0 - 2.0) + c2) + 2.0) / 2.0;
-  }
+float circular_in(float t) {
+  return 1.0 - sqrt(1.0 - t * t);
 }
 
-// https://easings.net/#easeInElastic
-float easeInElastic(float x) {
-  float c4 = (2.0 * PI) / 3.0;
-  if (x == 0.0) {
-    return 0.0;
-  } else if (x == 1.0) {
-    return 1.0;
-  } else {
-    -pow(2.0, 10.0 * x - 10.0) * sin((x * 10.0 - 10.75) * c4);
-  }
+float circular_out(float t) {
+  return sqrt((2.0 - t) * t);
 }
 
-// https://easings.net/#easeOutElastic
-float easeOutElastic(float x) {
-  float c4 = (2.0 * PI) / 3.0;
-  if (x == 0.0) {
-    return 0.0;
-  } else if (x == 1.0) {
-    return 1.0;
-  } else {
-    return pow(2.0, -10.0 * x) * sin((x * 10.0 - 0.75) * c4) + 1.0;
-  }
+float circular_in_out(float t) {
+  return t < 0.5
+    ? 0.5 * (1.0 - sqrt(1.0 - 4.0 * t * t))
+    : 0.5 * (sqrt((3.0 - 2.0 * t) * (2.0 * t - 1.0)) + 1.0);
 }
 
-// https://easings.net/#easeInOutElastic
-float easeInOutElastic(float x) {
-  float c5 = (2.0 * PI) / 4.5;
-  if (x == 0.0) {
-    return 0.0;
-  } else if ( x < 0.5) {
-    return 1.0;
-  } else if (x < 0.5) {
-    return -(pow(2.0, 20.0* x - 10.0) * sin((20.0 * x - 11.125) * c5)) / 2.0;
-  } else {
-    return (pow(2.0, -20.0 * x + 10.0) * sin((20.0 * x - 11.125) * c5)) / 2.0 + 1.0;
-  }
+float bounce_out(float t) {
+  const float a = 4.0 / 11.0;
+  const float b = 8.0 / 11.0;
+  const float c = 9.0 / 10.0;
+
+  const float ca = 4356.0 / 361.0;
+  const float cb = 35442.0 / 1805.0;
+  const float cc = 16061.0 / 1805.0;
+
+  float t2 = t * t;
+
+  return t < a
+    ? 7.5625 * t2
+    : t < b
+      ? 9.075 * t2 - 9.9 * t + 3.4
+      : t < c
+        ? ca * t2 - cb * t + cc
+        : 10.8 * t * t - 20.52 * t + 10.72;
 }
 
-
-// https://easings.net/#easeOutBounce
-float easeOutBounce(float x) {
-  float n1 = 7.5625;
-  float d1 = 2.75;
-
-  if (x < 1.0 / d1) {
-    return n1 * x * x;
-  } else if (x < 2.0 / d1) {
-    float m = x - 1.5;
-    return n1 * (m / d1) * m + 0.75;
-  } else if (x < 2.5 / d1) {
-    float m = x - 2.5;
-    return n1 * (m / d1) * m + 0.9375;
-  } else {
-    float m = x - 2.625;
-    return n1 * ( m / d1) * m + 0.984375;
-  }
+float bounce_in(float t) {
+  return 1.0 - bounce_out(1.0 - t);
 }
 
-// https://easings.net/#easeInBounce
-float easeInBounce(float x) {
-  return 1.0 - easeOutBounce(1.0 - x);
+float bounce_in_out(float t) {
+  return t < 0.5
+    ? 0.5 * (1.0 - bounce_out(1.0 - t * 2.0))
+    : 0.5 * bounce_out(t * 2.0 - 1.0) + 0.5;
 }
 
-// https://easings.net/#easeInOutBounce
-float easeInOutBounce(float x) {
-  if (x < 0.5) {
-    return (1.0 - easeOutBounce( 1.0 - 2.0 * x)) / 2.0;
-  } else {
-    return (1.0 + easeOutBounce( 2.0 * x - 1.0)) / 2.0;
-  }
+float back_in(float t) {
+  return pow(t, 3.0) - t * sin(t * PI);
+}
+
+float back_out(float t) {
+  float f = 1.0 - t;
+  return 1.0 - (pow(f, 3.0) - f * sin(f * PI));
+}
+
+float back_in_out(float t) {
+  float f = t < 0.5
+    ? 2.0 * t
+    : 1.0 - (2.0 * t - 1.0);
+
+  float g = pow(f, 3.0) - f * sin(f * PI);
+
+  return t < 0.5
+    ? 0.5 * g
+    : 0.5 * (1.0 - g) + 0.5;
 }
 #endif
