@@ -6,26 +6,24 @@ uniform vec2 u_resolution;
 uniform float u_time;
 
 #include "../lib/common/easing-functions.glsl"
-#include "../lib/common/common.glsl"             // for plot
+#include "../lib/common/plot.glsl"
 
-#define DEMO_EASE(u_t) abs(fract(u_t * 0.5) * 2.0 - 1.0)
-#define DEMO_COLOR(pct) vec3(mix(colorA, colorB, pct))
-
-const vec3 colorA = vec3(0.149, 0.141, 0.912);
-const vec3 colorB = vec3(1.000, 0.833, 0.224);
+const vec3 COLOR_A = vec3(0.149, 0.141, 0.912);
+const vec3 COLOR_B = vec3(1.000, 0.833, 0.224);
 
 
 // Test lib/common/easing-functions.glsl -> linear
 // Expect alternating blue and yellow
 vec3 test_easing_functions_linear(vec2 pos) {
-  // Line
+  // // Line
   float pct = plot(pos, linear(pos.x));
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(linear(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, linear(DEMO_EASE(u_time)));
 
   return color;
+  // return gradient_and_line(pos, linear(pos.x), COLOR_A, COLOR_B);
 }
 
 // Test lib/common/easing-functions.glsl -> exp_in
@@ -35,7 +33,7 @@ vec3 test_easing_functions_exp_in(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient: mainly blue with quick yellow flash
-  color += DEMO_COLOR(exp_in(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, exp_in(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -47,7 +45,7 @@ vec3 test_easing_functions_exp_out(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient: mainly blue with quick yellow flash
-  color += DEMO_COLOR(exp_out(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, exp_out(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -59,7 +57,7 @@ vec3 test_easing_functions_exp_in_out(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient: mainly blue with quick yellow flash
-  color += DEMO_COLOR(exp_in_out(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, exp_in_out(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -71,7 +69,7 @@ vec3 test_easing_functions_sin_in(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient: mainly blue with quick yellow flash
-  color += DEMO_COLOR(sin_in(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, sin_in(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -83,7 +81,7 @@ vec3 test_easing_functions_sin_out(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient:
-  color += DEMO_COLOR(sin_out(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, sin_out(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -95,7 +93,7 @@ vec3 test_easing_functions_sin_in_out(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient 
-  color += DEMO_COLOR(sin_in_out(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, sin_in_out(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -107,7 +105,7 @@ vec3 test_easing_functions_quintic_in(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient: mainly blue with quick yellow flash
-  color += DEMO_COLOR(quintic_in(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, quintic_in(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -119,7 +117,7 @@ vec3 test_easing_functions_quintic_out(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(quintic_out(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, quintic_out(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -131,7 +129,7 @@ vec3 test_easing_functions_quintic_in_out(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(quintic_in_out(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, quintic_in_out(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -143,7 +141,7 @@ vec3 test_easing_functions_quartic_in(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(quartic_in(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, quartic_in(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -155,7 +153,7 @@ vec3 test_easing_functions_quartic_out(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(quartic_out(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, quartic_out(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -167,7 +165,7 @@ vec3 test_easing_functions_quartic_in_out(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(quartic_in_out(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, quartic_in_out(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -179,7 +177,7 @@ vec3 test_easing_functions_quadratic_in(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(quadratic_in(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, quadratic_in(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -191,7 +189,7 @@ vec3 test_easing_functions_quadratic_out(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(quadratic_out(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, quadratic_out(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -203,7 +201,7 @@ vec3 test_easing_functions_quadratic_in_out(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(quadratic_in_out(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, quadratic_in_out(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -215,7 +213,7 @@ vec3 test_easing_functions_cubic_in(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(cubic_in(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, cubic_in(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -227,7 +225,7 @@ vec3 test_easing_functions_cubic_out(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(cubic_out(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, cubic_out(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -239,7 +237,7 @@ vec3 test_easing_functions_cubic_in_out(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(cubic_in_out(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, cubic_in_out(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -251,7 +249,7 @@ vec3 test_easing_functions_elastic_in(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(elastic_in(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, elastic_in(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -263,7 +261,7 @@ vec3 test_easing_functions_elastic_out(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(elastic_out(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, elastic_out(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -275,7 +273,7 @@ vec3 test_easing_functions_elastic_in_out(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(elastic_in_out(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, elastic_in_out(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -287,7 +285,7 @@ vec3 test_easing_functions_circular_in(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(circular_in(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, circular_in(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -299,7 +297,7 @@ vec3 test_easing_functions_circular_out(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(circular_out(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, circular_out(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -311,7 +309,7 @@ vec3 test_easing_functions_circular_in_out(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(circular_in_out(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, circular_in_out(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -323,7 +321,7 @@ vec3 test_easing_functions_bounce_in(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(bounce_in(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, bounce_in(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -335,7 +333,7 @@ vec3 test_easing_functions_bounce_out(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(bounce_out(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, bounce_out(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -347,7 +345,7 @@ vec3 test_easing_functions_bounce_in_out(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(bounce_in_out(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, bounce_in_out(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -359,7 +357,7 @@ vec3 test_easing_functions_back_in(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(back_in(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, back_in(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -371,7 +369,7 @@ vec3 test_easing_functions_back_out(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(back_out(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, back_out(DEMO_EASE(u_time)));
 
   return color;
 }
@@ -383,7 +381,7 @@ vec3 test_easing_functions_back_in_out(vec2 pos) {
   vec3 color = pct * vec3(1.0) + pct;
 
   // Gradient
-  color += DEMO_COLOR(back_in_out(DEMO_EASE(u_time)));
+  color += DEMO_COLOR(COLOR_A, COLOR_B, back_in_out(DEMO_EASE(u_time)));
 
   return color;
 }

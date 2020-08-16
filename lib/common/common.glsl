@@ -1,23 +1,10 @@
 #ifndef FNC_COMMON
 #define FNC_COMMON
 
-// Book of Shaders, Chapter 05, http://thebookofshaders.com/edit.php?log=200809234954
-float plot(vec2 pos, float pct) {
-  return  smoothstep(pct - 0.02, pct, pos.y) - smoothstep(pct, pct + 0.02, pos.y);
+// Book of Shaders
+float random(in float x) {
+  return fract(sin(x) * 43758.0);
 }
-
-float plot(vec2 pos, float pct, float lower_bound, float upper_bound) {
-  return  smoothstep(pct - lower_bound, pct, pos.y) - smoothstep(pct, pct + upper_bound, pos.y);
-}
-
-float plot(vec2 pos, float pct, float bound) {
-  return  smoothstep(pct - bound, pct, pos.y) - smoothstep(pct, pct + bound, pos.y);
-}
-
-// // Book of Shaders
-// float random(in float x) {
-//   return fract(sin(x) * 43758.0);
-// }
 //
 // // bos_pos
 // vec2 custom_position(vec2 frag_coord, vec2 u_res) {

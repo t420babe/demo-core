@@ -2,7 +2,6 @@
 #define FNC_MATH_FUNCTIONS
 
 #ifndef FNC_MATH_CONSTANTS
-#define
 #include "math-constants.glsl"
 #endif
 
