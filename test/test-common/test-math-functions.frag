@@ -8,8 +8,8 @@ uniform float u_time;
 const vec3 COLOR_A = vec3(0.149, 0.141, 0.912);
 const vec3 COLOR_B = vec3(1.000, 0.833, 0.224);
 
-#include "../lib/common/plot.glsl"
-#include "../lib/common/math-functions.glsl"
+#include "../../lib/common/plot.glsl"
+#include "../../lib/common/math-functions.glsl"
 
 // Test lib/common/math-functions.glsl -> ONE_MINUS_ABS_POW
 // 1.0 - |x| ^ e

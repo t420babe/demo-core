@@ -4,7 +4,7 @@ precision mediump float;
 
 uniform vec2 u_resolution;
 
-#include "../lib/common/math-constants.glsl"
+#include "../../lib/common/math-constants.glsl"
 
 // Test lib/common/math-constants.glsl -> PI
 // Expect color(PI, 0.0, 0.0) -> Deep red

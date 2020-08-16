@@ -5,7 +5,7 @@ precision mediump float;
 uniform vec2 u_resolution;
 uniform float u_time;
 
-#include "../lib/common/plot.glsl"
+#include "../../lib/common/plot.glsl"
 
 const vec3 COLOR_A = vec3(0.149, 0.141, 0.912);
 const vec3 COLOR_B = vec3(1.000, 0.833, 0.224);
@@ -123,7 +123,7 @@ void main() {
   // color = test_plot_sharp_2(pos);
 
   // Test 8: `gradient_and_sharp_line(float f, float lower_bound, float upper_bound)`
-  color = test_plot_gradient_and_sharp_line(pos);
+  // color = test_plot_gradient_and_sharp_line(pos);
 
   /* END TESTS */
 
