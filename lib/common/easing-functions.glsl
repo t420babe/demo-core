@@ -1,7 +1,7 @@
-#ifndef FNC_EASING_FUNCTIONS
-#define FNC_EASING_FUNCTIONS
+#ifndef COMMON_EASING_FUNCTIONS
+#define COMMON_EASING_FUNCTIONS
 
-#ifndef FNC_MATH_CONSTANTS
+#ifndef COMMON_MATH_CONSTANTS
 #include "math-constants.glsl"
 #endif
 

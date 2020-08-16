@@ -5,11 +5,11 @@
 #include "umbrella.glsl"
 #endif
 
-#ifndef FNC_PLOT
+#ifndef COMMON_PLOT
 #include "../common/plot.glsl"
 #endif
 
-#ifndef FNC_MATH_FUNCTIONS
+#ifndef COMMON_MATH_FUNCTIONS
 #include "../common/math-functions.glsl"
 #endif
 

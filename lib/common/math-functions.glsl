@@ -1,7 +1,7 @@
-#ifndef FNC_MATH_FUNCTIONS
-#define FNC_MATH_FUNCTIONS
+#ifndef COMMON_MATH_FUNCTIONS
+#define COMMON_MATH_FUNCTIONS
 
-#ifndef FNC_MATH_CONSTANTS
+#ifndef COMMON_MATH_CONSTANTS
 #include "math-constants.glsl"
 #endif
 

@@ -1,5 +1,5 @@
-#ifndef FNC_PLOT
-#define FNC_PLOT
+#ifndef COMMON_PLOT
+#define COMMON_PLOT
 
 #define SHARP(f) vec3(smoothstep(-0.75, 0.75, (f - 0.1) / fwidth(f)))
 // #define SHARP(f, b) vec3(smoothstep(-b, b, (f - 0.1) / fwidth(f)))

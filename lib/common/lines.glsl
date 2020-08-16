@@ -1,5 +1,5 @@
-#ifndef FNC_LINES
-#define FNC_LINES
+#ifndef COMMON_LINES
+#define COMMON_LINES
 
 #include "./math-constants.glsl"
 

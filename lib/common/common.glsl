@@ -1,5 +1,5 @@
-#ifndef FNC_COMMON
-#define FNC_COMMON
+#ifndef COMMON_COMMON
+#define COMMON_COMMON
 
 // Book of Shaders
 float random(in float x) {

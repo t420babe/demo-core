@@ -1,12 +1,12 @@
 #ifndef FRAG_UMBRELLA
 #define FRAG_UMBRELLA
 
-#ifndef FNC_MATH_FUNCTIONS
+#ifndef COMMON_MATH_FUNCTIONS
 #include "../common/math-functions.glsl"
 #endif
 
 float plot_umbrella(vec2 st, float pct){
-    return  smoothstep( pct-1.8, pct, st.y) - smoothstep( pct, pct+0.01, st.y);
+    return  smoothstep( pct - 1.8, pct, st.y) - smoothstep( pct, pct + 0.01, st.y);
 }
 
 
