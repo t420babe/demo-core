@@ -2,7 +2,6 @@
 #define FRAG_UMBRELLA
 
 #ifndef FNC_MATH_FUNCTIONS
-#define
 #include "../common/math-functions.glsl"
 #endif
 
