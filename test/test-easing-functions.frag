@@ -5,8 +5,8 @@ precision mediump float;
 uniform vec2 u_resolution;
 uniform float u_time;
 
-#include "lib/common/easing-functions.glsl"
-#include "lib/common/common.glsl"             // for plot
+#include "../lib/common/easing-functions.glsl"
+#include "../lib/common/common.glsl"             // for plot
 
 #define DEMO_EASE(u_t) abs(fract(u_t * 0.5) * 2.0 - 1.0)
 #define DEMO_COLOR(pct) vec3(mix(colorA, colorB, pct))
@@ -494,3 +494,4 @@ void main() {
 
   gl_FragColor = vec4(color, 1.0);
 }
+

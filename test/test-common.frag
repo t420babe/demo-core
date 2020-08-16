@@ -6,9 +6,10 @@ uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform float u_time;
 
-#include "lib/common/common.glsl"
+#include "../lib/common/common.glsl"
 
 // Test lib/common/common.glsl -> `plot(vec2 pos, float pct)`
+// y = x magenta line
 vec3 test_common_plot_0(vec2 pos) {
   float y = pos.x;
   float pct = plot(pos, y);
@@ -17,6 +18,7 @@ vec3 test_common_plot_0(vec2 pos) {
 }
 
 // Test lib/common/common.glsl -> `plot(vec2 pos, float pct, upper_bound, lower_bound)`
+// y = x magenta line fade on upper
 vec3 test_common_plot_1(vec2 pos) {
   float y = pos.x;
   float pct = plot(pos, y, 0.1, 0.5);
@@ -25,6 +27,7 @@ vec3 test_common_plot_1(vec2 pos) {
 }
 
 // Test lib/common/common.glsl -> `plot(vec2 pos, float pct, float bound)`
+// y = x magenta line fade on upper and lower equal
 vec3 test_common_plot_2(vec2 pos) {
   float y = pos.x;
   float pct = plot(pos, y, 0.1);
@@ -39,16 +42,13 @@ void main() {
   /* BEGIN TESTS */
 
   // Test 0: `plot(vec2 pos, float pct)`
-  // y = x magenta line
   // color = test_common_plot_0(pos);
 
   // Test 1: `plot(vec2, float pct, float upper_bound, float lower_bound)`
-  // y = x magenta line fade on upper
   // color = test_common_plot_1(pos);
 
   // Test 2: `plot(vec2, float pct, float upper_bound, float lower_bound)`
-  // y = x magenta line fade on upper and lower equal
-  color = test_common_plot_2(pos);
+  // color = test_common_plot_2(pos);
 
   /* END TESTS */
 

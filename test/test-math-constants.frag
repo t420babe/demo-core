@@ -3,14 +3,8 @@ precision mediump float;
 #endif
 
 uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
 
-uniform float full_min;
-uniform float full_max;
-uniform float full_ave;
-
-#include "lib/common/math-constants.glsl"
+#include "../lib/common/math-constants.glsl"
 
 // Test lib/common/math-constants.glsl -> PI
 // Expect color(PI, 0.0, 0.0) -> Deep red
@@ -35,7 +29,7 @@ vec3 test_math_constants_tau(vec2 pos) {
 
 void main() {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  vec3 color = vec3(1.0);
+  vec3 color = vec3(0.2);
 
   /* BEGIN TESTS */
 
@@ -52,3 +46,4 @@ void main() {
 
   gl_FragColor = vec4(color, 1.0);
 }
+
