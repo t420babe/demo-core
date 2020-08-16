@@ -5,7 +5,9 @@ precision mediump float;
 uniform vec2 u_resolution;
 uniform float u_time;
 
+#ifndef T420BABE_BABYDOYOUGETME
 #include "../../lib/t420babe/babydoyougetme.glsl"
+#endif
 
 // Test lib/t420babe/babydoyougetme.glsl -> babydoyougetme
 vec3 test_t420babe_babydoyougetme_0(vec2 pos) {
@@ -27,7 +29,7 @@ void main() {
   // color = test_t420babe_babydoyougetme_0(pos);
 
   // Test 1: babydoyougetme_1(vec2 pos, float u_t)
-  // color = test_t420babe_babydoyougetme_1(pos);
+  color = test_t420babe_babydoyougetme_1(pos);
 
   /* END TESTS */
 
