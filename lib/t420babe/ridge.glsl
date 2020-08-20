@@ -86,8 +86,8 @@ float snoise(vec2 v) {
 // See "Texturing & Modeling, A Procedural Approach", Chapter 12
 float ridge(float h, float offset) {
   h = abs(h);     // create creases
-  // h = offset - h; // invert so creases are at top
-  h = h * h;      // sharpen creases
+  h = offset - h; // invert so creases are at top
+  // h = h * h;      // sharpen creases
   return h;
 }
 
@@ -139,21 +139,22 @@ vec3 ridge_main(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full
     // color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(u_t)));    // purple, blue, red. we love this
     // color = vec3(color.y, color.x + 0.3, 0.8 * abs(sin(u_t)));    // white, blue, and yellow
   // if (full_max > 0.0) {
-  // if (mod_time < time_segment * 1.0) {
+  if (mod_time < time_segment * 1.0) {
     color = vec3(1.0 * full_min, color.y, color.x * abs(sin(full_max)));
-  //
-  // } else if (mod_time < time_segment * 1.0) {
-    // color = vec3(full_ave/10.0, color.x, 0.4 * abs(sin(full_max)));
-  //
-  // } else if (mod_time < time_segment * 2.0) {
-    // color = vec3(full_ave/10.0, color.y * abs(sin(full_max)), 0.7);
-  //
-  // } else if (mod_time < time_segment * 3.0) {
+
+  } else if (mod_time < time_segment * 1.0) {
+    color = vec3(full_ave/10.0, color.x, 0.4 * abs(sin(full_max)));
+
+  } else if (mod_time < time_segment * 2.0) {
+    color = vec3(full_ave/10.0, color.y * abs(sin(full_max)), 0.7);
+
+  } else if (mod_time < time_segment * 3.0) {
     // color = vec3(full_ave / 10.0, 0.3, color.y * abs(sin(full_max)));
-  //
-  // } else if (mod_time < time_segment * 4.0) {
-    // color = vec3(full_ave / 10.0, color.x + 0.3, 0.8 * abs(sin(full_max)));
-  // }
+    color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(u_t)));    // purple, blue, red. we love this
+
+  } else if (mod_time < time_segment * 4.0) {
+    color = vec3(full_ave / 10.0, color.x + 0.3, 0.8 * abs(sin(full_max)));
+  }
   // }
 
   return color;
