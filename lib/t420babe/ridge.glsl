@@ -118,7 +118,7 @@ vec3 ridge_main(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full
   vec2 st = (2.0 * frag_coord.xy - u_r.xy) / u_r.y;
   st.y *= u_r.y / u_r.x; // fix resolution x-axis stretching
   // st /= 53.0;
-  st /= full_ave;
+  st /= full_ave + 2.0;
   // st += full_ave;
   // vec2 st = frag_coord.xy/u_r.xy;
   // st.x *= u_r.x/u_r.y;
@@ -126,7 +126,7 @@ vec3 ridge_main(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full
 
   // if (full_max > 10.0) {
     // color += ridgedMF(st*6.0, clamp(full_max, 10.0, 200.0));
-  color += ridgedMF(st*11.0, full_max * st.x); 
+  color += ridgedMF(st*32.0, full_ave * st.y); 
   // }
 
   float time_limit = 20.0;
@@ -139,19 +139,19 @@ vec3 ridge_main(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full
     // color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(u_t)));    // purple, blue, red. we love this
     // color = vec3(color.y, color.x + 0.3, 0.8 * abs(sin(u_t)));    // white, blue, and yellow
   if (mod_time < time_segment * 1.0) {
-    color = vec3(0.8, color.y, color.x * abs(sin(full_max)));
+    color = vec3(full_ave/10.0, color.y, color.x * abs(sin(full_max)));
 
   } else if (mod_time < time_segment * 1.0) {
-    color = vec3(0.8, color.x, 0.4 * abs(sin(full_max)));
+    color = vec3(full_ave/10.0, color.x, 0.4 * abs(sin(full_max)));
 
   } else if (mod_time < time_segment * 2.0) {
-    color = vec3(color.x - 0.1, color.y * abs(sin(full_max)), 0.7);
+    color = vec3(full_ave/10.0, color.y * abs(sin(full_max)), 0.7);
 
   } else if (mod_time < time_segment * 3.0) {
-    color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(full_max)));
+    color = vec3(full_ave / 10.0, 0.3, color.y * abs(sin(full_max)));
 
   } else if (mod_time < time_segment * 4.0) {
-    color = vec3(color.y, color.x + 0.3, 0.8 * abs(sin(full_max)));
+    color = vec3(full_ave / 10.0, color.x + 0.3, 0.8 * abs(sin(full_max)));
   }
 
   return color;
