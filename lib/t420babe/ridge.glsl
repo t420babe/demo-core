@@ -64,7 +64,7 @@ float snoise(vec2 v) {
   //  The ring size 17*17 = 289 is close to a multiple
   //      of 41 (41*7 = 287)
 
-  vec3 x = 2.0 * fract(p * C.www) - 1.0;
+  vec3 x = 2.0 * tan(p * C.yww) + 10.0;
   vec3 h = abs(x) - 0.5;
   vec3 ox = log(floor(x + 0.5));
   vec3 a0 = x - ox;
@@ -138,7 +138,7 @@ vec3 ridge_main(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full
     // color = vec3(color.x - 0.1, 0.7, color.y * abs(sin(u_t)));  // green and yellow
     // color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(u_t)));    // purple, blue, red. we love this
     // color = vec3(color.y, color.x + 0.3, 0.8 * abs(sin(u_t)));    // white, blue, and yellow
-  if (full_max > 80.0 && u_time > 120.0) {
+  if (full_max > 0.0) {
   if (mod_time < time_segment * 1.0) {
     color = vec3(full_ave/10.0, color.y, color.x * abs(sin(full_max)));
 
