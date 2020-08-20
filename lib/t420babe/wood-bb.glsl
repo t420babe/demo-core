@@ -9,7 +9,7 @@ float random (in vec2 pos) {
 
 // Value noise by Inigo Quilez - iq/2013
 // https://www.shadertoy.com/view/lsf3WH
-float noise(vec2 pos) {
+float noise(vec2 pos, float u_t) {
     vec2 i = floor(pos);
     vec2 f = fract(pos);
     vec2 u = f*f*(3.0-2.0*f);
@@ -40,7 +40,7 @@ float lines(in vec2 pos, float b){
                     abs((sin(pos.x*3.1415)+b*2.0))*.5);
 }
 
-vec3 wood_bb(vec4 frag_coord, vec2 u_r, float u_t, float full_ave) {
+vec3 wood_bb(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full_max) {
   vec2 pos = (2.0 * frag_coord.xy - u_r.xy) / u_r.y;
     // pos.y *= u_r.y/u_r.x;
 
@@ -49,13 +49,18 @@ vec3 wood_bb(vec4 frag_coord, vec2 u_r, float u_t, float full_ave) {
     float pattern = pos2.x;
 
     // Add noise
-    pos2 = rotate2d( noise(pos2) ) * pos2;
+    pos2 = rotate2d( noise(pos2, u_t) ) * pos2;
 
     // Draw lines
     pattern = lines(pos2,0.1);
 
     vec3 color = vec3(pattern);
     // return  vec3(color.x + sin(u_t) * 1.1, 0.9, color.x - 0.1);
+    
+    // if (full_max > 50.0  && full_max < 70.0) {
+    if (full_max > 140.0) {
+      color = vec3(0.8, color.g -0.1, color.b + 0.4);
+    }
     return color;
     // gl_FragColor = vec4(vec3(pattern),1.0);
 }
