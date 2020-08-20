@@ -86,7 +86,7 @@ float snoise(vec2 v) {
 // See "Texturing & Modeling, A Procedural Approach", Chapter 12
 float ridge(float h, float offset) {
   h = abs(h);     // create creases
-  h = offset - h; // invert so creases are at top
+  // h = offset - h; // invert so creases are at top
   h = h * h;      // sharpen creases
   return h;
 }
