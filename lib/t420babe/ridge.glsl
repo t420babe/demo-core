@@ -126,7 +126,7 @@ vec3 ridge_main(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full
 
   // if (full_max > 10.0) {
     // color += ridgedMF(st*6.0, clamp(full_max, 10.0, 200.0));
-  color += ridgedMF(st*32.0, full_ave * st.y); 
+  color += ridgedMF(st*15.0, full_ave * st.y); 
   // }
 
   float time_limit = 20.0;
