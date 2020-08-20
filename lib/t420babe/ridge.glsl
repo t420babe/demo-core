@@ -80,7 +80,7 @@ float snoise(vec2 v) {
   return 130.0 * dot(m, g);
 }
 
-#define OCTAVES 25
+#define OCTAVES 2
 
 // Ridged multifractal
 // See "Texturing & Modeling, A Procedural Approach", Chapter 12
@@ -126,7 +126,7 @@ vec3 ridge_main(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full
 
   // if (full_max > 10.0) {
     // color += ridgedMF(st*6.0, clamp(full_max, 10.0, 200.0));
-  color += ridgedMF(st*5.0, full_max * st.y * 0.05); 
+  color += ridgedMF(st*25.0, full_max * st.y * 50.0); 
   // }
 
   float time_limit = 20.0;
@@ -140,7 +140,7 @@ vec3 ridge_main(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full
     // color = vec3(color.y, color.x + 0.3, 0.8 * abs(sin(u_t)));    // white, blue, and yellow
   // if (full_max > 0.0) {
   // if (mod_time < time_segment * 1.0) {
-    // color = vec3(full_ave/10.0, color.y, color.x * abs(sin(full_max)));
+    color = vec3(1.0 * full_min, color.y, color.x * abs(sin(full_max)));
   //
   // } else if (mod_time < time_segment * 1.0) {
     // color = vec3(full_ave/10.0, color.x, 0.4 * abs(sin(full_max)));
