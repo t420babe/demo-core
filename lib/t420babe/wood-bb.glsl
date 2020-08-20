@@ -56,7 +56,7 @@ float lines(in vec2 pos, float b){
     pos *= scale;
     return smoothstep(0.0,
                     .5+b*.5,
-                    abs((fract(pos.x*3.1415)+b*2.0))*0.2);
+                    abs((fract(pos.x*3.1415)+b*2.0))*0.5);
 }
 
 vec3 wood_bb(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full_max) {
@@ -71,7 +71,7 @@ vec3 wood_bb(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full_ma
     pos2 = rotate2d( noise(pos2, u_t) ) * pos2;
 
     // Draw lines
-    pattern = lines(pos2,0.1);
+    pattern = lines(pos2,pos.x*pos.y);
 
     vec3 color = vec3(pattern);
     // return  vec3(color.x + sin(u_t) * 1.1, 0.9, color.x - 0.1);
