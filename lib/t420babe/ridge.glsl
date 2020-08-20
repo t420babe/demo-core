@@ -117,14 +117,15 @@ float ridgedMF(vec2 p, float u_t) {
 vec3 ridge_main(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full_max) {
   vec2 st = (2.0 * frag_coord.xy - u_r.xy) / u_r.y;
   st.y *= u_r.y / u_r.x; // fix resolution x-axis stretching
-  st /= 2.0;
+  st /= 53.0;
+  st += 0.5;
   // vec2 st = frag_coord.xy/u_r.xy;
   // st.x *= u_r.x/u_r.y;
   vec3 color = vec3(0.0);
 
   // if (full_max > 10.0) {
     // color += ridgedMF(st*6.0, clamp(full_max, 10.0, 200.0));
-  color += ridgedMF(st*20.0, full_max * st.x); 
+  color += ridgedMF(st*11.0, full_max * st.x); 
   // }
 
   float time_limit = 20.0;
