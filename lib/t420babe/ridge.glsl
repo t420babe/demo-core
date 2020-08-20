@@ -64,7 +64,7 @@ float snoise(vec2 v) {
   //  The ring size 17*17 = 289 is close to a multiple
   //      of 41 (41*7 = 287)
 
-  vec3 x = 2.0 * tan(p * C.yww) - 10.0;
+  vec3 x = 2.0 * tan(p * C.wyz) - 10.0;
   vec3 h = abs(x) - 0.5;
   vec3 ox = log(floor(x + 0.5));
   vec3 a0 = x - ox;
@@ -85,7 +85,7 @@ float snoise(vec2 v) {
 // Ridged multifractal
 // See "Texturing & Modeling, A Procedural Approach", Chapter 12
 float ridge(float h, float offset, float full_ave) {
-  // h = abs(h);     // create creases
+  h = abs(h);     // create creases
   h = offset - h; // invert so creases are at top
   h = exp(h * h * full_ave) + h;      // sharpen creases
   return h;
