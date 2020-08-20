@@ -1,5 +1,5 @@
-// Author @patriciogv - 2015
-// http://patriciogonzalezvivo.com
+#ifndef T420BABE_WOOD_BB
+#define T420BABE_WOOD_BB
 #ifndef COMMON_EASING_FUNCTIONS
 #include "../common/easing-functions.glsl"
 #endif
@@ -17,6 +17,8 @@
 #endif
 
 
+// Inspiration from: Author @patriciogv - 2015
+// http://patriciogonzalezvivo.com
 float random (in vec2 pos) {
     return fract(sin(dot(pos.xy,
                          vec2(12.9898,78.233)))
@@ -61,7 +63,7 @@ float lines(in vec2 pos, float b){
 
 vec3 wood_bb(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full_max) {
   vec2 pos = (2.0 * frag_coord.xy - u_r.xy) / u_r.y;
-    // pos.y *= u_r.y/u_r.x;
+    pos.y *= u_r.y / u_r.x; // fix resolution x-axis stretching
 
     vec2 pos2 = pos.yx*vec2(10. * fract(u_t),10.);
 
@@ -89,3 +91,4 @@ vec3 wood_bb(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full_ma
     return color;
     // gl_FragColor = vec4(vec3(pattern),1.0);
 }
+#endif
