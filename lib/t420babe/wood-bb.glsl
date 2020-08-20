@@ -1,5 +1,16 @@
 // Author @patriciogv - 2015
 // http://patriciogonzalezvivo.com
+#ifndef COMMON_EASING_FUNCTIONS
+#include "../common/easing-functions.glsl"
+#endif
+
+#ifndef COMMON_PLOT
+#include "../common/plot.glsl"
+#endif
+
+#ifndef FNC_HEXSDF
+#include "../pixel-spirit-deck/hexSDF.glsl"
+#endif
 
 float random (in vec2 pos) {
     return fract(sin(dot(pos.xy,
@@ -56,10 +67,14 @@ vec3 wood_bb(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full_ma
 
     vec3 color = vec3(pattern);
     // return  vec3(color.x + sin(u_t) * 1.1, 0.9, color.x - 0.1);
+
+    float size = 10.0;
+    color += SHARP(hexSDF(pos * full_ave * 0.5, size));
+    // color += SHARP(hexSDF(pos * rotate2d(full_ave * 0.1), full_ave));
     
     // if (full_max > 50.0  && full_max < 70.0) {
-    if (full_max > 140.0) {
-      color = vec3(0.8, color.g -0.1, color.b + 0.4);
+    if (full_max > 10.0) {
+      color = vec3(0.8, color.g + exp_out(full_max) - 0.7, color.b + 0.4);
     }
     return color;
     // gl_FragColor = vec4(vec3(pattern),1.0);

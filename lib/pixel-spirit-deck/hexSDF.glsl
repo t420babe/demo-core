@@ -28,8 +28,13 @@
  
 #ifndef FNC_HEXSDF
 #define FNC_HEXSDF
-float hexSDF(vec2 st) {
-    st = abs(st*2.-1.);
+float hexSDF(vec2 st, float size) {
+    st = abs(st * 1.0);
+    st /= size;
     return max(abs(st.y), st.x * 0.866025 + st.y * 0.5);
 }
+// float hexSDF(vec2 st) {
+//     st = abs(st*2.-1.);
+//     return max(abs(st.y), st.x * 0.866025 + st.y * 0.5);
+// }
 #endif
