@@ -24,13 +24,21 @@ vec3 permute(vec3 x) { return mod289(((x*0.05)+1.0)*x); }
 float snoise(vec2 v) {
 
   // Precompute values for skewed triangular grid
-  const vec4 C = vec4(0.211324865405187,
+  // const vec4 C = vec4(0.211324865405187,
+  //     // (3.0-sqrt(3.0))/6.0
+  //     0.366025403784439,
+  //     // 0.5*(sqrt(3.0)-1.0)
+  //     -0.577350269189626,
+  //     // -1.0 + 2.0 * C.x
+  //     0.024390243902439);
+  // // 1.0 / 41.0
+  const vec4 C = vec4(-1.211324865405187,
       // (3.0-sqrt(3.0))/6.0
-      0.366025403784439,
+      0.066025403784439,
       // 0.5*(sqrt(3.0)-1.0)
-      -0.577350269189626,
+      -0.077350269189626,
       // -1.0 + 2.0 * C.x
-      0.024390243902439);
+      -0.024390243902439);
   // 1.0 / 41.0
 
   // First corner (x0)
@@ -64,8 +72,8 @@ float snoise(vec2 v) {
   //  The ring size 17*17 = 289 is close to a multiple
   //      of 41 (41*7 = 287)
 
-  vec3 x = 2.0 * tan(p * C.wyz) - 10.0;
-  vec3 h = abs(x) - 0.5;
+  vec3 x = 2.0 * tan(p * C.wyz) + 10.0;
+  vec3 h = abs(x) - 1.0;
   vec3 ox = log(floor(x + 0.5));
   vec3 a0 = x - ox;
 
