@@ -80,18 +80,18 @@ float snoise(vec2 v) {
   return 130.0 * dot(m, g);
 }
 
-#define OCTAVES 2
+#define OCTAVES 1
 
 // Ridged multifractal
 // See "Texturing & Modeling, A Procedural Approach", Chapter 12
-float ridge(float h, float offset) {
-  h = abs(h);     // create creases
+float ridge(float h, float offset, float full_ave) {
+  // h = abs(h);     // create creases
   h = offset - h; // invert so creases are at top
-  // h = h * h;      // sharpen creases
+  h = exp(h * h * full_ave) + h;      // sharpen creases
   return h;
 }
 
-float ridgedMF(vec2 p, float u_t) {
+float ridgedMF(vec2 p, float u_t, float full_ave) {
   float lacunarity = 5.0;
   float gain = 0.1;
   float offset = 0.9;
@@ -104,7 +104,7 @@ float ridgedMF(vec2 p, float u_t) {
   for(int i=0; i < OCTAVES; i++) {
     // float n = ridge(snoise(p*freq * tan( 0.05 * u_t + sin(u_t))), offset);
     // float n = ridge(snoise(p*freq * tan( 1.05 *  sin(u_t))), offset);
-    float n = ridge(snoise(p*freq * fract( 1.05 *  atan(0.5 * u_t))), offset + move_time);
+    float n = ridge(snoise(p*freq * fract( 1.05 *  atan(0.5 * u_t))), offset + move_time, full_ave);
     sum += n*amp;
     sum += n*amp*prev;  // scale by previous octave
     prev = n;
@@ -118,7 +118,8 @@ vec3 ridge_main(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full
   vec2 st = (2.0 * frag_coord.xy - u_r.xy) / u_r.y;
   st.y *= u_r.y / u_r.x; // fix resolution x-axis stretching
   // st /= 53.0;
-  st /= full_ave + 2.0;
+  st /= full_ave * 2.0;
+  st -= 1.0;
   // st += full_ave;
   // vec2 st = frag_coord.xy/u_r.xy;
   // st.x *= u_r.x/u_r.y;
@@ -126,7 +127,7 @@ vec3 ridge_main(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full
 
   // if (full_max > 10.0) {
     // color += ridgedMF(st*6.0, clamp(full_max, 10.0, 200.0));
-  color += ridgedMF(st*25.0, full_max * st.y * 50.0); 
+  color += ridgedMF(st*25.0, full_max * st.y * 50.0, full_ave); 
   // }
 
   float time_limit = 20.0;
