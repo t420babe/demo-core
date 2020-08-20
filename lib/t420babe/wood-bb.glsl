@@ -73,9 +73,10 @@ vec3 wood_bb(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full_ma
     // color += SHARP(hexSDF(pos * rotate2d(full_ave * 0.1), full_ave));
     
     // if (full_max > 50.0  && full_max < 70.0) {
-    if (full_max > 10.0) {
-      color = vec3(0.8, color.g + exp_out(full_max) - 0.7, color.b + 0.4);
+    if (full_max > 100.0) {
+      color = vec3(0.7, color.g - 0.6, color.b + 0.4);
     }
+
     return color;
     // gl_FragColor = vec4(vec3(pattern),1.0);
 }
