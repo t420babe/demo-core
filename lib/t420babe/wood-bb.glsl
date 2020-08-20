@@ -68,7 +68,7 @@ vec3 wood_bb(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full_ma
     vec3 color = vec3(pattern);
     // return  vec3(color.x + sin(u_t) * 1.1, 0.9, color.x - 0.1);
 
-    float size = 10.0;
+    float size = 5.5;
     color += SHARP(hexSDF(pos * full_ave * 0.5, size));
     // color += SHARP(hexSDF(pos * rotate2d(full_ave * 0.1), full_ave));
     

@@ -31,7 +31,14 @@
 float hexSDF(vec2 st, float size) {
     st = abs(st * 1.0);
     st /= size;
-    return max(abs(st.y), st.x * 0.866025 + st.y * 0.5);
+    float hexagon = 1.0;
+    if (full_max > 100.0) {
+    hexagon =  max(abs(st.y), st.x * 0.866025 + st.y * 0.5);
+    }  else {
+    hexagon =  max(abs(st.y), st.x * 0.866025 + st.y * 0.0);
+    }
+
+    return hexagon;
 }
 // float hexSDF(vec2 st) {
 //     st = abs(st*2.-1.);
