@@ -135,23 +135,23 @@ vec3 ridge_main(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full
   // color = vec3(0.8, color.y, color.x * abs(sin(u_t)));  // red and yellow
   // color = vec3(0.8, color.x, 0.4 * abs(sin(u_t)));    // yellow and purple
     // color = vec3(color.x - 0.1, 0.7, color.y * abs(sin(u_t)));  // green and yellow
-    color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(u_t)));    // purple, blue, red. we love this
+    // color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(u_t)));    // purple, blue, red. we love this
     // color = vec3(color.y, color.x + 0.3, 0.8 * abs(sin(u_t)));    // white, blue, and yellow
-  // if (mod_time < time_segment * 1.0) {
-  //   color = vec3(0.8, color.y, color.x * abs(sin(u_t)));
-  //
-  // } else if (mod_time < time_segment * 1.0) {
-  //   color = vec3(0.8, color.x, 0.4 * abs(sin(u_t)));
-  //
-  // } else if (mod_time < time_segment * 2.0) {
-  //   color = vec3(color.x - 0.1, 0.7, color.y * abs(sin(u_t)));
-  //
-  // } else if (mod_time < time_segment * 3.0) {
-  //   color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(u_t)));
-  //
-  // } else if (mod_time < time_segment * 4.0) {
-  //   color = vec3(color.y, color.x + 0.3, 0.8 * abs(sin(u_t)));
-  // }
+  if (mod_time < time_segment * 1.0) {
+    color = vec3(0.8, color.y, color.x * abs(sin(u_t)));
+
+  } else if (mod_time < time_segment * 1.0) {
+    color = vec3(0.8, color.x, 0.4 * abs(sin(u_t)));
+
+  } else if (mod_time < time_segment * 2.0) {
+    color = vec3(color.x - 0.1, color.y * abs(sin(u_t)), 0.7);
+
+  } else if (mod_time < time_segment * 3.0) {
+    color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(u_t)));
+
+  } else if (mod_time < time_segment * 4.0) {
+    color = vec3(color.y, color.x + 0.3, 0.8 * abs(sin(u_t)));
+  }
 
   return color;
   // gl_FragColor = vec4(color,1.0);
