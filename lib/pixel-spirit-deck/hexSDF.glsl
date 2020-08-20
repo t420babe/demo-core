@@ -32,9 +32,11 @@ float hexSDF(vec2 st, float size) {
     st = abs(st * 1.0);
     st /= size;
     float hexagon = 1.0;
-    if (full_max > 100.0) {
+    if (full_max > 200.0) {
+    hexagon =  max(abs(st.y), st.x * 0.866025 + st.y * 0.0);
+    }  else if (full_max > 100.0 ){
     hexagon =  max(abs(st.y), st.x * 0.866025 + st.y * 0.5);
-    }  else {
+    } else {
     hexagon =  max(abs(st.y), st.x * 0.866025 + st.y * 0.0);
     }
 

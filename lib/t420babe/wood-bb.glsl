@@ -12,6 +12,11 @@
 #include "../pixel-spirit-deck/hexSDF.glsl"
 #endif
 
+#ifndef FNC_HEARTSDF
+#include "../pixel-spirit-deck/heartSDF.glsl"
+#endif
+
+
 float random (in vec2 pos) {
     return fract(sin(dot(pos.xy,
                          vec2(12.9898,78.233)))
@@ -39,8 +44,8 @@ float noise(vec2 pos, float u_t) {
 }
 
 mat2 rotate2d(float angle){
-    return mat2(cos(angle),-sin(angle),
-                sin(angle),cos(angle));
+    return mat2(tan(angle),sin(angle),
+                cos(angle),-sin(angle));
 }
 
 float lines(in vec2 pos, float b){
@@ -70,11 +75,12 @@ vec3 wood_bb(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full_ma
 
     float size = 5.5;
     color += SHARP(hexSDF(pos * full_ave * 0.5, size));
+    // color += SHARP(hexSDFheart(pos * full_ave * 0.5, size));
     // color += SHARP(hexSDF(pos * rotate2d(full_ave * 0.1), full_ave));
     
     // if (full_max > 50.0  && full_max < 70.0) {
     if (full_max > 100.0) {
-      color = vec3(0.7, color.g - 0.6, color.b + 0.4);
+      color = vec3(0.7, color.g + 0.0, color.b + 0.3);
     }
 
     return color;
