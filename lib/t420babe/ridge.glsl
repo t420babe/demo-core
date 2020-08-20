@@ -126,7 +126,7 @@ vec3 ridge_main(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full
 
   // if (full_max > 10.0) {
     // color += ridgedMF(st*6.0, clamp(full_max, 10.0, 200.0));
-  color += ridgedMF(st*15.0, full_max * st.y * 0.05); 
+  color += ridgedMF(st*5.0, full_max * st.y * 0.05); 
   // }
 
   float time_limit = 20.0;
@@ -138,6 +138,7 @@ vec3 ridge_main(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full
     // color = vec3(color.x - 0.1, 0.7, color.y * abs(sin(u_t)));  // green and yellow
     // color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(u_t)));    // purple, blue, red. we love this
     // color = vec3(color.y, color.x + 0.3, 0.8 * abs(sin(u_t)));    // white, blue, and yellow
+  if (full_max > 80.0 && u_time > 120.0) {
   if (mod_time < time_segment * 1.0) {
     color = vec3(full_ave/10.0, color.y, color.x * abs(sin(full_max)));
 
@@ -152,6 +153,7 @@ vec3 ridge_main(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full
 
   } else if (mod_time < time_segment * 4.0) {
     color = vec3(full_ave / 10.0, color.x + 0.3, 0.8 * abs(sin(full_max)));
+  }
   }
 
   return color;
