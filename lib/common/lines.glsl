@@ -1,7 +1,24 @@
 #ifndef COMMON_LINES
 #define COMMON_LINES
 
+#ifndef COMMON_EASING_FUNCTIONS
+#include "../common/easing-functions.glsl"
+#endif
+
+#ifndef COMMON_PLOT
+#include "../common/plot.glsl"
+#endif
+
+
+#ifndef COMMON_MATH_CONSTANTS
 #include "./math-constants.glsl"
+#endif
+
+float create_line(vec2 pos, float full_ave) {
+  float y = linear(pos.x);
+  return plot(pos, y) * full_ave;
+}
+
 
 // Creates a stroke (line) using two step functions
 // `x` - x position
