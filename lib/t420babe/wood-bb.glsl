@@ -44,7 +44,9 @@ float noise(vec2 pos, float u_t) {
 }
 
 mat2 rotate2d(float angle){
-    return mat2(tan(angle),sin(angle),
+    // return mat2(tan(angle),sin(angle),
+    //             cos(angle),-sin(angle));
+    return mat2(tan(clamp(angle, 1.5, 3.14)),sin(angle),
                 cos(angle),-sin(angle));
 }
 
