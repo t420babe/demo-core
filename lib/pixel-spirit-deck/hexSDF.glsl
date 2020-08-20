@@ -40,8 +40,9 @@ float hexSDF(vec2 st, float size) {
 
     return hexagon;
 }
-// float hexSDF(vec2 st) {
-//     st = abs(st*2.-1.);
-//     return max(abs(st.y), st.x * 0.866025 + st.y * 0.5);
-// }
+
+float hexSDF(vec2 st) {
+    st = abs(st*2.-1.);
+    return max(abs(st.y), st.x * 0.866025 + st.y * 0.5);
+}
 #endif

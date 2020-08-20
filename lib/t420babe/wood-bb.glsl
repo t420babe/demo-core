@@ -55,7 +55,7 @@ vec3 wood_bb(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full_ma
   vec2 pos = (2.0 * frag_coord.xy - u_r.xy) / u_r.y;
     // pos.y *= u_r.y/u_r.x;
 
-    vec2 pos2 = pos.yx*vec2(10. * tan(u_t),10. * fract(u_t));
+    vec2 pos2 = pos.yx*vec2(10. * sin(u_t),10.);
 
     float pattern = pos2.x;
 
