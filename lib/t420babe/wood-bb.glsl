@@ -43,11 +43,12 @@ float noise(vec2 pos, float u_t) {
                      random( i + vec2(1.0,1.0) ), u.x), u.y);
 }
 
+// RR NOTES: something special about clamping tan angle above 1.5
 mat2 rotate2d(float angle){
-    // return mat2(tan(angle),sin(angle),
-    //             cos(angle),-sin(angle));
-    return mat2(tan(clamp(angle, 1.5, 3.14)),sin(angle),
+    return mat2(tan(angle),sin(angle),
                 cos(angle),-sin(angle));
+    // return mat2(log(angle),exp(angle),
+    //             fract(angle),-fract(angle));
 }
 
 float lines(in vec2 pos, float b){
@@ -55,14 +56,14 @@ float lines(in vec2 pos, float b){
     pos *= scale;
     return smoothstep(0.0,
                     .5+b*.5,
-                    abs((sin(pos.x*3.1415)+b*2.0))*.5);
+                    abs((fract(pos.x*3.1415)+b*2.0))*0.2);
 }
 
 vec3 wood_bb(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full_max) {
   vec2 pos = (2.0 * frag_coord.xy - u_r.xy) / u_r.y;
     // pos.y *= u_r.y/u_r.x;
 
-    vec2 pos2 = pos.yx*vec2(10. * sin(u_t),10.);
+    vec2 pos2 = pos.yx*vec2(10. * fract(u_t),10.);
 
     float pattern = pos2.x;
 
@@ -82,7 +83,7 @@ vec3 wood_bb(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full_ma
     
     // if (full_max > 50.0  && full_max < 70.0) {
     if (full_max > 100.0) {
-      color = vec3(0.7, color.g + 0.0, color.b + 0.3);
+      color = vec3(0.8, color.g - 0.4, color.b - 0.1290384);
     }
 
     return color;
