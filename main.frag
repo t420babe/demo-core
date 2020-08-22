@@ -25,7 +25,9 @@ void main() {
   // float f = pos.y + wrap_time;
   // float f = sharp(elastic_in_out(pos.y), 1.0);
   float f = plot(pos, elastic_in_out(pos.y));
-  f = flip(f, radians(180.0));
+  if (mod(u_time, 0.5) < 0.25) {
+    f = flip(f, radians(180.0));
+  }
   color *= f * color - f * vec3(0.5235, 0.23451, 0.4348);
 
   gl_FragColor = vec4(color, 1.0);
