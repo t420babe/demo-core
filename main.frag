@@ -43,8 +43,11 @@ void main() {
   color = mix(color, teal, step(0.4, pos.y));         // Middle upper navy and upper teal
 
 
-  float r = rect(pos, vec2(0.0, 0.5), vec2(0.2));
-  color = mix(color, beige, r);
+  float r0 = rect(pos, vec2(0.0, 0.5), vec2(0.2));
+  color = mix(color, beige, r0);
+
+  float r1 = rect(pos, vec2(0.0, -0.5), vec2(0.2));
+  color = mix(color, beige, r1);
 
 
   gl_FragColor = vec4(color, 1.0);
