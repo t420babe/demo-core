@@ -1,4 +1,5 @@
-
+#ifndef ALBERS_IV_1
+#define ALBERS_IV_1
 //
 // float my_rect(in vec2 pos, in vec2 size) {
 //   // vec2 sides = smoothstep(size, 2.0 * size, pos * (1.0 - pos));
@@ -17,3 +18,4 @@
 // }
 // // vec3 albers_iv_1() {
 // // }
+#endif
