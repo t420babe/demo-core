@@ -1,5 +1,9 @@
-#ifndef COMMON_MATRIX
-#define COMMON_MATRIX
+#ifndef COMMON_TRANSFORM
+#define COMMON_TRANSFORM
+
+float flip(float v, float pct) {
+  return mix(v, 1.0 - v, pct);
+}
 
 vec2 rotate(vec2 pos, float a) {
   return mat2(cos(a), -sin(a), sin(a), cos(a)) * pos;
