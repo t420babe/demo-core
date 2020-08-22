@@ -114,6 +114,7 @@ float ridgedMF(vec2 p, float u_t) {
   return sum;
 }
 
+// vec3 ridge_main(vec2 pos, float u_t, float full_ave, float full_max) {
 vec3 ridge_main(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full_max) {
   vec2 st = (2.0 * frag_coord.xy - u_r.xy) / u_r.y;
   st.y *= u_r.y / u_r.x; // fix resolution x-axis stretching
