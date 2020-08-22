@@ -18,6 +18,10 @@ uniform float full_min;
 uniform float full_max;
 uniform float full_ave;
 
+#ifndef COMMON_EASING_FUNCTIONS
+#include "lib/common/easing-functions.glsl"
+#endif
+
 float heartSDF(vec2 st) {
     st -= vec2(.5,.8);
     float r = length(st)*5.;
