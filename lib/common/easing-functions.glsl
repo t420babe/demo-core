@@ -2,7 +2,7 @@
 #define COMMON_EASING_FUNCTIONS
 
 #ifndef COMMON_MATH_CONSTANTS
-#include "math-constants.glsl"
+#include "lib/common/math-constants.glsl"
 #endif
 
 

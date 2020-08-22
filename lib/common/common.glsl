@@ -1,26 +1,28 @@
 #ifndef COMMON_COMMON
 #define COMMON_COMMON
 
-// Book of Shaders
-float random(in float x) {
-  return fract(sin(x) * 43758.0);
-}
-//
-// // bos_pos
-// vec2 custom_position(vec2 frag_coord, vec2 u_res) {
-//   vec2 pos = frag_coord.xy / u_res;
-//
-//   pos = (pos - 0.5) * 1.1912 + 0.5;
-//
-//   if (u_res.y > u_res.x) {
-//     pos.y *= u_res.y / u_res.x;
-//     pos.y -= (u_res.y * 0.5 - u_res.x * 0.5) / u_res.x;
-//   } else {
-//     pos.x *= u_res.x / u_res.y;
-//     pos.x -= (u_res.x * 0.5 - u_res.y * 0.5) / u_res.y;
-//   }
-//
-//   return (pos - 0.5) * 1.1 + 0.5;
-// }
-//
+#ifndef COMMON_MATH_FUNCTIONS
+#include "lib/common/math-constants.glsl"
+#endif
+
+#ifndef COMMON_TRANSFORM
+#include "lib/common/transform.glsl"
+#endif
+
+#ifndef COMMON_MATH_FUNCTIONS
+#include "lib/common/math-functions.glsl"
+#endif
+
+#ifndef COMMON_EASING_FUNCTIONS
+#include "lib/common/easing-functions.glsl"
+#endif
+
+#ifndef COMMON_PLOT
+#include "lib/common/plot.glsl"
+#endif
+
+#ifndef COMMON_LINES
+#include "lib/common/lines.glsl"
+#endif
+
 #endif

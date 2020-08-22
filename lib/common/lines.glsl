@@ -2,16 +2,16 @@
 #define COMMON_LINES
 
 #ifndef COMMON_EASING_FUNCTIONS
-#include "../common/easing-functions.glsl"
+#include "lib/common/easing-functions.glsl"
 #endif
 
 #ifndef COMMON_PLOT
-#include "../common/plot.glsl"
+#include "lib/common/plot.glsl"
 #endif
 
 
 #ifndef COMMON_MATH_CONSTANTS
-#include "./math-constants.glsl"
+#include "lib/common/math-constants.glsl"
 #endif
 
 float create_line(vec2 pos, float full_ave) {
@@ -19,6 +19,9 @@ float create_line(vec2 pos, float full_ave) {
   return plot(pos, y) * full_ave;
 }
 
+float fill(float x, float size) {
+  return 1.0 - step(size, x);
+}
 
 // Creates a stroke (line) using two step functions
 // `x` - x position
@@ -34,10 +37,6 @@ float circleSDF(vec2 pos) {
   return length(pos - 0.5) * 2.0;
 }
 
-float fill(float x, float size) {
-  return 1.0 - step(size, x);
-}
-
 float rectSDF(vec2 pos, vec2 s) {
   pos = pos * 2.0 - 1.0;
   return max(abs(pos.x / s.x), abs(pos.y / s.y));
@@ -48,18 +47,9 @@ float crossSDF(vec2 pos, float s) {
   return min(rectSDF(pos.xy, size.xy), rectSDF(pos.xy, size.yx));
 }
 
-float flip(float v, float pct) {
-  return mix(v, 1.0 - v, pct);
-}
-
 float triSDF(vec2 pos) {
   pos = (pos * 2.0 - 1.0) * 2.0;
   return max(abs(pos.x) * 0.866025 + pos.y * 0.5, -pos.y * 0.5);
-}
-
-vec2 rotate(vec2 pos, float a) {
-  pos = mat2(cos(a), -sin(a), sin(a), cos(a)) * (pos - 0.5);
-  return pos + 0.5;
 }
 
 float starSDF(vec2 pos, int V, float s) {
