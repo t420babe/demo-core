@@ -9,6 +9,10 @@
 #include "lib/common/transform.glsl"
 #endif
 
+#ifndef COMMON_SHAPES
+#include "lib/common/shapes.glsl"
+#endif
+
 #ifndef COMMON_MATH_FUNCTIONS
 #include "lib/common/math-functions.glsl"
 #endif
