@@ -14,8 +14,8 @@ void main() {
 
   vec3 color = vec3(0.2);
   // color = albers_iv_1(pos);
-
-  color = albers_iv_3(pos);
+  // color = albers_iv_3(pos);
+  color = albers_iv_4(pos);
 
   gl_FragColor = vec4(color, 1.0);
 }

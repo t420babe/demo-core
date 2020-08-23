@@ -9,4 +9,8 @@
 #include "lib/albers/iv-3.glsl"
 #endif
 
+#ifndef ALBERS_IV_4
+#include "lib/albers/iv-4.glsl"
+#endif
+
 #endif
