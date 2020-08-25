@@ -19,9 +19,9 @@ void main() {
 
   // I'm Just Saying
   // float w_time = sin(u_time);
-  float w_time = tan(u_time);
+  float w_time = cos(u_time);
   // float w_time = log(sin(u_time));
-  vec3 color = vec3(1.1, 0.1234, 0.34);
+  vec3 color = vec3(1.0, 0.1234, abs(sin(u_time)));
   float pct = aastep(-pos.x, -pos.y);
   // float pct2 = circle_sdf(pos * w_time);
   float pct2 = circle_0(pos * w_time, u_full_ave);
