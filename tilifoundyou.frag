@@ -28,8 +28,9 @@ void main() {
 
   pos /= 0.1;
   // RRTI: (Transition Idea):
-  // pos /= rotate(pos, 0.0, 4.0); then on the beat:
-  pos /= rotate(pos, pos.y, 4.0);
+  // pos /= rotate(pos, 0.0, 4.0); // then on the beat:
+  // pos /= rotate(pos, fract(pos.y), 4.0);   // then on beat:
+  pos /= rotate(pos, fract(pos.y), 4.0);
 
 
   // vec3 color = vec3(1.0, 0.1234, abs(tan(u_time)));
