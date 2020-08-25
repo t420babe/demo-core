@@ -28,6 +28,10 @@
  
 #ifndef PXL_CIRCLE
 #define PXL_CIRCLE
+float circle_0(vec2 st, float u_full_ave) {
+    return length(st-.5) * 1.5;
+}
+
 float circle_sdf(vec2 st) {
     return length(st-.5)*2.;
 }
