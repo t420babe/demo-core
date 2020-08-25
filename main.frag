@@ -20,7 +20,7 @@ void main() {
 
   vec3 color = vec3(1.1, 0.1234, 0.34);
   float pct = aastep(-pos.x, -pos.y);
-  float pct2 = circle_sdf(pos * u_notch);
+  float pct2 = circle_sdf(pos);
   color = vec3(pct * color + color * pct2);
   // color = vec3(pct2 * color + color * vec3(0.5));
 
