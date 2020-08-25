@@ -6,3 +6,5 @@ Favorites:
   black and white on one side, red and cyan on the other. all rotating
   transparent scales on top
 
+
+  i need to make a tool that commits my file to git every time i save a shader
