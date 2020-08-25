@@ -19,7 +19,7 @@ void main() {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
 
   vec3 color = vec3(1.1, 0.1234, 0.34);
-  float pct = aastep(-pos.x, -pos.y * sin(u_highpass));
+  float pct = aastep(-pos.x, -pos.y);
   float pct2 = circle_sdf(pos);
   color = vec3(pct * color + color * pct2);
   color.r = color.r * u_highpass;
