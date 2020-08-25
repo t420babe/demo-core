@@ -18,14 +18,19 @@ uniform vec2 u_resolution;
 uniform float u_time;
 
 void main() {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  pos /= 0.1;
-  pos /= rotate(pos, 0.0, 4.0);
-
   // I'm Just Saying
+
   // float w_time = sin(u_time);
   float w_time = sin(u_time);
   // float w_time = log(sin(u_time));
+
+  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
+
+  pos /= 0.1;
+  // RRTI: (Transition Idea):
+  // pos /= rotate(pos, 0.0, 4.0); then on the beat:
+  pos /= rotate(pos, pos.y, 4.0);
+
 
   // vec3 color = vec3(1.0, 0.1234, abs(tan(u_time)));
   vec3 color = vec3(1.0, 0.1234, clamp(abs(tan(u_time)), 0.0, 0.5));
