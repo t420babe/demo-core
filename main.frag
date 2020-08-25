@@ -27,3 +27,5 @@ void main() {
 
   gl_FragColor = vec4(color, 1.0);
 }
+
+  // autocmd BufWritePost * execute '!git add % && git commit -m %'
