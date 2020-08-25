@@ -26,11 +26,12 @@ void main() {
 
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
 
-  pos /= 0.15;
+  pos /= abs(w_time);
+  pos *= 4.0;
   // RRTI: (Transition Idea):
   // pos /= rotate(pos, 0.0, 4.0); // then on the beat:
   // pos /= rotate(pos, fract(pos.y), 4.0);   // then on beat:
-  pos *= rotate(pos, fract(pos.x), 1.0);
+  pos *= rotate(pos, (pos.x), 1.0);
 
 
   // vec3 color = vec3(1.0, 0.1234, abs(tan(u_time)));
