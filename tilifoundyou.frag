@@ -26,7 +26,7 @@ void main() {
 
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
 
-  pos /= 0.01;
+  pos /= 0.15;
   // RRTI: (Transition Idea):
   // pos /= rotate(pos, 0.0, 4.0); // then on the beat:
   // pos /= rotate(pos, fract(pos.y), 4.0);   // then on beat:
