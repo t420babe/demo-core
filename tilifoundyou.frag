@@ -26,13 +26,15 @@ void main() {
   // float w_time = sin(u_time);
   float w_time = sin(u_time);
   // float w_time = log(sin(u_time));
-  vec3 color = vec3(1.0, 0.1234, abs(tan(u_time)));
+
+  // vec3 color = vec3(1.0, 0.1234, abs(tan(u_time)));
+  vec3 color = vec3(1.0, 0.1234, clamp(abs(tan(u_time)), 0.0, 0.5));
+
   float pct = aastep(-pos.x, -pos.y);
-  // float pct2 = circle_sdf(pos * w_time);
   float pct2 = circle_0(pos * w_time, u_full_ave);
   color = vec3(pct * color + color * pct2);
-  // color = vec3(pct2 * color + color * vec3(0.5));
 
+  color = vec3(clamp(color.x, 0.0, 0.5), color.y, color.z);
   gl_FragColor = vec4(color, 1.0);
 }
 
