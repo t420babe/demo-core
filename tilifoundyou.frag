@@ -32,7 +32,7 @@ void main() {
   // pos *= rotate(pos, 0.0, 4.0); // then on the beat:
   // pos *= rotate(pos, fract(pos.y), 4.0);   // then on beat:
   // pos *= rotate(pos, (sin(u_time))/exp(pos.x), 1.0);
-  pos *= rotate(pos, (cos(u_time))/cos(pos.x * pos.y), 1.0);
+  pos *= rotate(pos, (cos(u_time))/cos(pos.y * pos.y), 1.0);
 
 
   // vec3 color = vec3(1.0, 0.1234, abs(tan(u_time)));
