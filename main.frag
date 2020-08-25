@@ -22,6 +22,7 @@ void main() {
   float pct = aastep(-pos.x, -pos.y);
   float pct2 = circle_sdf(pos);
   color = vec3(pct * color + color * pct2);
+  color.r = color.r * u_notch;
   // color = vec3(pct2 * color + color * vec3(0.5));
 
   gl_FragColor = vec4(color, 1.0);
