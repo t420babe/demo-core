@@ -29,7 +29,7 @@ void main() {
   pos /= abs(w_time);
   pos *= 4.0;
   // RRTI: (Transition Idea):
-  // pos /= rotate(pos, 0.0, 4.0); // then on the beat:
+  pos *= rotate(pos, 0.0, 4.0); // then on the beat:
   pos *= rotate(pos, fract(pos.y), 4.0);   // then on beat:
   pos /= rotate(pos, (pos.x), 1.0);
 
