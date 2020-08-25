@@ -5,8 +5,8 @@
 #include "../pixel-spirit-deck/aastep.glsl"
 #endif
 
-vec3 soft_retro_step(vec4 frag_coord, vec2 u_r) {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_r.xy) / u_r.y;
+vec3 soft_retro_step(vec2 pos) {
+  // vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   float f = aastep(pos.x, 0.5);
   float x = 0.1;
   float w = 0.5;

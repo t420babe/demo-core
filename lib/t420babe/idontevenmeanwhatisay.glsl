@@ -1,15 +1,5 @@
-
-#ifdef GL_ES
-precision mediump float;
-#endif
-
-uniform vec2 u_resolution;
-uniform float u_time;
-
-uniform float full_min;
-uniform float full_ave;
-uniform float full_max;
-
+#ifndef T420BABE_IDONTEVENMEANWHATISAY
+#define T420BABE_IDONTEVENMEANWHATISAY
 #ifndef COMMON_PLOT
 #include "./lib/common/plot.glsl"
 #endif
@@ -38,7 +28,7 @@ uniform float full_max;
 const vec3 COLOR_A = vec3(0.149, 0.141, 0.912);
 const vec3 COLOR_B = vec3(1.000, 0.833, 0.224);
 
-vec3 current2(vec2 pos) {
+vec3 current2(vec2 pos, float full_ave) {
   float f = exp_in(pos.x);
   float pct = plot(pos, f);
   vec3 color = pct * vec3(full_ave, 1.0, full_ave) + pct;
@@ -63,17 +53,18 @@ vec3 current(vec2 pos) {
   // return color;
 }
 
-void main() {
-  vec2 pos = gl_FragCoord.xy / u_resolution.xy;
-  // vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  vec3 color = vec3(0.2);
+// void main() {
+//   vec2 pos = gl_FragCoord.xy / u_resolution.xy;
+//   // vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
+//   vec3 color = vec3(0.2);
+//
+//   if (full_ave > 6.0) {
+//     color = current2(pos) * full_ave;
+//   } else {
+//     color = current(pos);
+//   }
+//
+//   gl_FragColor = vec4(color, 1.0);
+// }
 
-  if (full_ave > 6.0) {
-    color = current2(pos) * full_ave;
-  } else {
-    color = current(pos);
-  }
-
-  gl_FragColor = vec4(color, 1.0);
-}
-
+#endif

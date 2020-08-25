@@ -26,9 +26,9 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
  
-#ifndef FNC_CIRCLESDF
-#define FNC_CIRCLESDF
-float circleSDF(vec2 st) {
+#ifndef PXL_CIRCLE
+#define PXL_CIRCLE
+float circle_sdf(vec2 st) {
     return length(st-.5)*2.;
 }
 #endif
