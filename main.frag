@@ -17,13 +17,14 @@ uniform float u_time;
 
 void main() {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  // pos +=
+  pos.x += 0.40;
+  pos.y += 0.50;
 
   vec3 color = vec3(1.1, 0.1234, 0.34);
   float pct = aastep(-pos.x, -pos.y);
   float pct2 = circle_sdf(pos);
   color = vec3(pct * color + color * pct2);
-  color.r = color.r * u_highpass * 4.5;
+  color.r = color.r * u_highpass * 2.5;
 
   float rect = cross_sdf(pos, 0.4);
   color = vec3(pct * color + color * rect);
