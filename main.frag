@@ -31,13 +31,18 @@ void main() {
   // float pct = cross_sdf(rotate(pos, circle_sdf(vec2(pos.x, pos.x) * 0.5), 0.0), 0.4);
   // pct *= circle_sdf(pos);
   // float pct2 = circle_sdf(pos);
-  float pct2 = u_notch;
-  float pct = heart_sdf(pos);
+  // float pct = sharp(hexagon_sdf(pos) / 10.0) * u_highpass;
+  // pct += sharp(heart_sdf(pos + sin(u_time) * cos(u_time)));
+  // pct += heart_sdf(pos);
+  float pct = heart_sdf(pos) * u_notch;
+  pct = sharp(pct);
+  // float pct2 = (hexagon_sdf(pos) / 10.0) * u_highpass;
+  float pct2 = (hexagon_sdf(pos) / 1.0);
+  // pct2 = 0.5;
   // pct2 *= 2.0;
-  color = vec3(pct * color + color * pct2);
-  color.r = color.r * u_highpass;
-  color.b = u_notch;
-  color.g -= u_lowpass;
+  color = vec3(pct * color + color.gbr * pct2);
+  color.r -= 0.4;
+  // color.g -= u_lowpass;
 
   // float rect = cross_sdf(pos, 0.4);
   // color = vec3(pct * color + color * rect);

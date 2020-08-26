@@ -13,6 +13,10 @@
 #include "./lib/pxl/heart-sdf.glsl"
 #endif
 
+#ifndef PXL_HEXAGON
+#include "./lib/pxl/hex-sdf.glsl"
+#endif
+
 #ifndef PXL_RECT
 #include "./lib/pxl/rect-sdf.glsl"
 #endif

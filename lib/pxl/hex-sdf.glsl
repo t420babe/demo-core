@@ -26,9 +26,9 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
  
-#ifndef FNC_HEXSDF
-#define FNC_HEXSDF
-float hexSDF(vec2 st) {
+#ifndef PXL_HEXAGON
+#define PXL_HEXAGON
+float hexagon_sdf(vec2 st) {
     st = abs(st*2.-1.);
     return max(abs(st.y), st.x * 0.866025 + st.y * 0.5);
 }
