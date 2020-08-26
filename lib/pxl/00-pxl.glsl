@@ -33,6 +33,10 @@
 #include "./lib/pxl/cross-sdf.glsl"
 #endif
 
+#ifndef PXL_TRI
+#include "./lib/pxl/tri-sdf.glsl"
+#endif
+
 #ifndef PXL_VESICA
 #include "./lib/pxl/vesica-sdf.glsl"
 #endif

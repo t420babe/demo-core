@@ -25,9 +25,9 @@ void main() {
 
   // float pct = sharp(vesica_sdf(pos * 1.1, u_notch));
   float pct = sharp(circle_1(pos * 1.1, u_notch));
-  color = vec3(pct * color + pct + color.bgr);
+  color = vec3(pct * color + pct + color.gbr);
   float pct2 = sharp(circle_1(pos * 1.1, u_notch + 0.1));
-  color -= pct2;
+  color *= pct2;
   // color = vec3(pct + color * pct2 + color.gbr);
   // int num_vesicas = 4.0;
   // for (int i = 0; i < num_vesicas; i++) {

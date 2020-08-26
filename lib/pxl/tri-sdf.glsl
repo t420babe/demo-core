@@ -26,9 +26,9 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef FNC_TRISDF
-#define FNC_TRISDF
-float triSDF(vec2 st) {
+#ifndef PXL_TRI
+#define PXL_TRI
+float tri_sdf(vec2 st) {
     st = (st*2.-1.)*2.;
     return max(abs(st.x) * 0.866025 + st.y * 0.5, -st.y * 0.5);
 }
