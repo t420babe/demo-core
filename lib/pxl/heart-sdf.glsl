@@ -26,9 +26,9 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
  
-#ifndef FNC_HEARTSDF
-#define FNC_HEARTSDF
-float heartSDF(vec2 st) {
+#ifndef PXL_HEART
+#define PXL_HEART
+float heart_sdf(vec2 st) {
     st -= vec2(.5,.8);
     float r = length(st)*5.;
     st = normalize(st);

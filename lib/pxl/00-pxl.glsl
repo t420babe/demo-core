@@ -9,6 +9,10 @@
 #include "./lib/pxl/circle-sdf.glsl"
 #endif
 
+#ifndef PXL_HEART
+#include "./lib/pxl/heart-sdf.glsl"
+#endif
+
 #ifndef PXL_RECT
 #include "./lib/pxl/rect-sdf.glsl"
 #endif
