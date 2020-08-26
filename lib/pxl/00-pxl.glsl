@@ -17,12 +17,24 @@
 #include "./lib/pxl/hex-sdf.glsl"
 #endif
 
+#ifndef PXL_MATH
+#include "./lib/pxl/math-sdf.glsl"
+#endif
+
+#ifndef PXL_POLYGON
+#include "./lib/pxl/polygon-sdf.glsl"
+#endif
+
 #ifndef PXL_RECT
 #include "./lib/pxl/rect-sdf.glsl"
 #endif
 
 #ifndef PXL_CROSS
 #include "./lib/pxl/cross-sdf.glsl"
+#endif
+
+#ifndef PXL_VESICA
+#include "./lib/pxl/vesica-sdf.glsl"
 #endif
 
 #endif

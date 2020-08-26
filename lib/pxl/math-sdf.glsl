@@ -1,3 +1,5 @@
+#ifndef PXL_MATH
+#define PXL_MATH
 #ifndef QTR_PI
 #define QTR_PI 0.78539816339
 #endif
@@ -18,4 +20,5 @@
 #endif
 #ifndef EPSILON
 #define EPSILON 0.0000001
+#endif
 #endif

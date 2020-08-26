@@ -32,6 +32,10 @@ float circle_0(vec2 st, float u_full_ave) {
     return length(st-.5) * 1.5;
 }
 
+float circle_1(vec2 st, float u_notch) {
+    return length(st) * 1.0 * u_notch;
+}
+
 float circle_sdf(vec2 st) {
     return length(st-.5)*2.;
 }

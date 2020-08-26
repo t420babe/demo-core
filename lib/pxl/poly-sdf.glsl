@@ -26,10 +26,12 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef FNC_POLYSDF
-#define FNC_POLYSDF
-#include "math.glsl"
-float polySDF(vec2 st, int V) {
+#ifndef PXL_POLYGON
+#define PXL_POLYGON
+#ifndef PXL_MATH
+#include "lib/pxl/math.glsl"
+#endif
+float polygon_sdf(vec2 st, int V) {
     st = st*2.-1.;
     float a = atan(st.x,st.y)+PI;
     float r = length(st);

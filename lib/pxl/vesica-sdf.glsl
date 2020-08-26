@@ -26,12 +26,14 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef FNC_VESICASDF
-#define FNC_VESICASDF
-#include "circleSDF.glsl"
-float vesicaSDF(vec2 st, float w) {
+#ifndef PXL_VESICA
+#define PXL_VESICA
+#ifndef PXL_CIRCLE
+#include "lib/pxl/circle-sdf.glsl"
+#endif
+float vesica_sdf(vec2 st, float w) {
     vec2 offset = vec2(w*.5,0.);
-    return max( circleSDF(st-offset),
-                circleSDF(st+offset));
+    return max( circle_sdf(st-offset),
+                circle_sdf(st+offset));
 }
 #endif
