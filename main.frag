@@ -27,10 +27,12 @@ void main() {
   vec3 color = vec3(1.1, 0.1234, 0.34);
   // float pct = aastep(pos.y, -pos.y);
   // float pct = cross_sdf(pos, 0.4);
-  float pct = cross_sdf(rotate(pos, circle_sdf(vec2(u_time, u_time) * 0.5), 0.0), 0.4);
+  float pct = cross_sdf(rotate(pos, circle_sdf(vec2(pos.x, pos.x) * 0.5), 0.0), 0.4);
   float pct2 = circle_sdf(pos);
   color = vec3(pct * color + color * pct2);
-  color.r = color.r * u_highpass * 2.5;
+  // color.r = color.r * u_highpass * 1.5;
+  color.b *= u_notch;
+  color.g += u_lowpass;
 
   // float rect = cross_sdf(pos, 0.4);
   // color = vec3(pct * color + color * rect);
