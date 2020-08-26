@@ -23,6 +23,9 @@ void main() {
   float pct2 = circle_sdf(pos);
   color = vec3(pct * color + color * pct2);
   color.r = color.r * u_highpass;
+
+  float rect = cross_sdf(pos, 0.4);
+  color = vec3(pct * color + color * rect);
   // color = vec3(pct2 * color + color * vec3(0.5));
 
   gl_FragColor = vec4(color, 1.0);

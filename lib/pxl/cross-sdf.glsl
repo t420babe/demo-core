@@ -26,12 +26,12 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef FNC_CROSSSDF
-#define FNC_CROSSSDF
-#include "rectSDF.glsl"
-float crossSDF(vec2 st, float s) {
+#ifndef PXL_CROSS
+#define PXL_CROSS
+#include "./lib/pxl/rect-sdf.glsl"
+float cross_sdf(vec2 st, float s) {
     vec2 size = vec2(.25, s);
-    return min( rectSDF(st.xy,size.xy),
-                rectSDF(st.xy,size.yx));
+    return min( rect_sdf(st.xy,size.xy),
+                rect_sdf(st.xy,size.yx));
 }
 #endif

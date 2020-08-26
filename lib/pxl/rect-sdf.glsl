@@ -26,9 +26,9 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
  
-#ifndef FNC_RECTSDF
-#define FNC_RECTSDF
-float rectSDF(vec2 st, vec2 s) {
+#ifndef PXL_RECT
+#define PXL_RECT
+float rect_sdf(vec2 st, vec2 s) {
     st = st*2.-1.;
     return max( abs(st.x/s.x),
                 abs(st.y/s.y) );
