@@ -35,7 +35,7 @@ void main() {
   // pct += sharp(heart_sdf(pos + sin(u_time) * cos(u_time)));
   // pct += heart_sdf(pos);
   float pct = heart_sdf(pos) * u_notch;
-  pct = sharp(pct);
+  // pct = sharp(pct);
   // float pct2 = (hexagon_sdf(pos) / 10.0) * u_highpass;
   float pct2 = (hexagon_sdf(pos) / 1.0);
   // pct2 = 0.5;
