@@ -28,10 +28,11 @@ void main() {
   // float pct = aastep(pos.y, -pos.y) / sin(u_time);
   vec2 rot_pos = rotate(pos * 2.5, 0.0, 0.0);
   // float pct = sharp(cross_sdf(rot_pos * sin(u_time), 1.4));
-  float pct = cross_sdf(rotate(pos, circle_sdf(vec2(pos.x, pos.x) * 0.5), 0.0), 0.4);
+  // float pct = cross_sdf(rotate(pos, circle_sdf(vec2(pos.x, pos.x) * 0.5), 0.0), 0.4);
   // pct *= circle_sdf(pos);
   // float pct2 = circle_sdf(pos);
   float pct2 = u_notch;
+  float pct = heart_sdf(pos);
   // pct2 *= 2.0;
   color = vec3(pct * color + color * pct2);
   color.r = color.r * u_highpass;
