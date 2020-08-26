@@ -22,7 +22,7 @@ void main() {
   float pct = aastep(-pos.x, -pos.y);
   float pct2 = circle_sdf(pos);
   color = vec3(pct * color + color * pct2);
-  color.r = color.r * u_highpass * 0.5;
+  color.r = color.r * u_highpass * 1.5;
 
   float rect = cross_sdf(pos, 0.4);
   color = vec3(pct * color + color * rect);
