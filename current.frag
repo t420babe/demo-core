@@ -19,6 +19,10 @@ uniform float u_highpass;
 uniform float u_bandpass;
 uniform float u_notch;
 
+#ifndef COMMON
+#include "./lib/common/common.glsl"
+#endif
+
 #ifndef PXL
 #include "./lib/pxl/00-pxl.glsl"
 #endif
@@ -30,8 +34,11 @@ void main() {
   pos.y += 2.5;
   // vec2 ratio_pos = ratio_sdf(pos, vec2(0.5 * u_notch, 0.05));
   float pct = rect_sdf(pos * u_notch, vec2(0.5, 0.5));
-  color = pct * color + vec3(0.1, 0.4, 0.9) * pct;
+  color = pct * color.gbr + vec3(0.1, 0.4, 0.9) * pct;
+
+  color.r = 1.0;
 
   gl_FragColor = vec4(color, 1.0);
 }
 
+  // autocmd BufWritePost * execute '!git add % && git commit -m %'
