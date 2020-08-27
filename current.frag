@@ -33,7 +33,7 @@ void main() {
   pos.x += 2.5;
   pos.y += 2.5;
   // vec2 ratio_pos = ratio_sdf(pos, vec2(0.5 * u_notch, 0.05));
-  float pct = exp_in_out(rect_sdf(pos * u_notch, vec2(0.5, 0.5)));
+  float pct = sin_in_out(rect_sdf(pos * u_notch, vec2(0.5, 0.5)));
   color = pct * color.gbr + vec3(0.1, 0.4, 0.9) * pct;
 
   color.r = 1.0;
