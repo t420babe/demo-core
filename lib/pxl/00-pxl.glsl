@@ -9,6 +9,10 @@
 #include "./lib/pxl/circle-sdf.glsl"
 #endif
 
+#ifndef PXL_CROSS
+#include "./lib/pxl/cross-sdf.glsl"
+#endif
+
 #ifndef PXL_HEART
 #include "./lib/pxl/heart-sdf.glsl"
 #endif
@@ -25,12 +29,12 @@
 #include "./lib/pxl/polygon-sdf.glsl"
 #endif
 
-#ifndef PXL_RECT
-#include "./lib/pxl/rect-sdf.glsl"
+#ifndef PXL_RATIO
+#include "./lib/pxl/ratio-sdf.glsl"
 #endif
 
-#ifndef PXL_CROSS
-#include "./lib/pxl/cross-sdf.glsl"
+#ifndef PXL_RECT
+#include "./lib/pxl/rect-sdf.glsl"
 #endif
 
 #ifndef PXL_TRI
