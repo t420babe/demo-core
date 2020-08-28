@@ -45,6 +45,10 @@
 #include "./lib/pxl/rhombus-sdf.glsl"
 #endif
 
+#ifndef PXL_SCALE
+#include "./lib/pxl/scale-sdf.glsl"
+#endif
+
 #ifndef PXL_TRIANGLE
 #include "./lib/pxl/triangle-sdf.glsl"
 #endif

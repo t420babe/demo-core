@@ -26,9 +26,13 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
  
-#ifndef FNC_SCALE
-#define FNC_SCALE
+#ifndef PXL_SCALE
+#define PXL_SCALE
 vec2 scale(vec2 st, vec2 s) {
+    return (st)*s + 0.5;
+}
+
+vec2 scale_sdf(vec2 st, vec2 s) {
     return (st-.5)*s+.5;
 }
 #endif

@@ -31,7 +31,8 @@ void main() {
   vec3 color = vec3(1.0, 0.14117647058, 0.14117647058);
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
 
-  float pct = rhombus_sdf(pos) / 5.0;
+  vec2 scale_pos = scale(pos, vec2(1.0, 1.0));
+  float pct = rhombus_sdf(scale_pos);
   color += sharp(pct);
 
   gl_FragColor = vec4(color, 1.0);
