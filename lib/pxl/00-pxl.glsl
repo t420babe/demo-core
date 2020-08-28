@@ -41,8 +41,8 @@
 #include "./lib/pxl/rect-sdf.glsl"
 #endif
 
-#ifndef PXL_TRI
-#include "./lib/pxl/tri-sdf.glsl"
+#ifndef PXL_TRIANGLE
+#include "./lib/pxl/triangle-sdf.glsl"
 #endif
 
 #ifndef PXL_VESICA

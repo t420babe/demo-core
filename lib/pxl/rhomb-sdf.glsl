@@ -26,11 +26,11 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef FNC_RHOMBSDF
-#define FNC_RHOMBSDF
-#include "triSDF.glsl"
-float rhombSDF(vec2 st) {
-    return max(triSDF(st),
-               triSDF(vec2(st.x,1.-st.y)));
+#ifndef PXL_RHOMBUS
+#define PXL_RHOMBUS
+#include "lib/pxl/triangle_sdf.glsl"
+float rhombus_sdf(vec2 st) {
+    return max(trianle_sdf(st),
+               trianle_sdf(vec2(st.x,1.-st.y)));
 }
 #endif
