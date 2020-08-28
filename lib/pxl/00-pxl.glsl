@@ -17,6 +17,10 @@
 #include "./lib/pxl/fill-sdf.glsl"
 #endif
 
+#ifndef PXL_FLOWER
+#include "./lib/pxl/flower-sdf.glsl"
+#endif
+
 #ifndef PXL_HEART
 #include "./lib/pxl/heart-sdf.glsl"
 #endif

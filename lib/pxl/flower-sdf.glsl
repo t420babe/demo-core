@@ -26,9 +26,9 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
  
-#ifndef FNC_FLOWERSDF
-#define FNC_FLOWERSDF
-float flowerSDF(vec2 st, int N) {
+#ifndef PXL_FLOWER
+#define PXL_FLOWER
+float flower_sdf(vec2 st, int N) {
     st = st*2.-1.;
     float r = length(st)*2.;
     float a = atan(st.y,st.x);
