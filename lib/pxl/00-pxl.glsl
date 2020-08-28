@@ -61,6 +61,10 @@
 #include "./lib/pxl/spiral-sdf.glsl"
 #endif
 
+#ifndef PXL_STAR
+#include "./lib/pxl/star-sdf.glsl"
+#endif
+
 #ifndef PXL_TRIANGLE
 #include "./lib/pxl/triangle-sdf.glsl"
 #endif

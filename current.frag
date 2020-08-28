@@ -28,12 +28,12 @@ uniform float u_notch;
 #endif
 
 void main() {
-  vec3 color = vec3(1.0, 0.14117647058, 0.14117647058);
+  vec3 color = vec3(1.0, u_notch * 2.0, 0.14117647058);
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   float pct=0.0;
-  vec2 scale_pos = scale(pos, vec2(1.1, 1.1));
+  vec2 scale_pos = scale(pos, vec2(1.0, 1.0));
   float mod_time = mod(u_time, 10.0);
-  pct = spiral_sdf(scale_pos, sin(u_time));
+  pct = star(scale_pos, 10, sin(u_time));
   // if (mod_time < 1.0) {
   // pct = flower_sdf(scale_pos, 1);
   // } else if (mod_time < 2.0) {

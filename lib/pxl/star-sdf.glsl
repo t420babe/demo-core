@@ -26,10 +26,20 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef FNC_STARSDF
-#define FNC_STARSDF
+#ifndef PXL_STAR
+#define PXL_STAR
+#ifndef PXL_MATH
 #include "./lib/pxl/math-sdf.glsl"
-float starSDF(vec2 st, int V, float s) {
+#endif
+float star(vec2 st, int V, float s) {
+    st = st * 1.00 - 0.5;
+    float a = atan(st.y, st.x) / TAU;
+    float seg = a * float(V);
+    a = ((floor(seg) + 0.5)/float(V) + mix(s, -s, step( 0.1,fract(seg)))) * TAU;
+    return abs(dot(vec2(tan(s*a), sin(s*a)), st));
+}
+
+float star_sdf(vec2 st, int V, float s) {
     st = st*4.-2.;
     float a = atan(st.y, st.x)/TAU;
     float seg = a * float(V);
