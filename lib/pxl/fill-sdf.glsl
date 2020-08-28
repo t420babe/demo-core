@@ -26,10 +26,13 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef FNC_FILL
-#define FNC_FILL
-#include "aastep.glsl"
-float fill(float x, float size) {
+#ifndef PXL_FILL
+#define PXL_FILL
+
+#ifndef PXL_AASTEP
+#include "./lib/pxl/aastep-sdf.glsl"
+#endif
+float fill_sdf(float x, float size) {
     return 1.-aastep(size, x);
 }
 #endif

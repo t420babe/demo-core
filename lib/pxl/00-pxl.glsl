@@ -13,6 +13,10 @@
 #include "./lib/pxl/cross-sdf.glsl"
 #endif
 
+#ifndef PXL_FILL
+#include "./lib/pxl/fill-sdf.glsl"
+#endif
+
 #ifndef PXL_HEART
 #include "./lib/pxl/heart-sdf.glsl"
 #endif

@@ -33,6 +33,7 @@ void main() {
 
   vec2 scale_pos = scale(pos, vec2(1.0, 1.0));
   float pct = rhombus_sdf(scale_pos);
+  pct = fill_sdf(pct, 1.0);
   color += sharp(pct);
 
   gl_FragColor = vec4(color, 1.0);
