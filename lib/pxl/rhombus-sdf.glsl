@@ -28,9 +28,11 @@
 
 #ifndef PXL_RHOMBUS
 #define PXL_RHOMBUS
-#include "lib/pxl/triangle_sdf.glsl"
+#ifndef PXL_TRIANGLE
+#include "lib/pxl/triangle-sdf.glsl"
+#endif
 float rhombus_sdf(vec2 st) {
-    return max(trianle_sdf(st),
-               trianle_sdf(vec2(st.x,1.-st.y)));
+    return max(triangle_sdf(st),
+               triangle_sdf(vec2(st.x,1.-st.y)));
 }
 #endif
