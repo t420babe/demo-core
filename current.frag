@@ -30,13 +30,15 @@ uniform float u_notch;
 void main() {
   vec3 color = vec3(0.2);
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  pos.x += 2.5;
-  pos.y += 2.5;
+  // pos *= 5.5;
+  // pos.x += 5.5;
+  // pos.y += 2.5;
   // vec2 ratio_pos = ratio_sdf(pos, vec2(0.5 * u_notch, 0.05));
-  float pct = sin_in_out(rect_sdf(pos * u_notch, vec2(0.5, 0.5)));
+  // float pct = rect_sdf(pos * sin(u_notch), vec2(0.5, 0.5));
+  float pct = rays_sdf(pos, 3);
   color = pct * color.gbr + vec3(0.1, 0.4, 0.9) * pct;
 
-  color.r = 1.0;
+  color.r = u_lowpass;
 
   gl_FragColor = vec4(color, 1.0);
 }

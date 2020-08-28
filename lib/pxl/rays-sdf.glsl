@@ -26,11 +26,17 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
  
-#ifndef FNC_RAYSSDF
-#define FNC_RAYSSDF
-#include "math.glsl"
-float raysSDF(vec2 st, int N) {
-    st -= .5;
+#ifndef PXL_RAYS
+#define PXL_RAYS
+#ifndef PXL_MATH
+#include "./lib/pxl/math-sdf.glsl"
+#endif
+float rays_sdf(vec2 st, int N) {
+    st -= 0.5;
     return fract(atan(st.y,st.x)/TAU*float(N));
 }
+// float rays_sdf(vec2 st, int N) {
+//     st -= .5;
+//     return fract(atan(st.y,st.x)/TAU*float(N));
+// }
 #endif

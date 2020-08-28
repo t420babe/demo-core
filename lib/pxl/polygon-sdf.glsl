@@ -29,7 +29,7 @@
 #ifndef PXL_POLYGON
 #define PXL_POLYGON
 #ifndef PXL_MATH
-#include "lib/pxl/math.glsl"
+#include "lib/pxl/math-sdf.glsl"
 #endif
 float polygon_sdf(vec2 st, int V) {
     st = st*2.-1.;

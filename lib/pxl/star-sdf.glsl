@@ -28,7 +28,7 @@
 
 #ifndef FNC_STARSDF
 #define FNC_STARSDF
-#include "math.glsl"
+#include "./lib/pxl/math-sdf.glsl"
 float starSDF(vec2 st, int V, float s) {
     st = st*4.-2.;
     float a = atan(st.y, st.x)/TAU;
