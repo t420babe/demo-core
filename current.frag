@@ -33,21 +33,22 @@ void main() {
   float pct=0.0;
   vec2 scale_pos = scale(pos, vec2(1.1, 1.1));
   float mod_time = mod(u_time, 10.0);
-  if (mod_time < 1.0) {
-  pct = flower_sdf(scale_pos, 1);
-  } else if (mod_time < 2.0) {
-  pct = flower_sdf(scale_pos, 2);
-  } else if (mod_time < 3.0) {
-  pct = flower_sdf(scale_pos, 3);
-  } else if (mod_time < 4.0) {
-  pct = flower_sdf(scale_pos, 4);
-  } else if (mod_time < 5.0) {
-  pct = flower_sdf(scale_pos, 5);
-  } else if (mod_time < 6.0) {
-  pct = flower_sdf(scale_pos, 5);
-  } else {
-  pct = flower_sdf(scale_pos, 10);
-  }
+  pct = spiral_sdf(scale_pos, sin(u_time));
+  // if (mod_time < 1.0) {
+  // pct = flower_sdf(scale_pos, 1);
+  // } else if (mod_time < 2.0) {
+  // pct = flower_sdf(scale_pos, 2);
+  // } else if (mod_time < 3.0) {
+  // pct = flower_sdf(scale_pos, 3);
+  // } else if (mod_time < 4.0) {
+  // pct = flower_sdf(scale_pos, 4);
+  // } else if (mod_time < 5.0) {
+  // pct = flower_sdf(scale_pos, 5);
+  // } else if (mod_time < 6.0) {
+  // pct = flower_sdf(scale_pos, 5);
+  // } else {
+  // pct = flower_sdf(scale_pos, 10);
+  // }
   color += sharp(pct);
 
   gl_FragColor = vec4(color, 1.0);

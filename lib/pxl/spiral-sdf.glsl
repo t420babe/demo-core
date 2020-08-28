@@ -26,9 +26,9 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef FNC_SPIRALSDF
-#define FNC_SPIRALSDF
-float spiralSDF(vec2 st, float t) {
+#ifndef PXL_SPIRAL
+#define PXL_SPIRAL
+float spiral_sdf(vec2 st, float t) {
     st -= .5;
     float r = dot(st,st);
     float a = atan(st.y,st.x);

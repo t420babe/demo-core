@@ -57,6 +57,10 @@
 #include "./lib/pxl/scale-sdf.glsl"
 #endif
 
+#ifndef PXL_SPIRAL
+#include "./lib/pxl/spiral-sdf.glsl"
+#endif
+
 #ifndef PXL_TRIANGLE
 #include "./lib/pxl/triangle-sdf.glsl"
 #endif
