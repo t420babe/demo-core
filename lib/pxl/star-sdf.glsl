@@ -31,11 +31,15 @@
 #ifndef PXL_MATH
 #include "./lib/pxl/math-sdf.glsl"
 #endif
+#ifndef COMMON
+#include "./lib/common/common.glsl"
+#endif
+
 float star(vec2 st, int V, float s) {
     st = st * 1.00 - 0.5;
     float a = atan(st.y, st.x) / TAU;
     float seg = a * float(V);
-    a = ((floor(seg) + 0.5)/float(V) + mix(s, -s, step( 0.1,fract(seg)))) * TAU;
+    a = sharp(((floor(seg) + 0.5)/float(V) + mix(s, -s, step( 0.1,fract(seg)))) * TAU);
     return abs(dot(vec2(tan(s*a), sin(s*a)), st));
 }
 
