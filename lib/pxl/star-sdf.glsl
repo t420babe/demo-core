@@ -37,9 +37,9 @@
 
 float star(vec2 st, int V, float s) {
     st = st * 1.00 - 0.5;
-    float a = atan(st.y, st.x) / TAU;
+    float a = atan(st.x, st.y) / TAU;
     float seg = a * float(V);
-    a = sharp(((floor(seg) + 0.5)/float(V) + mix(s, -s, step( 0.1,fract(seg)))) * TAU);
+    a = DEMO_EASE(((floor(seg) + 0.5)/float(V) + mix(s, -s, step( 0.1, fract(seg)))) * TAU);
     return abs(dot(vec2(tan(s*a), sin(s*a)), st));
 }
 
