@@ -30,12 +30,13 @@ uniform float u_notch;
 void main() {
   vec3 color = vec3(1.0, u_notch * 2.0, 0.14117647058);
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
+  pos /= 1.1;
   float pct = 0.0;
   vec2 scale_pos = scale(pos, vec2(1.0, 1.0));
   float mod_time = mod(u_time, 10.0);
-  pct = star(scale_pos, 10, sin(u_time));
+  pct = star(pos, 1, sin(u_time));
   // color = gradient_and_sharp_line(pos, pct, DEMO_EASE(u_notch), vec3(0.234, 0.12309, 0.89724 * u_notch), vec3(0.234 * u_notch, 0.987, 0324));
-  color += sharp(pct);
+  color *= sharp(pct);
 
   gl_FragColor = vec4(color, 1.0);
 }

@@ -36,10 +36,11 @@
 #endif
 
 float star(vec2 st, int V, float s) {
-    st = st * 1.00 - 0.5;
+    st = st * 1.00;
     float a = atan(st.x, st.y) / TAU;
     float seg = a * float(V);
-    a = (((floor(seg) + 0.5)/float(V) + mix(s, -s, step( 0.1, (seg)))) * TAU);
+    // a = (((floor(seg) + 0.5)/float(V) + mix(s, -s, step( 0.1, (seg)))) * TAU);
+    a = ((((seg) + 0.5)/float(V) + mix(s, -s, step( 0.1, (seg)))) * TAU);
     return abs(dot(vec2((s*a), (s*a)), st));
 }
 
