@@ -34,22 +34,7 @@ void main() {
   vec2 scale_pos = scale(pos, vec2(1.0, 1.0));
   float mod_time = mod(u_time, 10.0);
   pct = star(scale_pos, 10, sin(u_time));
-  color = gradient_and_sharp_line(pos, pct, DEMO_EASE(u_notch), vec3(0.234, 0.12309, 0.89724 * u_notch), vec3(0.234 * u_notch, 0.987, 0324));
-  // if (mod_time < 1.0) {
-  // pct = flower_sdf(scale_pos, 1);
-  // } else if (mod_time < 2.0) {
-  // pct = flower_sdf(scale_pos, 2);
-  // } else if (mod_time < 3.0) {
-  // pct = flower_sdf(scale_pos, 3);
-  // } else if (mod_time < 4.0) {
-  // pct = flower_sdf(scale_pos, 4);
-  // } else if (mod_time < 5.0) {
-  // pct = flower_sdf(scale_pos, 5);
-  // } else if (mod_time < 6.0) {
-  // pct = flower_sdf(scale_pos, 5);
-  // } else {
-  // pct = flower_sdf(scale_pos, 10);
-  // }
+  // color = gradient_and_sharp_line(pos, pct, DEMO_EASE(u_notch), vec3(0.234, 0.12309, 0.89724 * u_notch), vec3(0.234 * u_notch, 0.987, 0324));
   color += sharp(pct);
 
   gl_FragColor = vec4(color, 1.0);
