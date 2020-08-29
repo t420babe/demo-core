@@ -40,7 +40,7 @@ float star(vec2 st, int V, float s) {
     float a = atan(st.x, st.y) / TAU;
     float seg = a * float(V);
     a = DEMO_EASE(((floor(seg) + 0.5)/float(V) + mix(s, -s, step( 0.1, fract(seg)))) * TAU);
-    return abs(dot(vec2(tan(s*a), sin(s*a)), st));
+    return abs(dot(vec2(log(s*a), sin(s*a)), st));
 }
 
 float star_sdf(vec2 st, int V, float s) {
