@@ -37,7 +37,7 @@ void main() {
   pct = star(pos * 1.0, 5, tan(u_time));
   // color = gradient_and_sharp_line(pos, pct, DEMO_EASE(u_notch), vec3(0.234, 0.12309, 0.89724 * u_notch), vec3(0.234 * u_notch, 0.987, 0324));
   vec3 color_a = vec3(0.234 * u_notch, 0.987, 0324);
-  color /= sharp(pct);
+  color /= pct;
   float rect = rectangle(pos, vec2(0.0, 0.0), vec2(0.5));
   color = mix(color, color_a, rect);
 

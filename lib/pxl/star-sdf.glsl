@@ -41,7 +41,7 @@ float star(vec2 st, int V, float s) {
     float seg = a * float(V);
     // a = (((floor(seg) + 0.5)/float(V) + mix(s, -s, step( 0.1, (seg)))) * TAU);
     a = (((floor(seg) + 0.5) / float(V) + mix(s, -s, step( 0.1, (seg)))) * TAU);
-    return (dot(vec2((s*a), (s*a)), st.yx));
+    return ((dot(vec2((s*a), (s*a)), st.yx)));
 }
 
 float star_sdf(vec2 st, int V, float s) {
