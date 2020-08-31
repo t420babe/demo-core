@@ -25,3 +25,7 @@ Set:
 Songs:
 - us by Steve James - 40 qmetro
 - kowabunga! by SuperParka
+
+
+Remaining:
+- `rotating_lines` functions can be consolidated with `shader_idx` and `color_idx`
