@@ -33,6 +33,10 @@
 #include "./lib/t420babe/soft-retro-step.glsl"
 #endif
 
+#ifndef T420BABE_TILIFOUNDYOU
+#include "./lib/t420babe/tilifoundyou.glsl"
+#endif
+
 #ifndef T420BABE_UMBRELLA
 #include "./lib/t420babe/umbrella.glsl"
 #endif
