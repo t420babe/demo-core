@@ -17,6 +17,10 @@
 #include "./lib/t420babe/pulse-x.glsl"
 #endif
 
+#ifndef T420BABE_PULSE_X_MAX
+#include "./lib/t420babe/pulse-x-max.glsl"
+#endif
+
 #ifndef T420BABE_RAINBOW_SCALES
 #include "./lib/t420babe/rainbow-scales.glsl"
 #endif
