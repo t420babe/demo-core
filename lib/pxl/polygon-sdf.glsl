@@ -35,7 +35,7 @@ float polygon_sdf(vec2 st, int V) {
     st = st*2.-1.;
     float a = atan(st.x,st.y)+PI;
     float r = length(st);
-    float v = TAU/float(V);
+    float v = TWO_PI/float(V);
     return cos(floor(.5+a/v)*v-a)*r;
 }
 #endif

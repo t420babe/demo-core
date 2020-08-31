@@ -2,10 +2,6 @@
 precision mediump float;
 #endif
 
-#ifndef COMMON_COMMON
-#include "./lib/common/common.glsl"
-#endif
-
 #ifndef T420BABE
 #include "./lib/t420babe/00-t420babe.glsl"
 #endif
@@ -23,7 +19,7 @@ void main() {
   vec3 color = vec3(1.0);
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
 
-  color = rotating_lines(pos, u_time, audio, color);
+  doppler(pos, u_time, audio, color);
 
   gl_FragColor = vec4(color, 1.0);
 }

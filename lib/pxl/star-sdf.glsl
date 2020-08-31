@@ -37,20 +37,20 @@
 
 float star(vec2 st, int V, float s) {
     st = st * 1.00;
-    float a = sharp(atan(st.x, st.y) / TAU);
+    float a = sharp(atan(st.x, st.y) / TWO_PI);
     float seg = a * float(V);
-    // a = (((floor(seg) + 0.5)/float(V) + mix(s, -s, step( 0.1, (seg)))) * TAU);
-    a = (((floor(seg) + 0.5) / float(V) + mix(s, -s, step( 0.1, (seg)))) * TAU);
+    // a = (((floor(seg) + 0.5)/float(V) + mix(s, -s, step( 0.1, (seg)))) * TWO_PI);
+    a = (((floor(seg) + 0.5) / float(V) + mix(s, -s, step( 0.1, (seg)))) * TWO_PI);
     return ((dot(vec2((s*a), (s*a)), st.yx)));
 }
 
 float star_sdf(vec2 st, int V, float s) {
     st = st*4.-2.;
-    float a = atan(st.y, st.x)/TAU;
+    float a = atan(st.y, st.x)/TWO_PI;
     float seg = a * float(V);
     a = ((floor(seg) + 0.5)/float(V) + 
         mix(s,-s,step(.5,fract(seg)))) 
-        * TAU;
+        * TWO_PI;
     return abs(dot(vec2(cos(a),sin(a)),
                    st));
 }

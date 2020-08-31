@@ -9,6 +9,10 @@
 #include "./lib/t420babe/babydoyougetme.glsl"
 #endif
 
+#ifndef T420BABE_DOPPLER
+#include "./lib/t420babe/doppler.glsl"
+#endif
+
 // #ifndef T420BABE_IDONTEVENMEANWHATISAY
 // #include "./lib/t420babe/idontevenmeanwhatisay.glsl"
 // #endif

@@ -33,10 +33,10 @@
 #endif
 float rays_sdf(vec2 st, int N) {
     st -= 0.5;
-    return fract(atan(st.y,st.x)/TAU*float(N));
+    return fract(atan(st.y,st.x)/TWO_PI*float(N));
 }
 // float rays_sdf(vec2 st, int N) {
 //     st -= .5;
-//     return fract(atan(st.y,st.x)/TAU*float(N));
+//     return fract(atan(st.y,st.x)/TWO_PI*float(N));
 // }
 #endif

@@ -54,9 +54,9 @@ float triSDF(vec2 pos) {
 
 float starSDF(vec2 pos, int V, float s) {
   pos = pos * 4.0 - 2.0;
-  float a = atan(pos.y, pos.x) / TAU;
+  float a = atan(pos.y, pos.x) / TWO_PI;
   float seg = a * float(V);
-  a = ((floor(seg) + 0.5) / float(V) + mix(s, -s, step(0.5, fract(seg)))) * TAU;
+  a = ((floor(seg) + 0.5) / float(V) + mix(s, -s, step(0.5, fract(seg)))) * TWO_PI;
   return abs(dot(vec2(cos(a), sin(a)), pos));
 }
 
@@ -64,7 +64,7 @@ float polySDF(vec2 pos, int V) {
   pos = pos * 2.0 - 1.0;
   float a = atan(pos.x, pos.y) + PI;
   float r = length(pos);
-  float v = TAU / float(V);
+  float v = TWO_PI / float(V);
   return cos(floor(0.5 + a / v) * v - a) * r;
 }
 
