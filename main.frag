@@ -19,7 +19,7 @@ void main() {
   vec3 color = vec3(1.0);
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
 
-  doppler(pos, u_time, audio, color);
+  doppler_audio(pos, u_time, audio, color);
 
   gl_FragColor = vec4(color, 1.0);
 }
