@@ -22,12 +22,13 @@ uniform float u_notch;
 uniform vec2 u_resolution;
 uniform float u_time;
 
+// Brain Juice by DARK $
 
 void main() {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   vec3 color = vec3(0.4, 0.23, 0.8);
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  color = ridge_main(gl_FragCoord, u_resolution, u_time, u_lowpass, u_highpass * 100.0);
+  color = ridge_main(gl_FragCoord, u_resolution, u_time, u_lowpass, u_bandpass * 100.0);
 
   // color = purple_circle(pos, u_time, audio);
   // color = orange_circle_bright_purple_bg(pos, u_time, audio);

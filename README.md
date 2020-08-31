@@ -16,3 +16,7 @@ File name format:
 
 Auto commit on save:
 `autocmd BufWritePost * execute '!git add % && git commit -m %'`
+
+
+Set:
+- ridge.glsl - Brain Juice by DARK $
