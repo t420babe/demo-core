@@ -1,13 +1,16 @@
 #ifndef T420BABE_RIDGE
-// Author: @patriciogv - 2015
-// Tittle: Ridge
+// t420babe song suggestion: Brain Juice by DARK $
+// t420babe idea: black and white then when beat drop add in color
 
-// Some useful functions
+#ifndef COMMON_COMMON
+#include "./lib/common/common.glsl"
+#endif
+// Inspiration and original functions by @patriciogv - 2015, Tittle: Ridge
+
 vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
 vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
 vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
 
-//
 // Description : GLSL 2D simplex noise function
 //      Author : Ian McEwan, Ashima Arts
 //  Maintainer : ijm
@@ -16,7 +19,6 @@ vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
 //  Copyright (C) 2011 Ashima Arts. All rights reserved.
 //  Distributed under the MIT License. See LICENSE file.
 //  https://github.com/ashima/webgl-noise
-//
 float snoise(vec2 v) {
 
   // Precompute values for skewed triangular grid
@@ -110,38 +112,38 @@ float ridgedMF(vec2 p, float u_t) {
   return sum;
 }
 
-vec3 ridge_main(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full_max) {
-  vec2 st = (2.0 * frag_coord.xy - u_r.xy) / u_r.y;
-  st.y *= u_r.y / u_r.x; // fix resolution x-axis stretching
-  // vec2 st = frag_coord.xy/u_r.xy;
-  // st.x *= u_r.x/u_r.y;
+vec3 ridge_main(vec2 pos, float u_time, peakamp audio) {
   vec3 color = vec3(0.0);
 
-  if (full_max > 1.0) {
-    color += ridgedMF(st*6.0, full_max); 
+  audio.highpass *= 100.0;
+  audio.lowpass *= 100.0;
+  audio.bandpass *= 100.0;
+  audio.notch *= 100.0;
+
+  if (audio.bandpass > 1.0) {
+    color += ridgedMF(pos *6.0, audio.bandpass); 
   }
 
   float time_limit = 20.0;
   float time_segment = 4.0;
-  float mod_time = mod(u_t, time_limit);
+  float mod_time = mod(u_time, time_limit);
 
   if (mod_time < time_segment * 1.0) {
-    color = vec3(0.8, color.y, color.x * abs(sin(u_t)));
+    color = vec3(0.8, color.y, color.x * abs(sin(u_time)));
 
   } else if (mod_time < time_segment * 1.0) {
-    color = vec3(0.8, color.x, 0.4 * abs(sin(u_t)));
+    color = vec3(0.8, color.x, 0.4 * abs(sin(u_time)));
 
   } else if (mod_time < time_segment * 2.0) {
-    color = vec3(color.x - 0.1, 0.7, color.y * abs(sin(u_t)));
+    color = vec3(color.x - 0.1, 0.7, color.y * abs(sin(u_time)));
 
   } else if (mod_time < time_segment * 3.0) {
-    color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(u_t)));
+    color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(u_time)));
 
   } else if (mod_time < time_segment * 4.0) {
-    color = vec3(color.y, color.x + 0.3, 0.8 * abs(sin(u_t)));
+    color = vec3(color.y, color.x + 0.3, 0.8 * abs(sin(u_time)));
   }
 
   return color;
-  // gl_FragColor = vec4(color,1.0);
 }
 #endif
