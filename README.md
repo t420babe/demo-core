@@ -8,3 +8,11 @@ Favorites:
 
 
   i need to make a tool that commits my file to git every time i save a shader
+
+
+
+File name format:
+`*.aa.glsl` - Ableton audio expects peakamp of `u_lowpass`, `u_highpass`, `u_notch`, `u_bandpass`
+
+Auto commit on save:
+`autocmd BufWritePost * execute '!git add % && git commit -m %'`
