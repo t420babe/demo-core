@@ -9,9 +9,9 @@
 #include "./lib/t420babe/babydoyougetme.glsl"
 #endif
 
-#ifndef T420BABE_IDONTEVENMEANWHATISAY
-#include "./lib/t420babe/idontevenmeanwhatisay.glsl"
-#endif
+// #ifndef T420BABE_IDONTEVENMEANWHATISAY
+// #include "./lib/t420babe/idontevenmeanwhatisay.glsl"
+// #endif
 
 #ifndef T420BABE_PULSE_X
 #include "./lib/t420babe/pulse-x.glsl"
@@ -19,6 +19,10 @@
 
 #ifndef T420BABE_RAINBOW_SCALES
 #include "./lib/t420babe/rainbow-scales.glsl"
+#endif
+
+#ifndef T420BABE_ROTATING_LINES
+#include "./lib/t420babe/rotating-lines.glsl"
 #endif
 
 #ifndef T420BABE_SOFT_RETRO_STEP

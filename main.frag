@@ -6,8 +6,8 @@ precision mediump float;
 #include "./lib/common/common.glsl"
 #endif
 
-#ifndef T420BABE_RIDGE
-#include "./lib/t420babe/ridge.glsl"
+#ifndef T420BABE
+#include "./lib/t420babe/00-t420babe.glsl"
 #endif
 
 uniform float u_lowpass;
@@ -18,13 +18,13 @@ uniform float u_notch;
 uniform vec2 u_resolution;
 uniform float u_time;
 
-// Brain Juice by DARK $
-
 void main() {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   vec3 color = vec3(0.4, 0.23, 0.8);
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  color = ridge_main(pos, u_time, audio);
+
+  rotating_lines(pos, u_time, audio, color);
+
   gl_FragColor = vec4(color, 1.0);
 }
 
