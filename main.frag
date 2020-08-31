@@ -6,8 +6,8 @@ precision mediump float;
 #include "./lib/common/common.glsl"
 #endif
 
-#ifndef T420BABE
-#include "./lib/t420babe/00-t420babe.glsl"
+#ifndef PRACTICE
+#include "./lib/practice/00-practice.glsl"
 #endif
 
 uniform float u_lowpass;
@@ -23,7 +23,10 @@ void main() {
   vec3 color = vec3(0.4, 0.23, 0.8);
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
 
-  rotating_lines(pos, u_time, audio, color);
+  line_gradient_main(pos, u_time, audio, color);
+
+
+  // rotating_lines(pos, u_time, audio, color);
 
   gl_FragColor = vec4(color, 1.0);
 }
