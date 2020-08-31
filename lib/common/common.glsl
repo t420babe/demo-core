@@ -1,6 +1,10 @@
 #ifndef COMMON_COMMON
 #define COMMON_COMMON
 
+#ifndef COMMON_STRUCTS
+#include "./lib/common/structs.glsl"
+#endif
+
 #ifndef COMMON_MATH_FUNCTIONS
 #include "lib/common/math-constants.glsl"
 #endif

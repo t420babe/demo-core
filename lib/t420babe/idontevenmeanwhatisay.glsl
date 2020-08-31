@@ -1,29 +1,12 @@
 #ifndef T420BABE_IDONTEVENMEANWHATISAY
 #define T420BABE_IDONTEVENMEANWHATISAY
-#ifndef COMMON_PLOT
-#include "./lib/common/plot.glsl"
+#ifndef COMMON_COMMON
+#include "./lib/common/common.glsl"
 #endif
 
-#ifndef COMMON_EASING_FUNCTIONS
-#include "./lib/common/easing-functions.glsl"
+#ifndef PXL_PXL
+#include "./lib/pxl/00-pxl.glsl"
 #endif
-
-#ifndef COMMON_MATH_FUNCTIONS
-#include "./lib/common/math-functions.glsl"
-#endif
-
-#ifndef FNC_AASTEP
-#include "./lib/pixel-spirit-deck/aastep.glsl"
-#endif
-
-#ifndef FNC_STROKE
-#include "./lib/pixel-spirit-deck/stroke.glsl"
-#endif
-
-#ifndef FNC_RAYSSDT
-#include "./lib/pixel-spirit-deck/raysSDF.glsl"
-#endif
-
 
 const vec3 COLOR_A = vec3(0.149, 0.141, 0.912);
 const vec3 COLOR_B = vec3(1.000, 0.833, 0.224);

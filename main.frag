@@ -2,8 +2,12 @@
 precision mediump float;
 #endif
 
-#ifndef T420BABE_PURPLE_CIRLCE
-#include "./lib/t420babe/purple-circle.aa.glsl"
+#ifndef COMMON_COMMON
+#include "./lib/common/common.glsl"
+#endif
+
+#ifndef T420BABE
+#include "./lib/t420babe/audio-circle.aa.glsl"
 #endif
 
 uniform float u_lowpass;
@@ -11,22 +15,18 @@ uniform float u_highpass;
 uniform float u_bandpass;
 uniform float u_notch;
 
-
 uniform vec2 u_resolution;
 uniform float u_time;
 
-struct point {
-  float x;
-  float y;
-};
 
 void main() {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  vec3 color = purple_circle(pos, u_lowpass, u_highpass, u_bandpass, u_notch);
-  point pt;
-  pt.x = 1.0;
-  pt.y = 0.5;
-  gl_FragColor = vec4(pt.x, pt.y, color.r, 1.0);
+  vec3 color = vec3(0.4, 0.23, 0.8);
+  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
+
+  color = purple_circle(pos, u_time, audio);
+  // color = orange_circle_bright_purple_bg(pos, u_time, audio);
+  gl_FragColor = vec4(color, 1.0);
 }
 
 // autocmd BufWritePost * execute '!git add % && git commit -m %'

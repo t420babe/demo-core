@@ -1,8 +1,8 @@
 #ifndef SOFT_RETRO_STEP
 #define SOFT_RETRO_STEP
 
-#ifndef FNC_AASTEP
-#include "../pixel-spirit-deck/aastep.glsl"
+#ifndef PXL_AASTEP
+#include "./lib/pxl/aastep-sdf.glsl"
 #endif
 
 vec3 soft_retro_step(vec2 pos) {
