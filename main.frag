@@ -40,7 +40,11 @@ void main() {
   // sayin_sayin_retro_vibez_1(pos, u_time, audio, color);
   // sayin_sayin_sliding(pos, u_time, audio, color);
   // sayin_sayin_sliding_in(pos, u_time, audio, color);
-  sayin_sayin_sliding_in_cyan_square(pos, u_time, audio, color);
+  // sayin_sayin_sliding_in_cyan_square(pos, u_time, audio, color);
+  // sayin_sayin_digital_black_hole(pos, u_time, audio, color);
+  // doppler_rainbow_heart(pos, u_time, audio, color);
+  // doppler_sofias_rainbow(pos, u_time, audio, color);
+  doppler_blue_web(pos, u_time, audio, color);
 	// hypnotized_by_the_light(pos, u_time, audio, color);
   gl_FragColor = vec4(color, 1.0);
 }
