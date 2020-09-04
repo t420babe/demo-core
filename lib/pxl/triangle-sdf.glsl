@@ -28,6 +28,11 @@
 
 #ifndef PXL_TRIANGLE
 #define PXL_TRIANGLE
+float triangle_0(vec2 st) {
+    st = (st*2.-1.) * 1.5;
+    return max(abs(st.x) * 0.866025 + st.y * 0.5, -st.x * 0.5);
+}
+
 float triangle_sdf(vec2 st) {
     st = (st*2.-1.)*2.;
     return max(abs(st.x) * 0.866025 + st.y * 0.5, -st.y * 0.5);

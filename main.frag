@@ -19,53 +19,28 @@ void main() {
   vec3 color = vec3(1.0);
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
 
-  // doppler(pos, u_time, color);
-	// doppler_step_pink_blue(pos, u_time, audio, color);
-	// doppler_spaceship(pos, u_time, audio, color);
-	// doppler_diamond_collide(pos, u_time, audio, color);
-	// doppler_plaid(pos, u_time, audio, color);
-	// doppler_cross_plaid(pos, u_time, audio, color);
-	// doppler_cross_plaid_glitch(pos, u_time, audio, color);
-	// flossy_glossy(pos, u_time, audio, color);
-  // choppy_glossy(pos, u_time, audio, color);
-  // plaid_choppy_glossy(pos, u_time, audio, color);
-  // choppy_doppler_square_fractal(pos, u_time, audio, color);
-  // choppy_doppler_square_fractal_zoom_out(pos, u_time, audio, color);
-  // square_doppler_pulse(pos, u_time, audio, color);
-  // sea_urchin_doppler(pos, u_time, audio, color);
-  // vagina_sea_urchin_doppler(pos, u_time, audio, color);
-  // sea_urchin_mouth_doppler(pos, u_time, audio, color);
-  // butterfly_doppler(pos, u_time, audio, color);
-  // cacoon_doppler(pos, u_time, audio, color);
-  // curly_butterfly_doppler(pos, u_time, audio, color);
-  // cube_guppy_doppler(pos, u_time, audio, color);
-	// doppler_morph(pos, u_time, audio, color);
-	// doppler_trippy_diamond(pos, u_time, audio, color);
-	// doppler_trippy_melting_diamond(pos, u_time, audio, color);
-	// doppler_twisting_timer(pos, u_time, audio, color);
-	// doppler_melting_square_glitch(pos, u_time, audio, color);
-	// doppler_pink_blue_sand(pos, u_time, audio, color);
-  // doppler_blue_fights_pink(pos, u_time, audio, color);
-  // doppler_shaky_blue(pos, u_time, audio, color);
-  // doppler_shaky_shaky(pos, u_time, audio, color);
-  // doppler_cross_step(pos, u_time, audio, color);
-  // doppler_blue_step_cross(pos, u_time, audio, color);
-  // doppler_blue_step_cross_horizontal(pos, u_time, audio, color);
-  // doppler_blue_cross(pos, u_time, audio, color);
-  // doppler_blue_cross_spinning(pos, u_time, audio, color);
-	// doppler_sun_star_rooster(pos, u_time, audio, color);
-  // doppler_green_rooster(pos, u_time, audio, color);
-  // doppler_sofias_rainbow(pos, u_time, audio, color);
-  // doppler_rainbow_heart(pos, u_time, audio, color);
-  // doppler_sharp_heart(pos, u_time, audio, color);
-  doppler_blue_web(pos, u_time, audio, color);
-  // purple_concentric(pos, u_time, audio, color);
-  // green_concentric(pos, u_time, audio, color);
-
-
-
+  // doppler_blue_web(pos, u_time, audio, color);
+  // sayin_sayin_deep_blue(pos, u_time, audio, color);
+  // sayin_sayin_red(pos, u_time, audio, color);
+  // sayin_sayin_break(pos, u_time, audio, color);
+  // sayin_sayin_single_red_fracture(pos, u_time, audio, color);
+	// sayin_sayin_red_fracture(pos, u_time, audio, color);
+  // sayin_sayin_blue_single_fracture(pos, u_time, audio, color);
+  // sayin_sayin_dancing_blue_clock(pos, u_time, audio, color);
+	// sayin_sayin_blue_clock(pos, u_time, audio, color);
+	// sayin_sayin_cyan_black_clock(pos, u_time, audio, color);
+	// sayin_sayin_blue_clock_og(pos, u_time, audio, color);
+	// sayin_sayin_blue_wiggly_clock(pos, u_time, audio, color);
+  // sayin_sayin_cyan_schnoodle(pos, u_time, audio, color);
+  // sayin_sayin_red_line_zoom(pos, u_time, audio, color);
+  // sayin_sayin_red_kal(pos, u_time, audio, color);
+  // sayin_sayin_red_kal_2(pos, u_time, audio, color);
+  // sayin_sayin_red_line_zoom(pos, u_time, audio, color);
+  // sayin_sayin_retro_vibez_0(pos, u_time, audio, color);
+  // sayin_sayin_retro_vibez_1(pos, u_time, audio, color);
+  // sayin_sayin_sliding(pos, u_time, audio, color);
+  // sayin_sayin_sliding_in(pos, u_time, audio, color);
+  sayin_sayin_sliding_in_cyan_square(pos, u_time, audio, color);
+	// hypnotized_by_the_light(pos, u_time, audio, color);
   gl_FragColor = vec4(color, 1.0);
 }
-
-// autocmd BufWritePost * execute '!git add % && git commit -m %'
-

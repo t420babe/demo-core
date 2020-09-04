@@ -13,6 +13,10 @@
 #include "./lib/t420babe/doppler.glsl"
 #endif
 
+#ifndef T420BABE_HYPNOTIZED
+#include "./lib/t420babe/hypnotized.glsl"
+#endif
+
 // #ifndef T420BABE_IDONTEVENMEANWHATISAY
 // #include "./lib/t420babe/idontevenmeanwhatisay.glsl"
 // #endif
@@ -31,6 +35,10 @@
 
 #ifndef T420BABE_ROTATING_LINES
 #include "./lib/t420babe/rotating-lines.glsl"
+#endif
+
+#ifndef T420BABE_SAYIN_SAYIN
+#include "./lib/t420babe/sayin-sayin.glsl"
 #endif
 
 #ifndef T420BABE_SOFT_RETRO_STEP

@@ -21,6 +21,14 @@ Mess with the positions under RRTI for really cool effects
 
 - `lib/t420babe/audio-circle.aa.glsl` `void doppler_purple(vec2 pos, float u_time, peakamp audio, out vec3 color)`
 
+- `lib/t420babe/sayin-sayin.glsl` `void sayin_sayin_blue_clock_arrow(vec2 pos, float u_time, peakamp audio, out vec3 color)`
+
+- `lib/t420babe/sayin-sayin.glsl` `void sayin_sayin_red_kal(vec2 pos, float u_time, peakamp audio, out vec3 color)`
+
+- `lib/t420babe/sayin-sayin.glsl` `void sayin_sayin_kal(vec2 pos, float u_time, peakamp audio, out vec3 color)`
+
+- `lib/t420babe/sayin-sayin.glsl` `void sayin_sayin_sliding_in_cyan_square(vec2 pos, float u_time, peakamp audio, out vec3 color)`
+
 File name format:
 `*.aa.glsl` - Ableton audio expects peakamp of `u_lowpass`, `u_highpass`, `u_notch`, `u_bandpass`
 
@@ -31,6 +39,7 @@ Auto commit on save:
 Set:
 - ridge.glsl - Brain Juice by DARK $
 - `doppler_audio` - Moonlight by Gaulin 20 qmetro
+- `hypnotized_by_the_light` - Hypnotized - Loods Remix by Purple Disco Machine, Sophie and the Giants
 
 
 Songs:
@@ -43,3 +52,37 @@ Remaining:
 - make the doppler shader easier to use. split into multiple functions then also make the idx option in the main doppler function
 
 
+
+Maybe go back to these commits:
+88c657b35426b87f109d2ffa32c0fd51465f930e
+
+All functions in `lib/pxl` that have `sdf` appended to the function definition have this license:
+```
+/*
+ Copyright (c) 2017 Patricio Gonzalez Vivo ( http://www.pixelspiritdeck.com )
+ All rights reserved.
+ 
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are
+ met:
+ 
+ Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+ 
+ Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in the
+ documentation and/or other materials provided with the distribution.
+ 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+```
