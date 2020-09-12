@@ -3,7 +3,7 @@ precision mediump float;
 #endif
 
 #ifndef COMMON
-#include "./lib/common/common.glsl"
+#include "./lib/common/00-common.glsl"
 #endif
 
 #ifndef PXL

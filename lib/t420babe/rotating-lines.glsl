@@ -2,7 +2,7 @@
 #define T420BABE_ROTATING_LINES
 
 #ifndef COMMON_COMMON
-#include "lib/common/common.glsl"
+#include "lib/common/00-common.glsl"
 #endif
 
 

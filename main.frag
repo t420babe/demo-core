@@ -28,7 +28,7 @@ uniform float u_time;
 // Author @patriciogv - 2015
 // http://patriciogonzalezvivo.com
 #ifndef COMMON_COMMON
-#include "./common/common.glsl"
+#include "./common/00-common.glsl"
 #endif
 
 #ifndef PXL

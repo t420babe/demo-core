@@ -3,7 +3,7 @@
 // t420babe idea: black and white then when beat drop add in color
 
 #ifndef COMMON_COMMON
-#include "./lib/common/common.glsl"
+#include "./lib/common/00-common.glsl"
 #endif
 // Inspiration and original functions by @patriciogv - 2015, Tittle: Ridge
 

@@ -4,7 +4,7 @@
 #include "./lib/pxl/math-sdf.glsl"
 #endif
 #ifndef COMMON
-#include "./lib/common/common.glsl"
+#include "./lib/common/00-common.glsl"
 #endif
 
 // 671e2bc, 20:25 red yellow black weird shape 

@@ -2,7 +2,7 @@
 #define PRACTICE_LINE_GRADIENT
 
 #ifndef COMMON_COMMON
-#include "lib/common/common.glsl"
+#include "lib/common/00-common.glsl"
 #endif
 
 

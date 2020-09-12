@@ -2,7 +2,7 @@
 #define T420BABE_AUDIO_CIRCLE
 
 #ifndef COMMON_COMMON
-#include "./lib/common/common.glsl"
+#include "./lib/common/00-common.glsl"
 #endif
 
 #ifndef PXL_PXL

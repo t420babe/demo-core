@@ -2,7 +2,7 @@
 #define PULSE_X_MAX
 
 #ifndef COMMON_COMMON
-#include "../common/common.glsl"
+#include "./lib/common/00-common.glsl"
 #endif
 
 vec2 pulse_x_pos(vec2 pos, float audio_multiplier) {
