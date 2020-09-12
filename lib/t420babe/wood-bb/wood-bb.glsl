@@ -6,7 +6,7 @@
 #endif
 
 #ifndef PXL_PXL
-#include "../pxl/00-pxl.glsl"
+#include "./lib/pxl/00-pxl.glsl"
 #endif
 
 

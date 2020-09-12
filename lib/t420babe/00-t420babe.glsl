@@ -54,12 +54,19 @@
 #endif
 
 #ifndef T420BABE_WOOD_BB
-#include "./lib/t420babe/wood-bb.glsl"
+#include "./lib/t420babe/wood-bb/wood-bb.glsl"
 #endif
 
 #ifndef T420BABE_WOOD_BROTHER_LOUIE
-#include "./lib/t420babe/wood-brother-louie.glsl"
+#include "./lib/t420babe/wood-bb/wood-brother-louie.glsl"
 #endif
 
+#ifndef T420BABE_WOOD_BROTHER_LOUIE_1
+#include "./lib/t420babe/wood-bb/wood-brother-louie-1.glsl"
+#endif
+
+#ifndef T420BABE_WOOD_BROTHER_LOUIE_2
+#include "./lib/t420babe/wood-bb/wood-brother-louie-2.glsl"
+#endif
 
 #endif

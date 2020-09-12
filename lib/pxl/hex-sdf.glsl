@@ -59,7 +59,25 @@ float hexagon_sdf(vec2 st) {
 }
 
 // wood_brother_louie
-float wbl_hexagon(vec2 pos, float size, peakamp audio, float full_max) {
+float wbl1_hexagon(vec2 pos, float size, peakamp audio) {
+  pos = abs(pos * 1.0);
+  pos /= size;
+  float hexagon = 1.0;
+  // if (audio.notch * 100.0 > 100.0) {
+  // if (audio.bandpass > 0.9) {
+  // if (audio.bandpass > 0.5) {
+  // if (audio.notch > 0.5) {
+  if (audio.notch > 0.4) {
+  // if (full_max > 100.0) {
+    hexagon =  max(abs(pos.y), pos.x * 0.866025 + pos.y * 0.5);
+  }  else {
+    hexagon =  max(abs(pos.y), pos.x * 0.866025 + pos.y * 0.0);
+  }
+  return hexagon;
+}
+
+// wood_brother_louie
+float wbl_hexagon(vec2 pos, float size, peakamp audio) {
   pos = abs(pos * 1.0);
   pos /= size;
   float hexagon = 1.0;

@@ -1,7 +1,6 @@
 #ifndef T420BABE_WOOD_BROTHER_LOUIE
 #define T420BABE_WOOD_BROTHER_LOUIE
-// Author @patriciogv - 2015
-// http://patriciogonzalezvivo.com
+// 2226a23, 23:42 hex rect wood bb
 #ifndef COMMON_COMMON
 #include "./lib/common/00-common.glsl"
 #endif
@@ -43,14 +42,7 @@ float wbl_lines(in vec2 pos, float b){
 
 // vec3 wbl_wood(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full_max) {
 void wbl_wood(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-  audio.notch *= 1.0;
-  audio.bandpass *= 1.0;
-  audio.highpass *= 1.0;
-  audio.lowpass *= 1.0;
-// void wbl_wood(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   pos = square_position(pos);
-  // float full_ave = audio.notch * 200.0;
-  // float full_max = audio.bandpass * 200.0;
 
   vec2 pos2 = pos.yx*vec2(10. * tan(u_time),10. * fract(u_time));
 
@@ -67,7 +59,7 @@ void wbl_wood(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   // return  vec3(color.x + sin(u_time) * 1.1, 0.9, color.x - 0.1);
 
   float size = 5.5;
-  color += SHARP(wbl_hexagon(pos * audio_ave * 4.0, size, audio, audio_ave));
+  color += SHARP(wbl_hexagon(pos * audio_ave * 4.0, size, audio));
   // color += SHARP(wbl_hexagon(pos * full_ave * 0.5, size, audio, full_max));
   // color += SHARP(wbl_hexagon(pos * rotate2d(full_ave * 0.1), full_ave, audio));
 
