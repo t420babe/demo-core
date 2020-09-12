@@ -86,3 +86,6 @@ All functions in `lib/pxl` that have `sdf` appended to the function definition h
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 ```
+
+- just have everything in one single include file that you point to in the cli command.
+      one main include per dir, all the way up to the top level lib
