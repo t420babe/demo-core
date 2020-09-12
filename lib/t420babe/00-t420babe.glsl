@@ -53,4 +53,13 @@
 #include "./lib/t420babe/umbrella.glsl"
 #endif
 
+#ifndef T420BABE_WOOD_BB
+#include "./lib/t420babe/wood-bb.glsl"
+#endif
+
+#ifndef T420BABE_WOOD_BROTHER_LOUIE
+#include "./lib/t420babe/wood-brother-louie.glsl"
+#endif
+
+
 #endif

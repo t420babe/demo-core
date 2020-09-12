@@ -1,8 +1,8 @@
 #ifndef T420BABE_RAINBOW_SCALES
 #define T420BABE_RAINBOW_SCALES
 
-#ifndef COMMON_TRANSFORM
-#include "./lib/common/transform.glsl"
+#ifndef COMMON_COMMON
+#include "./lib/common/common.glsl"
 #endif
 
 vec2 rainbow_position(vec2 pos, vec2 u_resolution, float u_time) {
@@ -80,7 +80,7 @@ vec3 rainbow_0(vec2 pos, vec2 u_resolution, float u_time, vec2 u_mouse) {
 vec3 rainbow_1(vec2 pos, vec2 u_resolution, float u_time, vec2 u_mouse) {
   pos = rainbow_position(pos, u_resolution, u_time);
   pos.y -= 0.5;
-  vec3 color = rainbow_scales_1(pos, u_time);
+  vec3 color = rainbow_scales_1(pos, u_time * 0.1);
   color =  vec3(color.x * pos.y, color.x, color.x);
   return vec3(color.x * pos.y, color.x, color.x);
 }

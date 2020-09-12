@@ -11,6 +11,7 @@
 
 // be8e320, main.frag
 void doppler_blue_web(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+  pos *= 5.0;
   pos.x += 0.5;
   pos.y += 0.50;
   color = vec3(1.1, 0.1234, 0.34);
@@ -23,14 +24,19 @@ void doppler_blue_web(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   // float pct = sharp(hexagon_sdf(pos) / 10.0) * u_highpass;
   // pct += sharp(heart_sdf(pos + sin(u_time) * cos(u_time)));
   // pct += heart_sdf(pos);
-  float pct = heart_sdf(pos) * audio.notch;
-  // pct = sharp(pct);
+  // float pct = heart_web(pos, audio, u_time) * audio.notch * 10.0;
+  float pct = triangle_web_1(pos, audio, u_time) * audio.notch * 10.0;
+  // float pct = triangle_sdf(pos) * audio.notch * 10.0;
+  pct = sharp(pct);
   // float pct2 = (hexagon_sdf(pos) / 10.0) * u_highpass;
-  float pct2 = (hexagon_sdf(pos) / 1.0);
+  // float pct2 = (hexagon_sdf(pos) / 1.0);
+  float pct2 = (hexagon_web(pos) / 1.0);
   // pct2 = 0.5;
   // pct2 *= 2.0;
-  color = vec3(pct * color + color.gbr * pct2);
-  color.r -= 0.4;
+  color = vec3(pct * color * color + abs(cos(pct2)));
+  color.r += -0.6;
+  color.b += sin_in(audio.bandpass * 5.0);
+  color.g += 0.4;
 }
 
 // 9643dad, 20:38 heart
@@ -298,6 +304,30 @@ void doppler_pink_blue_sand(vec2 pos, float u_time, peakamp audio, out vec3 colo
 
   // color = vec3(clamp(color.x, 0.0, 0.5), color.y, color.z);
   color = vec3(color.x * audio.highpass, color.y * audio.lowpass, color.z);
+}
+
+// af8eb42b, 00:25 melting squares
+void doppler_melting_square_glitch_fuck_with(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+  float w_time = sin(u_time);
+  // float w_time = log(sin(u_time));
+
+  pos /= abs(w_time);
+  pos *= 4.0;
+  // RRTI: (Transition Idea):
+  pos *= rotate(pos, 0.0, 4.0); // then on the beat:
+  // pos *= rotate(pos, fract(pos.y), 4.0);   // then on beat:
+  pos *= rotate(pos, (sin(u_time))/exp(pos.x), 1.0);
+  pos *= rotate(pos, (cos(u_time))/cos(pos.y * pos.y), 1.0);
+
+
+  // color = vec3(1.0, 0.1234, abs(tan(u_time)));
+  color = vec3(1.0, 0.1234, clamp(abs(tan(u_time)), 0.0, 0.5));
+
+  float pct = aastep(-pos.x, -pos.y);
+  float pct2 = circle_0(pos * w_time, audio.bandpass * 10.0);
+  color = vec3(pct * color + color * pct2);
+
+  color = vec3(clamp(color.x, 0.0, 0.5), color.y, color.z);
 }
 
 // af8eb42b, 00:25 melting squares

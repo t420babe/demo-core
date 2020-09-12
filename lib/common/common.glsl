@@ -1,6 +1,10 @@
 #ifndef COMMON_COMMON
 #define COMMON_COMMON
 
+#ifndef COMMON_SETUP
+#include "./lib/common/setup.glsl"
+#endif
+
 #ifndef COMMON_STRUCTS
 #include "./lib/common/structs.glsl"
 #endif
