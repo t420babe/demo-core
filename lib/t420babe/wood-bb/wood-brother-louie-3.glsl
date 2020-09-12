@@ -52,7 +52,8 @@ void wbl3_wood(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   color = vec3(pattern);
 
   float size = 1.5;
-  color += SHARP(wbl3_rect(pos, vec2(1.5, 1.5), audio));
+  // color += SHARP(wbl3_rect(pos, vec2(1.5, 1.5), audio));
+  color -= wbl3_rect(pos + vec2(0.5), vec2(1.5, 1.5), audio);
   // color += SHARP(wbl3_rect(pos, vec2(1.5, 1.5), audio));
   color -= SHARP(wbl1_hexagon(pos * audio_ave * 4.0, size, audio));
   // color += SHARP(hexSDF(pos * rotate2d(full_ave * 0.1), full_ave));
