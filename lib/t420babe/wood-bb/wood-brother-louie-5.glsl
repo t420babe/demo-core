@@ -125,7 +125,7 @@ void wbl5c_wood(vec2 pos, float u_time, peakamp audio, out vec3 color) {
     }
 }
 
-// In Memoriam (Mixed) - Ben Bohmer
+// Decade - Ben Bohmer ft Jan Blomqvist
 void wbl5d_wood(vec2 pos, float u_time, peakamp audio, out vec3 color) {
 
     // vec2 pos2 = pos.yx*vec2(10. * sin(u_time),10.);

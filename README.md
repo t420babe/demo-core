@@ -33,6 +33,10 @@ Mess with the positions under RRTI for really cool effects
 
 - `lib/t420babe/wood-bb/wood-brother-louie-5.glsl`
 
+- `lib/t420babe/wood-bb/wood-brother-louie-7.glsl`
+
+- `lib/t420babe/wood-bb/wood-brother-louie-8.glsl`
+
 File name format:
 `*.aa.glsl` - Ableton audio expects peakamp of `u_lowpass`, `u_highpass`, `u_notch`, `u_bandpass`
 
