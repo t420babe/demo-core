@@ -29,6 +29,10 @@ Mess with the positions under RRTI for really cool effects
 
 - `lib/t420babe/sayin-sayin.glsl` `void sayin_sayin_sliding_in_cyan_square(vec2 pos, float u_time, peakamp audio, out vec3 color)`
 
+- `lib/t420babe/wood-bb/caterpillar.glsl`
+
+- `lib/t420babe/wood-bb/wood-brother-louie-5.glsl`
+
 File name format:
 `*.aa.glsl` - Ableton audio expects peakamp of `u_lowpass`, `u_highpass`, `u_notch`, `u_bandpass`
 
@@ -40,6 +44,7 @@ Set:
 - ridge.glsl - Brain Juice by DARK $
 - `doppler_audio` - Moonlight by Gaulin 20 qmetro
 - `hypnotized_by_the_light` - Hypnotized - Loods Remix by Purple Disco Machine, Sophie and the Giants
+- `wbl5c_wood` - In Memoriam (Mixed) - Ben Bohmer
 
 
 Songs:
