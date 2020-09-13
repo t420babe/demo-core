@@ -37,6 +37,10 @@
 #include "./lib/t420babe/rainbow-scales.glsl"
 #endif
 
+#ifndef T420BABE_RIDGE_1
+#include "./lib/t420babe/ridge-1.glsl"
+#endif
+
 #ifndef T420BABE_ROTATING_LINES
 #include "./lib/t420babe/rotating-lines.glsl"
 #endif
