@@ -1,7 +1,6 @@
 #ifndef T420BABE_WOOD_BROTHER_LOUIE_3
 #define T420BABE_WOOD_BROTHER_LOUIE_3
-// 22c935e, 23:46
-// difference is the color: `color = vec3(0.7, color.g - 0.6, color.b + 0.4);`
+// 755320c, 18:27 hesagrownassfirefighter
 #ifndef COMMON_COMMON
 #include "./lib/common/00-common.glsl"
 #endif
@@ -42,9 +41,7 @@ float wbl3_lines(in vec2 pos, float b){
 }
 
 void wbl3_wood(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-  // pos = square_position(pos);
 
-  // vec2 pos2 = pos.yx*vec2(10. * sin(u_time),10.);
   vec2 pos2 = pos.yx;
 
   float pattern = pos2.x;
@@ -57,15 +54,11 @@ void wbl3_wood(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   pattern = wbl3_lines(pos2,0.1);
 
   color = vec3(pattern);
-  // return  vec3(color.x + sin(u_t) * 1.1, 0.9, color.x - 0.1);
 
   float size = 1.5;
   color += SHARP(wbl1_hexagon(pos * audio_ave * 4.0, size, audio));
-  // color += SHARP(hexSDF(pos * rotate2d(full_ave * 0.1), full_ave));
 
-  // if (full_max > 50.0  && full_max < 70.0) {
   if (audio.lowpass < 0.65) {
-    // color = vec3(0.7, color.g - 0.6, color.b + 0.4);
     color = vec3(color.r + 0.1, color.g - 0.6, color.b + 0.4);
   }
 }
