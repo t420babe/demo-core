@@ -102,8 +102,7 @@ float ridgedMF(vec2 p, float u_t) {
     // float n = ridge(r1_snoise(p*freq * tan( 0.05 * u_t + sin(u_t))), offset);
     // float n = ridge(r1_snoise(p*freq * tan( 1.05 *  sin(u_t))), offset);
     // float n = ridge(r1_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_t))), offset + move_time);
-    float n = ridge(r1_snoise(p*freq * 0.1 * atan( u_time * 0.5   )), offset + move_time);
-    // float n = ridge(r1_snoise(p*freq), offset + move_time);
+    float n = ridge(r1_snoise(p*freq), offset + move_time);
     // RR YES:
     // float n = ridge(r1_snoise(p*freq * ( 1.05 *  sin(0.5 * u_t))), offset + move_time);
     sum += n*amp;

@@ -61,7 +61,7 @@ float r1_snoise(vec2 v) {
   //  The ring size 17*17 = 289 is close to a multiple
   //      of 41 (41*7 = 287)
 
-  vec3 x = 2.0 * fract(p * C.www) - 1.0;
+  vec3 x = 2.0 * (p * C.www) - 1.0;
   vec3 h = abs(x) - 0.5;
   vec3 ox = log(floor(x + 0.5));
   vec3 a0 = x - ox;
@@ -101,9 +101,7 @@ float ridgedMF(vec2 p, float u_t) {
   for(int i=0; i < OCTAVES; i++) {
     // float n = ridge(r1_snoise(p*freq * tan( 0.05 * u_t + sin(u_t))), offset);
     // float n = ridge(r1_snoise(p*freq * tan( 1.05 *  sin(u_t))), offset);
-    // float n = ridge(r1_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_t))), offset + move_time);
-    float n = ridge(r1_snoise(p*freq * 0.1 * atan( u_time * 0.5   )), offset + move_time);
-    // float n = ridge(r1_snoise(p*freq), offset + move_time);
+    float n = ridge(r1_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_t))), offset + move_time);
     // RR YES:
     // float n = ridge(r1_snoise(p*freq * ( 1.05 *  sin(0.5 * u_t))), offset + move_time);
     sum += n*amp;
@@ -126,6 +124,10 @@ void ridge_1_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   audio.notch *= 100.0;
 
   color += ridgedMF(pos * 20.0, audio.bandpass * pos.x); 
+
+  float time_limit = 20.0;
+  float time_segment = 4.0;
+  float mod_time = mod(u_time, time_limit);
 
   color = vec3(color.r - 0.3, 0.3, color.y * abs(sin(u_time)));
 }
