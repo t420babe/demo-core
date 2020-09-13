@@ -9,6 +9,10 @@
 #include "./lib/t420babe/babydoyougetme.glsl"
 #endif
 
+#ifndef T420BABE_CATERPILLAR
+#include "./lib/t420babe/wood-bb/caterpillar.glsl"
+#endif
+
 #ifndef T420BABE_DOPPLER
 #include "./lib/t420babe/doppler.glsl"
 #endif

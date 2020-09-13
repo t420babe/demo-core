@@ -7,9 +7,9 @@ precision mediump float;
 #endif
 
 
-uniform float full_min;
-uniform float full_ave;
-uniform float full_max;
+// uniform float full_min;
+// uniform float full_ave;
+// uniform float full_max;
 
 uniform float u_lowpass;
 uniform float u_highpass;
@@ -24,9 +24,6 @@ uniform float u_time;
 
 #endif
 
-/* BEGIN */
-// Author @patriciogv - 2015
-// http://patriciogonzalezvivo.com
 #ifndef COMMON_COMMON
 #include "./common/00-common.glsl"
 #endif
@@ -46,7 +43,8 @@ void main() {
   // wood_bb_red_noise(pos, u_time, audio, color);
   // wbl_wood(pos, u_time, audio, color);
   // wbl2_wood(pos, u_time, audio, color);
-  wbl3_wood(pos, u_time, audio, color);
+  // wbl3_wood(pos, u_time, audio, color);
   // wbl4_wood(pos, u_time, audio, color);
+  caterpillar(pos, u_time, audio, color);
   gl_FragColor = vec4(color, 1.0);
 }
