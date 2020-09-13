@@ -73,4 +73,8 @@
 #include "./lib/t420babe/wood-bb/wood-brother-louie-3.glsl"
 #endif
 
+#ifndef T420BABE_WOOD_BROTHER_LOUIE_4
+#include "./lib/t420babe/wood-bb/wood-brother-louie-4.glsl"
+#endif
+
 #endif

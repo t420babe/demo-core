@@ -46,6 +46,7 @@ void main() {
   // wood_bb_red_noise(pos, u_time, audio, color);
   // wbl_wood(pos, u_time, audio, color);
   // wbl2_wood(pos, u_time, audio, color);
-  wbl3_wood(pos, u_time, audio, color);
+  // wbl3_wood(pos, u_time, audio, color);
+  wbl4_wood(pos, u_time, audio, color);
   gl_FragColor = vec4(color, 1.0);
 }
