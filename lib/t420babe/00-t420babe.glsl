@@ -57,6 +57,14 @@
 #include "./lib/t420babe/ridge/ridge-3.glsl"
 #endif
 
+#ifndef T420BABE_RIDGE_4
+#include "./lib/t420babe/ridge/ridge-4.glsl"
+#endif
+
+#ifndef T420BABE_RIDGE_5
+#include "./lib/t420babe/ridge/ridge-5.glsl"
+#endif
+
 #ifndef T420BABE_ROTATING_LINES
 #include "./lib/t420babe/rotating-lines.glsl"
 #endif

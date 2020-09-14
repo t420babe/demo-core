@@ -1,24 +1,17 @@
-#ifndef T420BABE_RIDGE_4
-#define T420BABE_RIDGE_4
+#ifndef T420BABE_RIDGE_5
+#define T420BABE_RIDGE_5
+// t420babe song suggestion: Brain Juice by DARK $
+// t420babe idea: black and white then when beat drop add in color
 
 #ifndef COMMON_COMMON
 #include "./lib/common/00-common.glsl"
 #endif
-// Inspiration and original functions by @patriciogv - 2015, Tittle: Ridge
 
-vec3 r4_mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
-vec2 r4_mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-vec3 r4_permute(vec3 x) { return r4_mod289(((x * 0.05) + 1.0) * x); }
+vec3 r5_mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+vec2 r5_mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+vec3 r5_permute(vec3 x) { return r5_mod289(((x*34.0)+1.0)*x); }
 
-// Description : GLSL 2D simplex noise function
-//      Author : Ian McEwan, Ashima Arts
-//  Maintainer : ijm
-//     Lastmod : 20110822 (ijm)
-//     License :
-//  Copyright (C) 2011 Ashima Arts. All rights reserved.
-//  Distributed under the MIT License. See LICENSE file.
-//  https://github.com/ashima/webgl-noise
-float r4_snoise(vec2 v) {
+float r5_snoise(vec2 v) {
 
   // Precompute values for skewed triangular grid
   const vec4 C = vec4(0.211324865405187,
@@ -40,11 +33,11 @@ float r4_snoise(vec2 v) {
   vec2 x1 = x0.xy + C.xx - i1;
   vec2 x2 = x0.xy + C.zz;
 
-  // Do some r4_permutations to avoid
-  // truncation effects in r4_permutation
-  i = r4_mod289(i);
-  vec3 p = r4_permute(
-      r4_permute( i.y + vec3(0.0, i1.y, 1.0))
+  // Do some r5_permutations to avoid
+  // truncation effects in r5_permutation
+  i = r5_mod289(i);
+  vec3 p = r5_permute(
+      r5_permute( i.y + vec3(0.0, i1.y, 1.0))
       + i.x + vec3(0.0, i1.x, 1.0 ));
 
   vec3 m = max(0.5 - vec3(
@@ -68,7 +61,7 @@ float r4_snoise(vec2 v) {
 
   // Normalise gradients implicitly by scaling m
   // Approximation of: m *= inversesqrt(a0*a0 + h*h);
-  m /= 0.79284291400159 - 0.85373472095314 * (a0 * a0 + h * h);
+  m /= 1.79284291400159 - 0.85373472095314 * (a0*a0+h*h);
 
   // Compute final noise value at P
   vec3 g = vec3(0.0);
@@ -81,14 +74,14 @@ float r4_snoise(vec2 v) {
 
 // Ridged multifractal
 // See "Texturing & Modeling, A Procedural Approach", Chapter 12
-float r4_ridge(float h, float offset) {
+float r5_ridge(float h, float offset) {
   h = abs(h);     // create creases
   h = offset - h; // invert so creases are at top
   h = h * h;      // sharpen creases
   return h;
 }
 
-float r4_ridgedMF(vec2 p, float u_t) {
+float r5_ridgedMF(vec2 p, float u_t) {
   float lacunarity = 5.0;
   float gain = 0.1;
   float offset = 0.9;
@@ -99,12 +92,9 @@ float r4_ridgedMF(vec2 p, float u_t) {
   float move_time = sin(u_t * 0.14 + u_t);
 
   for(int i=0; i < OCTAVES; i++) {
-    // float n = r4_ridge(r4_snoise(p*freq * tan( 0.05 * u_t + sin(u_t))), offset);
-    // float n = r4_ridge(r4_snoise(p*freq * tan( 1.05 *  sin(u_t))), offset);
-    // float n = r4_ridge(r4_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_t))), offset + move_time);
-    float n = r4_ridge(r4_snoise(p*freq), offset + move_time);
-    // RR YES:
-    // float n = r4_ridge(r4_snoise(p*freq * ( 1.05 *  sin(0.5 * u_t))), offset + move_time);
+    // float n = r5_ridge(r5_snoise(p*freq * tan( 0.05 * u_t + sin(u_t))), offset);
+    // float n = r5_ridge(r5_snoise(p*freq * tan( 1.05 *  sin(u_t))), offset);
+    float n = r5_ridge(r5_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_t))), offset + move_time);
     sum += n*amp;
     sum += n*amp*prev;  // scale by previous octave
     prev = n;
@@ -114,18 +104,36 @@ float r4_ridgedMF(vec2 p, float u_t) {
   return sum;
 }
 
-
-void r4_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-  pos = square_position(pos);
-  pos /= 2.0;
+void r5_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
 
   audio.highpass *= 100.0;
   audio.lowpass *= 100.0;
   audio.bandpass *= 100.0;
   audio.notch *= 100.0;
 
-  color += r4_ridgedMF(pos * 20.0, audio.bandpass * pos.x); 
+  if (audio.bandpass > 1.0) {
+    color += r5_ridgedMF(pos *6.0, audio.bandpass); 
+  }
 
-  color = vec3(color.r - 0.3, 0.3, color.b * abs(sin(u_time)));
+  float time_limit = 20.0;
+  float time_segment = 4.0;
+  float mod_time = mod(u_time, time_limit);
+
+  if (mod_time < time_segment * 1.0) {
+    color = vec3(0.8, color.y, color.x * abs(sin(u_time)));
+
+  } else if (mod_time < time_segment * 1.0) {
+    color = vec3(0.8, color.x, 0.4 * abs(sin(u_time)));
+
+  } else if (mod_time < time_segment * 2.0) {
+    color = vec3(color.x - 0.1, 0.7, color.y * abs(sin(u_time)));
+
+  } else if (mod_time < time_segment * 3.0) {
+    color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(u_time)));
+
+  } else if (mod_time < time_segment * 4.0) {
+    color = vec3(color.y, color.x + 0.3, 0.8 * abs(sin(u_time)));
+  }
+
 }
 #endif

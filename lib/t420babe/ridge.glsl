@@ -1,5 +1,6 @@
 #ifndef T420BABE_RIDGE
 #define T420BABE_RIDGE
+// 2d6aaf21, 01:30
 // t420babe song suggestion: Brain Juice by DARK $
 // t420babe idea: black and white then when beat drop add in color
 
@@ -12,14 +13,6 @@ vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
 vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
 vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
 
-// Description : GLSL 2D simplex noise function
-//      Author : Ian McEwan, Ashima Arts
-//  Maintainer : ijm
-//     Lastmod : 20110822 (ijm)
-//     License :
-//  Copyright (C) 2011 Ashima Arts. All rights reserved.
-//  Distributed under the MIT License. See LICENSE file.
-//  https://github.com/ashima/webgl-noise
 float snoise(vec2 v) {
 
   // Precompute values for skewed triangular grid

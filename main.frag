@@ -57,6 +57,8 @@ void main() {
   // alligator(pos, u_time, audio, color);
   // r1a_ridge_main(pos, u_time, audio, color);
   // r2_ridge_main(pos, u_time, audio, color);
-  r3_ridge_main(pos, u_time, audio, color);
+  // r3_ridge_main(pos, u_time, audio, color);
+  // r4_ridge_main(pos, u_time, audio, color);
+  r5_ridge_main(pos, u_time, audio, color);
   gl_FragColor = vec4(color, 1.0);
 }
