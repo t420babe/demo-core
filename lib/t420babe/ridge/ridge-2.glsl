@@ -115,8 +115,8 @@ void r2_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   audio.notch *= 100.0;
 
   color += r2_ridgedMF(pos * 20.0, audio.bandpass * pos.x); 
-  color *= r2_ridgedMF(pos * 20.0, audio.bandpass * pos.x * pos.y);
-  color += r2_ridgedMF(pos * 20.0, audio.bandpass * pos.x / pos.y);
+  // color *= r2_ridgedMF(pos * 20.0, audio.bandpass * pos.x * pos.y);
+  // color -= r2_ridgedMF(pos * 20.0, audio.bandpass * pos.x / pos.y);
 
   color = vec3(color.r - 0.3, color.g, color.b * abs(sin(u_time)));
 }
