@@ -68,8 +68,6 @@ float r2_snoise(vec2 v) {
   return 130.0 * dot(m, g);
 }
 
-#define OCTAVES 25
-
 // Ridged multifractal
 // See "Texturing & Modeling, A Procedural Approach", Chapter 12
 float r2_ridge(float h, float offset) {
@@ -89,10 +87,12 @@ float r2_ridgedMF(vec2 p, float u_t) {
   float prev = 1.0;
   float move_time = sin(u_t * 0.14 + u_t);
 
+  int octaves = 25;
   for(int i=0; i < OCTAVES; i++) {
     // float n = r2_ridge(r2_snoise(p*freq * tan( 0.05 * u_t + sin(u_t))), offset);
     // float n = r2_ridge(r2_snoise(p*freq * tan( 1.05 *  sin(u_t))), offset);
     float n = r2_ridge(r2_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_t))), offset + move_time);
+    // float n = r2_ridge(r2_snoise(p*freq * ( 1.05 *  (0.5 * u_t))), offset + move_time);
     // RR YES:
     // float n = r2_ridge(r2_snoise(p*freq * ( 1.05 *  sin(0.5 * u_t))), offset + move_time);
     sum += n*amp;
@@ -114,10 +114,12 @@ void r2_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   audio.bandpass *= 100.0;
   audio.notch *= 100.0;
 
+  // RR HERE MESS WITH THESE
   color += r2_ridgedMF(pos * 20.0, audio.bandpass * pos.x); 
-  // color *= r2_ridgedMF(pos * 20.0, audio.bandpass * pos.x * pos.y);
+  color *= r2_ridgedMF(pos * 20.0, audio.bandpass * pos.x * pos.y);
   // color -= r2_ridgedMF(pos * 20.0, audio.bandpass * pos.x / pos.y);
 
-  color = vec3(color.r - 0.3, color.g, color.b * abs(sin(u_time)));
+  // color = vec3(color.r - 0.3, color.g, color.b * abs(sin(u_time)));
+  color = vec3(color.r * tan(u_time), color.g, color.b * abs(sin(u_time)));
 }
 #endif

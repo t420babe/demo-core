@@ -1,34 +1,22 @@
-#ifndef T420BABE_RIDGE_1
-#define T420BABE_RIDGE_1
+#ifndef T420BABE_RIDGE_3
+#define T420BABE_RIDGE_3
 
 #ifndef COMMON_COMMON
 #include "./lib/common/00-common.glsl"
 #endif
-// Inspiration and original functions by @patriciogv - 2015, Tittle: Ridge
 
-vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
-vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-vec3 permute(vec3 x) { return mod289(((x * 0.05) + 1.0) * x); }
+vec3 r3_mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
+vec2 r3_mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+vec3 r3_permute(vec3 x) { return r3_mod289(((x * 0.05) + 1.0) * x); }
 
-// Description : GLSL 2D simplex noise function
-//      Author : Ian McEwan, Ashima Arts
-//  Maintainer : ijm
-//     Lastmod : 20110822 (ijm)
-//     License :
-//  Copyright (C) 2011 Ashima Arts. All rights reserved.
-//  Distributed under the MIT License. See LICENSE file.
-//  https://github.com/ashima/webgl-noise
-float r1_snoise(vec2 v) {
+float r3_snoise(vec2 v) {
 
   // Precompute values for skewed triangular grid
-  const vec4 C = vec4(0.211324865405187,
-      // (3.0-sqrt(3.0))/6.0
-      0.366025403784439,
-      // 0.5*(sqrt(3.0)-1.0)
-      -0.577350269189626,
-      // -1.0 + 2.0 * C.x
-      0.024390243902439);
+  // (3.0-sqrt(3.0))/6.0
+  // 0.5*(sqrt(3.0)-1.0)
+  // -1.0 + 2.0 * C.x
   // 1.0 / 41.0
+  const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
 
   // First corner (x0)
   vec2 i  = floor(v + dot(v, C.yy));
@@ -42,16 +30,10 @@ float r1_snoise(vec2 v) {
 
   // Do some permutations to avoid
   // truncation effects in permutation
-  i = mod289(i);
-  vec3 p = permute(
-      permute( i.y + vec3(0.0, i1.y, 1.0))
-      + i.x + vec3(0.0, i1.x, 1.0 ));
+  i = r3_mod289(i);
+  vec3 p = r3_permute( r3_permute( i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0 ));
 
-  vec3 m = max(0.5 - vec3(
-        dot(x0,x0),
-        dot(x1,x1),
-        dot(x2,x2)
-        ), 0.0);
+  vec3 m = max(0.5 - vec3( dot(x0,x0), dot(x1,x1), dot(x2,x2)), 0.0);
 
   m = m*m ;
   m = m*m ;
@@ -77,18 +59,17 @@ float r1_snoise(vec2 v) {
   return 130.0 * dot(m, g);
 }
 
-#define OCTAVES 25
 
 // Ridged multifractal
 // See "Texturing & Modeling, A Procedural Approach", Chapter 12
-float ridge(float h, float offset) {
+float r3_ridge(float h, float offset) {
   h = abs(h);     // create creases
   h = offset - h; // invert so creases are at top
   h = h * h;      // sharpen creases
   return h;
 }
 
-float ridgedMF(vec2 p, float u_t) {
+float r3_ridgedMF(vec2 p, float u_t) {
   float lacunarity = 5.0;
   float gain = 0.1;
   float offset = 0.9;
@@ -98,12 +79,13 @@ float ridgedMF(vec2 p, float u_t) {
   float prev = 1.0;
   float move_time = sin(u_t * 0.14 + u_t);
 
+  int octaves = 25;
   for(int i=0; i < OCTAVES; i++) {
-    // float n = ridge(r1_snoise(p*freq * tan( 0.05 * u_t + sin(u_t))), offset);
-    // float n = ridge(r1_snoise(p*freq * tan( 1.05 *  sin(u_t))), offset);
-    float n = ridge(r1_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_t))), offset + move_time);
+    // float n = r3_ridge(r3_snoise(p*freq * tan( 0.05 * u_t + sin(u_t))), offset);
+    // float n = r3_ridge(r3_snoise(p*freq * tan( 1.05 *  sin(u_t))), offset);
+    float n = r3_ridge(r3_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_t))), offset + move_time);
     // RR YES:
-    // float n = ridge(r1_snoise(p*freq * ( 1.05 *  sin(0.5 * u_t))), offset + move_time);
+    // float n = r3_ridge(r3_snoise(p*freq * ( 1.05 *  sin(0.5 * u_t))), offset + move_time);
     sum += n*amp;
     sum += n*amp*prev;  // scale by previous octave
     prev = n;
@@ -114,7 +96,7 @@ float ridgedMF(vec2 p, float u_t) {
 }
 
 
-void ridge_1_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+void r3_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   pos = square_position(pos);
   pos /= 2.0;
 
@@ -123,7 +105,7 @@ void ridge_1_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   audio.bandpass *= 100.0;
   audio.notch *= 100.0;
 
-  color += ridgedMF(pos * 20.0, audio.bandpass * pos.x); 
+  color += r3_ridgedMF(pos * 20.0, audio.bandpass * pos.x); 
 
   float time_limit = 20.0;
   float time_segment = 4.0;
