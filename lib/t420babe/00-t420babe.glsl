@@ -1,6 +1,10 @@
 #ifndef T420BABE
 #define T420BABE
 
+#ifndef T420BABE_ALLIGATOR
+#include "./lib/t420babe/ridge/alligator.glsl"
+#endif
+
 #ifndef T420BABE_AUDIO_CIRLCE
 #include "./lib/t420babe/audio-circle.aa.glsl"
 #endif
@@ -38,7 +42,15 @@
 #endif
 
 #ifndef T420BABE_RIDGE_1
-#include "./lib/t420babe/ridge-1.glsl"
+#include "./lib/t420babe/ridge/ridge-1.glsl"
+#endif
+
+#ifndef T420BABE_RIDGE_1A
+#include "./lib/t420babe/ridge/ridge-1a.glsl"
+#endif
+
+#ifndef T420BABE_RIDGE_2
+#include "./lib/t420babe/ridge/ridge-2.glsl"
 #endif
 
 #ifndef T420BABE_ROTATING_LINES

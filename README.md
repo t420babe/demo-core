@@ -37,6 +37,8 @@ Mess with the positions under RRTI for really cool effects
 
 - `lib/t420babe/wood-bb/wood-brother-louie-8.glsl`
 
+- `lib/t420babe/ridge/alligator.glsl`
+
 File name format:
 `*.aa.glsl` - Ableton audio expects peakamp of `u_lowpass`, `u_highpass`, `u_notch`, `u_bandpass`
 

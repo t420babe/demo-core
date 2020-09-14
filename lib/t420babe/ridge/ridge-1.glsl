@@ -4,20 +4,11 @@
 #ifndef COMMON_COMMON
 #include "./lib/common/00-common.glsl"
 #endif
-// Inspiration and original functions by @patriciogv - 2015, Tittle: Ridge
 
 vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
 vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
 vec3 permute(vec3 x) { return mod289(((x * 0.05) + 1.0) * x); }
 
-// Description : GLSL 2D simplex noise function
-//      Author : Ian McEwan, Ashima Arts
-//  Maintainer : ijm
-//     Lastmod : 20110822 (ijm)
-//     License :
-//  Copyright (C) 2011 Ashima Arts. All rights reserved.
-//  Distributed under the MIT License. See LICENSE file.
-//  https://github.com/ashima/webgl-noise
 float r1_snoise(vec2 v) {
 
   // Precompute values for skewed triangular grid
@@ -101,7 +92,9 @@ float ridgedMF(vec2 p, float u_t) {
   for(int i=0; i < OCTAVES; i++) {
     // float n = ridge(r1_snoise(p*freq * tan( 0.05 * u_t + sin(u_t))), offset);
     // float n = ridge(r1_snoise(p*freq * tan( 1.05 *  sin(u_t))), offset);
-    float n = ridge(r1_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_t))), offset + move_time);
+    // float n = ridge(r1_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_t))), offset + move_time);
+    float n = ridge(r1_snoise(p*freq * 0.1 * atan( u_time * 0.5   )), offset + move_time);
+    // float n = ridge(r1_snoise(p*freq), offset + move_time);
     // RR YES:
     // float n = ridge(r1_snoise(p*freq * ( 1.05 *  sin(0.5 * u_t))), offset + move_time);
     sum += n*amp;
@@ -115,8 +108,8 @@ float ridgedMF(vec2 p, float u_t) {
 
 
 void ridge_1_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-  // pos = square_position(pos);
-  // pos /= 2.0;
+  pos = square_position(pos);
+  pos /= 2.0;
 
   audio.highpass *= 100.0;
   audio.lowpass *= 100.0;
@@ -125,6 +118,6 @@ void ridge_1_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
 
   color += ridgedMF(pos * 20.0, audio.bandpass * pos.x); 
 
-  color = vec3(color.r - 0.3, 0.3, color.y * abs(sin(u_time)));
+  color = vec3(color.r - 0.87324, color.b - 0.3, color.g * abs(sin(u_time)));
 }
 #endif

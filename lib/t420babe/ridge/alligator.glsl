@@ -1,24 +1,16 @@
-#ifndef T420BABE_RIDGE_1
-#define T420BABE_RIDGE_1
+#ifndef T420BABE_ALLIGATOR
+#define T420BABE_ALLIGATOR
 
 #ifndef COMMON_COMMON
 #include "./lib/common/00-common.glsl"
 #endif
+
 // Inspiration and original functions by @patriciogv - 2015, Tittle: Ridge
+vec3 alligator_mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
+vec2 alligator_mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+vec3 alligator_permute(vec3 x) { return alligator_mod289(((x * 0.05) + 1.0) * x); }
 
-vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
-vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-vec3 permute(vec3 x) { return mod289(((x * 0.05) + 1.0) * x); }
-
-// Description : GLSL 2D simplex noise function
-//      Author : Ian McEwan, Ashima Arts
-//  Maintainer : ijm
-//     Lastmod : 20110822 (ijm)
-//     License :
-//  Copyright (C) 2011 Ashima Arts. All rights reserved.
-//  Distributed under the MIT License. See LICENSE file.
-//  https://github.com/ashima/webgl-noise
-float r1_snoise(vec2 v) {
+float alligator_snoise(vec2 v) {
 
   // Precompute values for skewed triangular grid
   const vec4 C = vec4(0.211324865405187,
@@ -42,9 +34,9 @@ float r1_snoise(vec2 v) {
 
   // Do some permutations to avoid
   // truncation effects in permutation
-  i = mod289(i);
-  vec3 p = permute(
-      permute( i.y + vec3(0.0, i1.y, 1.0))
+  i = alligator_mod289(i);
+  vec3 p = alligator_permute(
+      alligator_permute( i.y + vec3(0.0, i1.y, 1.0))
       + i.x + vec3(0.0, i1.x, 1.0 ));
 
   vec3 m = max(0.5 - vec3(
@@ -77,18 +69,17 @@ float r1_snoise(vec2 v) {
   return 130.0 * dot(m, g);
 }
 
-#define OCTAVES 25
 
 // Ridged multifractal
 // See "Texturing & Modeling, A Procedural Approach", Chapter 12
-float ridge(float h, float offset) {
+float alligator_ridge_alligator(float h, float offset) {
   h = abs(h);     // create creases
   h = offset - h; // invert so creases are at top
   h = h * h;      // sharpen creases
   return h;
 }
 
-float ridgedMF(vec2 p, float u_t) {
+float alligator_ridgedMF(vec2 p, float u_t) {
   float lacunarity = 5.0;
   float gain = 0.1;
   float offset = 0.9;
@@ -98,14 +89,16 @@ float ridgedMF(vec2 p, float u_t) {
   float prev = 1.0;
   float move_time = sin(u_t * 0.14 + u_t);
 
-  for(int i=0; i < OCTAVES; i++) {
-    // float n = ridge(r1_snoise(p*freq * tan( 0.05 * u_t + sin(u_t))), offset);
-    // float n = ridge(r1_snoise(p*freq * tan( 1.05 *  sin(u_t))), offset);
-    // float n = ridge(r1_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_t))), offset + move_time);
-    float n = ridge(r1_snoise(p*freq * 0.1 * atan( u_time * 0.5   )), offset + move_time);
-    // float n = ridge(r1_snoise(p*freq), offset + move_time);
+
+  int octaves = 25;
+  for(int i=0; i < octaves; i++) {
+    // float n = alligator_ridge_alligator(alligator_snoise(p*freq * tan( 0.05 * u_t + sin(u_t))), offset);
+    // float n = alligator_ridge_alligator(alligator_snoise(p*freq * tan( 1.05 *  sin(u_t))), offset);
+    // float n = alligator_ridge_alligator(alligator_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_t))), offset + move_time);
+    float n = alligator_ridge_alligator(alligator_snoise(p*freq * 0.1 * atan( u_time * 0.5   )), offset + move_time);
+    // float n = alligator_ridge_alligator(alligator_snoise(p*freq), offset + move_time);
     // RR YES:
-    // float n = ridge(r1_snoise(p*freq * ( 1.05 *  sin(0.5 * u_t))), offset + move_time);
+    // float n = alligator_ridge_alligator(alligator_snoise(p*freq * ( 1.05 *  sin(0.5 * u_t))), offset + move_time);
     sum += n*amp;
     sum += n*amp*prev;  // scale by previous octave
     prev = n;
@@ -116,7 +109,7 @@ float ridgedMF(vec2 p, float u_t) {
 }
 
 
-void ridge_1_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+void alligator(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   pos = square_position(pos);
   pos /= 2.0;
 
@@ -125,8 +118,8 @@ void ridge_1_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   audio.bandpass *= 100.0;
   audio.notch *= 100.0;
 
-  color += ridgedMF(pos * 20.0, audio.bandpass * pos.x); 
+  color += alligator_ridgedMF(pos * 20.0, audio.bandpass * pos.x); 
 
-  color = vec3(color.r - 0.3, 0.3, color.y * abs(sin(u_time)));
+  color = vec3(color.r - 0.87324, color.b - 0.3, color.g * abs(sin(u_time)));
 }
 #endif
