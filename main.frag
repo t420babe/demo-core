@@ -57,12 +57,12 @@ void main() {
   // alligator(pos, u_time, audio, color);
   // r1a_ridge_main(pos, u_time, audio, color);
   // r2_ridge_main(pos, u_time, audio, color);
-  // r3_ridge_main(pos, u_time, audio, color);
+  // r3_ridge_main(pos, u_time, audio, color);       // rly trippy alien, Mi Mujer
   // r4_ridge_main(pos, u_time, audio, color);
   // r5_ridge_main(pos, u_time, audio, color);
   // r6_ridge_main(pos, u_time, audio, color);
-  // r7_ridge_main(pos, u_time, audio, color);
-  // r8_ridge_main(pos, u_time, audio, color);
+  r7_ridge_main(pos, u_time, audio, color);       // yes yes yes! Something to Say - Holow
+  // r8_ridge_main(pos, u_time, audio, color);     // oh thats a fun one
   // r9_ridge_main(pos, u_time, audio, color);     // works well with low qmetro rate, ~60 - 100 ms, 70ms i like rn, song: Warrior, Aluna
   // r10_ridge_main(pos, u_time, audio, color);
   // r11_ridge_main(pos, u_time, audio, color);
@@ -73,6 +73,7 @@ void main() {
   // r16_ridge_main(pos, u_time, audio, color);
   // r17_ridge_main(pos, u_time, audio, color);
   // r18_ridge_main(pos, u_time, audio, color);
-  r19_ridge_main(pos, u_time, audio, color);
+  // r19_ridge_main(pos, u_time, audio, color);
+  r20_ridge_main(pos, u_time, audio, color);
   gl_FragColor = vec4(color, 1.0);
 }

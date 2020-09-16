@@ -42,6 +42,8 @@ Mess with the positions under RRTI for really cool effects
 - `lib/t420babe/ridge/ridge-3.glsl` ALL THE RIDGES
 - `lib/t420babe/ridge/ridge-3.glsl` ALL THE RIDGES
 
+- `lib/t420babe/ridge/ridge-8.glsl` ALL THE RIDGES
+
 - `lib/t420babe/ridge/ridge-19.glsl` play with the four colors - Bassically by Tei Shi
 
 File name format:
@@ -56,11 +58,14 @@ Set:
 - `doppler_audio` - Moonlight by Gaulin 20 qmetro
 - `hypnotized_by_the_light` - Hypnotized - Loods Remix by Purple Disco Machine, Sophie and the Giants
 - `wbl5c_wood` - In Memoriam (Mixed) - Ben Bohmer
+- ridge/ridge-8.glsl - Party All the Time 
+- ridge/ridge-20.glsl - I Feel So Band - The Kungs
 
 
 Songs:
 - us by Steve James - 40 qmetro
 - kowabunga! by SuperParka
+- Paris - The Kungs
 
 
 Remaining:
