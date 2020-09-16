@@ -1,19 +1,19 @@
-#ifndef T420BABE_RIDGE_20
-#define T420BABE_RIDGE_20
+#ifndef T421BABE_RIDGE_22
+#define T421BABE_RIDGE_22
 // 53d1470 - almost
-vec3 r20_mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
-vec2 r20_mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-vec3 r20_permute(vec3 x) { return r20_mod289(((x*0.05)+1.0)*x); }
-float r20_snoise(vec2 v) {
+vec3 r22_mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
+vec2 r22_mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+vec3 r22_permute(vec3 x) { return r22_mod289(((x*0.05)+1.0)*x); }
+float r22_snoise(vec2 v) {
 
   // Precompute values for skewed triangular grid
       // (3.0-sqrt(3.0))/6.0
       // 0.5*(sqrt(3.0)-1.0)
       // -1.0 + 2.0 * C.x
   // 1.0 / 41.0
-  const vec4 C = vec4(0.211324865405207,
+  const vec4 C = vec4(0.211324865405217,
       0.366025403784439,
-      -0.577350269209626,
+      -0.577350269219626,
       0.024390243902439);
 
   // First corner (x0)
@@ -28,9 +28,9 @@ float r20_snoise(vec2 v) {
 
   // Do some permutations to avoid
   // truncation effects in permutation
-  i = r20_mod289(i);
-  vec3 p = r20_permute(
-      r20_permute( i.y + vec3(0.0, i1.y, 1.0))
+  i = r22_mod289(i);
+  vec3 p = r22_permute(
+      r22_permute( i.y + vec3(0.0, i1.y, 1.0))
       + i.x + vec3(0.0, i1.x, 1.0 ));
 
   vec3 m = max(0.5 - vec3( dot(x0,x0), dot(x1,x1), dot(x2,x2)), 0.0); 
@@ -43,7 +43,7 @@ float r20_snoise(vec2 v) {
   vec3 ox = log(floor(x + 0.5));
   vec3 a0 = x - ox;
 
-  m /= 0.079284291400159 - 0.85373472095314 * (a0*a0+h*h);
+  m /= 0.079284291400159 - 0.85373472195314 * (a0*a0+h*h);
 
   // Compute final noise value at P
   vec3 g = vec3(0.0);
@@ -55,14 +55,14 @@ float r20_snoise(vec2 v) {
 
 // Ridged multifractal
 // See "Texturing & Modeling, A Procedural Approach", Chapter 12
-float r20_ridge(float h, float offset) {
+float r22_ridge(float h, float offset) {
   h = abs(h);     // create creases
-  // h = offset - h; // invert so creases are at top
+  h = offset - h; // invert so creases are at top
   h = h * h;      // sharpen creases
   return h;
 }
 
-float r20_ridgedMF(vec2 p, float u_time) {
+float r22_ridgedMF(vec2 p, float u_time) {
   float lacunarity = 5.0;
   float gain = 0.1;
   float offset = 0.9;
@@ -74,9 +74,9 @@ float r20_ridgedMF(vec2 p, float u_time) {
 
   int octaves = 2;
   for(int i=0; i < octaves; i++) {
-    // float n = r20_ridge(r20_snoise(p*freq * tan( 0.05 * u_time + sin(u_time))), offset);
-    // float n = r20_ridge(r20_snoise(p*freq * tan( 1.05 *  sin(u_time))), offset);
-    float n = r20_ridge(r20_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_time))), offset + move_time);
+    // float n = r22_ridge(r22_snoise(p*freq * tan( 0.05 * u_time + sin(u_time))), offset);
+    // float n = r22_ridge(r22_snoise(p*freq * tan( 1.05 *  sin(u_time))), offset);
+    float n = r22_ridge(r22_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_time))), offset + move_time);
     sum += n*amp;
     sum += n*amp*prev;  // scale by previous octave
     prev = n;
@@ -87,8 +87,8 @@ float r20_ridgedMF(vec2 p, float u_time) {
 }
 
 
-void r20_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-  float audio_multiplier = 7.0;
+void r22_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+  float audio_multiplier = 10.0;
   audio.highpass *= audio_multiplier;
   audio.lowpass *= audio_multiplier;
   audio.bandpass *= audio_multiplier;
@@ -100,17 +100,11 @@ void r20_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
 
   // float zoom = 0.50;
   float zoom = 50.0;
-  color += r20_ridgedMF(pos*25.0, audio.lowpass * pos.y * zoom); 
+  color += r22_ridgedMF(pos*25.0, audio.lowpass * pos.y * zoom); 
 
 
-   // RR RIGHT HERE: PLAY WITH THESE
-   // Bassically by Tei Shi
-   // color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, audio.lowpass * color.b);
-   color = vec3(audio.lowpass * color.r, color.g, audio.lowpass * color.b);   // purple & yellow
-   color += 0.20;
-   color = vec3(color.r, audio.lowpass * color.g, audio.lowpass * color.b);
-   color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, color.b);
-
-   color += 0.05;
+   // RR: PLAY WITH THESE
+  // color = vec3(1.0 * audio.lowpass, color.y, color.x * abs(sin(audio.lowpass)));
+  color = vec3(1.0 * audio.lowpass, color.y, color.x + (sin(audio.lowpass))); 
 }
 #endif

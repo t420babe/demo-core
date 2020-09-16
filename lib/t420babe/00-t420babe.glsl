@@ -129,6 +129,10 @@
 #include "./lib/t420babe/ridge/ridge-21.glsl"
 #endif
 
+#ifndef T420BABE_RIDGE_22
+#include "./lib/t420babe/ridge/ridge-22.glsl"
+#endif
+
 #ifndef T420BABE_ROTATING_LINES
 #include "./lib/t420babe/rotating-lines.glsl"
 #endif
