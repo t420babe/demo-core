@@ -42,6 +42,8 @@ Mess with the positions under RRTI for really cool effects
 - `lib/t420babe/ridge/ridge-3.glsl` ALL THE RIDGES
 - `lib/t420babe/ridge/ridge-3.glsl` ALL THE RIDGES
 
+- `lib/t420babe/ridge/ridge-19.glsl` play with the four colors - Bassically by Tei Shi
+
 File name format:
 `*.aa.glsl` - Ableton audio expects peakamp of `u_lowpass`, `u_highpass`, `u_notch`, `u_bandpass`
 
