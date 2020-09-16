@@ -1,10 +1,10 @@
-#ifndef T420BABE_RIDGE_10
-#define T420BABE_RIDGE_10
-// 3c76edd, 01:35
-vec3 r10_mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
-vec2 r10_mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-vec3 r10_permute(vec3 x) { return r10_mod289(((x*0.05)+1.0)*x); }
-float r10_snoise(vec2 v) {
+#ifndef T420BABE_RIDGE_11
+#define T420BABE_RIDGE_11
+// 61924ca3, 01:44
+vec3 r11_mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
+vec2 r11_mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+vec3 r11_permute(vec3 x) { return r11_mod289(((x*0.05)+1.0)*x); }
+float r11_snoise(vec2 v) {
 
   // Precompute values for skewed triangular grid
       // (3.0-sqrt(3.0))/6.0
@@ -28,9 +28,9 @@ float r10_snoise(vec2 v) {
 
   // Do some permutations to avoid
   // truncation effects in permutation
-  i = r10_mod289(i);
-  vec3 p = r10_permute(
-      r10_permute( i.y + vec3(0.0, i1.y, 1.0))
+  i = r11_mod289(i);
+  vec3 p = r11_permute(
+      r11_permute( i.y + vec3(0.0, i1.y, 1.0))
       + i.x + vec3(0.0, i1.x, 1.0 ));
 
   vec3 m = max(0.5 - vec3( dot(x0,x0), dot(x1,x1), dot(x2,x2)), 0.0); 
@@ -54,14 +54,14 @@ float r10_snoise(vec2 v) {
 
 // Ridged multifractal
 // See "Texturing & Modeling, A Procedural Approach", Chapter 12
-float r10_ridge(float h, float offset) {
+float r11_ridge(float h, float offset) {
   h = abs(h);     // create creases
   h = offset - h; // invert so creases are at top
   h = h * h;      // sharpen creases
   return h;
 }
 
-float r10_ridgedMF(vec2 p, float u_time) {
+float r11_ridgedMF(vec2 p, float u_time) {
   float lacunarity = 5.0;
   float gain = 0.1;
   float offset = 0.9;
@@ -73,9 +73,9 @@ float r10_ridgedMF(vec2 p, float u_time) {
 
   int octaves = 25;
   for(int i=0; i < octaves; i++) {
-    // float n = r10_ridge(r10_snoise(p*freq * tan( 0.05 * u_time + sin(u_time))), offset);
-    // float n = r10_ridge(r10_snoise(p*freq * tan( 1.05 *  sin(u_time))), offset);
-    float n = r10_ridge(r10_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_time))), offset + move_time);
+    // float n = r11_ridge(r11_snoise(p*freq * tan( 0.05 * u_time + sin(u_time))), offset);
+    // float n = r11_ridge(r11_snoise(p*freq * tan( 1.05 *  sin(u_time))), offset);
+    float n = r11_ridge(r11_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_time))), offset + move_time);
     sum += n*amp;
     sum += n*amp*prev;  // scale by previous octave
     prev = n;
@@ -86,7 +86,7 @@ float r10_ridgedMF(vec2 p, float u_time) {
 }
 
 
-void r10_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+void r11_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   audio.highpass *= 100.0;
   audio.lowpass *= 100.0;
   audio.bandpass *= 100.0;
@@ -96,7 +96,7 @@ void r10_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   pos /= 53.0;
   pos += 0.5;
 
-  color += r10_ridgedMF(pos*11.0, audio.bandpass * pos.x); 
+  color += r11_ridgedMF(pos*11.0, audio.bandpass * pos.x); 
 
   float time_limit = 20.0;
   float time_segment = 4.0;
@@ -108,22 +108,22 @@ void r10_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
    // color = vec3(color.x - 0.1, 0.7, color.y * abs(sin(u_time)));  // green and yellow
    // color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(u_time)));    // purple, blue, red. we love this
    // color = vec3(color.y, color.x + 0.3, 0.8 * abs(sin(u_time)));    // white, blue, and yellow
- if (mod_time < time_segment * 1.0) {
-   color = vec3(0.8, color.y, color.x * abs(sin(u_time)));
+
+   if (mod_time < time_segment * 1.0) {
+   color = vec3(0.8, color.y, color.x * abs(sin(audio.bandpass)));
 
  } else if (mod_time < time_segment * 1.0) {
-   color = vec3(0.8, color.x, 0.4 * abs(sin(u_time)));
+   color = vec3(0.8, color.x, 0.4 * abs(sin(audio.bandpass)));
 
  } else if (mod_time < time_segment * 2.0) {
-   color = vec3(color.x - 0.1, color.y * abs(sin(u_time)), 0.7);
+   color = vec3(color.x - 0.1, color.y * abs(sin(audio.bandpass)), 0.7);
 
  } else if (mod_time < time_segment * 3.0) {
-   color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(u_time)));
+   color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(audio.bandpass)));
 
  } else if (mod_time < time_segment * 4.0) {
-   color = vec3(color.y, color.x + 0.3, 0.8 * abs(sin(u_time)));
+   color = vec3(color.y, color.x + 0.3, 0.8 * abs(sin(audio.bandpass)));
  }
-
 
 }
 #endif
