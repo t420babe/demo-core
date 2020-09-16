@@ -64,7 +64,9 @@ void main() {
   // r7_ridge_main(pos, u_time, audio, color);
   // r8_ridge_main(pos, u_time, audio, color);
   // r9_ridge_main(pos, u_time, audio, color);     // works well with low qmetro rate, ~60 - 100 ms, 70ms i like rn, song: Warrior, Aluna
-  r10_ridge_main(pos, u_time, audio, color);
-  r11_ridge_main(pos, u_time, audio, color);
+  // r10_ridge_main(pos, u_time, audio, color);
+  // r11_ridge_main(pos, u_time, audio, color);
+  // r12_ridge_main(pos, u_time, audio, color);
+  r13_ridge_main(pos, u_time, audio, color);
   gl_FragColor = vec4(color, 1.0);
 }
