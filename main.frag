@@ -60,6 +60,7 @@ void main() {
   // r3_ridge_main(pos, u_time, audio, color);
   // r4_ridge_main(pos, u_time, audio, color);
   // r5_ridge_main(pos, u_time, audio, color);
-  r6_ridge_main(pos, u_time, audio, color);
+  // r6_ridge_main(pos, u_time, audio, color);
+  r7_ridge_main(pos, u_time, audio, color);
   gl_FragColor = vec4(color, 1.0);
 }
