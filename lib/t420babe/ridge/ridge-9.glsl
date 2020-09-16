@@ -4,7 +4,7 @@
 vec3 r9_mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
 vec2 r9_mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
 vec3 r9_permute(vec3 x) { return r9_mod289(((x*0.05)+1.0)*x); }
-float snoise(vec2 v) {
+float r9_snoise(vec2 v) {
 
   // Precompute values for skewed triangular grid
       // (3.0-sqrt(3.0))/6.0
@@ -73,9 +73,9 @@ float r9_ridgedMF(vec2 p, float u_time) {
 
   int octaves = 25;
   for(int i=0; i < octaves; i++) {
-    // float n = r9_ridge(snoise(p*freq * tan( 0.05 * u_time + sin(u_time))), offset);
-    // float n = r9_ridge(snoise(p*freq * tan( 1.05 *  sin(u_time))), offset);
-    float n = r9_ridge(snoise(p*freq * fract( 1.05 *  atan(0.5 * u_time))), offset + move_time);
+    // float n = r9_ridge(r9_snoise(p*freq * tan( 0.05 * u_time + sin(u_time))), offset);
+    // float n = r9_ridge(r9_snoise(p*freq * tan( 1.05 *  sin(u_time))), offset);
+    float n = r9_ridge(r9_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_time))), offset + move_time);
     sum += n*amp;
     sum += n*amp*prev;  // scale by previous octave
     prev = n;
