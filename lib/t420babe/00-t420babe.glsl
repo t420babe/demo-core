@@ -133,6 +133,26 @@
 #include "./lib/t420babe/ridge/ridge-22.glsl"
 #endif
 
+#ifndef T420BABE_RIDGE_23
+#include "./lib/t420babe/ridge/ridge-23.glsl"
+#endif
+
+#ifndef T420BABE_RIDGE_24
+#include "./lib/t420babe/ridge/ridge-24.glsl"
+#endif
+
+#ifndef T420BABE_RIDGE_25
+#include "./lib/t420babe/ridge/ridge-25.glsl"
+#endif
+
+#ifndef T420BABE_RIDGE_26
+#include "./lib/t420babe/ridge/ridge-26.glsl"
+#endif
+
+#ifndef T420BABE_RIDGE_27
+#include "./lib/t420babe/ridge/ridge-27.glsl"
+#endif
+
 #ifndef T420BABE_ROTATING_LINES
 #include "./lib/t420babe/rotating-lines.glsl"
 #endif
