@@ -58,10 +58,10 @@ void main() {
   // r1a_ridge_main(pos, u_time, audio, color);
   // r2_ridge_main(pos, u_time, audio, color);
   // r3_ridge_main(pos, u_time, audio, color);       // rly trippy alien, Mi Mujer
-  // r4_ridge_main(pos, u_time, audio, color);
+  // r4_ridge_main(pos, u_time, audio, color);       // love this but need to encorpoate audio with some color changes more
   // r5_ridge_main(pos, u_time, audio, color);
-  // r6_ridge_main(pos, u_time, audio, color);
-  // r7_ridge_main(pos, u_time, audio, color);       // yes yes yes! Something to Say - Holow
+  // r6_ridge_main(pos, u_time, audio, color);       // yes yes yes! Something to Say - Holow
+  // r7_ridge_main(pos, u_time, audio, color);
   // r8_ridge_main(pos, u_time, audio, color);     // oh thats a fun one
   // r9_ridge_main(pos, u_time, audio, color);     // works well with low qmetro rate, ~60 - 100 ms, 70ms i like rn, song: Warrior, Aluna
   // r10_ridge_main(pos, u_time, audio, color);
@@ -70,17 +70,17 @@ void main() {
   // r13_ridge_main(pos, u_time, audio, color);
   // r14_ridge_main(pos, u_time, audio, color);
   // r15_ridge_main(pos, u_time, audio, color);        // needs LOW qmetro ~5-10. i like 10nm rn   - This Girl (Kungs Vs Cookin' On 3 Burners) - Extended
-  // r16_ridge_main(pos, u_time, audio, color);
+  // r16_ridge_main(pos, u_time, audio, color);          // needs  30ms on qmetro
   // r17_ridge_main(pos, u_time, audio, color);
   // r18_ridge_main(pos, u_time, audio, color);
   // r19_ridge_main(pos, u_time, audio, color);
   // r20_ridge_main(pos, u_time, audio, color);   // yes yes yeh! I Feel So Band - The Kungs
   // r21_ridge_main(pos, u_time, audio, color);
-  // r22_ridge_main(pos, u_time, audio, color);
+  r22_ridge_main(pos, u_time, audio, color);
   // r23_ridge_main(pos, u_time, audio, color);
   // r24_ridge_main(pos, u_time, audio, color);
   // r25_ridge_main(pos, u_time, audio, color);
   // r26_ridge_main(pos, u_time, audio, color);
-  r27_ridge_main(pos, u_time, audio, color);
+  // r27_ridge_main(pos, u_time, audio, color);
   gl_FragColor = vec4(color, 1.0);
 }

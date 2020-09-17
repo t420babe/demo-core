@@ -104,8 +104,8 @@ void r24_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
    // RR RIGHT HERE: PLAY WITH THESE
    // Bassically by Tei Shi
    color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, audio.lowpass * color.b);
-   color = 1.0 - color;;
-   // color = vec3(audio.lowpass * color.r, color.g, audio.lowpass * color.b);   // purple & yellow
+   // color = 1.0 - color;;
+   // color = vec3(audio.lowpass * color.r, color.g, audio.lowpass * color.b);
    // color = vec3(color.r, audio.lowpass * color.g, audio.lowpass * color.b);
    // color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, color.b);
 
