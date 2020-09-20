@@ -1,4 +1,5 @@
 #ifndef T420BABE_COUCH_0
+/// All Over Again - Edit by Saffron Stone
 #define T420BABE_COUCH_0
 float couch0_random (in vec2 st) {
     return fract(sin(dot(st.xy,
@@ -28,7 +29,7 @@ float couch0_noise (in vec2 st) {
 float couch0_fbm (in vec2 st, peakamp audio) {
     // Initial values
     float value = 0.0;
-    float amplitude = .5;
+    float amplitude = audio.bandpass * 2.0;
     float frequency = 0.;
     //
     // Loop of octaves
@@ -43,6 +44,7 @@ float couch0_fbm (in vec2 st, peakamp audio) {
 
 void couch_0(vec2 pos, float u_time, peakamp audio, out vec3 color) {
     color += couch0_fbm(pos*8.0, audio);
-    color.r = abs(sin(u_time * audio.bandpass));
+    // color.r = abs(sin(u_time * audio.bandpass));
+    color.r = abs(sin(u_time));
 }
 #endif
