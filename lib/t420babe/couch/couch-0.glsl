@@ -1,5 +1,5 @@
 #ifndef T420BABE_COUCH_0
-/// Turn Mills - Club Mix by Maribou State
+/// Something Wonderful by Keys & Krates
 #define T420BABE_COUCH_0
 float couch0_random (in vec2 st) {
     return fract(sin(dot(st.xy,
@@ -14,8 +14,8 @@ float couch0_noise (in vec2 st, peakamp audio) {
     vec2 f = fract(st);
 
     // Four corners in 2D of a tile
-    float a = couch0_random(i * audio.bandpass);
-    float b = couch0_random(i + vec2(1.0, 0.0));
+    float a = couch0_random(i);
+    float b = couch0_random(i + vec2(1.0 * audio.bandpass, 0.0));
     float c = couch0_random(i + vec2(0.0, 1.0));
     float d = couch0_random(i + vec2(1.0, 1.0));
 
@@ -49,8 +49,9 @@ void couch_0(vec2 pos, float u_time, peakamp audio, out vec3 color) {
     // pos.y += 0.5;
     color += couch0_fbm(pos * 5.0, audio);
     // color.r = abs(sin(u_time * audio.bandpass));
-    color.r = abs(sin(u_time));
+    color.r += abs(sin(u_time));
     // color.r -= 0.1;
-    // color.b += 0.1;
+    color.b += 0.2;
+    // color.b *= 0.2;
 }
 #endif
