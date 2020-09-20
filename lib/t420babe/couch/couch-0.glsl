@@ -9,8 +9,8 @@ float couch0_random (in vec2 st) {
 
 // Based on Morgan McGuire @morgan3d
 // https://www.shadertoy.com/view/4dS3Wd
-float couch0_noise (in vec2 st) {
-    vec2 i = floor(st);
+float couch0_noise (in vec2 st, peakamp audio) {
+    vec2 i = floor(st) * audio.bandpass;
     vec2 f = fract(st);
 
     // Four corners in 2D of a tile
@@ -37,7 +37,7 @@ float couch0_fbm (in vec2 st, peakamp audio) {
     // Loop of octaves
 		int octaves = 6;
     for (int i = 0; i < octaves; i++) {
-        value += amplitude * couch0_noise(st);
+        value += amplitude * couch0_noise(st, audio);
         st *= 8.0;
         amplitude *= abs(sin(u_time)) - audio.notch;
     }
