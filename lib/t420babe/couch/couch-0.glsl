@@ -11,10 +11,10 @@ float couch0_random (in vec2 st) {
 // https://www.shadertoy.com/view/4dS3Wd
 float couch0_noise (in vec2 st, peakamp audio) {
     vec2 i = floor(st);
-    vec2 f = fract(st) * audio.bandpass;
+    vec2 f = fract(st);
 
     // Four corners in 2D of a tile
-    float a = couch0_random(i);
+    float a = couch0_random(i * audio.bandpass);
     float b = couch0_random(i + vec2(1.0, 0.0));
     float c = couch0_random(i + vec2(0.0, 1.0));
     float d = couch0_random(i + vec2(1.0, 1.0));
