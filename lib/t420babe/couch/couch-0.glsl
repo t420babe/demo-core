@@ -1,5 +1,5 @@
 #ifndef T420BABE_COUCH_0
-/// All Over Again - Edit by Saffron Stone
+/// Turn Mills - Club Mix by Maribou State
 #define T420BABE_COUCH_0
 float couch0_random (in vec2 st) {
     return fract(sin(dot(st.xy,
@@ -28,23 +28,29 @@ float couch0_noise (in vec2 st) {
 
 float couch0_fbm (in vec2 st, peakamp audio) {
     // Initial values
-    float value = 0.0;
-    float amplitude = audio.bandpass * 2.0;
-    float frequency = 0.;
+    float value = -0.3;
+    float amplitude = 1.0;
+    // float amplitude = audio.bandpass * 2.0;
+    // float amplitude = abs(sin(u_time));
+    float frequency = 1.0;
     //
     // Loop of octaves
 		int octaves = 6;
     for (int i = 0; i < octaves; i++) {
         value += amplitude * couch0_noise(st);
-        st *= 2.;
-        amplitude *= .5;
+        st *= 8.0;
+        amplitude *= abs(sin(u_time)) - audio.notch;
     }
     return value;
 }
 
 void couch_0(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-    color += couch0_fbm(pos*8.0, audio);
+    pos.y += sin(u_time * 0.5);
+    // pos.y += 0.5;
+    color += couch0_fbm(pos * 5.0, audio);
     // color.r = abs(sin(u_time * audio.bandpass));
     color.r = abs(sin(u_time));
+    // color.r -= 0.1;
+    // color.b += 0.1;
 }
 #endif
