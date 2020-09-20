@@ -73,14 +73,16 @@ void main() {
   // r16_ridge_main(pos, u_time, audio, color);          // needs  30ms on qmetro
   // r17_ridge_main(pos, u_time, audio, color);
   // r18_ridge_main(pos, u_time, audio, color);
-  // r19_ridge_main(pos, u_time, audio, color);
-  // r20_ridge_main(pos, u_time, audio, color);   // yes yes yeh! I Feel So Band - The Kungs
+	// r19_ridge_main(pos, u_time, audio, color);
+	// r20_ridge_main(pos, u_time, audio, color);   // yes yes yeh! I Feel So Band - The Kungs
   // r21_ridge_main(pos, u_time, audio, color);
-  r22_ridge_main(pos, u_time, audio, color);
+  // r22_ridge_main(pos, u_time, audio, color);      // 60 ms on qmetro
   // r23_ridge_main(pos, u_time, audio, color);
   // r24_ridge_main(pos, u_time, audio, color);
   // r25_ridge_main(pos, u_time, audio, color);
-  // r26_ridge_main(pos, u_time, audio, color);
-  // r27_ridge_main(pos, u_time, audio, color);
+	// r26_ridge_main(pos, u_time, audio, color);
+	// r27_ridge_main(pos, u_time, audio, color);
+	// couch(pos, u_time, audio, color);
+	couch_0(pos, u_time, audio, color);
   gl_FragColor = vec4(color, 1.0);
 }

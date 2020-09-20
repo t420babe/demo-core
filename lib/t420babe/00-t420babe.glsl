@@ -17,6 +17,14 @@
 #include "./lib/t420babe/wood-bb/caterpillar.glsl"
 #endif
 
+#ifndef T420BABE_COUCH
+#include "./lib/t420babe/couch/couch.glsl"
+#endif
+
+#ifndef T420BABE_COUCH_0
+#include "./lib/t420babe/couch/couch-0.glsl"
+#endif
+
 #ifndef T420BABE_DOPPLER
 #include "./lib/t420babe/doppler.glsl"
 #endif
