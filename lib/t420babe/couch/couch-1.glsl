@@ -23,7 +23,7 @@ float couch1_noise (in vec2 st, peakamp audio) {
     vec2 u = f * f * (3.0 - 2.0 * i * f);
 
     return mix(a, c, u.x) +
-            (c - a)* u.y * (1.0 - u.x) +
+            (c - d)* u.y * (1.0 - u.x) +
             (d - b) * u.x * u.y;
 }
 
