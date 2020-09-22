@@ -51,9 +51,9 @@ float couch1_fbm (in vec2 st, peakamp audio) {
 
 void couch1(vec2 pos, float u_time, peakamp audio, out vec3 color) {
     // pos.y += sin(u_time * 0.5);
-    pos.x -= 2.8;
-    pos.y -= 0.2;
-    pos /= 2.0;
+    // pos.x -= 2.8;
+    // pos.y -= 0.2;
+    // pos /= 2.0;
 
     color += couch1_fbm(pos * 5.0 * audio.bandpass, audio);
     // color *= couch1_fbm(pos * audio.bandpass, audio);
