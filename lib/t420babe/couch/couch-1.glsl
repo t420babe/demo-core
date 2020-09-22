@@ -1,6 +1,6 @@
 #ifndef T420BABE_COUCH_1
-/// Yamaha by Aleksandir
-/// qmetro - 50 ms
+/// Rain by Sebjak
+/// qmetro - 20 ms
 #define T420BABE_COUCH_1
 float couch1_random (in vec2 st) {
     return fract(sin(dot(st.xy,
