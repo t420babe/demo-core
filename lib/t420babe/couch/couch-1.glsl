@@ -17,7 +17,7 @@ float couch1_noise (in vec2 st, peakamp audio) {
     // Four corners in 2D of a tile
     float a = couch1_random(i);
     float b = couch1_random(i * f + vec2(1.0, 10.0 * audio.bandpass));
-    float c = couch1_random(i + vec2(0.0, 1.0));
+    float c = couch1_random(i * f + vec2(0.0, 1.0));
     float d = couch1_random(i + vec2(1.0, 1.0));
 
     vec2 u = f * f * (3.0 - 2.0 * f);
