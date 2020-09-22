@@ -41,7 +41,7 @@ float couch1_fbm (in vec2 st, peakamp audio) {
     // Loop of octaves
 		int octaves = 6;
     for (int i = 0; i < octaves; i++) {
-        value += amplitude * couch1_noise(st, audio);
+        value += audio.bandpass * amplitude * couch1_noise(st, audio);
         st *= 20.0;
         // amplitude *= abs(sin(u_time)) - audio.notch;
         amplitude *= 0.5;
