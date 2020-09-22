@@ -29,7 +29,7 @@ float couch1_noise (in vec2 st, peakamp audio) {
 }
 
 float couch1_fbm (in vec2 st, peakamp audio) {
-    // st -= 2.5;
+    st -= 2.5;
     // Initial values
     float value = -audio.bandpass;
     float amplitude = 1.0;
