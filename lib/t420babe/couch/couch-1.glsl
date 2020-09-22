@@ -11,7 +11,7 @@ float couch1_random (in vec2 st) {
 // Based on Morgan McGuire @morgan3d
 // https://www.shadertoy.com/view/4dS3Wd
 float couch1_noise (in vec2 st, peakamp audio) {
-  st.y += 5.0;
+  // st.y += 5.0;
     vec2 i = log(st.xx *  0.00001);
     // vec2 i = (tan(st.xx *  0.00001));
     vec2 f = fract((st.yy * 0.001));
