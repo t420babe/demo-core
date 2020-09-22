@@ -25,6 +25,10 @@
 #include "./lib/t420babe/couch/couch-0.glsl"
 #endif
 
+#ifndef T420BABE_COUCH_1
+#include "./lib/t420babe/couch/couch-1.glsl"
+#endif
+
 #ifndef T420BABE_DOPPLER
 #include "./lib/t420babe/doppler.glsl"
 #endif
