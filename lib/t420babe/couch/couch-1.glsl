@@ -58,8 +58,8 @@ void couch1(vec2 pos, float u_time, peakamp audio, out vec3 color) {
     // color.r = abs(sin(u_time * audio.bandpass));
     // color.g *= abs(tan(u_time));
     color.g *= (audio.bandpass + audio.notch) * 0.01;
-    color.b = abs(sin(audio.bandpass));
-    color.r *= audio.bandpass;
+    color.r = abs(sin(audio.bandpass));
+    color.b *= audio.bandpass;
     // color.g *= (abs(cos(u_time))) * audio.bandpass;
     // color.g *= (0.0 + 0.4) * 0.1;
 }
