@@ -11,7 +11,7 @@ float couch1_random (in vec2 st) {
 // Based on Morgan McGuire @morgan3d
 // https://www.shadertoy.com/view/4dS3Wd
 float couch1_noise (in vec2 st, peakamp audio) {
-    vec2 i = ceil(st * 0.09);
+    vec2 i = ceil(st * 0.19);
     vec2 f = exp(st * 0.09);
 
     // Four corners in 2D of a tile
