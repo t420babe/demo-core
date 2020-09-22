@@ -11,8 +11,8 @@ float couch1_random (in vec2 st) {
 // Based on Morgan McGuire @morgan3d
 // https://www.shadertoy.com/view/4dS3Wd
 float couch1_noise (in vec2 st, peakamp audio) {
-    vec2 i = floor(st.xx);
-    vec2 f = fract(st.xx);
+    vec2 i = floor(st.yy);
+    vec2 f = fract(st.yy);
 
     // Four corners in 2D of a tile
     float a = couch1_random(i);
