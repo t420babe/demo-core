@@ -36,7 +36,7 @@ float couch1_fbm (in vec2 st, peakamp audio) {
     float amplitude = 1.0;
     // float amplitude = audio.bandpass * 2.0;
     // float amplitude = abs(sin(u_time));
-    float frequency = 10.5;
+    float frequency = 1.0;
     //
     // Loop of octaves
 		int octaves = 6;
