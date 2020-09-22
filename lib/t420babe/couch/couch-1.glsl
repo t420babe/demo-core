@@ -12,7 +12,7 @@ float couch1_random (in vec2 st) {
 // https://www.shadertoy.com/view/4dS3Wd
 float couch1_noise (in vec2 st, peakamp audio) {
     // vec2 i = log(st.xx *  0.00001);
-    vec2 i = (tan(st.xx *  0.0001));
+    vec2 i = (tan(st.xx *  0.00001));
     vec2 f = fract((st.yy * 0.00001));
 
     // Four corners in 2D of a tile
