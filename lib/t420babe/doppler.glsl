@@ -193,8 +193,9 @@ void doppler_blue_step_cross(vec2 pos, float u_time, peakamp audio, out vec3 col
 
 void doppler_floating_ring_morph(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   pos -= 0.0;
+  float rate = 3.0;
   // pos *= 2.5 * circle_sdf(pos * mod(u_time, 4.0));
-  pos *= 2.5 * circle_sdf(pos * tan(u_time));
+  pos *= 2.5 * circle_sdf(pos * tan(u_time * rate));
 
   color = vec3(1.1, 0.1234, 0.34);
   float pct = aastep(-pos.x, -pos.x);
@@ -230,7 +231,7 @@ void doppler_floating_ring_morph_1(vec2 pos, float u_time, peakamp audio, out ve
 
 void doppler_cross_step_1(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   pos -= 0.0;
-  float rate = 6.0;
+  float rate = 2.0;
   // pos *= 2.5 * circle_sdf(pos * mod(u_time, 4.0));
   pos *= 2.5 * circle_sdf(pos * tan(u_time * rate));
 

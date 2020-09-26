@@ -34,14 +34,14 @@ uniform float u_time;
 #endif
 
 
-/* Kungs - I Feel So Bad */
+/* Your Mind - Radio Edit - Adam Beyer, Bart Skils */
 /* target qmetro: 60 ms */
 void main() {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   vec3 color = vec3(1.0);
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-
-  r20_ridge_main(pos, u_time, audio, color);
+    // H, thatsss cool, Losing Your Mind
+  sayin_sayin_blue_wiggly_clock_og_3(pos, u_time, audio, color);
 
   gl_FragColor = vec4(color, 1.0);
 }

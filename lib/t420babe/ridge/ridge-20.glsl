@@ -87,8 +87,9 @@ float r20_ridgedMF(vec2 p, float u_time) {
 }
 
 
+/* qmetro target: 45 ms, ok with 60 ms */
 void r20_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-  float audio_multiplier = 7.0;
+  float audio_multiplier = 3.5;
   audio.highpass *= audio_multiplier;
   audio.lowpass *= audio_multiplier;
   audio.bandpass *= audio_multiplier;
