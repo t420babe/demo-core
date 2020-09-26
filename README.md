@@ -86,3 +86,27 @@ All functions in `lib/pxl` that have `sdf` appended to the function definition h
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 ```
+
+
+
+
+
+
+
+
+
+
+Script:
+Directory 0, d0: directory with all the commits
+Directory 1, d1: directory where each commit will be saved as a new file
+
+- for each commit
+  - save changed files with appended id
+    ex: if d0/main.frag and d0/lib/t420babe/couch-1.glsl were changed in commit0,
+        they would be copied and saved in their identical dirs:
+
+          d1/main-0.frag d1/lib/t420babe/couch-1-0.glsl
+
+        Or maybe can specify a dir so (but not right now):
+
+          d1/main-0.frag d1/lib/t420babe/couch/couch-1-0.glsl

@@ -31,6 +31,28 @@ void red_x_max(vec2 pos, float u_time, peakamp audio, out vec3 color) {
 
 
 // kowabunga! by SuperParka
+void pink_purple_x_max_0(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+  float audio_multiplier = audio.bandpass;
+  pos = pulse_x_pos(pos, audio_multiplier);
+
+  float pct = create_x(pos, audio_multiplier);
+
+  color = 2.0 * audio_multiplier + pct *  color + pct * vec3(audio.bandpass, 0.8234, audio.bandpass);
+  color.g *= audio.notch * 2.0;
+}
+
+// kowabunga! by SuperParka
+void pink_purple_x_max_1(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+  float audio_multiplier = audio.bandpass;
+  pos = pulse_x_pos(pos, audio_multiplier);
+
+  float pct = create_x(pos, audio_multiplier);
+
+  color = 2.0 * audio_multiplier + pct *  color + pct * vec3(audio.bandpass, 0.8234, audio.bandpass);
+  color.g *= audio.notch * 1.5;
+}
+
+// kowabunga! by SuperParka
 void pink_purple_x_max(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   float audio_multiplier = audio.bandpass;
   pos = pulse_x_pos(pos, audio_multiplier);
@@ -44,13 +66,20 @@ void pink_purple_x_max(vec2 pos, float u_time, peakamp audio, out vec3 color) {
 void pink_purple_x_max_oval(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   pos = pulse_x_pos(pos, audio.bandpass);
 
-  float pct = create_line(pos, audio.highpass);
+  float pct = create_line(pos, 0.4);
   vec2 pos_1 = vec2(-pos.x, pos.y);
-  pct += create_line(pos_1, audio.notch);
+  pct += create_line(pos_1, 0.4);
   pct = sharp(pct);
 
-  color = 2.0 * audio.lowpass + pct *  color + pct * vec3(0.8989, 0.2234, 0.0);
-  color.g = color.x * audio.notch * 0.25;
+  // color = 1.0 * audio.lowpass + pct *  color + pct * vec3(0.8989, 0.2234, 0.0);
+  color = 1.0 * audio.lowpass + pct *  color + pct * vec3(0.0, 1.0, audio.notch);
+  // color = 1.0 * audio.lowpass + pct * color + 0.3 + pct * vec3(0.0989, 1.0, 0.5);
+  // color.r *= audio.notch;
+  // color.r += audio.notch;
+  // color.b += audio.notch;
+  color.g *= audio.notch;
+  // color.b /= audio.notch;
+  // color.g /= audio.notch;
 }
 
 void x_box(vec2 pos, float u_time, peakamp audio, out vec3 color) {

@@ -45,24 +45,20 @@ void purple_concetric(vec2 pos, float u_time, peakamp audio, out vec3 color) {
 
 
 // vec3 color = purple_circle(pos, u_time, audio);
-vec3 purple_circle(vec2 pos, float u_time, peakamp audio) {
+void purple_circle(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   // vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  vec3 color = vec3(0.2, 0.243, 0.0234);
+  color = vec3(0.2, 0.243, 0.0234);
 
   float pct = sharp(circle_1(pos * 1.1, audio.notch));
   color = vec3(pct * color + pct + color.gbr);
-
-  return color;
 }
 
 // vec3 color = orange_circle_bright_purple_bg(pos, u_time, audio);
-vec3 orange_circle_bright_purple_bg(vec2 pos, float u_time, peakamp audio) {
+void orange_circle_bright_purple_bg(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   // vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  vec3 color = vec3(0.0, 0.0, 0.0);
+  color = vec3(0.0, 0.0, 0.0);
 
   float pct = sharp(circle_1(pos * 1.1, audio.notch));
   color = vec3(1.0, 0.5, pct);
-
-  return color;
 }
 #endif
