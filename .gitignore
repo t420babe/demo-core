@@ -5,4 +5,4 @@ rsc/
 *.wav
 *.swp
 .DS_Store
-
+*.bk
