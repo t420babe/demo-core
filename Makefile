@@ -45,6 +45,18 @@ doppler:
 doppler-dbg:
 	glslViewer sets/doppler-set.frag -I./lib
 
+wood:
+	glslViewer sets/wood-set.frag --nocursor -I./lib -p 8000
+
+wood-dbg:
+	glslViewer sets/wood-set.frag -I./lib
+
+couch:
+	glslViewer sets/couch-set.frag --nocursor -I./lib -p 8000
+
+couch-dbg:
+	glslViewer sets/couch-set.frag -I./lib
+
 
 
 ### SONGS ###
@@ -59,3 +71,9 @@ adam-beyer-your-mind:
 
 adam-beyer-your-mind-dbg:
 	glslViewer sets/songs/adam-beyer-your-mind.frag -I./lib
+
+imanbek-brother-louie:
+	glslViewer sets/songs/imanbek-brother-louie.frag --nocursor -I./lib -p 8000
+
+imanbek-brother-louie-dbg:
+	glslViewer sets/songs/imanbek-brother-louie.frag -I./lib

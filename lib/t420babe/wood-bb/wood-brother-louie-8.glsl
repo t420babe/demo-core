@@ -45,7 +45,7 @@ void wbl8_wood(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   pos2 = wbl8_rotate2d( noise(pos2, u_time) ) * pos2;
 
   // Draw lines
-  pattern = wbl8_lines(pos2, pos.x * pos.y);
+  pattern = wbl8_lines(pos2, pos.y * pos.y);
 
   color = vec3(pattern);
 

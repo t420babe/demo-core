@@ -946,6 +946,10 @@
 #include "./lib/t420babe/rainbow-scales.glsl"
 #endif
 
+#ifndef T420BABE_RIDGE_6A
+#include "./lib/t420babe/ridge/ridge-6a.glsl"
+#endif
+
 #ifndef T420BABE_RIDGE_1
 #include "./lib/t420babe/ridge/ridge-1.glsl"
 #endif
