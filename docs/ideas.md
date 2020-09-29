@@ -7,3 +7,5 @@
   sets/
   final/
 ```
+
+push everything to public git repo, live commit to git during live stream

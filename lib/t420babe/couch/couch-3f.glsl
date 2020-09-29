@@ -1,8 +1,8 @@
-#ifndef T420BABE_COUCH_3
-#define T420BABE_COUCH_3
+#ifndef T420BABE_COUCH_3F
+#define T420BABE_COUCH_3F
 /// 635168d 02:09
 /// Turn Mills - Club Mix by Maribou State
-float couch3_random (in vec2 st) {
+float couch3f_random (in vec2 st) {
   return fract(sin(dot(st.xy,
           vec2(12.9898,78.233)))*
       43758.5453123);
@@ -10,15 +10,15 @@ float couch3_random (in vec2 st) {
 
 // Based on Morgan McGuire @morgan3d
 // https://www.shadertoy.com/view/4dS3Wd
-float couch3_noise (in vec2 st) {
+float couch3f_noise (in vec2 st) {
   vec2 i = floor(st);
   vec2 f = fract(st);
 
   // Four corners in 2D of a tile
-  float a = couch3_random(i);
-  float b = couch3_random(i + vec2(1.0, 0.0));
-  float c = couch3_random(i + vec2(0.0, 1.0));
-  float d = couch3_random(i + vec2(1.0, 1.0));
+  float a = couch3f_random(i);
+  float b = couch3f_random(i + vec2(1.0, 0.0));
+  float c = couch3f_random(i + vec2(0.0, 1.0));
+  float d = couch3f_random(i + vec2(1.0, 1.0));
 
   vec2 u = f * f * (3.0 - 2.0 * f);
 
@@ -27,30 +27,29 @@ float couch3_noise (in vec2 st) {
     (d - b) * u.x * u.y;
 }
 
-float couch3_fbm (in vec2 st, peakamp audio) {
+float couch3f_fbm (in vec2 st, peakamp audio) {
   // Initial values
-  float value = -2.0 * audio.lowpass;
-  float amplitude = 2.0;
+  float value = -0.3;
+  float amplitude = 1.0;
   // float amplitude = audio.bandpass * 2.0;
   // float amplitude = abs(sin(u_time));
-  float frequency = audio.lowpass;
+  float frequency = 0.0;
   //
   // Loop of octaves
   int octaves = 6;
   for (int i = 0; i < octaves; i++) {
-    value += amplitude * couch3_noise(st);
-    st *= 9.0 * audio.lowpass;
-    amplitude *= audio.lowpass * audio.highpass;
-    // amplitude *= audio.lowpass / - (abs(tan(u_time)) + 0.7);
+    value += amplitude * couch3f_noise(st);
+    st *= 7.0 * audio.lowpass;
+    amplitude *= abs(sin(u_time)) - audio.lowpass;
   }
   return value;
 }
 
-void couch3(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+void couch3f(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   pos /= 1.5;
   // pos.y += 0.5;
   pos.x += 0.3;
-  color = vec3(couch3_fbm(pos * 8.0, audio));
+  color = vec3(couch3f_fbm(pos * 8.0, audio));
   // color.r = abs(sin(u_time * audio.bandpass));
   color.r *= abs(sin( u_time * audio.bandpass));
   // color.r = audio.notch;

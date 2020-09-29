@@ -442,8 +442,17 @@ void main_manual(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   // couch_0(pos, u_time, audio, color);
   // couch2(pos, u_time, audio, color);
   // couch3(pos, u_time, audio, color);
+  // couch3a(pos, u_time, audio, color);
+  // couch3b(pos, u_time, audio, color);
+  // couch3c(pos, u_time, audio, color);
+  // couch3d(pos, u_time, audio, color);
+  // couch3e(pos, u_time, audio, color);
+  // couch3f(pos, u_time, audio, color);
+  // couch3g(pos, u_time, audio, color);
+  // couch3h(pos, u_time, audio, color);
+  // couch3i(pos, u_time, audio, color);
   // couch4(pos, u_time, audio, color);
-  // couch5(pos, u_time, audio, color);
+  couch5(pos, u_time, audio, color);
   // couch6(pos, u_time, audio, color);
   // couch7(pos, u_time, audio, color);      // H
   // couch8(pos, u_time, audio, color);      // H
@@ -460,7 +469,7 @@ void main_manual(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   // couch23(pos, u_time, audio, color);
   // couch24(pos, u_time, audio, color);
   // couch25(pos, u_time, audio, color);
-  couch26(pos, u_time, audio, color);     // H
+  // couch26(pos, u_time, audio, color);     // H
   // couch27(pos, u_time, audio, color);
   // couch28(pos, u_time, audio, color);     // H
   // couch29(pos, u_time, audio, color);       // H
@@ -562,6 +571,9 @@ void main_manual(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   // couch134(pos, u_time, audio, color);
   // couch135(pos, u_time, audio, color);
   // couch136(pos, u_time, audio, color);
+  // couch136a(pos, u_time, audio, color);
+  // couch136b(pos, u_time, audio, color);
+  // couch136c(pos, u_time, audio, color);
   // couch137(pos, u_time, audio, color);
   // couch138(pos, u_time, audio, color);
   // couch139(pos, u_time, audio, color);
@@ -576,6 +588,7 @@ void main_manual(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   // couch148(pos, u_time, audio, color);
   // couch149(pos, u_time, audio, color);
   // couch150(pos, u_time, audio, color);
+  // couch150a(pos, u_time, audio, color);
   // couch151(pos, u_time, audio, color);			// i like this one
   // couch152(pos, u_time, audio, color);
   // couch153(pos, u_time, audio, color);
@@ -638,12 +651,11 @@ void main_manual(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   // couch210(pos, u_time, audio, color);
   // couch211(pos, u_time, audio, color);
   // couch212(pos, u_time, audio, color);
-  // couch212(pos, u_time, audio, color);
   // couch213(pos, u_time, audio, color);
   // couch214(pos, u_time, audio, color);
   // couch215(pos, u_time, audio, color);
-  // couch216(pos, u_time, audio, color);
-  // couch217(pos, u_time, audio, color);
+  // couch216(pos, u_time, audio, color); // H
+  // couch217(pos, u_time, audio, color); // 0
   // couch218(pos, u_time, audio, color);
   // couch219(pos, u_time, audio, color);
   // couch220(pos, u_time, audio, color);
@@ -659,6 +671,8 @@ void main_manual(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   // wbl8_wood(pos, u_time, audio, color);
   // r17_ridge_main(pos, u_time, audio, color);    // H
   // r19_ridge_main(pos, u_time, audio, color);      // H
+
+
 }
 
 

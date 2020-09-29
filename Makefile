@@ -4,6 +4,12 @@ main:
 main-dbg:
 	glslViewer main.frag --nocursor -I./lib
 
+f:
+	glslViewer final/final.frag --nocursor -I./lib -p 8000
+
+f-dbg:
+	glslViewer final/final.frag --nocursor -I./lib
+
 # timer:
 #    while true; do echo -ne "`date`\r"; done
 

@@ -38,6 +38,42 @@
 #include "./lib/t420babe/couch/couch-3.glsl"
 #endif
 
+#ifndef T420BABE_COUCH_3A
+#include "./lib/t420babe/couch/couch-3a.glsl"
+#endif
+
+#ifndef T420BABE_COUCH_3B
+#include "./lib/t420babe/couch/couch-3b.glsl"
+#endif
+
+#ifndef T420BABE_COUCH_3C
+#include "./lib/t420babe/couch/couch-3c.glsl"
+#endif
+
+#ifndef T420BABE_COUCH_3D
+#include "./lib/t420babe/couch/couch-3d.glsl"
+#endif
+
+#ifndef T420BABE_COUCH_3E
+#include "./lib/t420babe/couch/couch-3e.glsl"
+#endif
+
+#ifndef T420BABE_COUCH_3F
+#include "./lib/t420babe/couch/couch-3f.glsl"
+#endif
+
+#ifndef T420BABE_COUCH_3G
+#include "./lib/t420babe/couch/couch-3g.glsl"
+#endif
+
+#ifndef T420BABE_COUCH_3H
+#include "./lib/t420babe/couch/couch-3h.glsl"
+#endif
+
+#ifndef T420BABE_COUCH_3I
+#include "./lib/t420babe/couch/couch-3i.glsl"
+#endif
+
 #ifndef T420BABE_COUCH_4
 #include "./lib/t420babe/couch/couch-4.glsl"
 #endif
@@ -570,6 +606,18 @@
 #include "./lib/t420babe/couch/couch-136.glsl"
 #endif
 
+#ifndef T420BABE_COUCH_136A
+#include "./lib/t420babe/couch/couch-136a.glsl"
+#endif
+
+#ifndef T420BABE_COUCH_136B
+#include "./lib/t420babe/couch/couch-136b.glsl"
+#endif
+
+#ifndef T420BABE_COUCH_136C
+#include "./lib/t420babe/couch/couch-136c.glsl"
+#endif
+
 #ifndef T420BABE_COUCH_137
 #include "./lib/t420babe/couch/couch-137.glsl"
 #endif
@@ -624,6 +672,10 @@
 
 #ifndef T420BABE_COUCH_150
 #include "./lib/t420babe/couch/couch-150.glsl"
+#endif
+
+#ifndef T420BABE_COUCH_150A
+#include "./lib/t420babe/couch/couch-150a.glsl"
 #endif
 
 #ifndef T420BABE_COUCH_151

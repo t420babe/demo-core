@@ -32,7 +32,7 @@ float couch106_fbm (in vec2 st, peakamp audio) {
     st /= 50.0;
     // Initial values
     float value = -audio.bandpass;
-    float amplitude = 1.0;
+    float amplitude = 5.0 * audio.notch;
     // float amplitude = audio.bandpass * 2.0;
     // float amplitude = abs(sin(u_time));
     float frequency = 1.0;
@@ -43,21 +43,21 @@ float couch106_fbm (in vec2 st, peakamp audio) {
         value += amplitude * couch106_noise(st, audio);
         st *= 8.0;
         // amplitude *= abs(sin(u_time)) - audio.notch;
-        amplitude *= 0.5;
+        amplitude *= audio.bandpass;
     }
     return value;
 }
 
 void couch106(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-    // pos.y += sin(u_time * 0.5);
-    // pos.y += 0.5;
-    color += couch106_fbm(pos * 5.0, audio);
-    // color.r = abs(sin(u_time * audio.bandpass));
-    color.r *= abs(tan(u_time));
-    // // color.r -= 0.1;
-    // color.b += audio.bandpass * 0.5;
-    // color.g *= audio.bandpass;
-    color.g *= (abs(cos(u_time))) * audio.bandpass;
-    // color.g *= (0.0 + 0.4) * 0.1;
+  pos = pos.yx;
+  pos.y += 0.5;
+
+  color.r *= audio.lowpass * 1.5;
+  // color.g *= audio.highpass * 1.5;
+
+  color += couch106_fbm(pos * 5.0, audio)  * audio.bandpass;
+  // color = couch106_fbm(pos * 5.0, audio)  * audio.bandpass * abs(sin(u_time));
+  color.r *= couch106_fbm(pos * 5.0, audio)  * audio.bandpass;
+
 }
 #endif
