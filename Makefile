@@ -4,6 +4,9 @@ main:
 main-dbg:
 	glslViewer main.frag --nocursor -I./lib
 
+pauly:
+	glslViewer pauly.vert pauly.frag rsc/tetrahedron.ply -C rsc/mel-sprinkles.jpeg -p 8000 --nocursor -I./lib
+
 f:
 	glslViewer final/final.frag --nocursor -I./lib -p 8000
 
@@ -74,6 +77,9 @@ kungs-i-feel-so-bad-dbg:
 
 adam-beyer-your-mind:
 	glslViewer sets/songs/adam-beyer-your-mind.frag --nocursor -I./lib -p 8000
+
+now:
+	glslViewer sets/songs/now.frag --nocursor -I./lib -p 8000
 
 adam-beyer-your-mind-dbg:
 	glslViewer sets/songs/adam-beyer-your-mind.frag -I./lib
