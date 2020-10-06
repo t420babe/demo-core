@@ -10,7 +10,7 @@ float rays_audio(vec2 st, int N, peakamp audio) {
 #include "./lib/common/structs.glsl"
 #endif
     st.y -= 1.0;
-    return exp(atan(st.x,st.y) * audio.notch /TWO_PI*float(N));
+    return exp(atan(st.x,st.y) * audio.notch * 0.01 /TWO_PI*float(N));
 }
 
 float rays_sdf(vec2 st, int N) {
