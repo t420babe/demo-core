@@ -137,8 +137,8 @@ float wbl_hexagon_now(vec2 pos, float size, peakamp audio) {
     // 1:17 50 -> 5
     // 1:47 5 -> 50
     // 2:17 50 -> 5
-    float rayz = rays_audio(pos, 50, audio);
-    color /= rayz;
+    float rayz = rays_audio(pos, 5, audio);
+    color *= rayz;
     vec2 circle_position = pos;
     circle_position.y += 0.0;
     purple_circle_oh_yes_he_is_mio(circle_position, u_time, audio, purp_circle);
