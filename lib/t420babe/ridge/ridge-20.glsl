@@ -95,7 +95,7 @@ void r20_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   audio.bandpass *= audio_multiplier;
   audio.notch *= audio_multiplier;
 
-	pos = square_position(pos);
+	// pos = square_position(pos);
   pos /= audio.bandpass;
   pos.y += 0.5;
 
@@ -111,6 +111,33 @@ void r20_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
    color += 0.20;
    color = vec3(color.r, audio.lowpass * color.g, audio.lowpass * color.b);
    color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, color.b);
+
+   color += 0.05;
+}
+/* qmetro target: 45 ms, ok with 60 ms */
+void r20_ridge_main_built(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+  float audio_multiplier = 3.5;
+  audio.highpass *= audio_multiplier;
+  audio.lowpass *= audio_multiplier;
+  audio.bandpass *= audio_multiplier;
+  audio.notch *= audio_multiplier;
+
+	// pos = square_position(pos);
+  pos /= audio.bandpass;
+  pos.y += 0.5;
+
+  // float zoom = 0.50;
+  float zoom = 50.0;
+  color += r20_ridgedMF(pos*25.0, audio.lowpass * pos.y * zoom); 
+
+
+   // RR RIGHT HERE: PLAY WITH THESE
+   // Bassically by Tei Shi
+   color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, audio.lowpass * color.b);
+   color = vec3(audio.lowpass * color.r, color.g, audio.lowpass * color.b);   // purple & yellow
+   color += audio.notch * 0.3;
+   // color = vec3(color.r, audio.lowpass * color.g, audio.lowpass * color.b);
+   color = vec3(audio.lowpass * color.g, color.b * abs(sin(u_time)), audio.lowpass * color.r);
 
    color += 0.05;
 }

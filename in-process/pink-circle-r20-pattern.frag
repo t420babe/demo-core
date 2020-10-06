@@ -30,10 +30,6 @@ precision mediump float;
 #include "./lib/common/plot.glsl"
 #endif
 
-#ifndef PXL_RAYS
-#include "./lib/pxl/rays-sdf.glsl"
-#endif
-
 
 uniform float u_lowpass;
 uniform float u_highpass;
@@ -102,47 +98,68 @@ float wbl_hexagon_now(vec2 pos, float size, peakamp audio) {
   // if (audio.bandpass > 0.5) {
   // if (audio.notch > 0.5) {
   if (audio.notch > 0.4) {
-    // if (full_max > 100.0) {
+  // if (full_max > 100.0) {
     hexagon =  max(abs(pos.y), pos.x * 0.866025 + pos.y * 0.5);
   }  else {
     hexagon =  max(abs(pos.y), pos.x * 0.866025 + pos.y * 0.0);
   }
   return hexagon;
-  }
+}
 
-  float triangle_now(vec2 st, peakamp audio) {
+float triangle_sdf_now(vec2 st, peakamp audio) {
     st = (st * 2.0)*2.;
     float t1 =  max(abs(st.x) * 0.866025 + st.y * 0.5, -st.y * 0.5);
     return t1 / 5.0 * audio.notch;
-  }
+}
 
-  mat2 mat_rotate2d(float angle){
+mat2 mat_rotate2d(float angle){
     return mat2(tan(angle),sin(angle), cos(angle),-sin(angle));
-  }
+}
 
-  void kungs_ifsb(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-    vec2 sq_pos = square_position(pos);
-    r20_ridge_main(pos, u_time, audio, color);
-  }
+void kungs_ifsb(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+  vec2 sq_pos = square_position(pos);
+  r20_ridge_main(pos, u_time, audio, color);
+}
 
-  void main() {
-    vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-    peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-    vec3 color = my_mix();
+void main() {
+  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
+  // vec3 color = vec3(1.0);
+  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
+  vec3 color = my_mix();
+  int choice = 2;
+
+  if (choice == 0) {
+
+    float threshold = clamp(0.6, 0.0, 1.0);
+
+    // float size = 5.5;
+    // color -= SHARP(wbl_hexagon_now(pos * audio.bandpass * 4.0, size, audio));
+    // color *= SHARP(triangle_sdf_now(pos, audio));
+
+    vec3 cch = color;
+    // vec2 cch_pos = vec2(pos.x, pos.y);
+    // vec3 cch = x_box(cch_pos, u_time, audio, color);
+    // vec3 cch = purple_circle_oh_yes_he_is_mio(cch_pos, u_time, audio, color);
+    // vec3 cch = orange_circle_bright_purple_bg(cch_pos, u_time, audio, color);
+    pos = vec2(pos.x, pos.y);
+    vec2 src_coord = vec2(pos.x - 1.0, pos.y - 1.0);
+    vec4 src_pixel = texture2D(u_tex0, src_coord);
+
+    float raster_pattern = cch.r;
+    float avg = 0.2125 * src_pixel.r + 0.7154 * src_pixel.g + 0.07154 * src_pixel.b;
+    float gray = (raster_pattern * threshold + avg - threshold) / ( 1.0 - threshold);
+    gl_FragColor = vec4(src_pixel.b * u_bandpass * 2.0, cch.g, src_pixel.g * u_notch * 2.0, 1.0);
+
+  } else if (choice == 1) {
+    // Built
+    kungs_ifsb(pos, u_time, audio, color);
+    gl_FragColor = vec4(color, 1.0);
+  } else {
     vec2 sq_pos = square_position(pos);
     r20_ridge_main_built(sq_pos, u_time, audio, color);
-
     vec3 purp_circle =  vec3(0.0);
-    // 0:17 5 -> 50
-    // 1:17 50 -> 5
-    // 1:47 5 -> 50
-    // 2:17 50 -> 5
-    float rayz = rays_audio(pos, 5, audio);
-    color += rayz;
-    vec2 circle_position = pos;
-    circle_position.y += 0.0;
-    purple_circle_oh_yes_he_is_mio(circle_position, u_time, audio, purp_circle);
+    purple_circle_oh_yes_he_is_mio(pos, u_time, audio, purp_circle);
     color *= purp_circle;
-
     gl_FragColor = vec4(color, 1.0);
   }
+}

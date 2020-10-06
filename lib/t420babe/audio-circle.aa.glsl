@@ -1,10 +1,15 @@
 #ifndef T420BABE_AUDIO_CIRCLE
 #define T420BABE_AUDIO_CIRCLE
 
-#ifndef COMMON_COMMON
-#include "./lib/common/00-common.glsl"
+#ifndef COMMON_PLOT
+#include "./lib/common/plot.glsl"
 #endif
 
+
+// #ifndef COMMON_COMMON
+// #include "./lib/common/00-common.glsl"
+// #endif
+//
 #ifndef PXL_PXL
 #include "./lib/pxl/00-pxl.glsl"
 #endif
@@ -50,6 +55,14 @@ void purple_circle(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   color = vec3(0.2, 0.243, 0.0234);
 
   float pct = sharp(circle_1(pos * 1.1, audio.notch));
+  color = vec3(pct * color + pct + color.gbr);
+}
+
+void purple_circle_oh_yes_he_is_mio(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+  // vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
+  color = vec3(0.2, 0.243, 0.0234);
+
+  float pct = sharp(circle_1(pos * 1.1, audio.bandpass / 1.5));
   color = vec3(pct * color + pct + color.gbr);
 }
 
