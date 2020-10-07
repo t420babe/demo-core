@@ -29,10 +29,6 @@ uniform vec2 u_mouse;
 uniform float u_time;
 
 
-#ifndef SQUARE_POSITION
-#include "./lib/common/square-position.glsl"
-#endif
-
 vec3 my_mix() {
   vec3 c1 = vec3(0.760704, 0.94902, 0.0);
   vec3 c0 = vec3(0.94902 ,0.0, 0.760704);
@@ -46,7 +42,6 @@ void main() {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = my_mix();
-  vec2 sq_pos = square_position(pos);
   color = babydoyougetme_1(pos, u_time, audio);
 
   vec3 purp_circle =  vec3(0.0);

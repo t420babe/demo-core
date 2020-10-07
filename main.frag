@@ -1,5 +1,3 @@
-// imaginary friends (ov) - Morgan Page Remix by Deadmau5
-// T4B NOTE: Need to change num_rays on beat
 #ifdef GL_ES
 precision mediump float;
 #endif
@@ -8,8 +6,16 @@ precision mediump float;
 #include "./lib/common/peakamp.glsl"
 #endif
 
-#ifndef T420BABE_RIDGE_21
-#include "./lib/t420babe/ridge/ridge-21.glsl"
+#ifndef T420BABE_RAINBOW_SCALES
+#include "./lib/t420babe/rainbow-scales.glsl"
+#endif
+
+#ifndef T420BABE_AUDIO_CIRCLE
+#include "./lib/t420babe/audio-circle.glsl"
+#endif
+
+#ifndef T420BABE_BABYDOYOUGETME
+#include "./lib/t420babe/babydoyougetme.glsl"
 #endif
 
 uniform float u_lowpass;
@@ -25,7 +31,7 @@ void main() {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(1.0);
-  r21_ridge_main(pos, u_time, audio, color);
+  babydoyougetme_0_audio(pos, u_time, audio, color);
 
   gl_FragColor = vec4(color, 1.0);
 }

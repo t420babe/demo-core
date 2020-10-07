@@ -1,8 +1,8 @@
 #ifndef T420BABE_RAINBOW_SCALES
 #define T420BABE_RAINBOW_SCALES
 
-#ifndef COMMON_COMMON
-#include "./lib/common/00-common.glsl"
+#ifndef COMMON_TRANSFORM
+#include "./lib/common/transform.glsl"
 #endif
 
 vec2 rainbow_position(vec2 pos, vec2 u_resolution, float u_time) {

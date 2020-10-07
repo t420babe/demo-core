@@ -7,6 +7,9 @@ main-dbg:
 dyka:
 	glslViewer final/dyka.frag --nocursor -I./lib -p 8000
 
+dyka-dbg:
+	glslViewer final/dyka.frag --nocursor -I./lib
+
 zonnestral:
 	glslViewer sets/singles/zonnestral.frag --nocursor -I./lib -p 8000
 
