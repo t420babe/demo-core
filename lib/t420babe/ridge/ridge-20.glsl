@@ -1,5 +1,6 @@
 #ifndef T420BABE_RIDGE_20
 #define T420BABE_RIDGE_20
+
 // 53d1470 - almost
 vec3 r20_mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
 vec2 r20_mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -122,7 +123,6 @@ void r20_ridge_main_built(vec2 pos, float u_time, peakamp audio, out vec3 color)
   audio.bandpass *= audio_multiplier;
   audio.notch *= audio_multiplier;
 
-	// pos = square_position(pos);
   pos /= audio.bandpass;
   pos.y += 0.5;
 

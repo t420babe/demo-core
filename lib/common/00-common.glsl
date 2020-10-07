@@ -5,8 +5,8 @@
 #include "./lib/common/setup.glsl"
 #endif
 
-#ifndef COMMON_STRUCTS
-#include "./lib/common/structs.glsl"
+#ifndef COMMON_PEAKAMP
+#include "./lib/common/peakamp.glsl"
 #endif
 
 #ifndef COMMON_MATH_FUNCTIONS

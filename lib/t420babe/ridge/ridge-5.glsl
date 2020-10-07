@@ -3,10 +3,6 @@
 // t420babe song suggestion: Brain Juice by DARK $
 // t420babe idea: black and white then when beat drop add in color
 
-#ifndef COMMON_COMMON
-#include "./lib/common/00-common.glsl"
-#endif
-
 vec3 r5_mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
 vec2 r5_mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
 vec3 r5_permute(vec3 x) { return r5_mod289(((x*34.0)+1.0)*x); }
@@ -70,7 +66,6 @@ float r5_snoise(vec2 v) {
   return 130.0 * dot(m, g);
 }
 
-#define OCTAVES 25
 
 // Ridged multifractal
 // See "Texturing & Modeling, A Procedural Approach", Chapter 12
@@ -91,7 +86,8 @@ float r5_ridgedMF(vec2 p, float u_t) {
   float prev = 1.0;
   float move_time = sin(u_t * 0.14 + u_t);
 
-  for(int i=0; i < OCTAVES; i++) {
+int octaves = 25;
+  for(int i=0; i < octaves; i++) {
     // float n = r5_ridge(r5_snoise(p*freq * tan( 0.05 * u_t + sin(u_t))), offset);
     // float n = r5_ridge(r5_snoise(p*freq * tan( 1.05 *  sin(u_t))), offset);
     float n = r5_ridge(r5_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_t))), offset + move_time);

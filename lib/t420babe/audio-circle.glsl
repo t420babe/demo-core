@@ -5,13 +5,8 @@
 #include "./lib/common/plot.glsl"
 #endif
 
-
-// #ifndef COMMON_COMMON
-// #include "./lib/common/00-common.glsl"
-// #endif
-//
-#ifndef PXL_PXL
-#include "./lib/pxl/00-pxl.glsl"
+#ifndef PXL_CIRCLE
+#include "./lib/pxl/circle-sdf.glsl"
 #endif
 
 

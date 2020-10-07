@@ -29,6 +29,7 @@ float exp_in_out(float t) {
 }
 
 float sin_in(float t) {
+#define PI 3.14159265358979323846
   return sin((t - 1.0) * HALF_PI) + 1.0;
 }
 

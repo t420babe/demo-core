@@ -1,5 +1,6 @@
 #ifndef T420BABE_RIDGE_24
 #define T420BABE_RIDGE_24
+
 // b7446d9, 02:09 i cant help myself i just love tan
 vec3 r24_mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
 vec2 r24_mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -93,7 +94,6 @@ void r24_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   audio.bandpass *= audio_multiplier;
   audio.notch *= audio_multiplier;
 
-	pos = square_position(pos);
   pos /= audio.bandpass;
   pos.y += 0.5;
 
@@ -103,9 +103,58 @@ void r24_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
 
    // RR RIGHT HERE: PLAY WITH THESE
    // Bassically by Tei Shi
+   // magenta:
+   // color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, audio.lowpass * color.b);
+   // color = vec3(audio.lowpass * color.r, color.g, audio.lowpass * color.b);
+
+  // deep blue
+   // color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, audio.lowpass * color.b);
+   // color = vec3(audio.lowpass * color.r, color.g, audio.lowpass * color.b);
+   // color = vec3(color.r, audio.lowpass * color.g, audio.lowpass * color.b);
+
+
+   // cyan:
+   // color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, audio.lowpass * color.b);
+   // color = vec3(color.r, audio.lowpass * color.g, audio.lowpass * color.b);
+
+
+   // red & white:
+   // color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, audio.lowpass * color.b);
+   // color = vec3(audio.lowpass * color.r, color.g, audio.lowpass * color.b);
+   // color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, color.b);
+
+   // more red than white:
+   // color = vec3(audio.lowpass * color.r, color.g, audio.lowpass * color.b);
+   // color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, color.b);
+
+    // green:
+   // color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, audio.lowpass * color.b);
+   // color = vec3(color.r, audio.lowpass * color.g, audio.lowpass * color.b);
+   // color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, color.b);
+
+  // orange and blue:
+   // color = vec3(color.r, audio.lowpass * color.g, audio.lowpass * color.b);
+
+   // light blue
+   // color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, audio.lowpass * color.b);
+
+   // lime green:
+   // color = vec3(color.r, audio.lowpass * color.g, audio.lowpass * color.b);
+   // color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, audio.lowpass * color.b);
+   // color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, color.b);
+
+   // yellow:
+   // color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, audio.lowpass * color.b);
+   // color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, color.b);
+
+  // yellow and black:
+   // color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, color.b);
+
+   // MESS WITH ZE COLORZZZ
+   // color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, color.b);
    color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, audio.lowpass * color.b);
    // color = 1.0 - color;;
-   // color = vec3(audio.lowpass * color.r, color.g, audio.lowpass * color.b);
+   color = vec3(audio.lowpass * color.r, color.g, audio.lowpass * color.b);
    // color = vec3(color.r, audio.lowpass * color.g, audio.lowpass * color.b);
    // color = vec3(audio.lowpass * color.r, audio.lowpass * color.g, color.b);
 

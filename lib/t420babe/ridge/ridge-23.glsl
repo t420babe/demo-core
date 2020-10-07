@@ -1,5 +1,6 @@
 #ifndef T421BABE_RIDGE_23
 #define T421BABE_RIDGE_23
+
 // d175ac6, 02:17
 vec3 r23_mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
 vec2 r23_mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -94,7 +95,6 @@ void r23_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   audio.bandpass *= audio_multiplier;
   audio.notch *= audio_multiplier;
 
-	pos = square_position(pos);
   // pos /= audio.bandpass;
   pos -= 0.5;
 
@@ -104,8 +104,8 @@ void r23_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
 
 
    // RR: PLAY WITH THESE
-  // color = vec3(1.0 * audio.lowpass, color.y, color.x * abs(sin(audio.lowpass)));
-  color = vec3(1.0 * audio.lowpass, color.y, color.x + (sin(audio.lowpass))); 
+  color = vec3(1.0 * audio.lowpass, color.y, color.x * abs(sin(audio.lowpass)));
+  // color = vec3(1.0 * audio.lowpass, color.y, color.x + (sin(audio.lowpass)));
 
   float time_limit = 20.0;
 float time_segment = 4.0;
@@ -122,26 +122,6 @@ float mod_time = mod(u_time, time_limit);
   // NO: color = vec3(audio.bandpass/10.0, color.x, 0.4 * abs(sin(audio.bandpass)));
   // color = vec3(audio.bandpass/10.0, color.y * abs(sin(audio.bandpass)), 0.7);
   color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(u_time)));    // purple, blue, red. we love this
-  // color = vec3(audio.bandpass / 10.0, 0.3, color.y * abs(sin(audio.bandpass)));
-
-// if (mod_time < time_segment * 1.0) {
-//   color = vec3(1.0 * audio.bandpass, color.y, abs(sin(audio.bandpass)));
-//
-// } else if (mod_time < time_segment * 1.0) {
-//   color = vec3(audio.bandpass/10.0, color.y * abs(sin(audio.bandpass)), 0.7);
-//   // color = vec3(1.0 * audio.bandpass, color.y, abs(sin(audio.bandpass)));
-//
-// } else if (mod_time < time_segment * 2.0) {
-//   color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(u_time)));    // purple, blue, red. we love this
-//   // color = vec3(audio.bandpass/10.0, color.y * abs(sin(audio.bandpass)), 0.7);
-//
-// } else if (mod_time < time_segment * 3.0) {
-//   // color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(u_time)));    // purple, blue, red. we love this
-//   color = vec3(audio.bandpass / 10.0, 0.3, color.y * abs(sin(audio.bandpass)));
-//
-// } else {
-//   color = vec3(audio.bandpass / 10.0, 0.3, color.y * abs(sin(audio.bandpass)));
-// }
 
 }
 #endif

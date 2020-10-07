@@ -1,5 +1,6 @@
 #ifndef T420BABE_RIDGE_18
 #define T420BABE_RIDGE_18
+
 // b7446d9, 02:09 i cant help myself i just love tan
 vec3 r18_mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
 vec2 r18_mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -92,7 +93,6 @@ void r18_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   audio.bandpass *= 100.0;
   audio.notch *= 100.0;
 
-	pos = square_position(pos);
   pos /= audio.bandpass;
   pos += 0.5;
 
@@ -117,30 +117,5 @@ void r18_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
  } else if (mod_time < time_segment * 4.0) {
    color = vec3(audio.bandpass / 10.0, color.x + 0.3, 0.8 * abs(sin(audio.notch)));
  }
-
-
-
- // color = vec3(0.8, color.y, color.x * abs(sin(u_time)));  // red and yellow
- // color = vec3(0.8, color.x, 0.4 * abs(sin(u_time)));    // yellow and purple
-   // color = vec3(color.x - 0.1, 0.7, color.y * abs(sin(u_time)));  // green and yellow
-   // color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(u_time)));    // purple, blue, red. we love this
-   // color = vec3(color.y, color.x + 0.3, 0.8 * abs(sin(u_time)));    // white, blue, and yellow
-
- //   if (mod_time < time_segment * 1.0) {
- //   color = vec3(0.8, color.y, color.x * abs(sin(audio.bandpass)));
- //
- // } else if (mod_time < time_segment * 1.0) {
- //   color = vec3(0.8, color.x, 0.4 * abs(sin(audio.bandpass)));
- //
- // } else if (mod_time < time_segment * 2.0) {
- //   color = vec3(color.x - 0.1, color.y * abs(sin(audio.bandpass)), 0.7);
- //
- // } else if (mod_time < time_segment * 3.0) {
- //   color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(audio.bandpass)));
- //
- // } else if (mod_time < time_segment * 4.0) {
- //   color = vec3(color.y, color.x + 0.3, 0.8 * abs(sin(audio.bandpass)));
- // }
-
 }
 #endif

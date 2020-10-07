@@ -1,5 +1,10 @@
 #ifndef T420BABE_RIDGE_1
 #define T420BABE_RIDGE_1
+//
+// #ifndef SQUARE_POSITION
+// #include "./lib/common/square-position.glsl"
+// #endif
+
 
 #ifndef COMMON_COMMON
 #include "./lib/common/00-common.glsl"
@@ -79,7 +84,7 @@ float ridge(float h, float offset) {
   return h;
 }
 
-float ridgedMF(vec2 p, float u_t) {
+float ridgedMF(vec2 p, float u_time) {
   float lacunarity = 5.0;
   float gain = 0.1;
   float offset = 0.9;
@@ -87,16 +92,16 @@ float ridgedMF(vec2 p, float u_t) {
   float sum = 0.0;
   float freq = 3.0, amp = 4.5;
   float prev = 1.0;
-  float move_time = sin(u_t * 0.14 + u_t);
+  float move_time = sin(u_time * 0.14 + u_time);
 
   for(int i=0; i < OCTAVES; i++) {
-    // float n = ridge(r1_snoise(p*freq * tan( 0.05 * u_t + sin(u_t))), offset);
-    // float n = ridge(r1_snoise(p*freq * tan( 1.05 *  sin(u_t))), offset);
-    // float n = ridge(r1_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_t))), offset + move_time);
+    // float n = ridge(r1_snoise(p*freq * tan( 0.05 * u_time + sin(u_time))), offset);
+    // float n = ridge(r1_snoise(p*freq * tan( 1.05 *  sin(u_time))), offset);
+    // float n = ridge(r1_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_time))), offset + move_time);
     float n = ridge(r1_snoise(p*freq * 0.1 * atan( u_time * 0.5   )), offset + move_time);
     // float n = ridge(r1_snoise(p*freq), offset + move_time);
     // RR YES:
-    // float n = ridge(r1_snoise(p*freq * ( 1.05 *  sin(0.5 * u_t))), offset + move_time);
+    // float n = ridge(r1_snoise(p*freq * ( 1.05 *  sin(0.5 * u_time))), offset + move_time);
     sum += n*amp;
     sum += n*amp*prev;  // scale by previous octave
     prev = n;
@@ -108,7 +113,7 @@ float ridgedMF(vec2 p, float u_t) {
 
 
 void ridge_1_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-  pos = square_position(pos);
+  // pos = square_position(pos);
   pos /= 2.0;
 
   audio.highpass *= 100.0;

@@ -1,9 +1,6 @@
 #ifndef T420BABE_RIDGE_2
 #define T420BABE_RIDGE_2
 
-#ifndef COMMON_COMMON
-#include "./lib/common/00-common.glsl"
-#endif
 
 vec3 r2_mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
 vec2 r2_mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -88,7 +85,7 @@ float r2_ridgedMF(vec2 p, float u_t) {
   float move_time = sin(u_t * 0.14 + u_t);
 
   int octaves = 25;
-  for(int i=0; i < OCTAVES; i++) {
+  for(int i=0; i < octaves; i++) {
     // float n = r2_ridge(r2_snoise(p*freq * tan( 0.05 * u_t + sin(u_t))), offset);
     // float n = r2_ridge(r2_snoise(p*freq * tan( 1.05 *  sin(u_t))), offset);
     float n = r2_ridge(r2_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_t))), offset + move_time);
@@ -106,7 +103,6 @@ float r2_ridgedMF(vec2 p, float u_t) {
 
 
 void r2_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-  pos = square_position(pos);
   pos *= 2.0;
 
   audio.highpass *= 100.0;
@@ -115,11 +111,13 @@ void r2_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   audio.notch *= 100.0;
 
   // RR HERE MESS WITH THESE
-  color += r2_ridgedMF(pos * 20.0, audio.bandpass * pos.x); 
-  color *= r2_ridgedMF(pos * 20.0, audio.bandpass * pos.x * pos.y);
+  color -= r2_ridgedMF(pos * 20.0, audio.bandpass * pos.x); 
+  color -= r2_ridgedMF(pos * 20.0, audio.bandpass * pos.x * pos.y);
   // color -= r2_ridgedMF(pos * 20.0, audio.bandpass * pos.x / pos.y);
 
+  // color = vec3(color.r * audio.bandpass, color.g * audio.lowpass, abs(sin(u_time)));
+  color /= vec3(color.r * audio.bandpass, color.g * audio.lowpass, audio.bandpass + color.b);
   // color = vec3(color.r - 0.3, color.g, color.b * abs(sin(u_time)));
-  color = vec3(color.r * tan(u_time), color.g, color.b * abs(sin(u_time)));
+  // color = vec3(color.r * tan(u_time), color.g, color.b * abs(sin(u_time)));
 }
 #endif

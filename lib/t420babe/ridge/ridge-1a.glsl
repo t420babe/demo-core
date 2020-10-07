@@ -1,9 +1,12 @@
 #ifndef T420BABE_RIDGE_1A
 #define T420BABE_RIDGE_1A
+// #ifndef SQUARE_POSITION
+// #include "./lib/common/square-position.glsl"
+// #endif
 
-#ifndef COMMON_COMMON
-#include "./lib/common/00-common.glsl"
-#endif
+// #ifndef COMMON_COMMON
+// #include "./lib/common/00-common.glsl"
+// #endif
 // Inspiration and original functions by @patriciogv - 2015, Tittle: Ridge
 
 vec3 r1a_mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
@@ -88,7 +91,7 @@ float r1a_ridge(float h, float offset) {
   return h;
 }
 
-float r1a_ridgedMF(vec2 p, float u_t) {
+float r1a_ridgedMF(vec2 p, float u_time) {
   float lacunarity = 5.0;
   float gain = 0.1;
   float offset = 0.9;
@@ -96,14 +99,14 @@ float r1a_ridgedMF(vec2 p, float u_t) {
   float sum = 0.0;
   float freq = 3.0, amp = 4.5;
   float prev = 1.0;
-  float move_time = sin(u_t * 0.14 + u_t);
+  float move_time = sin(u_time * 0.14 + u_time);
 
   for(int i=0; i < OCTAVES; i++) {
-    // float n = r1a_ridge(r1a_snoise(p*freq * tan( 0.05 * u_t + sin(u_t))), offset);
-    // float n = r1a_ridge(r1a_snoise(p*freq * tan( 1.05 *  sin(u_t))), offset);
-    float n = r1a_ridge(r1a_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_t))), offset + move_time);
+    // float n = r1a_ridge(r1a_snoise(p*freq * tan( 0.05 * u_time + sin(u_time))), offset);
+    // float n = r1a_ridge(r1a_snoise(p*freq * tan( 1.05 *  sin(u_time))), offset);
+    float n = r1a_ridge(r1a_snoise(p*freq * fract( 1.05 *  atan(0.5 * u_time))), offset + move_time);
     // RR YES:
-    // float n = r1a_ridge(r1a_snoise(p*freq * ( 1.05 *  sin(0.5 * u_t))), offset + move_time);
+    // float n = r1a_ridge(r1a_snoise(p*freq * ( 1.05 *  sin(0.5 * u_time))), offset + move_time);
     sum += n*amp;
     sum += n*amp*prev;  // scale by previous octave
     prev = n;
@@ -115,8 +118,6 @@ float r1a_ridgedMF(vec2 p, float u_t) {
 
 
 void r1a_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-  // pos = square_position(pos);
-  // pos /= 2.0;
 
   audio.highpass *= 100.0;
   audio.lowpass *= 100.0;

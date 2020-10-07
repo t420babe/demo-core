@@ -2,8 +2,8 @@
 precision mediump float;
 #endif
 
-#ifndef COMMON_STRUCTS
-#include "./lib/common/structs.glsl"
+#ifndef COMMON_PEAKAMP
+#include "./lib/common/peakamp.glsl"
 #endif
 
 // #ifndef PULSE_X_MAX
@@ -11,7 +11,7 @@ precision mediump float;
 // #endif
 
 #ifndef T420BABE_AUDIO_CIRCLE
-#include "./lib/t420babe/audio-circle.aa.glsl"
+#include "./lib/t420babe/audio-circle.glsl"
 #endif
 
 #ifndef T420BABE_COUCH_3I

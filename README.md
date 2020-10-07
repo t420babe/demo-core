@@ -18,8 +18,10 @@ Favorites:
 - `lib/t420babe/wood-bb/wood-brother-louie-8.glsl`
 - `lib/t420babe/ridge/alligator.glsl`
 - `lib/t420babe/ridge/ridge-3.glsl` ALL THE RIDGES
-- `lib/t420babe/ridge/ridge-3.glsl` ALL THE RIDGES
-- `lib/t420babe/ridge/ridge-8.glsl` ALL THE RIDGES
+- `lib/t420babe/ridge/ridge-5.glsl` ALL THE RIDGES
+- `lib/t420babe/ridge/ridge-6.glsl` ALL THE RIDGES itme
+- `lib/t420babe/ridge/ridge-9.glsl` ALL THE RIDGES
+- `lib/t420babe/ridge/ridge-10.glsl` ALL THE RIDGES
 - `lib/t420babe/ridge/ridge-19.glsl` play with the four colors - Bassically by Tei Shi
 - `lib/t420babe/ridge/ridge-22.glsl` 
 - `lib/t420babe/ridge/ridge-24.glsl`  play with the colors - I Feel So Bad The Kunds
@@ -56,38 +58,6 @@ Remaining:
 Maybe go back to these commits:
 88c657b35426b87f109d2ffa32c0fd51465f930e
 
-All functions in `lib/pxl` that have `sdf` appended to the function definition have this license:
-```
-/*
- Copyright (c) 2017 Patricio Gonzalez Vivo ( http://www.pixelspiritdeck.com )
- All rights reserved.
- 
- Redistribution and use in source and binary forms, with or without
- modification, are permitted provided that the following conditions are
- met:
- 
- Redistributions of source code must retain the above copyright notice,
- this list of conditions and the following disclaimer.
- 
- Redistributions in binary form must reproduce the above copyright
- notice, this list of conditions and the following disclaimer in the
- documentation and/or other materials provided with the distribution.
- 
- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-```
-
-
 
 
 
@@ -110,3 +80,44 @@ Directory 1, d1: directory where each commit will be saved as a new file
         Or maybe can specify a dir so (but not right now):
 
           d1/main-0.frag d1/lib/t420babe/couch/couch-1-0.glsl
+
+
+goal: minimal imports to minimize load time 
+sandbox
+lib
+  - effects   // things that makes good texture/pattern effectss
+  - shapes
+  - utils
+    - math.glsl
+    - easing.glsl
+sets
+  - set1
+    - Makefile
+    - n0...n1.frag
+singles
+  - Makefile
+  - x.frag
+
+
+
+# Textures
+- ridge set
+- ridge-21
+
+
+# To Finalize
+ridge-2.glsl -> City in Florida by Deadmau5
+ridge-3.glsl -> Mi Mujer
+
+# This one needs a song
+- ridge-12 -> maybe Cthulhu Sleeps by deadmau5
+- ridge-15
+- ridge-18 -> must be with the right song to see full vis
+- ridge-19 -> maybe into the surf
+- ridge-22 -> silly fun song
+- ridge-24 -> play with those colors bb
+
+# Absolute BANGERZ
+- ridge-12
+- ridge-19
+- ridge-24 -> play with those colors bb

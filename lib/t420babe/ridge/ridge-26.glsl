@@ -93,7 +93,6 @@ void r26_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   audio.bandpass *= audio_multiplier;
   audio.notch *= audio_multiplier;
 
-	pos = square_position(pos);
   pos /= audio.bandpass + 2.0;
   pos.y += 0.5;
 

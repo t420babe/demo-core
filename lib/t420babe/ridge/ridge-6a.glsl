@@ -101,6 +101,7 @@ float r6a_ridgedMF(vec2 p, float u_t) {
 }
 
 void r6a_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+  pos /= 5.0;
 
   audio.highpass *= 100.0;
   audio.lowpass *= 100.0;

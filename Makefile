@@ -4,6 +4,15 @@ main:
 main-dbg:
 	glslViewer main.frag --nocursor -I./lib
 
+dyka:
+	glslViewer final/dyka.frag --nocursor -I./lib -p 8000
+
+zonnestral:
+	glslViewer sets/singles/zonnestral.frag --nocursor -I./lib -p 8000
+
+zonnestral-dbg:
+	glslViewer sets/singles/zonnestral.frag --nocursor -I./lib
+
 pauly:
 	glslViewer pauly.vert pauly.frag rsc/tetrahedron.ply -C rsc/mel-sprinkles.jpeg -p 8000 --nocursor -I./lib
 
