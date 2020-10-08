@@ -4,6 +4,24 @@ main:
 main-dbg:
 	glslViewer main.frag --nocursor -I./lib
 
+dyka:
+	glslViewer final/dyka.frag --nocursor -I./lib -p 8000
+
+dyka-dbg:
+	glslViewer final/dyka.frag --nocursor -I./lib
+
+zonnestral:
+	glslViewer sets/singles/zonnestral.frag --nocursor -I./lib -p 8000
+
+zonnestral-dbg:
+	glslViewer sets/singles/zonnestral.frag --nocursor -I./lib
+
+f:
+	glslViewer final/final.frag --nocursor -I./lib -p 8001
+
+f-dbg:
+	glslViewer final/final.frag --nocursor -I./lib
+
 # timer:
 #    while true; do echo -ne "`date`\r"; done
 
@@ -68,6 +86,9 @@ kungs-i-feel-so-bad-dbg:
 
 adam-beyer-your-mind:
 	glslViewer sets/songs/adam-beyer-your-mind.frag --nocursor -I./lib -p 8000
+
+now:
+	glslViewer sets/songs/now.frag --nocursor -I./lib -p 8000
 
 adam-beyer-your-mind-dbg:
 	glslViewer sets/songs/adam-beyer-your-mind.frag -I./lib

@@ -1,5 +1,6 @@
 #ifndef T420BABE_RIDGE_19
 #define T420BABE_RIDGE_19
+
 // b7446d9, 02:09 i cant help myself i just love tan
 vec3 r19_mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
 vec2 r19_mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -93,7 +94,6 @@ void r19_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   audio.bandpass *= audio_multiplier;
   audio.notch *= audio_multiplier;
 
-	pos = square_position(pos);
   pos /= audio.bandpass;
   pos.y += 0.5;
 

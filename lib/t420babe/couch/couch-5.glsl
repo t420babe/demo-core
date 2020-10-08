@@ -29,10 +29,10 @@ float couch5_noise (in vec2 st, peakamp audio) {
 float couch5_fbm (in vec2 st, peakamp audio) {
   // Initial values
   float value = -0.3;
-  float amplitude = 1.0;
+  float amplitude = audio.bandpass * 3.0;
   // float amplitude = audio.bandpass * 2.0;
   // float amplitude = abs(sin(u_time));
-  float frequency = 1.0;
+  float frequency = audio.lowpass;
   //
   // Loop of octaves
   int octaves = 6;
@@ -45,13 +45,12 @@ float couch5_fbm (in vec2 st, peakamp audio) {
 }
 
 void couch5(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-  pos.y += sin(u_time * 0.5);
-  // pos.y += 0.5;
+  pos.y += 0.3;
   color += couch5_fbm(pos * 5.0, audio);
-  // color.r = abs(sin(u_time * audio.bandpass));
-  color.r = abs(sin(u_time));
-  // color.r -= 0.1;
-  // color.b += 0.1;
+  // color.r = abs(sin(u_time));
+  color.r = abs(tan(audio.notch));
+  // color.r += audio.notch;
+  color.b += 0.1;
 }
 #endif
 

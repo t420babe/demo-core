@@ -28,7 +28,7 @@ float couch101_noise (in vec2 st, peakamp audio) {
 }
 
 float couch101_fbm (in vec2 st, peakamp audio) {
-    st.y += 2.5;
+    st.y += 2.347;
     st /= 3.0;
     // Initial values
     float value = -audio.bandpass;
@@ -52,12 +52,12 @@ void couch101(vec2 pos, float u_time, peakamp audio, out vec3 color) {
     // pos.y += sin(u_time * 0.5);
     // pos.y += 0.5;
     color += couch101_fbm(pos * 5.0, audio);
-    // color.r = abs(sin(u_time * audio.bandpass));
-    color.r *= abs(tan(u_time));
-    // // color.r -= 0.1;
-    // color.b += audio.bandpass * 0.5;
-    // color.g *= audio.bandpass;
-    color.g *= (abs(cos(u_time))) * audio.bandpass;
-    // color.g *= (0.0 + 0.4) * 0.1;
+    color.r *= audio.bandpass;
+    color.b += abs(audio.notch * 0.5);
+    color.g = audio.bandpass;
+
+    // color.r *= 0.1;
+    // color.b += abs(0.1 * 0.5);
+    // color.g = 0.1;
 }
 #endif

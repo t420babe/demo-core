@@ -28,7 +28,7 @@ float couch98_noise (in vec2 st, peakamp audio) {
 }
 
 float couch98_fbm (in vec2 st, peakamp audio) {
-    st.y += 2.5;
+    st.y += 2.347;
     // Initial values
     float value = -audio.bandpass;
     float amplitude = 1.0;

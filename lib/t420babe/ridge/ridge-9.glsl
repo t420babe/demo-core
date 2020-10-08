@@ -1,5 +1,6 @@
 #ifndef T420BABE_RIDGE_9
 #define T420BABE_RIDGE_9
+
 // ee2d460, 01:32
 vec3 r9_mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
 vec2 r9_mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -92,7 +93,6 @@ void r9_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   audio.bandpass *= 100.0;
   audio.notch *= 100.0;
 
-	pos = square_position(pos);
   pos /= 53.0;
   pos += 0.5;
 

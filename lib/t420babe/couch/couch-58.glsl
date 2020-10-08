@@ -1,6 +1,7 @@
 #ifndef T420BABE_COUCH_58
 /// 6d2e175 lib/t420babe/couch/couch-1.glsl
 #define T420BABE_COUCH_58
+
 float couch58_random (in vec2 st) {
     return fract(sin(dot(st.xy,
                          vec2(12.9898,78.233)))*
@@ -47,15 +48,24 @@ float couch58_fbm (in vec2 st, peakamp audio) {
 }
 
 void couch58(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-    // pos.y += sin(u_time * 0.5);
-    // pos.y += 0.5;
+    pos.y += mod(u_time * 0.4, 100.0);
     color += couch58_fbm(pos * 5.0, audio);
-    // color.r = abs(sin(u_time * audio.bandpass));
+    // // Pink and Blue
+    // color.r *= abs(tan(u_time));
+    // color.g *= (abs(cos(u_time))) * audio.bandpass;
+
+    // // Blue and green
+    // color.b += (tan(u_time)) * audio.lowpass;
+    // color.r *= (abs(cos(u_time))) * audio.bandpass;
+    // color.g -= audio.notch;
+
+
+    // All - looks cool
     color.r *= abs(tan(u_time));
-    // // color.r -= 0.1;
-    // color.b += audio.bandpass * 0.5;
-    // color.g *= audio.bandpass;
     color.g *= (abs(cos(u_time))) * audio.bandpass;
-    // color.g *= (0.0 + 0.4) * 0.1;
+    color.b += (tan(u_time)) * audio.lowpass;
+    color.r *= (abs(cos(u_time))) * audio.bandpass;
+    color.g -= audio.notch;
+
 }
 #endif

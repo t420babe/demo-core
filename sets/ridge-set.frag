@@ -13,19 +13,14 @@ uniform float u_notch;
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform float u_time;
-
 #endif
 
-#ifndef COMMON_COMMON
-#include "./common/00-common.glsl"
+#ifndef COMMON_PEAKAMP
+#include "./lib/common/peakamp.glsl"
 #endif
 
-#ifndef PXL
-#include "./pxl/00-pxl.glsl"
-#endif
-
-#ifndef T420BABE
-#include "./lib/t420babe/00-t420babe.glsl"
+#ifndef T420BABE_RIDGE_SET
+#include "./lib/t420babe/ridge/00-ridge.glsl"
 #endif
 
 #ifndef S

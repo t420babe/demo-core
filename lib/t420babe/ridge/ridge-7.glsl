@@ -1,10 +1,5 @@
 #ifndef T420BABE_RIDGE_7
 #define T420BABE_RIDGE_7
-
-#ifndef COMMON_COMMON
-#include "./lib/common/00-common.glsl"
-#endif
-
 vec3 r7_mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
 vec2 r7_mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
 vec3 r7_permute(vec3 x) { return r7_mod289(((x*0.05)+1.0)*x); }
@@ -115,10 +110,10 @@ void r7_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   audio.bandpass *= 100.0;
   audio.notch *= 100.0;
 
-	pos = square_position(pos);
   // st.y *= u_r.y / u_r.x; // fix resolution x-axis stretching
   // st /= 53.0;
-  pos /= audio.notch * 2.0;
+  // pos /= audio.notch * 1.0;
+  pos /= 2.0;
   pos -= 1.0;
   // st += audio.notch;
   // vec2 st = frag_coord.xy/u_r.xy;

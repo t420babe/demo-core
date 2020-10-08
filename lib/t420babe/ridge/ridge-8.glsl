@@ -1,10 +1,6 @@
 #ifndef T420BABE_RIDGE_8
 #define T420BABE_RIDGE_8
 
-#ifndef COMMON_COMMON
-#include "./lib/common/00-common.glsl"
-#endif
-
 vec3 r8_mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
 vec2 r8_mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
 vec3 r8_permute(vec3 x) { return r8_mod289(((x*0.05)+1.0)*x); }
@@ -111,12 +107,14 @@ float r8_ridgedMF(vec2 p, float u_time, float audio_notch) {
 
 void r8_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   pos.y -= 0.5;
+  pos *= 4.0;
+  pos.y -= 1.4;
+  pos.x += 0.7;
   audio.highpass *= 100.0;
   audio.lowpass *= 100.0;
   audio.bandpass *= 100.0;
   audio.notch *= 100.0;
 
-	// pos = square_position(pos);
   // st.y *= u_r.y / u_r.x; // fix resolution x-axis stretching
   // st /= 53.0;
   pos /= audio.notch * 2.0;
@@ -129,32 +127,11 @@ void r8_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   float time_segment = 4.0;
   float mod_time = mod(u_time, time_limit);
 
-  // color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(u_time)));    // purple, blue, red. we love this
+  color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(u_time)));    // purple, blue, red. we love this
   // color = vec3(1.0 * audio.lowpass, color.y, color.x * abs(sin(audio.bandpass))); // red and white flash of cyan
   // color = vec3(audio.notch/10.0, color.x, 0.4 * abs(sin(audio.bandpass)));  // green & purple then hot pink & magenta and yellow, WE LOVE THIS
   // color = vec3(audio.notch/10.0, color.y * abs(sin(audio.bandpass)), 0.7); // cyan & purple then magenta & peach; WE ALSO LOVE THIS
-  color = vec3(audio.notch / 10.0, color.x + 0.3, 0.8 * abs(sin(audio.bandpass))); // sea green & navy then green and purple
-  // if (mod_time < time_segment * 1.0) {
-  //   color = vec3(1.0 * audio.lowpass, color.y, color.x * abs(sin(audio.bandpass)));
-  //   color = vec3(1.0);
-  //
-  // } else if (mod_time < time_segment * 1.0) {
-  //   color = vec3(audio.notch/10.0, color.x, 0.4 * abs(sin(audio.bandpass)));
-  //   color = vec3(1.0);
-  //
-  // } else if (mod_time < time_segment * 2.0) {
-  //   color = vec3(audio.notch/10.0, color.y * abs(sin(audio.bandpass)), 0.7);
-  //   color = vec3(1.0);
-  //
-  // } else if (mod_time < time_segment * 3.0) {
-  //   // color = vec3(audio.notch / 10.0, 0.3, color.y * abs(sin(audio.bandpass)));
-  //   color = vec3(color.x - 0.3, 0.3, color.y * abs(sin(u_time)));    // purple, blue, red. we love this
-  //   color = vec3(1.0);
-  //
-  // } else if (mod_time < time_segment * 4.0) {
-  //   color = vec3(audio.notch / 10.0, color.x + 0.3, 0.8 * abs(sin(audio.bandpass)));
-  //   color = vec3(1.0);
-  // }
+  // color = vec3(audio.notch / 10.0, color.x + 0.3, 0.8 * abs(sin(audio.bandpass))); // sea green & navy then green and purple
 }
 
 

@@ -29,23 +29,28 @@ float couch2_noise (in vec2 st) {
 
 float couch2_fbm (in vec2 st, peakamp audio) {
     // Initial values
-    float value = 0.0;
+    // float value = -0.1;
+    float value = -0.5;
     float amplitude = audio.bandpass * 2.0;
-    float frequency = 0.;
+    float frequency = 0.0;
     //
     // Loop of octaves
 		int octaves = 6;
     for (int i = 0; i < octaves; i++) {
         value += amplitude * couch2_noise(st);
-        st *= 2.;
+        st *= 3. * audio.lowpass;
         amplitude *= .5;
     }
     return value;
 }
 
 void couch2(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+  pos /= 1.5;
     color += couch2_fbm(pos*8.0, audio);
     // color.r = abs(sin(u_time * audio.bandpass));
-    color.r = abs(sin(u_time));
+    // color.r = clamp(abs(sin(u_time * 1.0)) - 0.1, 0.2, 0.8);
+    // color.r = abs(sin(u_time * 1.0));
+    color.r += 0.5;
+    color.b += 0.1;
 }
 #endif

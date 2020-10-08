@@ -1,5 +1,6 @@
 #ifndef T421BABE_RIDGE_22
 #define T421BABE_RIDGE_22
+
 // 53d1470 - almost
 vec3 r22_mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
 vec2 r22_mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -94,7 +95,6 @@ void r22_ridge_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   audio.bandpass *= audio_multiplier;
   audio.notch *= audio_multiplier;
 
-	pos = square_position(pos);
   pos /= audio.bandpass;
   pos.y += 0.5;
 

@@ -50,14 +50,13 @@ float couch111_fbm (in vec2 st, peakamp audio) {
 
 void couch111(vec2 pos, float u_time, peakamp audio, out vec3 color) {
     // pos.y += sin(u_time * 0.5);
-    // pos.y += 0.5;
+    // pos.y -= 0.025;
+    // pos /= 100000.0;
+    pos.y -= 0.111;
     color += couch111_fbm(pos * 5.0, audio);
-    // color.r = abs(sin(u_time * audio.bandpass));
-    color.r *= abs(tan(u_time));
-    // // color.r -= 0.1;
-    // color.b += audio.bandpass * 0.5;
-    // color.g *= audio.bandpass;
-    color.g *= (abs(cos(u_time))) * audio.bandpass;
-    // color.g *= (0.0 + 0.4) * 0.1;
+    color.r *= audio.notch;
+    color.g = audio.lowpass;
+    // color.r *= abs(tan(u_time));
+    // color.g *= (abs(cos(u_time))) * audio.bandpass;
 }
 #endif

@@ -1,10 +1,12 @@
+// Decade by Ben Bohmer, Jan Blomqvist
 #ifndef T420BABE_COUCH_189
 /// 127c208 lib/t420babe/couch/couch-1.glsl
 #define T420BABE_COUCH_189
+#ifndef COMMON_WRAP_TIME
+#include "./lib/common/wrap-time.glsl"
+#endif
 float couch189_random (in vec2 st) {
-    return fract(sin(dot(st.xy,
-                         vec2(12.9898,78.233)))*
-        43758.5453123);
+    return fract(sin(dot(st.xy, vec2(12.9898,78.233)))* 43758.5453123);
 }
 
 // Based on Morgan McGuire @morgan3d
@@ -51,13 +53,14 @@ float couch189_fbm (in vec2 st, peakamp audio) {
 void couch189(vec2 pos, float u_time, peakamp audio, out vec3 color) {
     // pos.y += sin(u_time * 0.5);
     // pos.y += 0.5;
+    // pos *= 33.0;
+  // pos /= 33.0;
+  // pos *= wrap_time(u_time * 2.0, 66.0) + 10.0;
+  pos /= wrap_time(u_time * 2.0, 66.0) + 10.0;
     color += couch189_fbm(pos * 5.0, audio);
-    // color.r = abs(sin(u_time * audio.bandpass));
-    // color.g *= abs(tan(u_time));
     color.g -= (audio.bandpass + audio.notch) * 0.5;
-    // color.b *= abs(sin(audio.bandpass));
     color.r *= audio.bandpass;
-    // color.g *= (abs(cos(u_time))) * audio.bandpass;
-    // color.g *= (0.0 + 0.4) * 0.1;
+
+    // color += audio.highpass;
 }
 #endif
