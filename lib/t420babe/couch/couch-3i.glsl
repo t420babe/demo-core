@@ -1,5 +1,10 @@
 #ifndef T420BABE_COUCH_3I
 #define T420BABE_COUCH_3I
+
+#ifndef COMMON_PEAKAMP
+#include "./lib/common/peakamp.glsl"
+#endif
+
 /// 635168d 02:09
 /// Turn Mills - Club Mix by Maribou State
 float couch3i_random (in vec2 st) {
@@ -27,7 +32,7 @@ float couch3i_noise (in vec2 st) {
     (d - b) * u.x * u.y;
 }
 
-float couch3i_fbm (in vec2 st, peakamp audio) {
+float couch3i_fbm (in vec2 st, peakamp audio, float u_time) {
   // Initial values
   float value = -2.0 * audio.lowpass;
   float amplitude = 2.0;
@@ -50,7 +55,7 @@ void couch3i(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   pos /= 1.5;
   // pos.y += 0.5;
   pos.x += 0.3;
-  color = vec3(couch3i_fbm(pos * 8.0, audio));
+  color = vec3(couch3i_fbm(pos * 8.0, audio, u_time));
   // color.r = abs(sin(u_time * audio.bandpass));
   color.r *= abs(sin( u_time * audio.bandpass));
   // color.r = audio.notch;

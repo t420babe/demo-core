@@ -1,6 +1,5 @@
 #ifndef T420BABE_COUCH_136C
-/// Yamaha by Aleksandir
-/// qmetro - 50 ms
+/// Aftershock by admo
 #define T420BABE_COUCH_136C
 float couch136c_random (in vec2 st) {
     return fract(sin(dot(st.xy,

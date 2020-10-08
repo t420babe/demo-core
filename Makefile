@@ -16,11 +16,8 @@ zonnestral:
 zonnestral-dbg:
 	glslViewer sets/singles/zonnestral.frag --nocursor -I./lib
 
-pauly:
-	glslViewer pauly.vert pauly.frag rsc/tetrahedron.ply -C rsc/mel-sprinkles.jpeg -p 8000 --nocursor -I./lib
-
 f:
-	glslViewer final/final.frag --nocursor -I./lib -p 8000
+	glslViewer final/final.frag --nocursor -I./lib -p 8001
 
 f-dbg:
 	glslViewer final/final.frag --nocursor -I./lib

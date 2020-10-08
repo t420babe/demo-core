@@ -50,12 +50,11 @@ void couch73(vec2 pos, float u_time, peakamp audio, out vec3 color) {
     // pos.y += sin(u_time * 0.5);
     // pos.y += 0.5;
     color += couch73_fbm(pos * 5.0, audio);
-    // color.r = abs(sin(u_time * audio.bandpass));
-    color.r *= abs(tan(u_time));
-    // // color.r -= 0.1;
-    // color.b += audio.bandpass * 0.5;
-    // color.g *= audio.bandpass;
-    color.g *= (abs(cos(u_time))) * audio.bandpass;
-    // color.g *= (0.0 + 0.4) * 0.1;
+    // Pink and Blue
+    // color.r *= abs(tan(u_time));
+    // color.g *= (abs(cos(u_time))) * audio.bandpass;
+
+    color.b *= abs(tan(u_time)) + abs(audio.notch);
+    color.g *= (abs(cos(u_time)) * audio.bandpass);
 }
 #endif

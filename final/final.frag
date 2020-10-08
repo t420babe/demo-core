@@ -62,38 +62,21 @@ void final_manual(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   // couch42(pos, u_time, audio, color);		// i like this one a lot, but i need to incorporate much more audio
   couch43(pos, u_time, audio, color);
   couch44(pos, u_time, audio, color);
-  couch46(pos, u_time, audio, color);
   couch48(pos, u_time, audio, color);   // HHH yes
-  couch49(pos, u_time, audio, color);
-  couch50(pos, u_time, audio, color);   // MMHHH NICE visual break from the nosier quads
-  couch51(pos, u_time, audio, color);
-  couch53(pos, u_time, audio, color);
+
   couch55(pos, u_time, audio, color);
-  couch56(pos, u_time, audio, color);
   couch58(pos, u_time, audio, color);
   couch59(pos, u_time, audio, color);
-  couch60(pos, u_time, audio, color);
-  couch61(pos, u_time, audio, color);
-  couch62(pos, u_time, audio, color);     // HHH
-  couch63(pos, u_time, audio, color);     // HH
   couch64(pos, u_time, audio, color);
   couch65(pos, u_time, audio, color);
   couch66(pos, u_time, audio, color);
-  couch72(pos, u_time, audio, color);
-  couch73(pos, u_time, audio, color);
   couch74(pos, u_time, audio, color);
   couch75(pos, u_time, audio, color);
-  couch76(pos, u_time, audio, color);
-  couch77(pos, u_time, audio, color);
-  couch78(pos, u_time, audio, color);
   couch79(pos, u_time, audio, color);
-  couch80(pos, u_time, audio, color);
   couch81(pos, u_time, audio, color); // HH
   couch83(pos, u_time, audio, color);
-  couch84(pos, u_time, audio, color);
   couch85(pos, u_time, audio, color);
   couch86(pos, u_time, audio, color);
-  couch87(pos, u_time, audio, color);
 
   couch89(pos, u_time, audio, color);
   couch96(pos, u_time, audio, color);   // Maybe
@@ -108,27 +91,19 @@ void final_manual(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   couch109(pos, u_time, audio, color);
   couch110(pos, u_time, audio, color);
   couch111(pos, u_time, audio, color);
-  couch112(pos, u_time, audio, color);
   couch113(pos, u_time, audio, color);    // HHH
   couch114(pos, u_time, audio, color);
-  couch115(pos, u_time, audio, color);
-
-  // couch127(pos, u_time, audio, color);   // Maybee
+// couch127(pos, u_time, audio, color);   // Maybee
   couch136c(pos, u_time, audio, color);   // All I Need - Nora En Pure
   couch150(pos, u_time, audio, color);  // Alone - Lost Frequencies Remix - Alan Walker, Lost Frequencies
   couch155(pos, u_time, audio, color);
   couch156(pos, u_time, audio, color);
   couch157(pos, u_time, audio, color);
-  couch160(pos, u_time, audio, color);
   couch162(pos, u_time, audio, color);
-  couch163(pos, u_time, audio, color);
+  // couch163(pos, u_time, audio, color);
   // couch164(pos, u_time, audio, color);
-  couch165(pos, u_time, audio, color);
-  couch166(pos, u_time, audio, color);
   couch167(pos, u_time, audio, color); // H
   couch168(pos, u_time, audio, color);
-  couch169(pos, u_time, audio, color);
-  couch170(pos, u_time, audio, color);
   couch172(pos, u_time, audio, color);
   couch174(pos, u_time, audio, color);
   couch175(pos, u_time, audio, color);
@@ -146,11 +121,8 @@ void final_manual(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   couch212(pos, u_time, audio, color);
   couch213(pos, u_time, audio, color);
   couch1(pos, u_time, audio, color);
-  couch215(pos, u_time, audio, color);
   couch216(pos, u_time, audio, color);
   couch218(pos, u_time, audio, color);
-  couch219(pos, u_time, audio, color);
-  couch220(pos, u_time, audio, color);
 
   // wbl8_wood(pos, u_time, audio, color);
   // r17_ridge_main(pos, u_time, audio, color);    // H

@@ -27,7 +27,7 @@ float couch3f_noise (in vec2 st) {
     (d - b) * u.x * u.y;
 }
 
-float couch3f_fbm (in vec2 st, peakamp audio) {
+float couch3f_fbm(in vec2 st, peakamp audio, float u_time) {
   // Initial values
   float value = -0.3;
   float amplitude = 1.0;
@@ -49,7 +49,7 @@ void couch3f(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   pos /= 1.5;
   // pos.y += 0.5;
   pos.x += 0.3;
-  color = vec3(couch3f_fbm(pos * 8.0, audio));
+  color = vec3(couch3f_fbm(pos * 8.0, audio, u_time));
   // color.r = abs(sin(u_time * audio.bandpass));
   color.r *= abs(sin( u_time * audio.bandpass));
   // color.r = audio.notch;
