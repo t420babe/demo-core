@@ -1,5 +1,5 @@
-#ifndef T420BABE_SAYIN_DBH
-#define T420BABE_SAYIN_DBH
+#ifndef T420BABE_SAYIN_DIGITAL_BLACK_HOLE
+#define T420BABE_SAYIN_DIGITAL_BLACK_HOLE
 
 #ifndef PXL_RECT
 #include "./lib/pxl/rect-sdf.glsl"
