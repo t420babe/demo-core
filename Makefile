@@ -4,28 +4,6 @@ main:
 main-dbg:
 	glslViewer main.frag --nocursor -I./lib
 
-dyka:
-	glslViewer final/dyka.frag --nocursor -I./lib -p 8000
-
-dyka-dbg:
-	glslViewer final/dyka.frag --nocursor -I./lib
-
-zonnestral:
-	glslViewer sets/singles/zonnestral.frag --nocursor -I./lib -p 8000
-
-zonnestral-dbg:
-	glslViewer sets/singles/zonnestral.frag --nocursor -I./lib
-
-f:
-	glslViewer final/final.frag --nocursor -I./lib -p 8001
-
-f-dbg:
-	glslViewer final/final.frag --nocursor -I./lib
-
-# timer:
-#    while true; do echo -ne "`date`\r"; done
-
-
 ### SETS ###
 hwset:
 	glslViewer sets/hwset.frag --nocursor -I./lib -p 8000
@@ -75,8 +53,6 @@ couch:
 couch-dbg:
 	glslViewer sets/couch-set.frag -I./lib
 
-
-
 ### SONGS ###
 kungs-i-feel-so-bad:
 	glslViewer sets/songs/kungs-i-feel-so-bad.frag --nocursor -I./lib -p 8000
@@ -90,11 +66,41 @@ adam-beyer-your-mind:
 now:
 	glslViewer sets/songs/now.frag --nocursor -I./lib -p 8000
 
+now-dbg:
+	glslViewer sets/songs/now.frag --nocursor -I./lib
+
 adam-beyer-your-mind-dbg:
 	glslViewer sets/songs/adam-beyer-your-mind.frag -I./lib
 
-imanbek-brother-louie:
+brother-louie:
 	glslViewer sets/songs/imanbek-brother-louie.frag --nocursor -I./lib -p 8000
 
-imanbek-brother-louie-dbg:
+brother-louie-dbg:
 	glslViewer sets/songs/imanbek-brother-louie.frag -I./lib
+
+if:
+	glslViewer sets/songs/imaginary-friends-ov-deadmau5-morgan-page.frag --nocursor -I./lib -p 8000
+
+if-dbg:
+	glslViewer sets/songs/imaginary-friends-ov-deadmau5-morgan-page.frag --nocursor -I./lib
+
+# Techno Prank by Dubdogz
+dyka:
+	glslViewer final/dyka.frag --nocursor -I./lib -p 8000
+
+dyka-dbg:
+	glslViewer final/dyka.frag --nocursor -I./lib
+
+zonnestral:
+	glslViewer sets/songs/zonnestral.frag --nocursor -I./lib -p 8000 rsc/img/arch.jpeg
+
+zonnestral-dbg:
+	glslViewer sets/songs/zonnestral.frag --nocursor -I./lib rsc/img/arch.jpeg
+
+impact:
+	glslViewer in-progress/impact.frag rsc/img/arch.jpeg --nocursor -I./lib -p 8000
+
+impact-dbg:
+	glslViewer in-progress/impact.frag rsc/img/arch.jpeg --nocursor -I./lib
+
+

@@ -1,14 +1,10 @@
 #ifndef T420BABE_COUCH
 #define T420BABE_COUCH
 float couch_random (in vec2 st) {
-    return fract(sin(dot(st.xy,
-                         vec2(12.9898,78.233)))*
-        43758.5453123);
+    return fract(sin(dot(st.xy, vec2(12.9898,78.233)))* 43758.5453123);
 }
 
-// Based on Morgan McGuire @morgan3d
-// https://www.shadertoy.com/view/4dS3Wd
-float noise (in vec2 st) {
+float couch_noise(in vec2 st) {
     vec2 i = floor(st);
     vec2 f = fract(st);
 
@@ -25,7 +21,7 @@ float noise (in vec2 st) {
             (d - b) * u.x * u.y;
 }
 
-float fbm (in vec2 st) {
+float couch_fbm(in vec2 st) {
     // Initial values
     float value = 0.0;
     float amplitude = .5;
@@ -34,7 +30,7 @@ float fbm (in vec2 st) {
     // Loop of octaves
 		int octaves = 6;
     for (int i = 0; i < octaves; i++) {
-        value += amplitude * noise(st);
+        value += amplitude * couch_noise(st);
         st *= 2.;
         amplitude *= .5;
     }
@@ -42,6 +38,6 @@ float fbm (in vec2 st) {
 }
 
 void couch(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-    color += fbm(pos*3.0);
+    color += couch_fbm(pos*3.0);
 }
 #endif

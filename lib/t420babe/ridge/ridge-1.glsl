@@ -1,10 +1,5 @@
 #ifndef T420BABE_RIDGE_1
 #define T420BABE_RIDGE_1
-//
-// #ifndef SQUARE_POSITION
-// #include "./lib/common/square-position.glsl"
-// #endif
-
 
 #ifndef COMMON_COMMON
 #include "./lib/common/00-common.glsl"
@@ -113,7 +108,6 @@ float ridgedMF(vec2 p, float u_time) {
 
 
 void ridge_1_main(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-  // pos = square_position(pos);
   pos /= 2.0;
 
   audio.highpass *= 100.0;

@@ -42,7 +42,6 @@ float wbl_lines(in vec2 pos, float b){
 
 // vec3 wbl_wood(vec4 frag_coord, vec2 u_r, float u_t, float full_ave, float full_max) {
 void wbl_wood(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-  pos = square_position(pos);
 
   vec2 pos2 = pos.yx*vec2(10. * tan(u_time),10. * fract(u_time));
 

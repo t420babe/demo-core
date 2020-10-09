@@ -1,30 +1,26 @@
+// 8d6adf64, 00:11
 #ifndef T420BABE_WOOD_BROTHER_LOUIE_8
 #define T420BABE_WOOD_BROTHER_LOUIE_8
 
-// 8d6adf64, 00:11
-#ifndef COMMON_COMMON
-#include "./lib/common/00-common.glsl"
+#ifndef COMMON_NOISE
+#include "./lib/common/noise.glsl"
 #endif
 
-#ifndef PXL
-#include "./lib/pxl/00-pxl.glsl"
+#ifndef PXL_HEXAGON
+#include "./lib/pxl/hex-sdf.glsl"
 #endif
 
-float wbl8_random (in vec2 pos) {
-  return fract((dot(pos.xy, vec2(12.9898,78.233))) * 43758.5453123);
-}
+#ifndef COMMON_RANDOM
+#include "./lib/common/random.glsl"
+#endif
 
-// Value noise by Inigo Quilez - iq/2013, https://www.shadertoy.com/view/lsf3WH
-float wbl8_noise(vec2 pos, float u_time) {
-  vec2 i = floor(pos);
-  vec2 f = fract(pos);
-  vec2 u = f*f*(3.0-2.0*f);
-  return mix( mix( wbl8_random( i + vec2(0.0,0.0) ), wbl8_random( i + vec2(1.0,0.0) ), u.x),
-        mix( wbl8_random( i + vec2(0.0,1.0) ), wbl8_random( i + vec2(1.0,1.0) ), u.x), u.y);
-}
+#ifndef COMMON_PLOT
+#include "./lib/common/plot.glsl"
+#endif
 
-mat2 wbl8_rotate2d(float angle){
-  return mat2(tan(angle), sin(angle), cos(angle), -sin(angle));
+
+mat2 wbl8_rotate2d(float theta) {
+  return mat2(tan(theta), sin(theta), cos(theta), -sin(theta));
 }
 
 float wbl8_lines(in vec2 pos, float b){
@@ -42,7 +38,7 @@ void wbl8_wood(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   float audio_ave = (audio.notch + audio.highpass + audio.lowpass + audio.bandpass) / 4.0;
 
   // Add noise
-  pos2 = wbl8_rotate2d( noise(pos2, u_time) ) * pos2;
+  pos2 = wbl8_rotate2d( noise(pos2) ) * pos2;
 
   // Draw lines
   pattern = wbl8_lines(pos2, pos.y * pos.y);

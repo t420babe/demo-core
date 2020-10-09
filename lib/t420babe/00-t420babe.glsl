@@ -6,7 +6,7 @@
 #endif
 
 #ifndef T420BABE_AUDIO_CIRLCE
-#include "./lib/t420babe/audio-circle.aa.glsl"
+#include "./lib/t420babe/audio-circle.glsl"
 #endif
 
 #ifndef T420BABE_BABYDOYOUGETME
@@ -1108,10 +1108,6 @@
 
 #ifndef T420BABE_RIDGE_26
 #include "./lib/t420babe/ridge/ridge-26.glsl"
-#endif
-
-#ifndef T420BABE_RIDGE_27
-#include "./lib/t420babe/ridge/ridge-27.glsl"
 #endif
 
 #ifndef T420BABE_ROTATING_LINES

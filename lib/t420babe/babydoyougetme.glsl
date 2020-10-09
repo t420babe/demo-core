@@ -2,7 +2,7 @@
 #define T420BABE_BABYDOYOUGETME
 
 #ifndef T420BABE_UMBRELLA
-#include "./lib/effects/umbrella.glsl"
+#include "./lib/t420babe/umbrella.glsl"
 #endif
 
 #ifndef COMMON_PLOT

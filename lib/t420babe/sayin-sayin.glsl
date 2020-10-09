@@ -404,21 +404,58 @@ void sayin_sayin_blue_wiggly_clock_og_5(vec2 pos, float u_time, peakamp audio, o
   // color += pct2;
 }
 
+// // 88c657b, 20:07
+// void sayin_sayin_blue_wiggly_clock_og_4(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+//   pos.x += 0.5;
+//   pos.y += 0.5;
+//   // pos /= 2.0;
+//   color = vec3(1.0, audio.notch * 2.0, 0.14117647058);
+//   // color = vec3(1.5 * audio.highpass, audio.notch * 0.5, 0.04117647058);
+//   float pct = sharp(circle_1(pos * 4.0, audio.bandpass));
+//   float pct3 = sharp(circle_1((vec2(pos.x - 1.0, pos.y)) * 4.0, audio.bandpass));
+//   float pct4 = sharp(circle_1((vec2(pos.x - 0.5, pos.y - 0.5)) * 4.0, audio.bandpass));
+//   float pct2 = sharp(triangle_sdf(pos) / 15.0);
+//   // color = vec3(pct * color + pct2 + color.gbr);
+//   // color = vec3(pct * color + pct3 * color + pct2 + color.gbr);
+//   color = vec3(pct * color + pct3 * color + pct4 * color + pct2 + color.gbr);
+// }
+
 // 88c657b, 20:07
 void sayin_sayin_blue_wiggly_clock_og_4(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   pos.x += 0.5;
   pos.y += 0.5;
-  pos /= 2.0;
-  color = vec3(1.0, audio.notch * 2.0, 0.14117647058);
-  // color = vec3(1.5 * audio.highpass, audio.notch * 0.5, 0.04117647058);
-  float pct = sharp(circle_1(pos * 4.0, audio.bandpass));
-  float pct3 = sharp(circle_1((vec2(pos.x - 1.0, pos.y)) * 4.0, audio.bandpass));
-  float pct4 = sharp(circle_1((vec2(pos.x - 0.5, pos.y - 0.5)) * 4.0, audio.bandpass));
-  float pct2 = sharp(triangle_sdf(pos) / 10.0);
-  // color = vec3(pct * color + pct2 + color.gbr);
-  // color = vec3(pct * color + pct3 * color + pct2 + color.gbr);
+
+  // color = vec3(1.0, -abs(audio.notch), 0.14117647058);
+  color = vec3(1.0, (audio.notch) + 0.00, 0.14117647058);
+  float circle_multiplier = (audio.bandpass);
+  // float circle_multiplier = (audio.bandpass) * 0.45;
+  // float circle_multiplier = clamp(abs(audio.bandpass), 0.005, 2.0);
+  float pct = sharp(circle_1(pos * 4.0, circle_multiplier));
+  float pct3 = sharp(circle_1((vec2(pos.x - 1.0, pos.y)) * 4.0, circle_multiplier));
+  float pct4 = sharp(circle_1((vec2(pos.x - 0.5, pos.y - 0.5)) * 4.0, circle_multiplier));
+  float pct2 = sharp(triangle_sdf(pos) / 15.0);
+
   color = vec3(pct * color + pct3 * color + pct4 * color + pct2 + color.gbr);
 }
+
+/// DONT GO PAST HERE
+
+// 88c657b, 20:07
+void sayin_sayin_blue_wiggly_clock_og_8(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+  pos.x += 0.5;
+  pos.y += 0.5;
+  // pos /= 2.0;
+  color = vec3(1.0, audio.notch * 2.0, 0.14117647058);
+  float circle_multiplier = audio.bandpass;
+  color = vec3(1.5 * audio.highpass, audio.notch * 0.5, 0.04117647058);
+  float pct = sharp(circle_1(pos * 4.0, circle_multiplier));
+  float pct3 = sharp(circle_1((vec2(pos.x - 1.0, pos.y)) * 4.0, circle_multiplier));
+  float pct4 = sharp(circle_1((vec2(pos.x - 0.5, pos.y - 0.5)) * 4.0, circle_multiplier));
+  float pct2 = sharp(triangle_sdf(pos) / 15.0);
+
+  color = vec3(pct * color + pct3 * color + pct4 * color + pct2 + color.gbr);
+}
+
 
 // 88c657b, 20:07
 void sayin_sayin_blue_wiggly_clock_og_2(vec2 pos, float u_time, peakamp audio, out vec3 color) {

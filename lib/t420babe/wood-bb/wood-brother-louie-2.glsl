@@ -42,7 +42,6 @@ float wbl2_lines(in vec2 pos, float b){
 }
 
 void wbl2_wood(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-  pos = square_position(pos);
 
   vec2 pos2 = pos.yx*vec2(10. * sin(u_time),10.);
 

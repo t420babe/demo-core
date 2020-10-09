@@ -60,15 +60,6 @@ float alligator_ridge_alligator(float h, float offset) {
   return h;
 }
 
-float wrap_time(float u_time, float limit) {
-  float mod_time = mod(u_time, limit);
-  if (mod_time < limit / 2.0) {
-    return mod_time;
-  } else {
-    return limit - mod_time;
-  }
-}
-
 float alligator_ridgedMF(vec2 p, float u_time, peakamp audio) {
   float lacunarity = 5.0;
   float gain = 0.1;

@@ -2,8 +2,8 @@
 precision mediump float;
 #endif
 
-#ifndef COMMON_STRUCTS
-#include "./lib/common/structs.glsl"
+#ifndef COMMON_PEAKAMP
+#include "./lib/common/peakamp.glsl"
 #endif
 
 // #ifndef PULSE_X_MAX
@@ -11,7 +11,7 @@ precision mediump float;
 // #endif
 
 #ifndef T420BABE_AUDIO_CIRCLE
-#include "./lib/t420babe/audio-circle.aa.glsl"
+#include "./lib/t420babe/audio-circle.glsl"
 #endif
 
 #ifndef T420BABE_COUCH_3I
@@ -70,11 +70,11 @@ vec3 my_mix() {
   return color;
 }
 
-// float PI = 3.1415926535897932384626433832795;
-float PI180 = float(PI / 180.0);
+float pi = 3.1415926535897932384626433832795;
+float pi180 = float(pi / 180.0);
 
-float sind(float a) { return sin(a * PI180); }
-float cosd(float a) { return cos(a * PI180); }
+float sind(float a) { return sin(a * pi180); }
+float cosd(float a) { return cos(a * pi180); }
 float added(vec2 sh, float sa, float ca, vec2 c, float d) {
   return 0.5 + 0.25 * cos((sh.x * sa + sh.y * ca + c.x) * d) + 0.25 * cos((sh.x * ca - sh.y * sa + c.y) * d);
 }
@@ -121,3 +121,5 @@ void main() {
   float gray = (raster_pattern * threshold + avg - threshold) / ( 1.0 - threshold);
   gl_FragColor = vec4(src_pixel.b * u_bandpass * 2.0, cch.g, src_pixel.g * u_notch * 2.0, 1.0);
 }
+
+
