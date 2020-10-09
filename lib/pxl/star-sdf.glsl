@@ -5,6 +5,10 @@
 #include "./lib/pxl/math-sdf.glsl"
 #endif
 
+#ifndef COMMON_PLOT
+#include "./lib/common/plot.glsl"
+#endif
+
 // 671e2bc, 20:25 red yellow black weird shape 
 float star_sliding(vec2 st, int V, float s) {
     st = st * 1.00;

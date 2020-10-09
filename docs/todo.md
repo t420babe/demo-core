@@ -29,3 +29,5 @@
 - [ ] move rotate functions from pxl into common
 - [ ] wood-bb.glsl is fucked - fix it
 - [ ] fucking fix pb2yk :/
+
+- [x] retro_vibez_1 is fucked cuz of the sharp or maybe some random DEMO_EASE call

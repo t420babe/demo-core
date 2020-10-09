@@ -4,6 +4,10 @@ main:
 main-dbg:
 	glslViewer main.frag --nocursor -I./lib
 
+main-8001:
+	glslViewer main.frag --nocursor -I./lib -p 8001
+
+
 ### SETS ###
 hw-set:
 	glslViewer sets/hwset.frag --nocursor -I./lib -p 8000

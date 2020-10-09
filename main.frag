@@ -6,9 +6,13 @@ precision mediump float;
 #include "./lib/common/peakamp.glsl"
 #endif
 
-#ifndef T420BABE_SLIDING_IN_CYAN_SQUARE
-#include "./lib/t420babe/sayin/sliding-in-cyan.glsl"
+#ifndef T420BABE_RED_LINE_ZOOM
+#include "./lib/t420babe/sayin/red_line_zoom.glsl"
 #endif
+
+// #ifndef T420BABE_SAYIN_SAYIN
+// #include "./lib/t420babe/sayin/sayin-sayin.glsl"
+// #endif
 
 uniform float u_lowpass;
 uniform float u_highpass;
@@ -26,9 +30,7 @@ void main() {
   vec3 color = vec3(1.0);
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
 
-
-  sayin_sayin_sliding_in_cyan(pos, u_time, audio, color);
-  
+  sayin_sayin_red_line_zoom(pos, u_time, audio, color);
 
   gl_FragColor = vec4(color, 1.0);
 
