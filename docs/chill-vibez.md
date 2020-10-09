@@ -38,3 +38,17 @@ couch189, couch189a, couch189b - Decade by Ben Bohmer
 
 ## sayin
 sayin_sayin_red_line_zoom
+red_kal_2 -> HHH
+
+
+# Intense 
+sayin_sayin_blue_wiggly_clock_og_3f -> H intense triangle circles
+bwg_og-8
+bwg_og-2
+
+
+doppler_sharp_heart -> H
+doppler_rainbow_heart
+doppler_sofias_rainbow(pos, u_time, audio, color);
+doppler_red_red_sun(pos, u_time, audio, color);
+doppler_green_rooster(pos, u_time, audio, color);
