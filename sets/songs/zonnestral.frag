@@ -6,10 +6,6 @@ precision mediump float;
 #include "./lib/common/peakamp.glsl"
 #endif
 
-// #ifndef PULSE_X_MAX
-// #include "./lib/t420babe/pusle-x-max.glsl"
-// #endif
-
 #ifndef T420BABE_AUDIO_CIRCLE
 #include "./lib/t420babe/audio-circle.glsl"
 #endif
@@ -24,6 +20,10 @@ precision mediump float;
 
 #ifndef COMMON_PLOT
 #include "./lib/common/plot.glsl"
+#endif
+
+#ifndef COMMON_MATH_CONSTANTS
+#include "./lib/common/math-constants.glsl"
 #endif
 
 
@@ -69,9 +69,6 @@ vec3 my_mix() {
   vec3 color = (1.0 - f) * c0 + f * c1;
   return color;
 }
-
-// float PI = 3.1415926535897932384626433832795;
-float PI180 = float(PI / 180.0);
 
 float sind(float a) { return sin(a * PI180); }
 float cosd(float a) { return cos(a * PI180); }
