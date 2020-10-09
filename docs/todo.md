@@ -27,3 +27,5 @@
 
 - [ ] noise functions https://www.shadertoy.com/view/4dS3Wd
 - [ ] move rotate functions from pxl into common
+- [ ] wood-bb.glsl is fucked - fix it
+- [ ] fucking fix pb2yk :/

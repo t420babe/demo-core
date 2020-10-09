@@ -2,16 +2,8 @@
 precision mediump float;
 #endif
 
-#ifndef T420BABE
-#include "./lib/t420babe/00-t420babe.glsl"
-#endif
-
-#ifndef COMMON_COMMON
-#include "./common/00-common.glsl"
-#endif
-
-#ifndef PXL
-#include "./pxl/00-pxl.glsl"
+#ifndef COMMON_PEAKAMP
+#include "./lib/common/peakamp.glsl"
 #endif
 
 uniform float u_lowpass;
@@ -23,13 +15,9 @@ uniform vec3 u_camera;
 uniform vec3 u_light;
 varying vec4 v_position;
 
-#ifndef UNIFORMS
-#define UNIFORMS
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform float u_time;
-#endif
-
 
 #ifdef MODEL_VERTEX_COLOR
 varying vec4 v_color;

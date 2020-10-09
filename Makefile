@@ -5,72 +5,72 @@ main-dbg:
 	glslViewer main.frag --nocursor -I./lib
 
 ### SETS ###
-hwset:
+hw-set:
 	glslViewer sets/hwset.frag --nocursor -I./lib -p 8000
 
-hwset-dbg:
+hw-set-dbg:
 	glslViewer sets/hwset.frag -I./lib
 
-ridge:
+ridge-set:
 	glslViewer sets/ridge-set.frag --nocursor -I./lib -p 8000
 
 ridge-dbg:
 	glslViewer sets/ridge-set.frag -I./lib
 
-sayin:
+sayin-set:
 	glslViewer sets/sayin-set.frag --nocursor -I./lib -p 8000
 
-sayin-dbg:
+sayin-set-dbg:
 	glslViewer sets/sayin-set.frag -I./lib
 
-x:
+x-set:
 	glslViewer sets/x-set.frag --nocursor -I./lib -p 8000
 
-x-dbg:
+x-set-dbg:
 	glslViewer sets/x-set.frag -I./lib
 
-circle:
+circle-set:
 	glslViewer sets/circle-set.frag --nocursor -I./lib -p 8000
 
-circle-dbg:
+circle-set-dbg:
 	glslViewer sets/circle-set.frag -I./lib
 
-doppler:
+doppler-set:
 	glslViewer sets/doppler-set.frag --nocursor -I./lib -p 8000
 
-doppler-dbg:
+doppler-set-dbg:
 	glslViewer sets/doppler-set.frag -I./lib
 
-wood:
+wood-set:
 	glslViewer sets/wood-set.frag --nocursor -I./lib -p 8000
 
-wood-dbg:
+wood-set-dbg:
 	glslViewer sets/wood-set.frag -I./lib
 
-couch:
+couch-set:
 	glslViewer sets/couch-set.frag --nocursor -I./lib -p 8000
 
-couch-dbg:
+couch-set-dbg:
 	glslViewer sets/couch-set.frag -I./lib
 
 ### SONGS ###
-kungs-i-feel-so-bad:
+kungs:
 	glslViewer sets/songs/kungs-i-feel-so-bad.frag --nocursor -I./lib -p 8000
 
-kungs-i-feel-so-bad-dbg:
+kungs-dbg:
 	glslViewer sets/songs/kungs-i-feel-so-bad.frag -I./lib
 
-adam-beyer-your-mind:
+your-mind:
 	glslViewer sets/songs/adam-beyer-your-mind.frag --nocursor -I./lib -p 8000
 
-now:
+your-mind-dbg:
+	glslViewer sets/songs/adam-beyer-your-mind.frag --nocursor -I./lib
+
+no-nighttime:
 	glslViewer sets/songs/now.frag --nocursor -I./lib -p 8000
 
-now-dbg:
+no-nighttime-dbg:
 	glslViewer sets/songs/now.frag --nocursor -I./lib
-
-adam-beyer-your-mind-dbg:
-	glslViewer sets/songs/adam-beyer-your-mind.frag -I./lib
 
 brother-louie:
 	glslViewer sets/songs/imanbek-brother-louie.frag --nocursor -I./lib -p 8000
@@ -97,10 +97,42 @@ zonnestral:
 zonnestral-dbg:
 	glslViewer sets/songs/zonnestral.frag --nocursor -I./lib rsc/img/arch.jpeg
 
-impact:
-	glslViewer in-progress/impact.frag rsc/img/arch.jpeg --nocursor -I./lib -p 8000
+rabbit-hole:
+	glslViewer sets/songs/camel-phat-rabbit-hole.frag --nocursor -I./lib -p 8000
 
-impact-dbg:
-	glslViewer in-progress/impact.frag rsc/img/arch.jpeg --nocursor -I./lib
+rabbit-hole-dbg:
+	glslViewer sets/songs/camel-phat-rabbit-hole.frag --nocursor -I./lib
 
+heart-attack:
+	glslViewer sets/songs/camel-phat-rabbit-hole.frag --nocursor -I./lib -p 8000
 
+heart-attack-dbg:
+	glslViewer sets/songs/camel-phat-rabbit-hole.frag --nocursor -I./lib
+
+# BROKEN :(
+py2bk:
+	glslViewer sets/songs/py2byk-bushwick-og.frag rsc/img/graf.jpeg --nocursor -I./lib -C rsc/models/tetrahedron.ply -p 8000 
+
+py2bk-dbg:
+	glslViewer sets/songs/p2bk-bushwick-og.frag rsc/img/graf.jpeg --nocursor -I./lib -C rsc/models/tetrahedron.ply
+
+# Techno Prank by Dubdogz
+techno-prank:
+	glslViewer sets/songs/techno-prank.frag --nocursor -I./lib -p 8000
+
+techno-prank-dbg:
+	glslViewer sets/songs/techno-prank.frag --nocursor -I./lib
+
+#  Run by Tourist
+tourist-run:
+	glslViewer sets/songs/tourist-run.frag --nocursor -I./lib -p 8000
+
+tourist-run-dbg:
+	glslViewer sets/songs/tourist-run.frag --nocursor -I./lib
+
+#  Porto by Worakls
+porto:
+	glslViewer sets/songs/worakls-porto.frag --nocursor -I./lib -p 8000
+
+porto-dbg:
+	glslViewer sets/songs/worakls-porto.frag --nocursor -I./lib

@@ -2,9 +2,7 @@
 #define T420BABE_COUCH_5
 /// 1f7a3e8 02:12
 float couch5_random (in vec2 st) {
-  return fract(sin(dot(st.xy,
-          vec2(12.9898,78.233)))*
-      43758.5453123);
+  return fract(sin(dot(st.xy, vec2(12.9898,78.233)))* 43758.5453123);
 }
 
 // Based on Morgan McGuire @morgan3d
@@ -26,7 +24,7 @@ float couch5_noise (in vec2 st, peakamp audio) {
     (d - b) * u.x * u.y;
 }
 
-float couch5_fbm (in vec2 st, peakamp audio) {
+float couch5_fbm (in vec2 st, peakamp audio, float u_time) {
   // Initial values
   float value = -0.3;
   float amplitude = audio.bandpass * 3.0;
@@ -46,7 +44,7 @@ float couch5_fbm (in vec2 st, peakamp audio) {
 
 void couch5(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   pos.y += 0.3;
-  color += couch5_fbm(pos * 5.0, audio);
+  color += couch5_fbm(pos * 5.0, audio, u_time);
   // color.r = abs(sin(u_time));
   color.r = abs(tan(audio.notch));
   // color.r += audio.notch;
