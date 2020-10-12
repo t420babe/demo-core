@@ -39,20 +39,6 @@ void doppler_blue_web(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   color.g += 0.4;
 }
 
-// 9643dad, 20:38 heart
-void doppler_sharp_heart(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-
-  pos.x += 0.5;
-  pos.y += 0.50;
-  color = vec3(1.1, 0.1234, 0.34);
-  vec2 rot_pos = rotate(pos * 2.5, 0.0, 0.0);
-  float pct = heart_sdf(pos) * audio.notch;
-  pct = sharp(pct);
-  float pct2 = (hexagon_sdf(pos) / 1.0);
-  color = vec3(pct * color + color.gbr * pct2);
-  color.r -= 0.4;
-}
-
 // f25c0d0, 20:30 pulse rainbow heart
 void doppler_rainbow_heart(vec2 pos, float u_time, peakamp audio, out vec3 color) {
 

@@ -9,8 +9,8 @@ precision mediump float;
 #include "./lib/common/peakamp.glsl"
 #endif
 
-#ifndef T420BABE_SAYIN_SAYIN
-#include "./lib/t420babe/sayin-sayin.glsl"
+#ifndef T420BABE_BLUE_WIGGLY_CLOCK_OG_3
+#include "./lib/t420babe/sayin/blue-wiggly-clock-og-3.glsl"
 #endif
 
 uniform float u_lowpass;

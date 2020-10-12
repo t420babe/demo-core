@@ -12,6 +12,10 @@ float circle_1a(vec2 st, float u_notch) {
     return length(st) * 1.0 * u_notch;
 }
 
+float circle_sdf(vec2 pos, float radius) {
+    return length(pos) / radius;
+}
+
 float circle_sdf(vec2 st) {
     return length(st-.5)*2.;
 }
