@@ -1,5 +1,5 @@
 main:
-	glslViewer main.frag --nocursor -I./lib -p 8000
+	glslViewer main.frag rsc/img/graf.jpeg rsc/img/mel-sprinkles.jpeg --nocursor -I./lib -p 8000
 
 main-dbg:
 	glslViewer main.frag --nocursor -I./lib
@@ -194,3 +194,88 @@ porto-8001:
 
 porto-dbg:
 	glslViewer sets/songs/worakls-porto.frag --nocursor -I./lib
+
+turb-square:
+	glslViewer sets/stretched-turb-square-spiral.frag --nocursor -I./lib -p 8000
+
+turb-square-8001:
+	glslViewer sets/stretched-turb-square-spiral.frag --nocursor -I./lib -p 8001
+
+turb-square-dbg:
+	glslViewer sets/stretched-turb-square-spiral.frag --nocursor -I./lib
+
+
+# Take My Money - Christian
+cash:
+	glslViewer sets/songs/cash.frag  --nocursor -I./lib -p 8000
+
+cash-8001:
+	glslViewer sets/songs/cash.frag --nocursor -I./lib -p 8001
+
+cash-dbg:
+	glslViewer sets/songs/cash.frag --nocursor -I./lib
+
+flora:
+	glslViewer sets/flora.frag  --nocursor -I./lib -p 8000 rsc/img/flora.jpeg
+
+flora-8001:
+	glslViewer sets/flora.frag --nocursor -I./lib -p 8001 rsc/img/flora.jpeg
+
+flora-dbg:
+	glslViewer sets/flora.frag --nocursor -I./lib rsc/img/flora.jpeg
+
+lux-ahh:
+	glslViewer main.frag  --nocursor -I./lib -p 8000 rsc/img/mel-sprinkles.jpeg rsc/img/eyes.jpeg
+
+lux-ahh-8001:
+	glslViewer main.frag --nocursor -I./lib -p 8001 rsc/img/mel-sprinkles.jpeg rsc/img/eyes.jpeg
+
+lux-ahh-dbg:
+	glslViewer main.frag --nocursor -I./lib rsc/img/mel-sprinkles.jpeg rsc/img/eyes.jpeg
+
+# Shempi by Ratatat
+the-comedown:
+	 glslViewer sets/the-comedown-2020-edition.frag rsc/img/isurvived.png --nocursor -p 8000 -I./lib
+
+the-comedown-8001:
+	 glslViewer sets/the-comedown-2020-edition.frag rsc/img/isurvived.png --nocursor -p 8001 -I./lib
+
+the-comedown-dbg:
+	 glslViewer sets/the-comedown-2020-edition.frag rsc/img/isurvived.png --nocursor -I./lib
+	
+# Strangers by Betical
+strangers:
+	 glslViewer sets/strangers.frag rsc/img/mel-sprinkles.jpeg --nocursor -p 8000 -I./lib
+
+strangers-8001:
+	 glslViewer sets/strangers.frag rsc/img/mel-sprinkles.jpeg --nocursor -p 8001 -I./lib
+
+strangers-dbg:
+	 glslViewer sets/strangers.frag rsc/img/mel-sprinkles.jpeg --nocursor -I./lib
+	
+lut-2:
+	glslViewer lib/lut/lut-2.frag rsc/img/lot.jpeg rsc/img/streetart/tavern.jpeg -p 8000 --nocursor -I./lib
+
+lut-2-8001:
+	glslViewer lib/lut/lut-2.frag rsc/img/lot.jpeg rsc/img/streetart/tavern.jpeg -p 8001 --nocursor -I./lib
+
+lut-2-dbg:
+	glslViewer lib/lut/lut-2.frag rsc/img/lot.jpeg rsc/img/streetart/tavern.jpeg --nocursor -I./lib
+
+goon-0:
+	glslViewer lib/t420babe/goon/goon-0.frag  -p 8000 --nocursor -I./lib
+
+goon-0-8001:
+	glslViewer lib/t420babe/goon/goon-0.frag  -p 8001 --nocursor -I./lib
+
+goon-0-dbg:
+	glslViewer lib/t420babe/goon/goon-0.frag  --nocursor -I./lib
+
+goon-1:
+	glslViewer lib/t420babe/goon/goon-1.frag  -p 8000 --nocursor -I./lib
+
+goon-1-8001:
+	glslViewer lib/t420babe/goon/goon-1.frag  -p 8001 --nocursor -I./lib
+
+goon-1-dbg:
+	glslViewer lib/t420babe/goon/goon-1.frag  --nocursor -I./lib

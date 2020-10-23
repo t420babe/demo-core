@@ -6,10 +6,6 @@ precision highp float;
 #include "./lib/common/peakamp.glsl"
 #endif
 
-#ifndef BOS_MULTI
-#include "./lib/bos/multi.glsl"
-#endif
-
 uniform sampler2D u_tex0;
 uniform sampler2D u_tex1;
 
@@ -47,16 +43,6 @@ float wrap_time(float u_time, float limit, float offset) {
   }
 }
 
-float wrap_time_1(float u_time, float limit) {
-  // limit *= 2.0;
-  float mod_time = mod(u_time, limit);
-  if (mod_time < limit / 2.0) {
-    return mod_time;
-  } else {
-    return limit - mod_time;
-  }
-}
-
 
 float loop(float start, float end, float speed, float u_time) {
   return (mod(u_time * speed, end) + start);
@@ -68,13 +54,10 @@ vec4 lookup(in vec4 textureColor, in sampler2D lookupTable, peakamp audio, float
         textureColor = clamp(textureColor, 0.0, 1.0);
     #endif
 
-    float rate = 1.0;
-    float start = 10.0;
-    float end = 30.0 * rate;
-    // float blueColor = textureColor.r * (mod(u_time * rate, end - start) + start);
-    float delay = 0.0;
-    float run_time = u_time - delay;
-    float blueColor = textureColor.r * wrap_time_1(run_time * rate, end);
+    float rate = 0.3;
+    float start = 0.0;
+    float end = 250.0;
+    float blueColor = textureColor.r * (mod(u_time * rate, end - start) + start);
 
     float mul = 11.0;
     vec2 quad1 = vec2(0.0);
@@ -107,32 +90,19 @@ vec4 lookup(in vec4 textureColor, in sampler2D lookupTable, peakamp audio, float
     vec4 newColor2 = texture2D(lookupTable, texPos2);
 
     vec4 newColor = mix(newColor1, newColor2, fract(blueColor) * log(blueColor));
-    // newColor.b -= abs(audio.lowpass) * 0.5;
     return newColor * audio.lowpass;
-}
-
-vec3 hsb2rgb(vec3 color) {
-  vec3 rgb = clamp(
-      abs(mod(color.r * 6.0 + vec3(0.0, 0.4, 2.0), 6.0) - 3.0) - 1.0,
-      0.0,
-      1.0);
-  rgb = rgb * rgb * (3.0 - 2.0 * rgb);
-  return color.b * mix(vec3(1.0), rgb, color.g);
 }
 
 void main(){
 	vec2 pos = gl_FragCoord.xy / u_resolution.xy;
-  // pos /= 5.5;
-  // pos.x -= 0.25;
+  pos.x *= 1.5;
+  pos.x -= 0.25;
 	peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
 
-	vec3 color = vec3(1.0);
+	vec3 color = vec3(0.5);
 	vec4 srcColor = texture2D(u_tex0, pos);
-  multi(pos, u_tex0, u_tex1, color);
-  vec4 v4color = vec4(color, 0.5);
   
-  // vec3 dstcolor = lookup(srcColor, u_tex1, audio, u_time).rgb;
-  vec3 dstcolor = lookup(v4color, u_tex1, audio, u_time).rgb;
+	vec3 dstcolor = lookup(srcColor, u_tex1, audio, u_time).rgb;
 
   // dstcolor.g *= clamp(abs(sin(audio.bandpass)), audio.lowpass, abs(audio.highpass)) + audio.notch;
   // // Color scheme 0
@@ -148,17 +118,10 @@ void main(){
   // dstcolor.b *= abs(audio.highpass) - 0.4;
 
   // Color scheme 2
-  dstcolor.r *= abs(sin(u_time * 2.0));
-  dstcolor.g *= clamp(abs(tan(u_time)), 0.5, 1.0);
+  // dstcolor.r *= abs(sin(u_time));
+  // dstcolor.g *= abs(cos(u_time));
   // dstcolor.g *= abs(audio.bandpass + audio.highpass);
-  //
-  // dstcolor = abs(audio.highpass) - dstcolor + abs(audio.bandpass);
-  // dstcolor.b /= abs(sin(hsb2rgb(dstcolor).b));
-  // dstcolor.r /= abs(tan(hsb2rgb(dstcolor).r + abs(audio.notch)));
-  // dstcolor.g *= abs(cos(hsb2rgb(dstcolor).g + 0.3));
-  // dstcolor.r -= 0.5;
 
-
-  gl_FragColor = vec4( dstcolor , 1.0);
-	// gl_FragColor = vec4( color , 1.0);
+  dstcolor = abs(audio.highpass) - dstcolor + abs(audio.bandpass);
+	gl_FragColor = vec4( dstcolor , 1.0);
 }
