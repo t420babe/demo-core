@@ -54,13 +54,13 @@ void main() {
 
 
   // clouds(pos, u_time, audio, color);
-  //  vec3 purp_circle =  vec3(0.0);
+   vec3 purp_circle =  vec3(0.0);
   //  vec2 rayz_position = pos * 9.0 * audio.notch;
   //
   //  float rayz = rays_audio(rayz_position, 60, audio);
   //  color *= rayz;
-  //  purple_circle_oh_yes_he_is_mio(pos, u_time, audio, purp_circle);
-  //  color += purp_circle;
+   purple_circle_oh_yes_he_is_mio(pos, u_time, audio, purp_circle);
+   color += purp_circle;
 
   // im_a_real_cunt_in_spring(pos, u_time, audio, color);
   say_nothing_next(pos, u_time, audio, color);

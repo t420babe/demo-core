@@ -31,11 +31,11 @@ void dyka(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   color = babydoyougetme_1(pos, u_time, audio);
 
   vec3 purp_circle =  vec3(0.0);
-  vec2 rayz_position = pos * 9.0 * audio.notch;
+  vec2 rayz_position = pos * 1.0 * audio.notch;
 
-  float rayz = rays_audio(rayz_position, 60, audio);
+  float rayz = rays_audio(rayz_position, 20, audio);
   color *= rayz;
   purple_circle_oh_yes_he_is_mio(pos, u_time, audio, purp_circle);
-  color += purp_circle;
+  color *= purp_circle;
 }
 #endif

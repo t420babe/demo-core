@@ -92,7 +92,7 @@ float PI180 = float(PI / 180.0);
 float sind(float a) { return tan(a * PI180); }
 float cosd(float a) { return fract(a * PI180); }
 float added(vec2 sh, float sa, float ca, vec2 c, float d) {
-  return 0.5 + 0.25 * cos((sh.x * sa + sh.y * ca + c.x) * d) + 0.25 * cos((sh.x * ca - sh.y * sa + c.y) * d);
+  return 0.5 + 0.25 * fract((sh.x * sa + sh.y * ca + c.x) * d) + 0.25 * cos((sh.x * ca - sh.y * sa + c.y) * d);
 }
 
 float wbl_hexagon_now(vec2 pos, float size, peakamp audio) {

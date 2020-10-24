@@ -26,7 +26,7 @@ mat2 wbl8_rotate2d(float theta) {
 float wbl8_lines(in vec2 pos, float b){
   float scale = 10.0;
   pos *= scale;
-  return smoothstep(0.0, 0.5 + b * 0.5, abs((fract(pos.x * 3.1415) + b * 2.0)) * 0.5);
+  return smoothstep(0.0, 0.5 + b * 0.5, (((pos.y * 3.1415) * b * 2.0)) * 5.5);
 }
 
 // Ya know by Mat.Joe
@@ -45,12 +45,13 @@ void wbl8_wood(vec2 pos, float u_time, peakamp audio, out vec3 color) {
 
   color = vec3(pattern);
 
-  float size = 5.5;
-  color += SHARP(wbl1_hexagon(pos * audio_ave * 4.0, size, audio));
+  float size = 15.5;
+  color *= SHARP(wbl1_hexagon(pos * audio_ave * 4.0, size, audio));
 
   if (audio.lowpass < 0.65) {
     color = vec3(0.8, color.g - 0.4, color.b - 0.1290384);
   }
+  color.r *= audio.notch;
 }
 
 #endif
