@@ -93,4 +93,12 @@ void orange_circle_bright_purple_bg(vec2 pos, float u_time, peakamp audio, out v
   float pct = sharp(circle_1(pos * 1.1, audio.notch));
   color = vec3(1.0, 0.5, pct);
 }
+
+void orange_circle_bright_purple_bg_0(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+  // vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
+  color = vec3(0.0, 0.0, 0.0);
+
+  float pct = (circle_1(pos * 3.0, audio.notch));
+  color = vec3(1.0, pct, 0.9);
+}
 #endif

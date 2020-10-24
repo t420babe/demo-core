@@ -65,13 +65,13 @@ vec4 lookup(in vec4 textureColor, in sampler2D lookupTable, peakamp audio, float
     #endif
 
     float rate = 2.505;
-    float start = 0.0;
-    float end = 230.0 * rate;
+    float start = 15.0;
+    float end = 30.0 * rate;
     // float blueColor = textureColor.r * (mod(u_time * rate, end - start) + start);
     float run_time = u_time - 30.0;
     float blueColor = textureColor.r * wrap_time_1(run_time * rate, end);
 
-    float mul = 11.0;
+    float mul = 1.0;
     vec2 quad1 = vec2(0.0);
     // quad1.y = floor(floor(blueColor) / mul * (abs(sin(u_time) - audio.notch)));
     quad1.y = floor(floor(blueColor) / mul);
@@ -117,7 +117,7 @@ void main(){
 	vec3 dstcolor = lookup(srcColor, u_tex1, audio, u_time).rgb;
 
   // dstcolor.g *= clamp(abs(sin(audio.bandpass)), audio.lowpass, abs(audio.highpass)) + audio.notch;
-  // // Color scheme 0
+  // // // Color scheme 0
   // dstcolor.b *= audio.notch * 2.0;
   // dstcolor.b /= audio.lowpass;
   // dstcolor.g *= abs(audio.highpass) - 0.4;

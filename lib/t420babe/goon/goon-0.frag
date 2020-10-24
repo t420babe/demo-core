@@ -22,10 +22,12 @@ uniform float u_notch;
 void main(){
 	// vec2 pos = gl_FragCoord.xy / u_resolution.xy;
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
+  pos = pos.yx;
 	peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(1.0);
 
-  goon_0(pos, u_time, audio, color);
+  goon_0_1(pos, u_time, audio, color);
 
+  color.r = audio.bandpass;
 	gl_FragColor = vec4(color , 1.0);
 }

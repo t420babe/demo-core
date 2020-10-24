@@ -106,7 +106,7 @@ void say_nothing(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   doppler_sharp_heart(pos, u_time, audio, heart_color);
   color.r /= audio.bandpass;
   color.g *= audio.lowpass;
-  color.b -= audio.highpass;
+  color.r -= audio.highpass;
   color += heart_color;
   color -= 0.2;
 }

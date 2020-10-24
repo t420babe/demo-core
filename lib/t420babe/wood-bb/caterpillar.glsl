@@ -56,15 +56,16 @@ void caterpillar(vec2 pos, float u_time, peakamp audio, out vec3 color) {
 
   color = vec3(pattern);
 
-  vec2 rect_size = vec2(1.5, 1.5);
-  color -= rect_sdf(pos + vec2(0.5), rect_size);
+  // vec2 rect_size = vec2(1.5, 1.5);
+  // color -= rect_sdf(pos + vec2(0.5), rect_size);
 
-  float size = 1.5;
+  float size = 7.5;
   color -= SHARP(wbl1_hexagon(pos * audio_ave * 4.0, size, audio));
 
   if (audio.lowpass < 0.65) {
     color = vec3(color.r - 0.3, color.g - 0.6, color.b + 0.4);
   }
+    // color = vec3(color.r - 0.3, color.g - 0.6, color.b + 0.4);
 }
 
 #endif

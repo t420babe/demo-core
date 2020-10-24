@@ -41,7 +41,7 @@ void cash(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   tmp_pos_1.x *= 0.2;
   color *= hexagon_web(tmp_pos_1);
   color.b *= abs(sin(u_time));
-  // color.r *= audio.bandpass;
+  color.r *= audio.bandpass;
   // color = 1.0 - color;
 }
 
