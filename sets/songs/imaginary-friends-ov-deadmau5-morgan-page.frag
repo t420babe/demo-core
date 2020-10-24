@@ -77,10 +77,10 @@ float triangle_0main(vec2 st) {
 
 // Zonnestaal - MOWE Remix
 vec3 my_mix() {
-  vec3 c1 = vec3(0.760704, 0.94902, 0.0);
-  vec3 c0 = vec3(0.94902 ,0.0, 0.760704);
+  vec3 c1 = vec3(0.060704, 0.04902, 0.0);
+  vec3 c0 = vec3(0.04902 ,0.0, 0.760704);
   // float f = abs(sin(u_time)) * u_highpass;
-  float f = abs(u_bandpass);
+  float f = fract(abs(u_bandpass));
   // vec3 color = mix(c0, c1, f);
   vec3 color = (1.0 - f) * c0 + f * c1;
   return color;
@@ -89,8 +89,8 @@ vec3 my_mix() {
 // float PI = 3.1415926535897932384626433832795;
 float PI180 = float(PI / 180.0);
 
-float sind(float a) { return sin(a * PI180); }
-float cosd(float a) { return cos(a * PI180); }
+float sind(float a) { return tan(a * PI180); }
+float cosd(float a) { return fract(a * PI180); }
 float added(vec2 sh, float sa, float ca, vec2 c, float d) {
   return 0.5 + 0.25 * cos((sh.x * sa + sh.y * ca + c.x) * d) + 0.25 * cos((sh.x * ca - sh.y * sa + c.y) * d);
 }
@@ -114,8 +114,8 @@ float wbl_hexagon_now(vec2 pos, float size, peakamp audio) {
 
   float triangle_now(vec2 st, peakamp audio) {
     st = (st * 2.0)*2.;
-    float t1 =  max(abs(st.x) * 0.866025 + st.y * 0.5, -st.y * 0.5);
-    return t1 / 5.0 * audio.notch;
+    float t1 =  max(abs(st.x) * 0.066025 + st.y * 0.5, -st.y * 0.5);
+    return t1 * 15.0 * audio.notch;
   }
 
   mat2 mat_rotate2d(float angle){
@@ -139,10 +139,10 @@ float wbl_hexagon_now(vec2 pos, float size, peakamp audio) {
     // 1:17 50 -> 5
     // 1:47 5 -> 50
     // 2:17 50 -> 5
-    float rayz = rays_audio(pos, 5, audio);
-    color *= rayz;
+    float rayz = rays_audio(pos, 10, audio);
+    color += rayz;
     purple_circle_oh_yes_he_is_mio(pos, u_time, audio, purp_circle);
-    color *= purp_circle;
+    color -= purp_circle;
 
     gl_FragColor = vec4(color, 1.0);
   }

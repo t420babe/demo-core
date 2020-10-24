@@ -138,6 +138,7 @@ void r20_ridge_main_built(vec2 pos, float u_time, peakamp audio, out vec3 color)
    // color = vec3(color.r, audio.lowpass * color.g, audio.lowpass * color.b);
    color = vec3(audio.lowpass * color.g, color.b * abs(sin(u_time)), audio.lowpass * color.r);
 
+   // color.b = 0.5;
    color += 0.05;
 }
 #endif

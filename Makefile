@@ -120,13 +120,13 @@ if-dbg:
 
 # Techno Prank by Dubdogz
 dyka:
-	glslViewer final/dyka.frag --nocursor -I./lib -p 8000
+	glslViewer sets/dyka.frag --nocursor -I./lib -p 8000
 
 dyka-8001:
-	glslViewer final/dyka.frag --nocursor -I./lib -p 8001
+	glslViewer sets/dyka.frag --nocursor -I./lib -p 8001
 
 dyka-dbg:
-	glslViewer final/dyka.frag --nocursor -I./lib
+	glslViewer sets/dyka.frag --nocursor -I./lib
 
 zonnestral:
 	glslViewer sets/songs/zonnestral.frag --nocursor -I./lib -p 8000 rsc/img/arch.jpeg

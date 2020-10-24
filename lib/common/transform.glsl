@@ -14,5 +14,10 @@ vec2 rotate(vec2 pos, float a, float offset_value) {
   return pos + offset_value;
 }
 
+// rotate2d(noise(pos)) * pos;
+mat2 rotate2d(float theta) {
+  return mat2(cos(theta), -sin(theta), sin(theta), cos(theta));
+}
+
 #endif
 
