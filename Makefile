@@ -300,7 +300,7 @@ fuego-8001:
 fuego-dbg:
 	glslViewer sets/fuego.frag  --nocursor -I./lib
 
-# Fuego
+# 
 gloss:
 	glslViewer sets/gloss.frag  -p 8000 --nocursor -I./lib
 
@@ -309,3 +309,13 @@ gloss-8001:
 
 gloss-dbg:
 	glslViewer sets/gloss.frag  --nocursor -I./lib
+
+# Porto
+rorschach:
+	glslViewer sets/rorschach.frag  -p 8000 --nocursor -I./lib
+
+rorschach-8001:
+	glslViewer sets/rorschach.frag  -p 8001 --nocursor -I./lib
+
+rorschach-dbg:
+	glslViewer sets/rorschach.frag  --nocursor -I./lib
