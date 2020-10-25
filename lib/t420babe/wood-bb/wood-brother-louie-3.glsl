@@ -1,9 +1,6 @@
 #ifndef T420BABE_WOOD_BROTHER_LOUIE_3
 #define T420BABE_WOOD_BROTHER_LOUIE_3
 // 755320c, 18:27 hesagrownassfirefighter
-#ifndef COMMON_COMMON
-#include "./lib/common/00-common.glsl"
-#endif
 
 #ifndef PXL
 #include "./lib/pxl/00-pxl.glsl"
@@ -48,7 +45,7 @@ void wbl3_wood(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   float audio_ave = (audio.notch + audio.highpass + audio.lowpass + audio.bandpass) / 4.0;
 
   // Add noise
-  pos2 = wbl3_rotate2d( noise(pos2, u_time) ) * pos2;
+  pos2 = wbl3_rotate2d( wbl3_noise(pos2, u_time) ) * pos2;
 
   // Draw lines
   pattern = wbl3_lines(pos2,0.1);

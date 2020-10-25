@@ -4,5 +4,6 @@ rsc/
 *.jpeg
 *.wav
 *.swp
+*.swo
 .DS_Store
 *.bk

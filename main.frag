@@ -48,22 +48,22 @@ uniform float u_notch;
 
 void main(){
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-	peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-	vec3 color = vec3(1.0);
+  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
+  vec3 color = vec3(1.0);
 
-//   vec3 tri_color = vec3(1.0);
-//   tri_color *= sharp(triangle_web_1(pos, audio, u_time));
-//
-//   // purple_circle_oh_yes_he_is_mio(pos, u_time, audio, color);
-//   color.r += 1.5;
-//   orange_circle_bright_purple_bg_0(pos, u_time, audio, color);
-//    color.r *= tri_color.b;
-// // purple_circle_oh_yes_he_is_mio(pos, u_time, audio, color);
-   
+  //   vec3 tri_color = vec3(1.0);
+  //   tri_color *= sharp(triangle_web_1(pos, audio, u_time));
+  //
+  //   // purple_circle_oh_yes_he_is_mio(pos, u_time, audio, color);
+  //   color.r += 1.5;
+  //   orange_circle_bright_purple_bg_0(pos, u_time, audio, color);
+  //    color.r *= tri_color.b;
+  // // purple_circle_oh_yes_he_is_mio(pos, u_time, audio, color);
+
   vec3 purp_circle =  vec3(0.0);
   purple_circle_oh_yes_he_is_mio(pos, u_time, audio, purp_circle);
-  
-   gamma_allig(pos, u_time, audio, purp_circle);
+
+  gamma_allig(pos, u_time, audio, purp_circle);
 
   color *= purp_circle;
   // caterpillar(pos, u_time, audio, color);

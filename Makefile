@@ -279,3 +279,23 @@ goon-1-8001:
 
 goon-1-dbg:
 	glslViewer lib/t420babe/goon/goon-1.frag  --nocursor -I./lib
+
+# Pional - In Another Room
+caterpillar:
+	glslViewer sets/caterpillar.frag  -p 8000 --nocursor -I./lib
+
+caterpillar-8001:
+	glslViewer sets/caterpillar.frag  -p 8001 --nocursor -I./lib
+
+caterpillar-dbg:
+	glslViewer sets/caterpillar.frag  --nocursor -I./lib
+
+# Fuego
+fuego:
+	glslViewer sets/fuego.frag  -p 8000 --nocursor -I./lib
+
+fuego-8001:
+	glslViewer sets/fuego.frag  -p 8001 --nocursor -I./lib
+
+fuego-dbg:
+	glslViewer sets/fuego.frag  --nocursor -I./lib
