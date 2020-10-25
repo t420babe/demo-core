@@ -204,6 +204,15 @@ turb-square-8001:
 turb-square-dbg:
 	glslViewer sets/stretched-turb-square-spiral.frag --nocursor -I./lib
 
+soft-turbulence:
+	glslViewer sets/soft-turbulence.frag --nocursor -I./lib -p 8000
+
+soft-turbulence-8001:
+	glslViewer sets/soft-turbulence.frag --nocursor -I./lib -p 8001
+
+soft-turbulence-dbg:
+	glslViewer sets/soft-turbulence.frag --nocursor -I./lib
+
 
 # Take My Money - Christian
 cash:
