@@ -118,3 +118,6 @@ couch162 -> Flug & Fall - Edit by Ben Bohmer
 - ridge-19 -> maybe into the surf
 - ridge-22 -> silly fun song
 - ridge-24 -> play with those colors bb
+
+
+- [ ] finished shaders MUST have all logic in their .frag file. no calling to external glsl lib files

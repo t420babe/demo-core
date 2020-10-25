@@ -319,6 +319,16 @@ gloss-8001:
 gloss-dbg:
 	glslViewer sets/gloss.frag  --nocursor -I./lib
 
+# 
+gloss-0:
+	glslViewer sets/gloss-0.frag  -p 8000 --nocursor -I./lib
+
+gloss-0-8001:
+	glslViewer sets/gloss-0.frag  -p 8001 --nocursor -I./lib
+
+gloss-0-dbg:
+	glslViewer sets/gloss-0.frag  --nocursor -I./lib
+
 # Porto
 rorschach:
 	glslViewer sets/rorschach.frag  -p 8000 --nocursor -I./lib

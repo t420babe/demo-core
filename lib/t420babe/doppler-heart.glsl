@@ -80,6 +80,14 @@ void say_nothing_next_0(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   color -= 0.5;
 }
 
+void say_nothing_none(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+  clouds(pos, u_time, audio, color);
+
+  color.g *= audio.bandpass;
+  color.g /= audio.bandpass * 4.0;
+  color.b *= abs(sin(u_time));
+}
+
 void say_nothing_next(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   clouds(pos, u_time, audio, color);
   // float vesica_wrap = wrap_time(u_time, 100.0);
