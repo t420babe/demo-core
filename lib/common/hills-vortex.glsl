@@ -1,6 +1,6 @@
 #ifndef COMMON_HILLS_VORTEX
 #define COMMON_HILLS_VORTEX
-vec2 hills_spherical_vortex(vec2 pos, float u_time, out vec3 color) {
+vec2 hills_spherical_vortex(vec2 pos, float u_time) {
   float a = 1.0;
   float u_0 = 10.0;
   float A = 15.0 / 2.0 * u_0 * 1.0 / pow(a, 2.0);

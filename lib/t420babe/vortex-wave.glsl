@@ -21,7 +21,7 @@ float wave(float x, float y) {
 }
 
 void vortex_wave(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-  vec2 uv_int = hills_spherical_vortex(pos, u_time, color);
+  vec2 uv_int = hills_spherical_vortex(pos, u_time);
   float z = wave(uv_int.x, uv_int.y) + 2.0;
 
   float time_wrap = wrap_time(u_time, 30.0);

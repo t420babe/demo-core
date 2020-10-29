@@ -132,7 +132,7 @@ zonnestral:
 	glslViewer sets/songs/zonnestral.frag --nocursor -I./lib -p 8000 rsc/img/arch.jpeg
 
 zonnestral-8001:
-	glslViewer sets/songs/zonnestral.frag --nocursor -I./lib -p 8000 rsc/img/arch.jpe1
+	glslViewer sets/songs/zonnestral.frag --nocursor -I./lib -p 8001 rsc/img/arch.jpeg
 
 zonnestral-dbg:
 	glslViewer sets/songs/zonnestral.frag --nocursor -I./lib rsc/img/arch.jpeg
@@ -348,3 +348,12 @@ rorschach-8001:
 
 rorschach-dbg:
 	glslViewer sets/rorschach.frag  --nocursor -I./lib
+
+vapor-japan:
+	glslViewer sets/vapor-japan.frag  -p 8000 --nocursor -I./lib
+
+vapor-japan-8001:
+	glslViewer sets/vapor-japan.frag  -p 8001 --nocursor -I./lib
+
+vapor-japan-dbg:
+	glslViewer sets/vapor-japan.frag  --nocursor -I./lib

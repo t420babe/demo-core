@@ -80,6 +80,20 @@ void say_nothing_next_0(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   color -= 0.5;
 }
 
+void say_nothing_next(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+  clouds(pos, u_time, audio, color);
+  // float vesica_wrap = wrap_time(u_time, 100.0);
+  float tri_wrap = 0.1;
+  float tri = sharp(triangle_web_0(pos, audio, u_time * 0.1));
+  color *= tri;
+
+  // color.r /= audio.bandpass;
+  color.g *= audio.lowpass * 1.0;
+  color.b -= audio.highpass * 1.0;
+  // color += heart_color;
+  color /= audio.bandpass * 1.0;
+}
+
 void say_nothing_none(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   clouds(pos, u_time, audio, color);
 
@@ -88,18 +102,18 @@ void say_nothing_none(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   color.b *= abs(sin(u_time));
 }
 
-void say_nothing_next(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+void say_nothing_next_1(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   clouds(pos, u_time, audio, color);
   // float vesica_wrap = wrap_time(u_time, 100.0);
   float tri_wrap = 1.5;
   float tri = (triangle_web_0(pos, audio, u_time * 0.1));
-  color *= (tri);
+  // color *= (tri);
 
   // color.r /= audio.bandpass;
   // color.b *= audio.lowpass * 1.0;
   color.b *= audio.highpass * 0.5;
   color.r /= abs(sin(u_time));
-  // color += heart_color;
+	// color += heart_color;
   color /= audio.bandpass * 1.0;
 }
 
