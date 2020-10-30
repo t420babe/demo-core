@@ -6,8 +6,8 @@ precision highp float;
 #include "./lib/common/peakamp.glsl"
 #endif
 
-#ifndef T420BABE_MONSTERA_2
-#include "./lib/t420babe/monstera/monstera-2.glsl"
+#ifndef T420BABE_MONSTERA_3
+#include "./lib/t420babe/monstera/monstera-3.glsl"
 #endif
 
 #ifndef COMMON_PLOT
@@ -30,6 +30,6 @@ void main(){
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(0.0);
 
-  monstera_2(pos, u_time, audio, color);
+  monstera_3(pos, u_time, audio, color);
   gl_FragColor = vec4( color , 1.0);
 }
