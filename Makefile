@@ -213,7 +213,6 @@ soft-turbulence-8001:
 soft-turbulence-dbg:
 	glslViewer sets/soft-turbulence.frag --nocursor -I./lib
 
-
 # Take My Money - Christian
 cash:
 	glslViewer sets/songs/cash.frag  --nocursor -I./lib -p 8000
@@ -233,6 +232,7 @@ flora-8001:
 flora-dbg:
 	glslViewer sets/flora.frag --nocursor -I./lib rsc/img/flora.jpeg
 
+# broken :(
 lux-ahh:
 	glslViewer main.frag  --nocursor -I./lib -p 8000 rsc/img/mel-sprinkles.jpeg rsc/img/eyes.jpeg
 
@@ -367,3 +367,12 @@ mATRIX-8001:
 mATRIX-dbg:
 	glslViewer sets/mATRIX.frag  --nocursor -I./lib
 
+# Purple Hat - Dillon Francis Remix by Sofi Tukker, Dillon Frances
+monstera-deliciosa:
+	glslViewer sets/monstera-deliciosa.frag  -p 8000 --nocursor -I./lib
+
+monstera-deliciosa-8001:
+	glslViewer sets/monstera-deliciosa.frag  -p 8001 --nocursor -I./lib
+
+monstera-deliciosa-dbg:
+	glslViewer sets/monstera-deliciosa.frag  --nocursor -I./lib

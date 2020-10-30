@@ -114,7 +114,8 @@ float wbl1_hexagon(vec2 pos, float size, peakamp audio) {
   // }  else {
   //   hexagon =  max(abs(pos.y), pos.x * 0.866025 + pos.y * abs(sin(u_time)));
   // }
-    hexagon = (max(abs(pos.y), pos.x * 0.5 + pos.y * (tan(u_time * abs(audio.notch * 0.5)))));
+    // hexagon = (max(abs(pos.y), pos.x * 0.5 + pos.y * abs(tan((audio.lowpass) * 2.0))));
+    hexagon = (max(abs(pos.y), pos.x * 0.5 + pos.y * abs(tan((audio.notch) * 3.0))));
   return hexagon;
 }
 
@@ -128,18 +129,35 @@ void main(){
   float lava = lava_lamp(pos);
   // color = vec3(0.2, 0.243, 0.0234);
   color = vec3(0.4, 0.243, 0.7234);
+  color += 0.15;
   color -= vec3(lava); 
   // color += vec3(spiral);
 
   vec3 orange_circle = vec3(1.0);
   orange_circle_bright_purple_bg_2(pos, u_time, audio, orange_circle);
-  // color.r = audio.bandpass;
   // color *= sharp(star_0);
-  color.r *= orange_circle.b + audio.notch;
-  color.g *= orange_circle.r + audio.lowpass;
+
+  // // COlor 0
+  // color.r += orange_circle.b + audio.notch;
+  // color.g *= orange_circle.r + audio.lowpass;
+  // color.b += (sharp(wbl1_hexagon(pos, 10.0, audio)));
+
+  // // COlor 0
+  // color.r *= orange_circle.b + audio.notch;
+  // color.g *= orange_circle.r + audio.lowpass;
+  // color.b *= (sharp(wbl1_hexagon(pos, 10.0, audio)));
+  //
+  // COlor 0
+  color.b /= orange_circle.g + audio.notch;
+  color.g /= orange_circle.g + audio.lowpass;
   color.b *= (sharp(wbl1_hexagon(pos, 10.0, audio)));
-  // color.b *= audio.notch;
-  // color = dyka(pos, u_time, audio, color);
+  color.b /= audio.bandpass;
+
+  // // Color 1
+  // color.g /= (sharp(wbl1_hexagon(pos, 10.0, audio)));
+  // color.g *= orange_circle.r + audio.lowpass;
+  // color.r *= orange_circle.b + audio.notch;
 
   gl_FragColor = vec4( color , 1.0);
 }
+
