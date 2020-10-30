@@ -1,6 +1,5 @@
-#ifdef GL_ES
-precision highp float;
-#endif
+#ifndef T420BABE_MONSTERA_DELICIOSA
+#define T420BABE_MONSTERA_DELICIOSA
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -13,14 +12,6 @@ precision highp float;
 #ifndef COMMON_PLOT
 #include "./lib/common/plot.glsl"
 #endif
-
-uniform vec2 u_resolution;
-uniform float u_time;
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
 
 /* BEGIN BOS_LAVA_LAMP */
 #ifndef BOS_LAVA_LAMP
@@ -110,11 +101,7 @@ float monstera_hexagon(vec2 pos, float size, peakamp audio) {
   return hexagon;
 }
 
-void main(){
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(0.0);
-
+void monstera_deliciosa(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   float lava = lava_lamp(pos, u_time);
   color = vec3(0.4, 0.243, 0.7234);
   color += 0.15;
@@ -144,6 +131,5 @@ void main(){
   // color.g /= (sharp(monstera_hexagon(pos, 10.0, audio)));
   // color.g *= orange_circle.r + audio.lowpass;
   // color.r *= orange_circle.b + audio.notch;
-
-  gl_FragColor = vec4(color , 1.0);
 }
+#endif
