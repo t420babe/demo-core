@@ -357,3 +357,13 @@ vapor-japan-8001:
 
 vapor-japan-dbg:
 	glslViewer sets/vapor-japan.frag  --nocursor -I./lib
+
+mATRIX:
+	glslViewer sets/mATRIX.frag  -p 8000 --nocursor -I./lib
+
+mATRIX-8001:
+	glslViewer sets/mATRIX.frag  -p 8001 --nocursor -I./lib
+
+mATRIX-dbg:
+	glslViewer sets/mATRIX.frag  --nocursor -I./lib
+
