@@ -1,11 +1,16 @@
 #ifndef COMMON_NOISE
 #define COMMON_NOISE
 
-// Value noise by Inigo Quilez - iq/2013, https://www.shadertoy.com/view/lsf3WH
-float noise(vec2 pos) {
 #ifndef COMMON_RANDOM
 #include "./lib/common/random.glsl"
 #endif
+
+#ifndef COMMON_PERMUTE
+#include "./lib/common/permute.glsl"
+#endif
+
+// Value noise by Inigo Quilez - iq/2013, https://www.shadertoy.com/view/lsf3WH
+float noise(vec2 pos) {
 
   vec2 i = floor(pos);
   vec2 f = fract(pos);

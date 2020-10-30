@@ -121,3 +121,6 @@ couch162 -> Flug & Fall - Edit by Ben Bohmer
 
 
 - [ ] finished shaders MUST have all logic in their .frag file. no calling to external glsl lib files
+
+
+Rule: everything in lib can reference each other except for the t420babe folder. all functions should be pulled into at least the descent designs. dont waste your time on non-bangerz

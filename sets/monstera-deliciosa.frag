@@ -95,7 +95,8 @@ float circle_1(vec2 st, float radius) {
 }
 #endif
 /* END PXL_CIRCLE*/
-void orange_circle_bright_purple_bg_2(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+
+void monstera_audio_circle(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   float pct = sharp(circle_1(pos * 0.95, abs(audio.bandpass) * 1.0));
   color = vec3(1.0, pct * abs(sin(u_time)), 1.0);
 }
@@ -121,7 +122,7 @@ void main(){
   color -= vec3(lava); 
 
   vec3 orange_circle = vec3(1.0);
-  orange_circle_bright_purple_bg_2(pos, u_time, audio, orange_circle);
+  monstera_audio_circle(pos, u_time, audio, orange_circle);
 
   // Color 0: Main
   color.b /= orange_circle.g + audio.notch;

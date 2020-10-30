@@ -1,7 +1,5 @@
-#ifdef GL_ES
-precision mediump float;
-#endif
-
+#ifndef T420BABE_LAVA
+#define T420BABE_LAVA
 #ifndef COMMON_PERMUTE
 #include "./lib/common/permute.glsl"
 #endif
@@ -25,15 +23,6 @@ precision mediump float;
 #ifndef FNC_FLIP
 #include "./lib/pxl/flip-sdf.glsl"
 #endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
 
 float snoise(vec2 v) {
   const vec4 C = vec4(0.211324865405187,  // (3.0-sqrt(3.0))/6.0
@@ -151,13 +140,9 @@ void fast_lava(vec2 pos, peakamp audio, out vec3 color) {
   color.r = 1.0 - color.r;
 }
 
-void main() {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  vec3 color = vec3(1.0);
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
+void lava(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
 
   slow_circle_0(pos, audio, color);
   // slow_lava(pos, color);
-
-  gl_FragColor = vec4(color, 1.0);
 }
+#endif
