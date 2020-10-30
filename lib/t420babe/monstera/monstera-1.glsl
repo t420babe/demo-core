@@ -54,8 +54,29 @@ void monstera_1(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
 
   vec3 orange_circle = vec3(1.0);
   monstera_audio_circle(pos, u_time, audio, orange_circle);
+  // Color 0
   color += orange_circle * audio.notch * 2.0;
   color.b /= (sharp(monstera_hexagon(pos, 10.0, u_time, audio)));
   color.b *= audio.notch;
+
+  // // Color 1
+  // color *= orange_circle * audio.notch * 2.0;
+  // color.b /= (sharp(monstera_hexagon(pos, 10.0, u_time, audio)));
+  // color.b *= audio.notch;
+
+  // // Color 2
+  // color *= orange_circle * audio.notch * 2.0;
+  // color.r /= (sharp(monstera_hexagon(pos, 10.0, u_time, audio)));
+  // color.r *= audio.notch;
+
+  // // Color 3
+  // color.r *= orange_circle.b * audio.notch * 2.0;
+  // color.b -= (sharp(monstera_hexagon(pos, 10.0, u_time, audio)));
+  // color.b *= audio.notch;
+
+  // // Color 4
+  // color.b /= orange_circle.g + audio.notch;
+  // color.g /= orange_circle.g + audio.lowpass;
+  // color.b *= (sharp(monstera_hexagon(pos, 10.0, u_time, audio)));
 }
 #endif
