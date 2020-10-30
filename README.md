@@ -124,3 +124,4 @@ couch162 -> Flug & Fall - Edit by Ben Bohmer
 
 
 Rule: everything in lib can reference each other except for the t420babe folder. all functions should be pulled into at least the descent designs. dont waste your time on non-bangerz
+- [ ] Need a glsl lib file for all shared monstera functions that are unique to the monstera shaders
