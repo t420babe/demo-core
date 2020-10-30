@@ -1,5 +1,5 @@
-#ifndef BOS_2D_RANDOM_TRUCHET
-#define BOS_2D_RANDOM_TRUCHET
+#ifndef T420BABE_2D_RANDOM_TRUCHET
+#define T420BABE_2D_RANDOM_TRUCHET
 
 #ifndef COMMON_MATH_CONSTANTS
 #include "./lib/common/math-constants.glsl"
@@ -23,6 +23,33 @@ vec2 truchet_pattern(in vec2 _st, in float _index){
     return _st;
 }
 
+float float_2d_random_truchet(vec2 pos, float u_time, peakamp audio) {
+    // vec2 st = gl_FragCoord.xy/u_resolution.xy;
+    pos *= 10.0;
+    // pos = (pos-vec2(5.0))*(abs(sin(u_time*0.2))*5.);
+    // pos.x += u_time*3.0;
+
+    vec2 ipos = floor(pos);  // integer
+    vec2 fpos = fract(pos);  // fraction
+
+    vec2 tile = truchet_pattern(fpos, random( ipos ));
+
+    float truchet = 0.0;
+
+    // Maze
+    truchet = smoothstep(tile.x-0.3,tile.x,tile.y)-
+            smoothstep(tile.x,tile.x+0.3,tile.y);
+
+    // Circles
+    truchet = (step(length(tile),0.6) -
+             step(length(tile),0.4) ) +
+            (step(length(tile-vec2(1.)),0.6) -
+             step(length(tile-vec2(1.)),0.4) );
+
+    // Truchet (2 triangles)
+    // truchet = step(tile.x, tile.y);
+    return truchet;
+}
 void main_2d_random_truchet(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
     // vec2 st = gl_FragCoord.xy/u_resolution.xy;
     pos *= 10.0;
@@ -41,13 +68,13 @@ void main_2d_random_truchet(vec2 pos, float u_time, peakamp audio, inout vec3 co
             smoothstep(tile.x,tile.x+0.3,tile.y);
 
     // Circles
-    // truchet = (step(length(tile),0.6) -
-    //          step(length(tile),0.4) ) +
-    //         (step(length(tile-vec2(1.)),0.6) -
-    //          step(length(tile-vec2(1.)),0.4) );
+    truchet *= (step(length(tile),0.6) -
+             step(length(tile),0.4) ) +
+            (step(length(tile-vec2(1.)),0.6) -
+             step(length(tile-vec2(1.)),0.4) );
 
     // Truchet (2 triangles)
-    // truchet = step(tile.x,tile.y);
+    // truchet = step(tile.x, tile.y);
     color = vec3(truchet);
 }
 

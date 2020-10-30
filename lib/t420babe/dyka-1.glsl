@@ -1,5 +1,5 @@
-#ifndef T420BABE_DYKA
-#define T420BABE_DYKA
+#ifndef T420BABE_DYKA_1
+#define T420BABE_DYKA_1
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -26,7 +26,7 @@ vec3 my_mix(peakamp audio) {
   return color;
 }
 
-void dyka(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+void dyka_1(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   color = my_mix(audio);
   color = babydoyougetme_1(pos, u_time, audio);
 
