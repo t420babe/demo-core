@@ -376,3 +376,13 @@ monstera-deliciosa-8001:
 
 monstera-deliciosa-dbg:
 	glslViewer sets/monstera-deliciosa.frag  --nocursor -I./lib
+
+# Girls! Girls! Girls! by Liz Phair
+same:
+	glslViewer sets/nope-theyre-all-the-same.frag  -p 8000 --nocursor -I./lib
+
+same-8001:
+	glslViewer sets/nope-theyre-all-the-same.frag  -p 8001 --nocursor -I./lib
+
+same-dbg:
+	glslViewer sets/nope-theyre-all-the-same.frag  --nocursor -I./lib

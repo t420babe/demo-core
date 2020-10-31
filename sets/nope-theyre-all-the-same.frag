@@ -10,15 +10,6 @@
 #include "./lib/common/math-constants.glsl"
 #endif
 
-#ifndef BOS_TURBULENCE
-#include "./lib/bos/turbulence.glsl"
-#endif
-
-
-#ifndef T420BABE_AUDIO_CIRCLE
-#include "./lib/t420babe/audio-circle.glsl"
-#endif
-
 uniform float u_lowpass;
 uniform float u_highpass;
 uniform float u_bandpass;
@@ -28,47 +19,13 @@ uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform float u_time;
 
-float lineJitter = 0.5;
-float lineWidth = 7.0;
-float gridWidth = 1.7;
-float scale = 0.0013;
 float zoom = 2.0;
-vec2 offset = vec2(0.5);
-
-float rand (in float _x) {
-  return fract(sin(_x)*1e4);
-}
-
-float rand (in vec2 co) {
-  return fract(sin(dot(co.xy,vec2(12.9898,78.233)))*43758.5453);
-}
-
-float turbulence_noise (in float _x) {
-  float i = floor(_x);
-  float f = fract(_x);
-  float u = f * f * (3.0 - 2.0 * f);
-  return mix(rand(i), rand(i + 1.0), u);
-}
-
-float turbulence_noise (in vec2 _st) {
-  vec2 i = floor(_st);
-  vec2 f = fract(_st);
-  // Four corners in 2D of a tile
-  float a = rand(i);
-  float b = rand(i + vec2(1.0, 0.0));
-  float c = rand(i + vec2(0.0, 1.0));
-  float d = rand(i + vec2(1.0, 1.0));
-  vec2 u = f * f * (3.0 - 2.0 * f);
-  return mix(a, b, u.x) + 
-    (c - a)* u.y * (1.0 - u.x) + 
-    (d - b) * u.x * u.y;
-}
+vec2 offset = vec2(1.0);
 
 float wave_signal(vec2 _pos, float amplitude, float frequency, float phase, float audio_signal) {
   audio_signal = abs(audio_signal);
   float y = amplitude * sin(_pos.x * frequency);
   float t = 0.012 * (u_time * 120.0);
-  // float t = 1.00 * (mod(u_time, audio_signal));
   y += fract(_pos.x * frequency * 1.0 + t * audio_signal * 120.0) * 20.0 + phase;
   y *= amplitude * 0.06;
   return y;
@@ -78,7 +35,6 @@ float wave(vec2 _pos, float amplitude, float frequency, float phase, float audio
   audio_signal = abs(audio_signal);
   float y = amplitude * sin(_pos.x * frequency);
   float t = 0.012 * (u_time * 120.0);
-  // float t = 1.00 * (mod(u_time, audio_signal));
   y += sin(_pos.x * frequency * 2.0 + t * audio_signal * 120.0) * 5.0 + phase;
   y *= amplitude * 0.06;
   return y;
@@ -88,13 +44,6 @@ void main(){
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(0.0);
-  // vec2 st = (gl_FragCoord.xy/u_resolution.xy)-offset;
-  // st.x *= u_resolution.x/u_resolution.y;
-
-  // scale *= zoom;
-  // color += plot(pos, 0.55) * vec3(1.0);
-  // color += plot(pos, 0.0) * vec3(1.0);
-  // color += plot(pos, -0.55) * vec3(1.0);
   pos = pos.yx;
   // pos = pos.xx;
   pos *= zoom;
@@ -149,11 +98,6 @@ void main(){
   // color += plot(pos, -1.0) * vec3(1.0);
   // color += plot(pos, 1.0) * vec3(1.0);
   // color += pct * vec3(audio.highpass, abs(tan(u_time + audio.notch)), abs(sin(u_time)));
-  // color = 1.0 - color;
-
-  // color = vec3(0.24323 * audio.notch, 0.93254 * audio.highpass * 0.5, 0.89795);
-  vec3 circle_color = vec3(0.0);
-  turbulence(pos, u_time, audio, circle_color);
 
   gl_FragColor = vec4(color,1.0);
 }
