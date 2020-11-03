@@ -7,6 +7,15 @@ main-dbg:
 main-8001:
 	glslViewer main.frag --nocursor -I./lib -p 8001
 
+main-1:
+	glslViewer main-1.frag rsc/img/graf.jpeg rsc/img/mel-sprinkles.jpeg --nocursor -I./lib -p 8000
+
+main-1-dbg:
+	glslViewer main-1.frag --nocursor -I./lib
+
+main-1-8001:
+	glslViewer main-1.frag --nocursor -I./lib -p 8001
+
 
 ### SETS ###
 hw-set:
