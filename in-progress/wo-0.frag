@@ -39,7 +39,7 @@ float fillY(vec2 _pos, float _pct,float _antia){
 
 float _zigzag(vec2 pos, float u_time, peakamp audio) {
 
-  float zoom = 80.0;
+  float zoom = 20.0;
   pos = mirror_tile(pos*vec2(1.,2.), zoom);
   float x = pos.x*2.;
   float a = sin(1.+sin(x*3.14));
