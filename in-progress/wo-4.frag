@@ -43,7 +43,7 @@ float _zigzag(vec2 pos, float u_time, peakamp audio) {
   pos = mirror_tile(pos*vec2(1.,2.), zoom);
   float x = pos.x * 2.0;
   float a = sin(1.+sin(x*3.14 ));
-  float b = sin(1.+sin((x+1.)*3.14 ));
+  float b = 2.0 * sin(1.+sin((x+1.)*1.14 ));
   // float f = log2(x);
   float f = tan(x * u_time);
 
