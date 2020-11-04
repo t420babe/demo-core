@@ -39,15 +39,15 @@ float fillY(vec2 _pos, float _pct,float _antia){
 
 float _zigzag(vec2 pos, float u_time, peakamp audio) {
 
-  float zoom = 4.0;
-  pos = mirror_tile(pos * vec2(1.0, 8.0), zoom);
-  float x = pos.x * 1.0;
-  float a = tan(x / 3.14);
-  float b = 1.0 * log(x * 3.14);
-  float f = exp(x * 3.14);
+  float zoom = 8.0;
+  pos = mirror_tile(pos*vec2(1.,2.), zoom);
+  float x = pos.x * 2.0;
+  float a = sin(1.+sin(x*3.14 ));
+  float b = 2.0 * sin(1.+sin((x+1.)*1.14 ));
+  float f = log2(x) * tan(x );
   // float f = sin(x * u_time);
 
-  return fillY(pos, mix(a * audio.bandpass, b * audio.bandpass, f), 0.01) ;
+  return fillY(pos, mix(a * audio.notch, b * audio.highpass, f), 0.01) ;
 }
 void zigzag(vec2 pos, float u_time, peakamp audio, inout vec3 color){
   color = vec3( _zigzag(pos, u_time, audio));
@@ -57,17 +57,6 @@ float circle_1(vec2 st, float radius) {
     return length(st) * radius;
 }
 
-
-//  Function from Iñigo Quiles
-//  https://www.shadertoy.com/view/MsS3Wc
-vec3 hsb2rgb( in vec3 c ){
-    vec3 rgb = clamp(abs(mod(c.x*6.0+vec3(0.0,4.0,2.0),
-                             6.0)-3.0)-1.0,
-                     0.0,
-                     1.0 );
-    rgb = rgb*rgb*(3.0-2.0*rgb);
-    return c.z * mix( vec3(1.0), rgb, c.y);
-}
 void main(){
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
@@ -82,19 +71,10 @@ void main(){
   color.g *= 0.5 * abs(audio.bandpass) + zz_color.b;
   color.r = abs(tan(audio.bandpass)) + zz_color.r * 0.5;
   color.b = abs(sin(u_time));
-  color.b *= zz_color.r + audio.bandpass;
-  color += sharp(c_pct);
-  color /= c_pct;
+  // color.b *= zz_color.r + audio.bandpass;
+  // color += sharp(c_pct);
+  // color /= c_pct;
   // color /= zz_color;
-
-    // Use polar coordinates instead of cartesian
-    vec2 toCenter = vec2(0.0) + pos;
-    float angle = atan(toCenter.x, toCenter.x);
-    float radius = length(toCenter) * 1.0;
-
-    // Map the angle (-PI to PI) to the Hue (from 0 to 1)
-    // and the Saturation to the radius
-    color /= hsb2rgb(vec3((angle / TWO_PI) + 0.5, radius, 9.0));
 
   gl_FragColor = vec4(color,1.0);
 }

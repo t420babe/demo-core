@@ -47,7 +47,7 @@ float _zigzag(vec2 pos, float u_time, peakamp audio) {
   float f = exp(x * 3.14);
   // float f = sin(x * u_time);
 
-  return fillY(pos, mix(a * audio.bandpass, b * audio.bandpass, f), 0.01) ;
+  return fillY(pos, mix(a * audio.notch, b * audio.highpass, f), 0.01) ;
 }
 void zigzag(vec2 pos, float u_time, peakamp audio, inout vec3 color){
   color = vec3( _zigzag(pos, u_time, audio));
