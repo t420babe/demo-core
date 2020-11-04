@@ -54,14 +54,8 @@ void zigzag(vec2 pos, float u_time, peakamp audio, inout vec3 color){
 }
 
 float circle_1(vec2 st, float radius) {
-  if (abs(audio.highpass) > 0.8) {
-    return length(st) * radius * 5.90;
-  } else {
-    return length(st) * radius * 0.39;
-  }
-    // return length(st) * radius * 0.50;
+    return length(st) * radius * 0.5;
 }
-
 
 
 //  Function from Iñigo Quiles
@@ -92,21 +86,18 @@ void main(){
   color.b = abs(sin(u_time * 0.5));
   color.b *= zz_color.r + audio.bandpass;
   color += sharp(c_pct) / fwidth(c_pct);
+  color /= c_pct;
   // color /= zz_color;
 
     // Use polar coordinates instead of cartesian
-    vec2 toCenter = vec2(3.0) * pos;
+    vec2 toCenter = vec2(0.0) + pos;
     // float angle = atan(toCenter.x, toCenter.x);
-    float angle = atan(toCenter.x,  fract(toCenter.x));
+    float angle = atan(toCenter.x / toCenter.y);
     float radius = length(toCenter) * 1.0;
 
     // Map the angle (-PI to PI) to the Hue (from 0 to 1)
     // and the Saturation to the radius
-    vec3 hsb = hsb2rgb(vec3((angle * TWO_PI) + 0.0, radius, 5.0));
-    color.r *= hsb.r * audio.bandpass;
-    color.g /= hsb.g;
-    color.g *= abs(audio.highpass) - c_pct;
-    // color /= c_pct;
+    color /= hsb2rgb(vec3((angle / TWO_PI) + 0.5, radius, 9.0));
 
   gl_FragColor = vec4(color,1.0);
 }
