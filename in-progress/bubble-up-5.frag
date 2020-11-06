@@ -81,13 +81,11 @@ void main(){
   // pos = pos.yx;
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(1.0);
-  float inv = 1.0;
-  float zoom = 1.0 * inv;
-  // pos.y -= 0.13;
-  pos.y += 0.20 * inv;
+  float zoom = 3.0;
+  pos.y -= 0.13;
   pos *= zoom;
 
-  vec2 F = cellular2x2(pos * 1.0);
+  vec2 F = cellular2x2(pos * 4.0);
 
   vec2 pos_tmp = pos - 0.0;
   float time = mod(u_time, 60.0 * 3.0);
