@@ -83,8 +83,8 @@ void main(){
   vec3 color = vec3(1.0);
   float inv = 1.0;
   float zoom = 1.0 * inv;
-  // pos.y += 0.20 * inv;
-  // pos.y -= 0.20;
+  // pos.y -= 0.13;
+  pos.y += 0.20 * inv;
   pos *= zoom;
 
   vec2 F = cellular2x2(pos * 1.0);
@@ -92,14 +92,13 @@ void main(){
   vec2 pos_tmp = pos - 0.0;
   float time = mod(u_time, 60.0 * 3.0);
   float a = dot(pos_tmp, pos_tmp) - time * 0.1;
-  float n = step( abs( sin(a * 3.1415 * 5.0) ), F.x * abs(audio.notch));
+  float n = step( abs( sin(a * 3.1415 * 5.0) ), F.x * 2.0);
 
   color = vec3(n);
 
-  color.g = 0.6;
   color.g *= clamp(cos(u_time * 0.5), 0.4, 0.8) + 0.3;
-  color.r *= abs(tan(n * sin(u_time * 0.5)));
-  color.b *= abs(sin(n * tan(u_time * 0.5) + 3.14 / 2.0));
+  color.b *= abs(tan(n * sin(u_time * 0.5)));
+  color.r *= abs(sin(n * tan(u_time * 0.5) + 3.14 / 2.0));
 
   // // Color 0
   // color.b *= abs(tan(n * sin(u_time)));
