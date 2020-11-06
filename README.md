@@ -128,3 +128,5 @@ Rule: everything in lib can reference each other except for the t420babe folder.
 
 
 - bubble-up-0, https://youtu.be/tdk9xlUtcc0?t=240
+- bubble-up-1, https://youtu.be/tdk9xlUtcc0 Aum by Evren Furtuna
+

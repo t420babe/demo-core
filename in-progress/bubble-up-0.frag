@@ -81,6 +81,9 @@ void main(){
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(1.0);
 
+  float zoom = 1.0;
+  pos *= zoom;
+
   vec2 F = cellular2x2(pos * 20.0);
 
   vec2 pos_tmp = pos - 0.0;
