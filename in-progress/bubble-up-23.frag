@@ -217,8 +217,13 @@ void main(){
   vec3 color_doppler = vec3(1.0, 1.0, 1.0);
   doppler_green_rooster(pos_bg, u_time, audio, color_doppler);
 
+  // Doppler 0
   color_doppler.g += 0.9;
   color_bg = color_doppler.grr;
+
+  // Doppler 1
+  // color_doppler.r = 0.9;
+  // color_bg = color_doppler.rrb;
 
   color_bg /= color;
   color = color_bg;
