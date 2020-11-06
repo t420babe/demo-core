@@ -90,22 +90,19 @@ float randomSerie(float x, float freq, float t) {
 
 vec3 ikeda(vec2 pos, float time) {
     float cols = 1.5;
-    // float freq = random(floor(time)) + abs(atan(time) * 0.1);
-    // float freq = random(floor(time));
-    float freq = 1.0;
-    float t = 60. + time * (1.0 - freq) * 30.;
+    float freq = random(floor(time)) + abs(atan(time) * 0.1);
+    float t = 60. + time * (0.0 - freq) * 30.;
 
-    if (fract(cols * 0.5) < 0.5){
+    if (fract(pos.y * cols * 0.5) < 0.5){
         t *= -1.0;
     }
-    t = 60.0;
 
-    // freq += random(floor(pos.y));
+    freq += random(floor(pos.y));
 
     float offset = 0.025;
-    return vec3(randomSerie(sin(pos.x), freq * 100.0, t + offset),
-                 randomSerie(tan(pos.x), freq * 100.0, t),
-                 randomSerie(cos(pos.x), freq * 100.0, t - offset));
+    return vec3(randomSerie(pos.x, freq * 100.0, t + offset),
+                 randomSerie(pos.x, freq * 100.0, t),
+                 randomSerie(pos.x, freq * 100.0, t - offset));
 
 }
 
