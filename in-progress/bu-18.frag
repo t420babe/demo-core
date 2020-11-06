@@ -127,17 +127,13 @@ void main(){
   vec2 pos_tmp = pos - 0.0;
   float time = mod(u_time, 60.0 * 3.0) + 60.0;
   float a = dot(pos_tmp, pos_tmp) / time * 0.1;
-  float n = step( abs( atan(a * 3.1415 * 5.0) ), F.x * abs(audio.notch * 0.25));
+  float n = step( abs( atan(a * 3.1415 * 5.0) ), F.x * abs(audio.notch * 0.95));
 
   color = vec3(n);
   color /= abs(audio.notch * 1.0);
-  // vec3 color_ikeda = ikeda(pos / zoom, time);
-  // color_ikeda *= color;
-  // color = color_ikeda;
-
-  vec3 color_bg = vec3(abs(tan(abs(sin(u_time)))), abs(cos(3.5 * audio.bandpass)) * 1.5, abs(sin(audio.highpass)));
-  color_bg *= color;
-  color = color_bg;
+  vec3 color_ikeda = ikeda(pos / zoom, time);
+  color_ikeda += color;
+  color = color_ikeda;
   // // Color 0
   // color.b =  abs(audio.highpass) * 1.5 * n;
   // color.r *= abs(sin(n * tan(u_time * 1.0)));
