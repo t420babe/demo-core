@@ -1,3 +1,4 @@
+// autocmd BufWritePost * execute '!git add % && git commit -m %'`
 // #ifndef T420BABE_DOPPLER
 // #include "./lib/t420babe/doppler.glsl"
 // #endif
@@ -39,7 +40,7 @@ vec2 cellular2x2(vec2 P) {
   float jitter = 0.01;
 
   vec2 Pi = mod((P), 289.0);
-  vec2 Pf = sin(P);
+  vec2 Pf = tan(P);
 
   vec4 Pfx = Pf.x + vec4(-0.5, -1.5, -0.5, -1.5);
   vec4 Pfy = Pf.y + vec4(-0.5, -0.5, -1.5, -1.5);
@@ -153,20 +154,6 @@ void doppler_green_rooster(vec2 pos, float u_time, peakamp audio, out vec3 color
   color = vec3(1.0, 0.1234, 0.34);
   float pct = aastep(pos.y, -pos.y) * sin(u_time);
   pct *= cross_sdf(rotate(pos, circle_sdf(vec2(pos.x, pos.x) * 0.5), 0.0), 0.4);
-  float pct2 = circle_sdf(pos);
-  color = vec3(pct * color + color * pct2);
-  // color.r = color.r * audio.highpass * 2.5;
-	color.b *= audio.notch;
-  color.g += audio.lowpass;
-}
-
-
-void doppler_sun_star_rooster(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-
-  // pos.x += 0.40;
-  // pos.y += 0.50;
-  color = vec3(1.0, 0.1234, 0.34);
-  float pct = cross_sdf(rotate(pos, circle_sdf(vec2(pos.x, pos.x) * 0.5), 0.0), 0.4);
   float pct2 = circle_sdf(pos);
   color = vec3(pct * color + color * pct2);
   // color.r = color.r * audio.highpass * 2.5;
