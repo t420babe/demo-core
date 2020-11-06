@@ -32,9 +32,9 @@ vec2 cellular2x2(vec2 P) {
 
   float K = 0.142857142857;      // 1/7
   float K2 = 0.0;    // K/2
-  float jitter = 0.01;
+  float jitter = 0.003;
 
-  vec2 Pi = mod((P), 289.0);
+  vec2 Pi = mod(floor(P), 289.0);
   vec2 Pf = sin(P);
 
   vec4 Pfx = Pf.x + vec4(-0.5, -1.5, -0.5, -1.5);
@@ -44,7 +44,7 @@ vec2 cellular2x2(vec2 P) {
   p = permute(p + Pi.y + vec4(0.0, 0.0, 1.0, 1.0));
 
   vec4 ox = mod(p, abs(2.0 * audio.notch)) * abs(tan(u_time)) + K2;
-  vec4 oy = mod(floor(p * K), 1.0) * K + K2;
+  vec4 oy = mod(floor(p * K),7.0) * K + K2;
 
   vec4 dx = Pfx + jitter * ox;
   vec4 dy = Pfy + jitter * oy;
@@ -78,14 +78,12 @@ vec2 cellular2x2(vec2 P) {
 void main(){
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   vec2 st = pos;
-  // pos = pos.yx;
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(1.0);
-  float zoom = 0.5;
-  pos.y -= 0.3;
+  float zoom = 2.0;
   pos *= zoom;
 
-  vec2 F = cellular2x2(pos * 10.0);
+  vec2 F = cellular2x2(pos * 20.0);
 
   vec2 pos_tmp = pos - 0.0;
   float a = dot(pos_tmp, pos_tmp) - u_time * 0.1;
@@ -93,7 +91,7 @@ void main(){
 
   color = vec3(n);
   color.b *= abs(tan(n * sin(u_time)));
-  color.r *= abs(sin(n * tan(u_time) + 3.14 / 2.0));
+  color.r *= abs(sin(n * tan(u_time) + 3.14/2.0));
   // color.g *= abs(audio.bandpass);
 
   gl_FragColor = vec4(color, 1.0);
