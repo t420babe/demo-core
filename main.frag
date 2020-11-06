@@ -187,7 +187,7 @@ void main(){
 
   color = vec3(n);
   color *= abs(sin(audio.bandpass));
-  // color.g /= abs(audio.notch);
+  color.g /= abs(audio.notch);
   // color.r /= abs(audio.notch);
   // color /= abs(audio.notch);
   color /= abs(audio.notch);
@@ -196,7 +196,8 @@ void main(){
   // color_bg = vec3(1.0, 1.0, 1.0);
 
   // ~30s
-  color_bg = vec3(abs(tan(abs(sin(u_time)))), abs(cos(2.0 * audio.bandpass)) * 1.5, abs(sin(audio.highpass)));
+  color_bg = vec3(0.8, abs(sin(2.0 * audio.bandpass)) * 1.0, abs(sin(audio.highpass)));
+  // color_bg = vec3(abs(tan(abs(sin(u_time)))), abs(cos(2.0 * audio.bandpass)) * 1.5, abs(sin(audio.highpass)));
 
   vec2 pos_bg = pos;
   pos_bg = (pos / zoom) * 0.5;
@@ -208,8 +209,12 @@ void main(){
   // color_doppler.g = 0.4;
   // color_bg = color_doppler.brr;
 
-  color_bg *= color;
+  // color /= color_bg;
+  // color = color_bg;
+
+  color_bg /= color;
   color = color_bg;
+
   // // Color 0
   // color.b =  n;
   // color.r *= abs(sin(n * tan(u_time * 1.0)));
