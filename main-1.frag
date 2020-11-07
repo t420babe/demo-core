@@ -57,7 +57,7 @@ vec2 cellular2x2(vec2 P) {
   vec4 dy = Pfy + jitter * oy;
 
   // d11, d12, d21 and d22, squared
-  vec4 d = dx * dx + dy * dy;
+  vec4 d = dx * dx + dy * dy * audio.highpass;
 
   // Sort out the two smallest distances
   #if 0
