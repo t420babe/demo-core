@@ -40,7 +40,7 @@ vec2 cellular2x2(vec2 P) {
   float jitter = 0.01;
 
   vec2 Pi = mod((P), 289.0);
-  vec2 Pf = tan(P * P);
+  vec2 Pf = sin(P * P);
 
   vec4 Pfx = Pf.x + vec4(-0.5, -1.5, -0.5, -1.5);
   vec4 Pfy = Pf.y + vec4(-0.5, -0.5, -1.5, -1.5);
@@ -182,7 +182,7 @@ void main(){
   float time = mod(u_time, 60.0 * 6.0) + 666.0;
   float a = dot(pos_tmp, pos_tmp) / time * 0.07;
   // float n = step( abs( atan(a * 3.1415 * 5.0) ), F.x * sin(audio.notch * 0.10));
-  float n = step( abs( exp(a * 3.1415 * 5.0) ), F.x * abs(audio.notch * 0.40));
+  float n = step( abs( exp(a * audio.highpass * 30.0) ), F.x * abs(audio.notch * 0.40));
 
   color = vec3(n);
   color *= abs(sin(audio.bandpass));
@@ -192,10 +192,10 @@ void main(){
   color /= abs(audio.notch);
   color /= abs(audio.notch);
 
-  // color_bg = vec3(1.0, 1.0, 1.0);
+  color_bg = vec3(1.0, 1.0, 1.0);
 
   // ~30s
-  color_bg = vec3(abs(tan(abs(sin(u_time)))), abs(cos(2.0 * audio.bandpass)) * 1.0, abs(sin(audio.highpass)));
+  // color_bg = vec3(abs(tan(abs(sin(u_time)))), abs(cos(2.0 * audio.bandpass)) * 1.0, abs(sin(audio.highpass)));
 
   vec2 pos_bg = pos;
   pos_bg = (pos / zoom) * 0.5;
