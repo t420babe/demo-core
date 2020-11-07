@@ -40,7 +40,7 @@ vec2 cellular2x2(vec2 P) {
   float jitter = 0.01;
 
   vec2 Pi = mod((P), 289.0);
-  vec2 Pf = sin(P * P);
+  vec2 Pf = tan(sin(P) * tan(P));
 
   vec4 Pfx = Pf.x + vec4(-0.5, -1.5, -0.5, -1.5);
   vec4 Pfy = Pf.y + vec4(-0.5, -0.5, -1.5, -1.5);
@@ -60,7 +60,7 @@ vec2 cellular2x2(vec2 P) {
   vec4 d = dx * dx + dy * dy;
 
   // Sort out the two smallest distances
-  #if 1
+  #if 0
     // Cheat and pick only F1
     d.yx = max(d.wy, d.zw);
     d.x = min(d.x, d.y);
