@@ -1,3 +1,4 @@
+// Mars - Kamilo Sanclemente
 // autocmd BufWritePost * execute '!git add % && git commit -m %'`
 // #ifndef T420BABE_DOPPLER
 // #include "./lib/t420babe/doppler.glsl"
@@ -212,7 +213,7 @@ void main(){
   // color /= color_bg;
   // color = color_bg;
 
-  color_bg /= color;
+  color_bg *= color;
   color = color_bg;
 
   // // Color 0

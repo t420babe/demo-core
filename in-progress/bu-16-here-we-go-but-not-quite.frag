@@ -55,54 +55,54 @@ vec2 cellular2x2(vec2 P) {
   vec4 d = dx * dx + dy * dy;
 
   // Sort out the two smallest distances
-  #if 1
-    // Cheat and pick only F1
-    d.xy = min(d.wy, d.zw);
-    d.x = max(d.x, d.y);
+#if 1
+  // Cheat and pick only F1
+  d.xy = min(d.wy, d.zw);
+  d.x = max(d.x, d.y);
 
-    return d.xx;                // F1 duplicated, F2 not computed
+  return d.xx;                // F1 duplicated, F2 not computed
 
-  #else
-    // Do it right and find both F1 and F2
-    d.xy = (d.x < d.y) ? d.xy : d.yx; // Swap if smaller
-    d.xz = (d.x < d.z) ? d.xz : d.zx;
-    d.xw = (d.x < d.w) ? d.xw : d.wx;
+#else
+  // Do it right and find both F1 and F2
+  d.xy = (d.x < d.y) ? d.xy : d.yx; // Swap if smaller
+  d.xz = (d.x < d.z) ? d.xz : d.zx;
+  d.xw = (d.x < d.w) ? d.xw : d.wx;
 
-    d.y = min(d.y, d.z);
-    d.y = min(d.y, d.w);
+  d.y = min(d.y, d.z);
+  d.y = min(d.y, d.w);
 
-    return sqrt(d.xy);
-  #endif
+  return sqrt(d.xy);
+#endif
 
 }
 
 float random (in float x) {
-    return fract(sin(x)*1e4);
+  return fract(sin(x)*1e4);
 }
 
 float random (in vec2 st) {
-    return fract(sin(dot(st.xy, vec2(12.9898,78.233)))* 43758.5453123);
+  return fract(sin(dot(st.xy, vec2(12.9898,78.233)))* 43758.5453123);
 }
 
 float randomSerie(float x, float freq, float t) {
-    return step(.8,random( floor(x*freq)-floor(t) ));
+  return step(.8,random( floor(x*freq)-floor(t) ));
 }
 
 vec3 ikeda(vec2 pos, float time) {
-    float cols = 1.5;
-    float freq = random(floor(time)) + abs(atan(time) * 0.1);
-    float t = 60. + time * (0.0 - freq) * 30.;
+  float cols = 1.5;
+  float freq = random(floor(time)) + abs(atan(time) * 0.1);
+  float t = 60. + time * (0.0 - freq) * 30.;
 
-    if (fract(pos.y * cols * 0.5) < 0.5){
-        t *= -1.0;
-    }
+  if (fract(pos.y * cols * 0.5) < 0.5){
+    t *= -1.0;
+  }
 
-    freq += random(floor(pos.y));
+  freq += random(floor(pos.y));
 
-    float offset = 0.025;
-    return vec3(randomSerie(pos.x, freq * 100.0, t + offset),
-                 randomSerie(pos.x, freq * 100.0, t),
-                 randomSerie(pos.x, freq * 100.0, t - offset));
+  float offset = 0.025;
+  return vec3(randomSerie(pos.x, freq * 100.0, t + offset),
+      randomSerie(pos.x, freq * 100.0, t),
+      randomSerie(pos.x, freq * 100.0, t - offset));
 
 }
 
