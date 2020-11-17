@@ -19,6 +19,7 @@ uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform float u_time;
 
+float rows = 10.0;
 
 float circle(vec2 _pos, float _radius){
   vec2 pos = vec2(0.5) - _pos;
@@ -98,7 +99,6 @@ float clouds_noise (in vec2 _pos) {
 
 
 float clouds_fbm ( in vec2 _pos) {
-  _pos = _pos.yx;
   int num_octaves = 5;
     float v = 0.0;
     float a = 0.5;
@@ -107,7 +107,7 @@ float clouds_fbm ( in vec2 _pos) {
     mat2 rot = mat2(cos(0.5), sin(0.5), sin(0.5), cos(0.50));
     for (int i = 0; i < num_octaves; ++i) {
         v += a * clouds_noise(_pos);
-        _pos = rot * _pos * 2.5 + shift;
+        _pos = rot * _pos * 2.0 + shift;
         a *= 0.5;
     }
     return v;
@@ -365,14 +365,18 @@ float triangle_0(vec2 st) {
     float r = max(abs(st.x) * 0.866025 + st.y * 0.5, -st.y * 0.5);
     return r;
 }
+//
+// float circle_1(vec2 st, float radius) {
+//     return length(st) * radius;
+// }
 
 void main() {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(1.0);
 
-  float tri = triangle_0(pos);
-  float circ = circle_1(pos, 0.5);
+  // float tri = triangle_0(pos);
+  float tri = circle_1(pos, 0.5);
 
   vec3 n_color;
   float n = cellular_3d(4.0 * pos, u_time, audio, n_color);
@@ -380,21 +384,15 @@ void main() {
   // color /= n + 0.00;
   // color.r /= n + 0.00;
   // color.g /= n + 0.10;
-
-  // color.r = tri;
-  // color.g /= tri;
-  // color.b *= circ;
-  // color = vec3(n);
-  
-  // Bartok
-  color.r *= 1.0 * circ + tri;
-  color.r *= 0.5;
-  color.g /= 1.0 * circ;
-  color.g -= 0.2;
-  color.b /= 1.0 * circ + tri;
+  color.b *= n + 0.10;
+  color.b /= n + 0.00;
+  // color.b /= tri;
+  // color.r *= tri;
+  color.g /= tri;
+  // color *= vec3(tri);
 
   // vec3 damier_color = damier(1.75 * pos, u_time);
-  // color *= clamp(damier_color, 2.5, 10.0);
+  // // color *= clamp(damier_color, 2.5, 10.0);
   // color *= damier_color;
   // color += 0.05;
 

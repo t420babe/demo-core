@@ -98,7 +98,7 @@ float clouds_noise (in vec2 _pos) {
 
 
 float clouds_fbm ( in vec2 _pos) {
-  _pos = _pos.yx;
+  _pos = _pos.xx * 5.5;
   int num_octaves = 5;
     float v = 0.0;
     float a = 0.5;

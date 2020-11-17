@@ -65,14 +65,14 @@ void main(){
 
   // // Color 0
   // color.b += audio.lowpass * 2.0;
-  // color *= shape_border(pos, 1.0, 0.10, u_time, audio);
-  // color.g *= audio.lowpass * 2.0;
-
-  // Color 0
-  color.g += audio.lowpass * 2.0;
   color *= shape_border(pos, 1.0, 0.10, u_time, audio);
   color.g *= audio.lowpass * 2.0;
-  color.r *= audio.lowpass * 1.0;
+
+  // Color 0
+  color.b += audio.lowpass * 2.0;
+  color *= shape_border(pos, 1.0, 5.10, u_time, audio);
+  color.g /= audio.lowpass * 2.0;
+  color.r /= audio.lowpass * 1.0;
 
   gl_FragColor = vec4( color , 1.0);
 }

@@ -221,11 +221,6 @@ float cellular_2d(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   n = facets * abs(atan(u_time));
   return n;
 }
-
-float circle_sdf(vec2 st) {
-    return length(st-.0)*0.8;
-}
-
 void main() {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
@@ -235,13 +230,11 @@ void main() {
   float n = cellular_2d(3.0 * pos, u_time, audio, n_color);
   say_nothing_none(5.0 * pos, u_time, audio, color);
   // color += 0.1;
-  color += n;
+  color /= n + 0.2;
   vec3 damier_color = damier(1.75 * pos, u_time);
   // color *= clamp(damier_color, 2.5, 10.0);
-  color.r /= damier_color.r;
+  color.r *= damier_color.r;
   color += 0.05;
-
-  color.g *= sharp(circle_sdf(pos * audio.notch));
 
   gl_FragColor = vec4(color, 1.0);
 }
