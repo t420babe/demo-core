@@ -252,7 +252,6 @@ void main() {
   color.g *= circle(pos * audio.notch * 6.0, 0.1);
   color.g += 0.41;
   color.r += 1.1;
-  // color.b += 0.3;
 
   gl_FragColor = vec4(color, 1.0);
 }
