@@ -21,38 +21,28 @@ uniform float u_time;
 
 float rows = 10.0;
 
-vec2 brickTile(vec2 _pos, float _zoom){
-  _pos *= _zoom;
-  if (fract(_pos.y * 1.0) > 1.0){
-      _pos.x += 0.5;
+vec2 brickTile(vec2 _st, float _zoom){
+  _st *= _zoom;
+  if (fract(_st.y * 0.5) > 0.5){
+      _st.x += 0.5;
   }
-  _pos.y += 0.5;
-  _pos.x += 0.5;
-  return (_pos);
+  return fract(_st);
 }
 
-float circle(vec2 _pos, float _radius){
-  vec2 pos = vec2(0.5) - _pos;
-  // _radius *= tan(u_time * 0.1) * -0.10;
-  _radius *= 1.0 / cos(pos.x * pos.y) * sin(u_time);
-
-  // _radius *= tan(u_time * 1.0) * -0.10;
-  // _radius *= 3.00;
-  // return smoothstep(_radius-(_radius*0.01),_radius+(_radius*0.01),dot(pos,pos)*3.14);
-  // return 1.0 - smoothstep(_radius - (_radius * 1.1), (_radius * 0.1), dot(pos, pos) * 0.14);
-  // return 1.0 - smoothstep(_radius - (_radius * (abs(sin(u_time * 0.3))) - 0.5), _radius + (_radius*0.01), dot(pos, pos) * 3.14);
-  return 1.0 - smoothstep(_radius - (_radius   - 1.5), _radius + (_radius*0.01), dot(pos, pos) * 3.14);
+float circle(vec2 _st, float _radius){
+  vec2 pos = vec2(0.5)-_st;
+  _radius *= 1.75;
+  return 1.-smoothstep(_radius-(_radius*0.01),_radius+(_radius*0.01),dot(pos,pos)*3.14);
 }
 
 vec3 damier(vec2 pos, float u_time) {
   vec3 color = vec3(1.0);
-  // vec3 color = vec3(0.243, audio.notch, 1.0);
 
-  pos = brickTile(pos, 1.5);
-  color *= vec3(circle(pos + vec2(0.,0.1), 1.000)+
-                    circle(pos+vec2(0.00,-0.1), 1.000)+
-                    circle(pos+vec2(-0.1,0.), -1.000)+
-                    circle(pos+vec2(0.1,0), 0.007));
+  pos = brickTile(pos, 0.5);
+  color = vec3(circle(pos + vec2(0.,0.1), 1.000)+
+                    circle(pos+vec2(0.00,-0.5), 1.000)+
+                    circle(pos+vec2(-0.1,0.), 1.000)+
+                    circle(pos+vec2(0.1,0), 1.000));
 
   return color;
 }
@@ -171,12 +161,13 @@ void main() {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(1.0);
+  vec3 purp_circle =  vec3(0.0);
+  purple_circle_oh_yes_he_is_mio(pos, u_time, audio, purp_circle);
+  color += purp_circle;
 
   say_nothing_none(pos, u_time, audio, color);
-  vec3 damier_color = damier(1.75 * pos, u_time);
-  // color *= clamp(damier_color, 2.5, 10.0);
+  vec3 damier_color = damier(pos, u_time);
   color *= damier_color;
-  // color += 0.05;
 
   gl_FragColor = vec4(color, 1.0);
 }

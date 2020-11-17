@@ -395,3 +395,13 @@ same-8001:
 
 same-dbg:
 	glslViewer sets/nope-theyre-all-the-same.frag  --nocursor -I./lib
+
+# Bartok - Nora En Pure
+bartok:
+	glslViewer sets/bartok.frag  -p 8000 --nocursor -I./lib
+
+bartok-8001:
+	glslViewer sets/bartok.frag  -p 8001 --nocursor -I./lib
+
+bartok-dbg:
+	glslViewer sets/bartok.frag  --nocursor -I./lib

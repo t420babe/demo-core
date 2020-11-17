@@ -235,7 +235,7 @@ float cellular_2d(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   float n = 1.0;
   vec2 _pos = pos + 0.0;
   vec2 F = cellular(_pos);
-  float facets = 0.01 + (F.y / F.x);
+  float facets = 0.01 + (F.y - F.x);
   float dots = smoothstep(0.01, 0.1, F.x);
   // n = facets * dots;
   n = facets * abs(atan(u_time));
@@ -247,10 +247,10 @@ void main() {
   vec3 color = vec3(1.0);
 
   vec3 n_color;
-  float n = cellular_2d(8.0 * pos, u_time, audio, n_color);
+  float n = cellular_2d(4.0 * pos, u_time, audio, n_color);
   say_nothing_none(9.5 * pos, u_time, audio, color);
   // color += 0.1;
-  color *= n - 1.00;
+  color /= n + 0.15;
   // vec3 damier_color = damier(1.75 * pos, u_time);
   // color *= clamp(damier_color, 2.5, 10.0);
   // color /= damier_color;

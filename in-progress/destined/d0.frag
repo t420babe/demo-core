@@ -1,3 +1,4 @@
+// Above & Beyond feat. Zoë Johnston 'Love Is Not Enough' (Jody Wisternoff & James Grant Remix)
 #ifdef GL_ES
 precision mediump float;
 #endif
@@ -23,18 +24,17 @@ float rows = 10.0;
 
 vec2 brickTile(vec2 _pos, float _zoom){
   _pos *= _zoom;
-  if (fract(_pos.y * 1.0) > 1.0){
-      _pos.x += 0.5;
+  if (fract(_pos.y * 2.0) > 0.5){
+      _pos.x += 1.0;
   }
   _pos.y += 0.5;
-  _pos.x += 0.5;
   return (_pos);
 }
 
 float circle(vec2 _pos, float _radius){
   vec2 pos = vec2(0.5) - _pos;
   // _radius *= tan(u_time * 0.1) * -0.10;
-  _radius *= 1.0 / cos(pos.x * pos.y) * sin(u_time);
+  _radius *= tan(pos.x * pos.y) + tan(u_time);
 
   // _radius *= tan(u_time * 1.0) * -0.10;
   // _radius *= 3.00;
@@ -173,7 +173,7 @@ void main() {
   vec3 color = vec3(1.0);
 
   say_nothing_none(pos, u_time, audio, color);
-  vec3 damier_color = damier(1.75 * pos, u_time);
+  vec3 damier_color = damier(0.75 * pos, u_time);
   // color *= clamp(damier_color, 2.5, 10.0);
   color *= damier_color;
   // color += 0.05;
