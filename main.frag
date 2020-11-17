@@ -241,7 +241,9 @@ void main() {
   color.r /= damier_color.r;
   color += 0.05;
 
-  color.g *= sharp(circle_sdf(pos * audio.notch));
+  color.g *= sharp(circle_sdf(pos * audio.notch * 0.3));
+  color.g += 0.4;
+  color.b += 0.4;
 
   gl_FragColor = vec4(color, 1.0);
 }
