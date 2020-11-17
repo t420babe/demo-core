@@ -22,7 +22,7 @@ uniform float u_time;
 float rows = 10.0;
 
 float circle(vec2 _pos, float _radius){
-  vec2 pos = _pos;
+  vec2 pos = vec2(0.5) - _pos;
   // _radius *= tan(u_time * 0.1) * -0.10;
   _radius *= 1.0 / cos(pos.x * pos.y) * sin(u_time);
 
@@ -241,8 +241,7 @@ void main() {
   color.r /= damier_color.r;
   color += 0.05;
 
-  color.b *= sharp(circle_sdf(pos * audio.notch * 0.3));
-  color.g *= circle(pos * audio.notch * 5.0, 1.1);
+  color.g *= sharp(circle_sdf(pos * audio.notch * 0.3));
   color.g += 0.4;
 
   gl_FragColor = vec4(color, 1.0);
