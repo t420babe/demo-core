@@ -27,12 +27,7 @@ vec2 tile(vec2 _st, float _zoom){
 float jail(vec2 _st, float _radius){
   vec2 pos = vec2(0.5)-_st;
   _radius *= 5.75 * abs(audio.highpass);
-  return 1.0 - smoothstep(1.0 - (_radius * abs(audio.notch)), _radius + (_radius * 0.5), fract(pos.x * pos.y) * 3.14);
-}
-
-float circle(vec2 pos, float _radius){
-  _radius *= 0.75;
-  return 1.-smoothstep(_radius-(_radius*0.05),_radius+(_radius*0.05),dot(pos,pos)*3.14);
+  return 1.0 - smoothstep(1.0 - (_radius * abs(audio.notch)), _radius + (_radius * 0.5), pos.x * 3.14);
 }
 
 void main() {
@@ -40,12 +35,11 @@ void main() {
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(1.0);
 
-  vec2 st = tile(pos,10.);
-  color = vec3(jail(st, 5.2));
-  color /= vec3(circle(pos, 7.0 * abs(audio.notch)));
+  vec2 st = tile(pos,5.);
+  color = vec3(jail(st, 0.2));
 
-  color.r *= abs(audio.bandpass) * 2.0;
-  color.g *= abs(audio.notch) * 2.0;
+  color.r *= abs(audio.bandpass);
+  color.g *= abs(audio.notch);
 
   gl_FragColor = vec4(color, 1.0);
 }
