@@ -1,4 +1,3 @@
-// The Difference - Picard Brothers Remix
 #ifdef GL_ES
 precision mediump float;
 #endif
@@ -25,17 +24,15 @@ vec2 tile(vec2 _st, float _zoom){
   return fract(_st);
 }
 
-float jail(vec2 _pos, float _radius){
-  vec2 pos = vec2(0.5) - _pos;
+float jail(vec2 _st, float _radius){
+  vec2 pos = vec2(0.5)-_st;
   _radius *= 5.75 * abs(audio.highpass);
-  return 1.0 - smoothstep(1.0 - (_radius * abs(audio.notch)), _radius + (_radius * 0.5), dot(fract(pos), pos.yx) * 10.14);
+  return 1.0 - smoothstep(1.0 - (_radius * abs(audio.notch)), _radius + (_radius * 0.5), dot(pos, pos) * 10.14);
 }
 
 float circle(vec2 pos, float _radius){
-  _radius *= 0.45;
-  float mul_0 = abs(sin(u_time));
-  float mul_1 = abs(cos(u_time));
-  return 1.0 - smoothstep(_radius - (_radius * mul_0), _radius + (_radius * mul_1), dot(pos, pos) * 4.14);
+  _radius *= 0.75;
+  return 1.0 - smoothstep(_radius - (_radius * 0.05), _radius + (_radius*0.05), dot(pos, pos) * 4.14);
 }
 
 void main() {
@@ -43,17 +40,15 @@ void main() {
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(1.0);
 
-  vec2 st = tile(pos, 10.0);
+  vec2 st = tile(pos,10.);
   color = vec3(jail(st, 5.2));
   color /= vec3(circle(pos, 7.0 * abs(audio.notch)));
 
-  color.r *= abs(audio.bandpass) * 1.5;
+  color.r += abs(audio.bandpass) * 1.0;
   color.g -= abs(audio.notch) * 0.5;
-  // color.b *= abs(audio.bandpass) * 1.0;
+  color.b += abs(audio.bandpass) * 1.0;
 	
-  // color.g *= clamp(abs(sin(u_time * audio.notch * 0.5)), 0.3, 1.0);
-  color.g *= abs(sin(u_time * audio.notch * 0.5));
-  color.b *= abs(cos(u_time * audio.highpass * 0.5));
+  color.b *= abs(sin(u_time));
 
   gl_FragColor = vec4(color, 1.0);
 }

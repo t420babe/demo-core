@@ -1,4 +1,3 @@
-// The Difference - Picard Brothers Remix
 #ifdef GL_ES
 precision mediump float;
 #endif
@@ -47,13 +46,11 @@ void main() {
   color = vec3(jail(st, 5.2));
   color /= vec3(circle(pos, 7.0 * abs(audio.notch)));
 
-  color.r *= abs(audio.bandpass) * 1.5;
-  color.g -= abs(audio.notch) * 0.5;
-  // color.b *= abs(audio.bandpass) * 1.0;
+  color.r -= abs(audio.bandpass) * 0.5;
+  color.g *= abs(audio.notch) * 0.5;
+  color.b += abs(audio.bandpass) * 1.0;
 	
-  // color.g *= clamp(abs(sin(u_time * audio.notch * 0.5)), 0.3, 1.0);
-  color.g *= abs(sin(u_time * audio.notch * 0.5));
-  color.b *= abs(cos(u_time * audio.highpass * 0.5));
+  color.r *= abs(sin(u_time));
 
   gl_FragColor = vec4(color, 1.0);
 }
