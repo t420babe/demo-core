@@ -1,4 +1,3 @@
-// Of My Mind - Pional
 #ifdef GL_ES
 precision mediump float;
 #endif
@@ -76,9 +75,9 @@ void clouds(vec2 pos, float u_time, peakamp audio, out vec3 color) {
     // r.x += abs(cos(u_time * 0.5)) * r.y;
     r.x *- r.y;
 
-    // float f = clouds_fbm(pos * r / smoothstep(audio.notch, audio.notch - 0.51, 0.3));
-    float f = clouds_fbm(pos * r / (sin(audio.notch * 1.0)) / 1.0);
-    // float f = clouds_fbm(pos * r / 0.5);
+    // float f = clouds_fbm(pos * r + smoothstep(audio.highpass, audio.highpass - 0.41, 0.1));
+    // float f = clouds_fbm(pos * r / sin(audio.bandpass * 0.5));
+    float f = clouds_fbm(pos * r / 0.5);
 
     color = mix(vec3(0.001961,0.619608,0.366667),
                 vec3(0.966667,0.966667,0.998039),
@@ -128,45 +127,22 @@ float rect_sdf(vec2 st, vec2 s) {
                 abs(st.y/s.y) );
 }
 
-float wrap_time(float u_time, float limit) {
-  limit *= 2.0;
-  float mod_time = mod(u_time, limit);
-  if (mod_time < limit / 2.0) {
-    return mod_time;
-  } else {
-    return limit - mod_time;
-  }
-}
-
 void main() {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  // vec2 pos = gl_FragCoord.xy / u_resolution.xy;
-  // pos.x *= u_resolution.x / u_resolution.y;
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(1.0);
-  audio.lowpass *= 0.5;
-  audio.highpass *= 0.5;
-  audio.bandpass *= 0.5;
-  audio.notch *= 0.5;
 
   vec2 pos_0 = tile(pos, 10.0);
 
   // color = vec3(jail(pos_0, 1.0));
-  color = vec3(1.0, 0.0, 0.0);
+  color = vec3(1.0, 0.5, 0.5);
   // vec3 rect_color = vec3(rect_sdf(pos, vec2(1.1, 1.0)));
   // color = rect_color * audio.bandpass;
-  // vec2 multiplier = vec2(mod(u_time * 0.5, 100.0) / 10.0);
-  // vec2 multiplier = vec2(clamp(u_time * 0.05, 0.0, 1.0));
-  float time = u_time - 10.0;
-  float time_multiplier = 0.10;
-  float multiplier = wrap_time(time * time_multiplier, 56.0 * time_multiplier);
-  clouds((multiplier * pos + vec2(0.35)) * 1.5, u_time, audio, color);
+  clouds((pos + vec2(0.35)) * 1.5, u_time, audio, color);
 
-  // color /= vec3(2.0) - color;
+  // color = vec3(1.0) - color;
   color = color.bgr;
-  // color.r *= abs(sin(u_time * 0.5)) + 0.5;
   // color = color.gbr;
 
   gl_FragColor = vec4(color, 1.0);
 }
-

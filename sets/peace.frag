@@ -1,4 +1,4 @@
-// Of My Mind - Pional
+// Late Night Adventure - SPEECHLESS
 #ifdef GL_ES
 precision mediump flo
 #endif
@@ -150,9 +150,11 @@ void main() {
   color = vec3(jail(pos_0, 1.0));
   vec3 rect_color = vec3(sharp(rect_sdf(pos, vec2(15.0, 15.0))));
   float ray = rays_audio(pos, 4, audio);
+  // color -= vec3(rect_color);
   clouds((pos + vec2(0.35)) * 1.5, u_time, audio, color);
-  color -= vec3(ray);
   color -= rect_color;
+  color -= vec3(ray);
+  // color *= rect_color;
   //
   color /= vec3(1.0) - color;
   color = color.bgr;
@@ -160,3 +162,4 @@ void main() {
 
   gl_FragColor = vec4(color, 1.0);
 }
+

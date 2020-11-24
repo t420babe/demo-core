@@ -405,3 +405,53 @@ bartok-8001:
 
 bartok-dbg:
 	glslViewer sets/bartok.frag  --nocursor -I./lib
+
+# Out Of My Mind - Pional
+call:
+	glslViewer sets/call.frag  -p 8000 --nocursor -I./lib
+
+call-8001:
+	glslViewer sets/call.frag  -p 8001 --nocursor -I./lib
+
+call-dbg:
+	glslViewer sets/call.frag  --nocursor -I./lib
+
+# Nobody Asked Me (If I Was Ok) - Sky Ferriera
+angst:
+	glslViewer sets/angst.frag  -p 8000 --nocursor -I./lib
+
+angst-8001:
+	glslViewer sets/angst.frag  -p 8001 --nocursor -I./lib
+
+angst-dbg:
+	glslViewer sets/angst.frag  --nocursor -I./lib
+
+# Late Night Adventure - SPEECHLESS
+peace:
+	glslViewer sets/peace.frag  -p 8000 --nocursor -I./lib
+
+peace-8001:
+	glslViewer sets/peace.frag  -p 8001 --nocursor -I./lib
+
+peace-dbg:
+	glslViewer sets/peace.frag  --nocursor -I./lib
+
+# The Chain - Fleetwood Mac
+the-chain:
+	glslViewer sets/the-chain.frag  -p 8000 --nocursor -I./lib
+
+the-chain-8001:
+	glslViewer sets/the-chain.frag  -p 8001 --nocursor -I./lib
+
+the-chain-dbg:
+	glslViewer sets/the-chain.frag  --nocursor -I./lib
+
+# Commute Longer - Christian
+commute-longer:
+	glslViewer sets/commute-longer.frag  -p 8000 --nocursor -I./lib
+
+commute-longer-8001:
+	glslViewer sets/commute-longer.frag  -p 8001 --nocursor -I./lib
+
+commute-longer-dbg:
+	glslViewer sets/commute-longer.frag  --nocursor -I./lib
