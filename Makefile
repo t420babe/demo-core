@@ -455,3 +455,13 @@ commute-longer-8001:
 
 commute-longer-dbg:
 	glslViewer sets/commute-longer.frag  --nocursor -I./lib
+
+# Billie Holiday - Warpaint
+bound:
+	glslViewer sets/bound.frag  -p 8000 --nocursor -I./lib
+
+bound-8001:
+	glslViewer sets/bound.frag  -p 8001 --nocursor -I./lib
+
+bound-dbg:
+	glslViewer sets/bound.frag  --nocursor -I./lib

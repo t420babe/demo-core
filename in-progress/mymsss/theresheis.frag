@@ -2,6 +2,11 @@
 precision mediump float;
 #endif
 
+#ifndef COMMON_PEAKAMP
+#include "./lib/common/peakamp.glsl"
+#endif
+
+
 #ifndef T420BABE
 #include "./lib/t420babe/00-t420babe.glsl"
 #endif

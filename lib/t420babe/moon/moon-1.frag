@@ -366,15 +366,9 @@ float triangle_0(vec2 st) {
     return r;
 }
 
-vec2 rotate(vec2 pos, float theta) {
-    pos = mat2(cos(theta), -sin(theta), sin(theta), cos(theta))*(pos);
-    return pos;
-}
-
 void main() {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  pos = rotate(pos, 135.07);
-  pos *= 3.0;
+  pos *= 6.0;
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(1.0);
 
@@ -395,22 +389,15 @@ void main() {
   
   // Bartok
   color.r /= 1.0 * abs(sin(circ - tri));
-  color.r *= 1.0;
+  color.r *= 2.0;
   // color.g /= 1.0 * circ;
-  if (audio.highpass > 0.80) {
-    color.g /= (audio.highpass) * 1.0;
-  }
-  // color.g = clamp(color.g, 0.0, 0.9);
+  // color.g -= 0.2;
   color.b /= 1.0 * abs(tan(circ - tri));
-  // color = color.brg;
 
   // vec3 damier_color = damier(1.75 * pos, u_time);
   // color *= clamp(damier_color, 2.5, 10.0);
   // color *= damier_color;
   // color += 0.05;
-  // if (audio.highpass > 0.6) {
-  //   color.r = audio.highpass;
-  // }
 
   gl_FragColor = vec4(color, 1.0);
 }
