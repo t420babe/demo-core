@@ -22,7 +22,7 @@ uniform float u_time;
 
 float rect_sdf(vec2 st, vec2 s) {
     st = st * 2.0 ;
-    return max( (abs(s.x / st.x)), (abs(s.y / st.y)) );
+    return max( fract(abs(st.x / s.x)), fract(abs(s.y / st.y)) );
 }
 
 
@@ -36,19 +36,14 @@ void main() {
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(1.0);
 
-  pos *= 1.00;
-  // pos.y *= 1.00;
-  float cross_shape = cross_sdf(pos, 2.0);
-
+  float cross_shape = cross_sdf(pos * 1.5, 2.0);
   // color = vec3(abs(sin(u_time * 0.5)) + 0.2, audio.highpass * 2.0, audio.notch * 2.0);
   color = vec3(abs(sin(clamp(audio.lowpass, 0.0, 10.0) * 0.4)) + 0.2, audio.highpass * 2.0, audio.notch * 2.0);
   color *= vec3(sharp(fract(cross_shape)));
   color /= sharp(fract(cross_shape)) + color * sharp(fract(cross_shape)) - vec3(0.5, 1.0, 0.5);
-  color += 0.45;
+  color += 0.2;
   color = 1.3 - color;
-  color.b = abs(sin(u_time * 0.5)) + 0.3;
-  // color = color.ggb;
-  // color = color.brb;
+  color = color.brb;
 
   gl_FragColor = vec4(color, 1.0);
 }

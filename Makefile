@@ -465,3 +465,13 @@ bound-8001:
 
 bound-dbg:
 	glslViewer sets/bound.frag  --nocursor -I./lib
+
+# Ancient Names Part I by Lord Huron
+ancient-names:
+	glslViewer sets/ancient-names.frag  -p 8000 --nocursor -I./lib
+
+ancient-names-8001:
+	glslViewer sets/ancient-names.frag  -p 8001 --nocursor -I./lib
+
+ancient-names-dbg:
+	glslViewer sets/ancient-names.frag  --nocursor -I./lib

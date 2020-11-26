@@ -1,4 +1,4 @@
-// When the Nigh is Over - by Lord Huron
+// The Balancer's Name - by Lord Huron
 #ifdef GL_ES
 precision mediump float;
 #endif
@@ -22,12 +22,12 @@ uniform float u_time;
 
 float rect_sdf(vec2 st, vec2 s) {
     st = st * 2.0 ;
-    return max( (abs(s.x / st.x)), (abs(s.y / st.y)) );
+    return max( fract(abs(st.x / s.x)), fract(abs(s.y / st.y)) );
 }
 
 
 float cross_sdf(vec2 st, float s) {
-    vec2 size = vec2(1.00, s * 2.0);
+    vec2 size = vec2(0.50, s * 2.0);
     return min( rect_sdf(st.xy,size.xy),
                 rect_sdf(st.xy,size.yx));
 }
@@ -36,19 +36,11 @@ void main() {
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(1.0);
 
-  pos *= 1.00;
-  // pos.y *= 1.00;
-  float cross_shape = cross_sdf(pos, 2.0);
-
-  // color = vec3(abs(sin(u_time * 0.5)) + 0.2, audio.highpass * 2.0, audio.notch * 2.0);
-  color = vec3(abs(sin(clamp(audio.lowpass, 0.0, 10.0) * 0.4)) + 0.2, audio.highpass * 2.0, audio.notch * 2.0);
-  color *= vec3(sharp(fract(cross_shape)));
-  color /= sharp(fract(cross_shape)) + color * sharp(fract(cross_shape)) - vec3(0.5, 1.0, 0.5);
-  color += 0.45;
-  color = 1.3 - color;
-  color.b = abs(sin(u_time * 0.5)) + 0.3;
-  // color = color.ggb;
-  // color = color.brb;
+  float cross_shape = cross_sdf(pos * 1.5, 1.0);
+  color = vec3(abs(sin(u_time * 0.5)), audio.highpass * 2.0, audio.notch * 2.0);
+  color /= vec3(sharp(fract(cross_shape)));
+  color *= sharp(fract(cross_shape)) + color * sharp(fract(cross_shape)) - vec3(0.5, 1.0, 0.5);
+  // color = 1.5 - color;
 
   gl_FragColor = vec4(color, 1.0);
 }
