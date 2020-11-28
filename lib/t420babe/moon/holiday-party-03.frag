@@ -10,13 +10,14 @@ precision mediump float;
 #include "./lib/common/plot.glsl"
 #endif
 
-#ifndef BOS_TURBULENCE
-#include "./lib/bos/turbulence.glsl"
-#endif
-//
-// #ifndef CLOUDS
-// #include "./lib/bos/clouds.glsl"
-// #endif
+uniform float u_lowpass;
+uniform float u_highpass;
+uniform float u_bandpass;
+uniform float u_notch;
+
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+uniform float u_time;
 
 
 float clouds_random (in vec2 _pos) {
@@ -45,11 +46,12 @@ float clouds_noise (in vec2 _pos) {
 
 float clouds_fbm ( in vec2 _pos) {
   int num_octaves = 5;
-    float v = 0.0;
-    float a = 0.5;
-    vec2 shift = vec2(5.0);
+    float v = -0.5;
+    float a = 2.0;
+    vec2 shift = vec2(0.0);
     // Rotate to reduce axial bias
-    mat2 rot = mat2(cos(0.5), sin(0.5), sin(0.5), cos(0.50));
+    // mat2 rot = mat2(cos(0.5), sin(0.5), sin(0.5), cos(0.50));
+    mat2 rot = mat2(tan(0.5), sin(0.5), sin(0.5), tan(0.50));
     for (int i = 0; i < num_octaves; ++i) {
         v += a * clouds_noise(_pos);
         _pos = rot * _pos * 2.0 + shift;
@@ -74,30 +76,24 @@ void clouds(vec2 pos, float u_time, peakamp audio, out vec3 color) {
     // r.x += abs(cos(u_time * 0.5)) * r.y;
     r.x *- r.y;
 
-    float f = clouds_fbm(pos+r);
+    // float f = clouds_fbm(pos * r + smoothstep(audio.highpass, audio.highpass - 0.41, 0.1));
+    // float f = clouds_fbm(pos * r / sin(audio.bandpass * 0.5));
+    float f = clouds_fbm(pos * r / 0.5);
 
     color = mix(vec3(0.001961,0.619608,0.366667),
                 vec3(0.966667,0.966667,0.998039),
-                clamp((f*f)*4.0,0.0,1.0));
+                clamp((f * f) * 4.0, 0.0, 1.0));
 
     color = mix(color,
-                vec3(0,0,0.164706),
+                vec3(1.0, 0.0, 0.164706),
                 clamp(length(q),0.0,1.0));
 
     color = mix(color,
-                vec3(0.066667,1,1),
+                vec3(0.066667, 1, 2),
                 clamp(length(r.x),1.0,0.0));
 
-    color = vec3((f*f*f+.6*f*f+.5*f)*color);
+    color = vec3((f * f * f + 0.6 * f * f + 0.5 * f) * color);
 }
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
 
 vec2 tile(vec2 _pos, float _zoom){
   _pos *= _zoom;
@@ -139,21 +135,15 @@ void main() {
 
   vec2 pos_0 = tile(pos, 10.0);
 
-  color = vec3(jail(pos_0, 1.0));
-  vec2 origin = vec2(0.0);
-  vec2 dim = vec2(1.0);
-  dim += audio.lowpass;
-  // vec3 rect_color = vec3(rectangle(pos, origin, dim));;
-  vec3 rect_color = vec3(rect_sdf(pos, vec2(1.1, 1.0)));
-  vec3 clouds_color = vec3(1.0);
-  clouds(pos * 1.5, u_time, audio, color);
-  // color /= rect_color;
+  // color = vec3(jail(pos_0, 1.0));
+  color = vec3(1.0, 0.5, 0.5);
+  // vec3 rect_color = vec3(rect_sdf(pos, vec2(1.1, 1.0)));
+  // color = rect_color * audio.bandpass;
+  clouds((pos + vec2(0.35)) * 1.5, u_time, audio, color);
 
-  // color.r *= abs(audio.bandpass) * 1.5;
-  color.b *= abs(sin(u_time * 0.5));
-  color = color.bgr;
-  // color /= vec3(circle(pos * vec2(sin(u_time * 0.2)), 1.0));
-  // color.g *= abs(audio.notch) * 1.0;
+  color = vec3(1.0) - color;
+  // color = color.bgr;
+  // color = color.gbr;
 
   gl_FragColor = vec4(color, 1.0);
 }
