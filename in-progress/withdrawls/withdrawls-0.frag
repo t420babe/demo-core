@@ -70,24 +70,16 @@ vec3 brick(vec2 pos, vec3 c_brick, vec3 c_mortar) {
 }
 
 
-float circle_sdf(vec2 st) {
-    return length(st-.0)*0.8;
-}
-
 void main() {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(1.0);
   vec3 c_mortar = vec3(0.0, 0.0, 0.0);
-  // vec3 c_brick = vec3(abs(sin(0.05 * u_time + 0.1) + 0.1) + 0.5, abs(cos(0.05 * u_time - 0.5) + 0.1) + 0.3, abs(tan(0.05 * u_time + 0.8) + 0.1) + 0.4);
+  // vec3 c_brick = vec3(abs(sin(u_time + 0.1) + 0.1) + 0.4, abs(cos(u_time - 0.5) + 0.1) + 0.4, abs(tan(u_time + 0.8) + 0.1) + 0.4);
   vec3 c_brick = vec3(abs(sin(0.05 * u_time + 0.1) + 0.1) + 0.5, abs(cos(0.05 * u_time - 0.5) + 0.1) + 0.3, abs(tan(0.05 * u_time + 0.8) + 0.1) + 0.4);
-  color.r = color.r;
-  color.b = color.r;
-  color.g = color.r;
-  c_brick = c_brick.bgg;
+  c_brick = c_brick.brg;
   color = brick(sin(pos * u_time * 0.05 + 0.1), c_brick, c_mortar);
-  float circ = circle_sdf(pos);
-  color *= circ;
 
   gl_FragColor = vec4(color, 1.0);
 }
+

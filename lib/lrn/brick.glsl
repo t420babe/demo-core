@@ -1,27 +1,10 @@
-#ifdef GL_ES
-precision mediump float;
-#endif
+/// Brick pattern. Determine which square of the checkerboard contains the sample point and then test
+/// the parity of the sum of the row and column to determine the color of that square.
+// From Chapter 2 of Texturing & Modeling: A Procedural Approach
 
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-
-#ifndef COMMON_PEAKAMP
-#include "./lib/common/peakamp.glsl"
-#endif
-
-#ifndef COMMON_PLOT
-#include "./lib/common/plot.glsl"
-#endif
-
-vec3 brick(vec2 pos, vec3 c_brick, vec3 c_mortar) {
-  // vec3 c_brick = vec3(0.5, 0.15, 0.14);
-  // vec3 c_mortar = vec3(0.5, 0.5, 0.5);
+#ifndef LRN_BRICK
+#define LRN_BRICK
+vec3 brick(vec2 pos) {
   float brick_width = 0.25;
   float brick_height = 0.08;
   float mortar_thickness = 0.01;
@@ -32,8 +15,8 @@ vec3 brick(vec2 pos, vec3 c_brick, vec3 c_mortar) {
   float mwf = mortar_thickness * 0.5 / bm_width;
   float mhf = mortar_thickness * 0.5 / bm_height;
 
-  float ka = 1.0;
-  float kd = 1.0;
+  vec3 c_brick = vec3(0.5, 0.15, 0.14);
+  vec3 c_mortar = vec3(0.5, 0.5, 0.5);
 
   // Standard coordinates that will become the coordinates of the upper-left corner of the brick
   // containing the point being shaded.
@@ -68,26 +51,4 @@ vec3 brick(vec2 pos, vec3 c_brick, vec3 c_mortar) {
   vec3 color = mix(c_mortar, c_brick, w * h);
   return color;
 }
-
-
-float circle_sdf(vec2 st) {
-    return length(st-.0)*0.8;
-}
-
-void main() {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(1.0);
-  vec3 c_mortar = vec3(0.0, 0.0, 0.0);
-  // vec3 c_brick = vec3(abs(sin(0.05 * u_time + 0.1) + 0.1) + 0.5, abs(cos(0.05 * u_time - 0.5) + 0.1) + 0.3, abs(tan(0.05 * u_time + 0.8) + 0.1) + 0.4);
-  vec3 c_brick = vec3(abs(sin(0.05 * u_time + 0.1) + 0.1) + 0.5, abs(cos(0.05 * u_time - 0.5) + 0.1) + 0.3, abs(tan(0.05 * u_time + 0.8) + 0.1) + 0.4);
-  color.r = color.r;
-  color.b = color.r;
-  color.g = color.r;
-  c_brick = c_brick.bgg;
-  color = brick(sin(pos * u_time * 0.05 + 0.1), c_brick, c_mortar);
-  float circ = circle_sdf(pos);
-  color *= circ;
-
-  gl_FragColor = vec4(color, 1.0);
-}
+#endif

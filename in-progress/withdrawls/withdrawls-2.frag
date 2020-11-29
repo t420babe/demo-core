@@ -22,18 +22,15 @@ uniform float u_time;
 vec3 brick(vec2 pos, vec3 c_brick, vec3 c_mortar) {
   // vec3 c_brick = vec3(0.5, 0.15, 0.14);
   // vec3 c_mortar = vec3(0.5, 0.5, 0.5);
-  float brick_width = 0.25;
-  float brick_height = 0.08;
-  float mortar_thickness = 0.01;
+  float brick_width = 0.25 + 0.15;
+  float brick_height = 0.08 + 0.15;
+  float mortar_thickness = 1.0;
 
   float bm_width = brick_width + mortar_thickness;
   float bm_height = brick_height + mortar_thickness;
 
   float mwf = mortar_thickness * 0.5 / bm_width;
   float mhf = mortar_thickness * 0.5 / bm_height;
-
-  float ka = 1.0;
-  float kd = 1.0;
 
   // Standard coordinates that will become the coordinates of the upper-left corner of the brick
   // containing the point being shaded.
@@ -55,8 +52,8 @@ vec3 brick(vec2 pos, vec3 c_brick, vec3 c_mortar) {
   float s_brick = floor(ss);  // Which brick?
   float t_brick = floor(tt);  // Which brick?
   // Identify texture coordinates of the point being shaded.
-  ss -= s_brick;
-  tt -= t_brick;
+  ss -= fract(s_brick);
+  tt -= tan(t_brick);
 
   // Determine if the point is in the brick proper or in the mortar between the bricks.
   float w = step(mwf, ss) - step(1.0 - mwf, ss);  // Vertical pulse
@@ -70,24 +67,16 @@ vec3 brick(vec2 pos, vec3 c_brick, vec3 c_mortar) {
 }
 
 
-float circle_sdf(vec2 st) {
-    return length(st-.0)*0.8;
-}
-
 void main() {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(1.0);
   vec3 c_mortar = vec3(0.0, 0.0, 0.0);
-  // vec3 c_brick = vec3(abs(sin(0.05 * u_time + 0.1) + 0.1) + 0.5, abs(cos(0.05 * u_time - 0.5) + 0.1) + 0.3, abs(tan(0.05 * u_time + 0.8) + 0.1) + 0.4);
-  vec3 c_brick = vec3(abs(sin(0.05 * u_time + 0.1) + 0.1) + 0.5, abs(cos(0.05 * u_time - 0.5) + 0.1) + 0.3, abs(tan(0.05 * u_time + 0.8) + 0.1) + 0.4);
-  color.r = color.r;
-  color.b = color.r;
-  color.g = color.r;
-  c_brick = c_brick.bgg;
+  // vec3 c_brick = vec3(abs(sin(u_time + 0.1) + 0.1) + 0.4, abs(cos(u_time - 0.5) + 0.1) + 0.4, abs(tan(u_time + 0.8) + 0.1) + 0.4);
+  vec3 c_brick = vec3(abs(sin(u_time + 0.1) + 0.1) + 0.5, abs(cos(u_time - 0.5) + 0.1) + 0.3, abs(tan(u_time + 0.8) + 0.1) + 0.4);
+  c_brick = c_brick.brg;
   color = brick(sin(pos * u_time * 0.05 + 0.1), c_brick, c_mortar);
-  float circ = circle_sdf(pos);
-  color *= circ;
 
   gl_FragColor = vec4(color, 1.0);
 }
+
