@@ -1,15 +1,5 @@
-#ifdef GL_ES
-precision mediump float;
-#endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
+#ifndef T420BABE_WITHDRAWLS_1
+#define T420BABE_WITHDRAWLS_1
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -22,9 +12,9 @@ uniform float u_time;
 vec3 brick(vec2 pos, vec3 c_brick, vec3 c_mortar) {
   // vec3 c_brick = vec3(0.5, 0.15, 0.14);
   // vec3 c_mortar = vec3(0.5, 0.5, 0.5);
-  float brick_width = 0.25 + 0.20;
-  float brick_height = 0.08 + 0.20;
-  float mortar_thickness = 0.005;
+  float brick_width = 0.25 + 0.15;
+  float brick_height = 0.08 + 0.15;
+  float mortar_thickness = 0.01;
 
   float bm_width = brick_width + mortar_thickness;
   float bm_height = brick_height + mortar_thickness;
@@ -70,18 +60,14 @@ vec3 brick(vec2 pos, vec3 c_brick, vec3 c_mortar) {
 }
 
 
-void main() {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(1.0);
+// Needs large u_time
+void withdrawls_1(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   vec3 c_mortar = vec3(0.0, 0.0, 0.0);
   // vec3 c_brick = vec3(abs(sin(u_time + 0.1) + 0.1) + 0.4, abs(cos(u_time - 0.5) + 0.1) + 0.4, abs(tan(u_time + 0.8) + 0.1) + 0.4);
   vec3 c_brick = vec3(abs(sin(0.5 * u_time + 0.1) + 0.1) + 0.5, abs(cos(0.5 * u_time - 0.5) + 0.1) + 0.3, abs(tan(0.5 * u_time + 0.8) + 0.1) + 0.4);
   c_brick = c_brick.brg;
   color = brick(sin(pos * u_time * 0.05 + 0.1), c_brick, c_mortar);
-  color *= abs(audio.notch);
-
-  gl_FragColor = vec4(color, 1.0);
 }
 
 
+#endif

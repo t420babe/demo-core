@@ -1,16 +1,5 @@
-#ifdef GL_ES
-precision mediump float;
-#endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-
+#ifndef T420BABE_WITHDRAWLS_10
+#define T420BABE_WITHDRAWLS_10
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
 #endif
@@ -102,19 +91,20 @@ float contour_lines(vec2 _pos) {
   return n;
 }
 
-
-void main() {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-
-  vec3 color = vec3(1.0);
+// Needs large u_time
+void withdrawls_10(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+  if (u_time < 100000.0) {
+    u_time += 10000.0;
+  }
   vec3 c_brick = vec3(abs(audio.notch), abs(cos(u_time - 0.5) + 0.1) + 0.3, abs(tan(u_time + 0.8) + 0.1) + 0.4);
   color = c_brick;
   vec2 _pos = pos;
   _pos *= 15.0;
   _pos.x -= 5.0;
+//   _pos *= 4.0;
+//   _pos.x -= 5.0;
+//   _pos.y -= 1.0;
   color *= contour_lines(_pos);
-
-  gl_FragColor = vec4(color, 1.0);
 }
 
+#endif

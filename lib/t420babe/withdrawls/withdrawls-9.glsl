@@ -1,15 +1,5 @@
-#ifdef GL_ES
-precision mediump float;
-#endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
+#ifndef T420BABE_WITHDRAWLS_9
+#define T420BABE_WITHDRAWLS_9
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -25,7 +15,7 @@ const float G3 =  0.1666667;
 
 /* discontinuous pseudorandom uniformly distributed in [-0.5, +0.5]^3 */
 vec3 random3(vec3 c) {
-	float j = 4096.0*sin(dot(c,vec3(17.0, 59.4, 15.0)));
+	float j = 4096.0 * sin(dot(c,vec3(17.0, 59.4, 15.0)));
 	vec3 r;
 	r.z = fract(512.0*j);
 	j *= .125;
@@ -96,22 +86,21 @@ float contour_lines(vec2 _pos) {
   float scale = 1.5;
   float t = 0.0;
 
-  float n = simplex3( vec3(tan(_pos * scale), u_time * 0.12)) / 35.0;
+  float n = simplex3( vec3(sin(_pos * scale), sin(u_time * 0.12))) / 35.0;
   n = smoothstep(1.5, 0.0, abs(fract(n + 0.5) - 0.5) / fwidth(n) ); 
 
   return n;
 }
 
-
-void main() {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-
-  vec3 color = vec3(1.0);
-  vec3 c_brick = vec3(abs(cos(u_time - 0.5) + 0.1) + 0.5, abs(cos(u_time - 0.5) + 0.1) + 0.5, abs(cos(u_time + 0.5) + 0.1) + 0.3);
+// Needs large u_time
+void withdrawls_9(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+  if (u_time < 100000.0) {
+    u_time += 10000.0;
+  }
+  vec3 c_brick = vec3(abs(sin(u_time + 0.1) + 0.1) + 0.5, abs(cos(u_time - 0.5) + 0.1) + 0.3, abs(tan(u_time + 0.8) + 0.1) + 0.4);
   color = c_brick;
-  color -= contour_lines(pos);
-
-  gl_FragColor = vec4(color, 1.0);
+  color *= contour_lines(pos);
 }
 
+
+#endif

@@ -1,15 +1,5 @@
-#ifdef GL_ES
-precision mediump float;
-#endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
+#ifndef T420BABE_WITHDRAWLS_CONTOUR
+#define T420BABE_WITHDRAWLS_CONTOUR
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -102,16 +92,38 @@ float contour_lines(vec2 _pos) {
   return n;
 }
 
-
-void main() {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-
-  vec3 color = vec3(1.0);
-  vec3 c_brick = vec3(abs(sin(u_time + 0.1) + 0.1) + 0.5, abs(cos(u_time - 0.5) + 0.1) + 0.3, abs(tan(u_time + 0.8) + 0.1) + 0.4);
-  color = c_brick;
-  color *= contour_lines(pos);
-
-  gl_FragColor = vec4(color, 1.0);
+float circle_0(vec2 st, float u_full_ave) {
+    return length(st );
 }
 
+float circle_1(vec2 st, float radius) {
+    return length(st) * radius;
+}
+
+// 7cc3f12, 20:58 concentric black white purple u_notch
+void purple_concentric(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+  color = vec3(0.2, 0.243, 0.0234);
+
+  // float pct = sharp(vesica_sdf(pos * 1.1, u_notch));
+  float pct = sharp(circle_1(pos * 1.1, audio.notch));
+  color = vec3(pct * color + pct + color.gbr);
+  float pct2 = sharp(circle_1(pos * 1.1, audio.notch + 0.1));
+  color *= pct2;
+}
+
+
+void withdrawls_0(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+  vec3 c_brick = vec3(abs(sin(u_time + 0.1) + 0.1) + 0.5, abs(cos(u_time - 0.5) + 0.1) + 0.3, abs(tan(u_time + 0.8) + 0.1) + 0.4);
+  color = c_brick;
+  vec3 circle_color = vec3(1.0);
+  purple_concentric(pos, u_time, audio, circle_color);
+  color.r /= circle_color.r;
+  color.g += circle_color.g;
+  color.b *= circle_color.b;
+  // color.b = 1.0 - color.g;
+  color -= contour_lines(pos);
+  // color = vec3(sharp(circle_0(pos, audio.bandpass)));
+
+  // color = color.rbg;
+}
+#endif
