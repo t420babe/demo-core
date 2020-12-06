@@ -1,6 +1,5 @@
-#ifdef GL_ES
-precision mediump float;
-#endif
+#ifndef T420BABE_WACK_07
+#define T420BABE_WACK_07
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -21,15 +20,6 @@ precision mediump float;
 #ifndef CLOUDS
 #include "./lib/bos/clouds.glsl"
 #endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
 
 vec2 tile(vec2 _pos, float _zoom){
   _pos *= _zoom;
@@ -62,12 +52,7 @@ float rays_audio(vec2 st, int N, peakamp audio) {
     // st.x +=1.2;
     return log(atan(st.x, st.x) * audio.notch * 1.01 /TWO_PI*float(N));
 }
-
-void main() {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(1.0);
-
+void wack_07(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   vec2 pos_0 = tile(pos, 10.0);
 
   color = vec3(jail(pos_0, 1.0));
@@ -83,7 +68,7 @@ void main() {
   color -= (rectangle(pos, origin, dim) - 0.0);
   color -= (ray);
   // color.b += abs(sin(u_time * 0.5));
-  // color /= turbulence(pos.yy * 10.0, u_time, audio);
+  color /= turbulence(pos.yy * 10.0, u_time, audio);
   // color += clouds_color;
   // color.r += abs(cos(u_time * 0.5));
   // rect_color.r -= 0.4;
@@ -94,7 +79,7 @@ void main() {
   // color.g += abs(audio.bandpass) * 1.5;
   color.b += abs(audio.notch) * 0.5;
   color.g *= abs(audio.notch) * 2.0;
-
-  gl_FragColor = vec4(color, 1.0);
 }
 
+
+#endif

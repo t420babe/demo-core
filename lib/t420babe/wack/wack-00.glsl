@@ -1,6 +1,7 @@
-#ifdef GL_ES
-precision mediump float;
-#endif
+// Voodoo Ray by Tall Paul
+// In Your Soul by CJ Jeff Feat. Georges Perin
+#ifndef T420BABE_WACK_00
+#define T420BABE_WACK_00
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -21,15 +22,6 @@ precision mediump float;
 #ifndef CLOUDS
 #include "./lib/bos/clouds.glsl"
 #endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
 
 vec2 tile(vec2 _pos, float _zoom){
   _pos *= _zoom;
@@ -63,11 +55,7 @@ float rays_audio(vec2 st, int N, peakamp audio) {
     return log(atan(st.x,st.y) * audio.notch * 1.01 /TWO_PI*float(N));
 }
 
-void main() {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(1.0);
-
+void wack_00(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   vec2 pos_0 = tile(pos, 10.0);
 
   color = vec3(jail(pos_0, 1.0));
@@ -94,7 +82,7 @@ void main() {
   // color.g += abs(audio.bandpass) * 1.5;
   color.b += abs(audio.notch) * 0.5;
   color.g *= abs(audio.notch) * 2.0;
-
-  gl_FragColor = vec4(color, 1.0);
 }
 
+
+#endif

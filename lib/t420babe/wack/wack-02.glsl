@@ -1,7 +1,7 @@
-#ifdef GL_ES
-precision mediump float;
-#endif
-
+// Red Solo Cup - Christian, Art Good
+// #shadershoot #effectshape #final
+#ifndef T420BABE_WACK_02
+#define T420BABE_WACK_02
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
 #endif
@@ -9,15 +9,6 @@ precision mediump float;
 #ifndef COMMON_PLOT
 #include "./lib/common/plot.glsl"
 #endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
 
 float rows = 10.0;
 
@@ -248,11 +239,7 @@ float triangle_web_0(vec2 st, peakamp audio, float u_time) {
     return fract(tri_w);
 }
 
-void main() {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(1.0);
-
+void wack_02(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   float tri_n = triangle_web_0(pos, audio, u_time);
 
   vec3 n_color;
@@ -266,5 +253,7 @@ void main() {
   // color += 0.05;
 
   color += vec3(sharp(tri_n));
-  gl_FragColor = vec4(color, 1.0);
 }
+
+
+#endif

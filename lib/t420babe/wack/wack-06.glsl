@@ -1,26 +1,18 @@
-#ifdef GL_ES
-precision mediump float;
-#endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
+// #shadershoot #effectshape #final #emotionsequence
+// The Future Dance (Rigopolar Remix) - Futuristant
+#ifndef T420BABE_WACK_06
+#define T420BABE_WACK_06
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
 #endif
 
-#ifndef COMMON_MATH_CONSTANTS
-#include "./lib/common/math-constants.glsl"
-#endif
-
 #ifndef COMMON_PLOT
 #include "./lib/common/plot.glsl"
+#endif
+
+#ifndef COMMON_CONSTANTS
+#include "./lib/common/math-constants.glsl"
 #endif
 
 #ifndef PXL_HEXAGON
@@ -31,7 +23,6 @@ uniform float u_time;
 #include "./lib/t420babe/audio-circle.glsl"
 #endif
 
-
 void goon_1(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   color = vec3(0.5);
 
@@ -40,7 +31,7 @@ void goon_1(vec2 pos, float u_time, peakamp audio, out vec3 color) {
 
   float mult = 0.5;
   float my_hex = (wbl1_hexagon(pos, sin(u_time * mult), audio));
-  color += (my_hex);
+  color *= tan(my_hex);
   color.r /= audio.lowpass * abs(sin(u_time * mult));
   color *= tan(purp_color);
 }
@@ -116,17 +107,17 @@ void clouds(vec2 pos, float u_time, peakamp audio, out vec3 color) {
 
     color = vec3((f*f*f+.6*f*f+.5*f * audio.bandpass)*color);
 }
-void main() {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(0.5);
+
+void wack_06(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+  // color = vec3(0.5);
   float mult = 0.5;
 
   goon_1(pos, u_time, audio, color);
   vec3 clouds_color = vec3(1.0);
-  clouds(pos, u_time, audio, clouds_color);
+  // clouds(pos, u_time, audio, clouds_color);
   color.g = (sin(u_time * mult)) - 0.8;
-  color *= clouds_color;
-  gl_FragColor = vec4(color, 1.0);
+  // color *= clouds_color;
 }
 
+
+#endif

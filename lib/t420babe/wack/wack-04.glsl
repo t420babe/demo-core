@@ -1,7 +1,7 @@
-// Of My Mind - Pional
-#ifdef GL_ES
-precision mediump float;
-#endif
+// Let's Freak (Louie Vega Remix) by SanXero Feat. Mr. V & Louie Vega
+// #shadershoot #effect #final #emotionsequence
+#ifndef T420BABE_WACK_04
+#define T420BABE_WACK_04
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -10,16 +10,6 @@ precision mediump float;
 #ifndef COMMON_PLOT
 #include "./lib/common/plot.glsl"
 #endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-
 
 float clouds_random (in vec2 _pos) {
     return fract(sin(dot(_pos.xy, vec2(12.9898,78.233)))* 43758.5453123);
@@ -128,13 +118,7 @@ float rect_sdf(vec2 st, vec2 s) {
                 abs(st.y/s.y) );
 }
 
-void main() {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  // vec2 pos = gl_FragCoord.xy / u_resolution.xy;
-  // pos.x *= u_resolution.x / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(1.0);
-
+void wack_04(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   vec2 pos_0 = tile(pos, 10.0);
 
   // color = vec3(jail(pos_0, 1.0));
@@ -146,7 +130,7 @@ void main() {
   // color /= vec3(2.0) - color;
   color = color.bgr;
   // color = color.gbr;
-
-  gl_FragColor = vec4(color, 1.0);
 }
 
+
+#endif
