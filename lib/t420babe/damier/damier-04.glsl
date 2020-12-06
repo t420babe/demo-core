@@ -1,6 +1,6 @@
-#ifdef GL_ES
-precision mediump float;
-#endif
+// #effect #shadershoot #final #calm
+#ifndef T420BABE_DAMIER_04
+#define T420BABE_DAMIER_04
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -10,24 +10,14 @@ precision mediump float;
 #include "./lib/common/plot.glsl"
 #endif
 
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-
 float rows = 10.0;
 
 vec2 brickTile(vec2 _st, float _zoom){
   _st *= _zoom;
-  if (fract(_st.y * 2.0) > 0.5){
-      _st.x += 1.0;
+  if (fract(_st.y * 0.5) > 0.5){
+      _st.x += 0.5;
   }
-  _st.y += 0.5;
-  return (_st);
+  return fract(_st);
 }
 
 float circle(vec2 _st, float _radius){
@@ -163,20 +153,13 @@ void say_nothing_none(vec2 pos, float u_time, peakamp audio, out vec3 color) {
 #endif
 /* T420BABE_SHARP_HEART END */
 
-void main() {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(1.0);
+void damier_04(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
 
   say_nothing_none(pos, u_time, audio, color);
-  vec3 damier_color = damier(0.75 * pos, u_time);
+  vec3 damier_color = damier(pos, u_time);
   // color *= clamp(damier_color, 2.5, 10.0);
   color *= damier_color;
-  // color += 0.05;
-
-  gl_FragColor = vec4(color, 1.0);
+  color += 0.05;
 }
 
-
-
-
+#endif
