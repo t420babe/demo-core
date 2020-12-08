@@ -130,3 +130,21 @@ Rule: everything in lib can reference each other except for the t420babe folder.
 - bubble-up-0, https://youtu.be/tdk9xlUtcc0?t=240
 - bubble-up-1, https://youtu.be/tdk9xlUtcc0 Aum by Evren Furtuna
 
+# Tag Key
+- shadershoot - good for shader shoots
+- effect - an effect
+- shape - a shape
+- effectshape - an effect and a shape
+- fav - a favorite
+- trippy
+- calm
+- seizure
+- needsong - this shader is a great one and i need to put a song to it
+- lathe - that lathe effect, ya know
+
+
+i should write a tool that converts .frag to .glsl so i dont have to do it manually anymore
+could be cool to capture the image it makes automatically?
+this is why i need to write my own glsl viewer....
+
+always put the uniforms at the top of frag files, above the include statements for easy transition to glsl file

@@ -19,8 +19,8 @@ uniform float u_time;
 #include "./lib/common/plot.glsl"
 #endif
 
-#ifndef T420BABE_WO_10
-#include "./lib/t420babe/wo/wo-10.glsl"
+#ifndef T420BABE_ZZ_05
+#include "./lib/t420babe/zz/zz-05.glsl"
 #endif
 
 void main() {
@@ -28,9 +28,7 @@ void main() {
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(1.0);
 
-  wo_10(pos, u_time, audio, color);
+  zz_05(pos, u_time, audio, color);
 
   gl_FragColor = vec4(color, 1.0);
 }
-
-

@@ -1,3 +1,7 @@
+// #effect #trippy
+#ifndef T420BABE_ZZ_02
+#define T420BABE_ZZ_02
+
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
 #endif
@@ -14,21 +18,11 @@
 #include "./lib/bos/turbulence.glsl"
 #endif
 
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-
 vec2 mirror_tile(vec2 _pos, float _zoom){
     _pos *= _zoom;
     if (fract(_pos.y * 0.5) < 0.5){
         _pos.x = _pos.x+0.5;
-        _pos.y = 0.1-_pos.x;
+        _pos.y = 0.1*_pos.x;
     }
     return fract(_pos);
 }
@@ -56,11 +50,7 @@ float circle_1(vec2 st, float radius) {
     return length(st) * radius;
 }
 
-void main(){
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  // vec3 color = vec3(1.0);
-  vec3 color = vec3(0.435, 0.9854, 0.9208);
+void zz_02(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
 
   float c_pct = circle_1(pos, abs(audio.notch) / 3.0);
 
@@ -71,8 +61,12 @@ void main(){
   // color.r /= abs(sin(u_time));
   color.g /= zz_color.g;
   color.r *= zz_color.r + audio.bandpass;
-  // color += sharp(c_pct);
+  color -= (c_pct);
   color -= zz_color;
-
-  gl_FragColor = vec4(color,1.0);
+  // color = 1.0 - color;
+  // color = color.brg;
+  // color = color.rbg;
+  // color = color.gbr;
+  // color = color.bgr;
 }
+#endif
