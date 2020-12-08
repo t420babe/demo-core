@@ -1,3 +1,7 @@
+// #effect #effectshape #shadershoot #lathe
+#ifndef T420BABE_WO_00
+#define T420BABE_WO_00
+
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
 #endif
@@ -14,16 +18,6 @@
 #include "./lib/bos/turbulence.glsl"
 #endif
 
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-
 vec2 mirror_tile(vec2 _pos, float _zoom){
     _pos *= _zoom;
     if (fract(_pos.y * 0.5) < 0.5){
@@ -39,13 +33,12 @@ float fillY(vec2 _pos, float _pct,float _antia){
 
 float _zigzag(vec2 pos, float u_time, peakamp audio) {
 
-  float zoom = 1000.0;
+  float zoom = 20.0;
   pos = mirror_tile(pos*vec2(1.,2.), zoom);
-  float x = pos.x * 2.0;
-  float a = sin(1.+sin(x*3.14 ));
-  float b = 2.0 * sin(1.+sin((x+1.)*1.14 ));
-  // float f = log2(x);
-  float f = tan(x * u_time);
+  float x = pos.x*2.;
+  float a = sin(1.+sin(x*3.14));
+  float b = sin(1.+sin((x+1.)*3.14 * sin(u_time)));
+  float f = sin(x);
 
   return fillY(pos,mix(a,b,f),0.01) ;
 }
@@ -57,11 +50,8 @@ float circle_1(vec2 st, float radius) {
     return length(st) * radius;
 }
 
-void main(){
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  // vec3 color = vec3(1.0);
-  vec3 color = vec3(0.435, 0.9854, 0.9208);
+void wo_00(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+  color = vec3(0.435, 0.9854, 0.9208);
 
   float c_pct = circle_1(pos, abs(audio.notch) / 2.5);
 
@@ -76,5 +66,5 @@ void main(){
   // color /= c_pct;
   // color /= zz_color;
 
-  gl_FragColor = vec4(color,1.0);
 }
+#endif

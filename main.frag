@@ -19,8 +19,8 @@ uniform float u_time;
 #include "./lib/common/plot.glsl"
 #endif
 
-#ifndef T420BABE_DAMIER_08
-#include "./lib/t420babe/damier/damier-08.glsl"
+#ifndef T420BABE_WO_10
+#include "./lib/t420babe/wo/wo-10.glsl"
 #endif
 
 void main() {
@@ -28,7 +28,7 @@ void main() {
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(1.0);
 
-  damier_08(pos, u_time, audio, color);
+  wo_10(pos, u_time, audio, color);
 
   gl_FragColor = vec4(color, 1.0);
 }

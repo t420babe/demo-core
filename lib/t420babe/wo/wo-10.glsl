@@ -1,3 +1,7 @@
+// #shape #shadershoot #trippy #seizure #circle #favs
+#ifndef T420BABE_WO_10
+#define T420BABE_WO_10
+
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
 #endif
@@ -13,16 +17,6 @@
 #ifndef BOS_TURBULENCE
 #include "./lib/bos/turbulence.glsl"
 #endif
-
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
 
 vec2 mirror_tile(vec2 _pos, float _zoom){
     _pos *= _zoom;
@@ -69,10 +63,8 @@ vec3 hsb2rgb( in vec3 c ){
     return c.z * mix( vec3(0.235, audio.highpass, 0.5), rgb, c.y);
 }
 
-void main(){
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(1.0);
+void wo_10(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+  color = vec3(1.0);
   // vec3 color = vec3(0.105, 0.9854, 0.9208);
   // vec3 color = vec3(0.105, 0.9854, 0.9208);
 
@@ -98,6 +90,5 @@ void main(){
     // Map the angle (-PI to PI) to the Hue (from 0 to 1)
     // and the Saturation to the radius
     color /= hsb2rgb(vec3((angle / TWO_PI) + 0.5, radius, 9.0));
-
-  gl_FragColor = vec4(color,1.0);
 }
+#endif
