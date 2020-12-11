@@ -1,8 +1,6 @@
-// Mars - Kamilo Sanclemente
-// autocmd BufWritePost * execute '!git add % && git commit -m %'`
-// #ifndef T420BABE_DOPPLER
-// #include "./lib/t420babe/doppler.glsl"
-// #endif
+// #effect #effectshape #fav3 #shadershoot
+#ifndef T420BABE_BUBBLE_UP_22
+#define T420BABE_BUBBLE_UP_22
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -16,18 +14,6 @@
 #include "./lib/common/math-constants.glsl"
 #endif
 
-// #ifndef BOS_TURBULENCE
-// #include "./lib/bos/turbulence.glsl"
-// #endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
 
 // Permutation polynomial: (34x^2 + x) mod 289
 vec4 permute(vec4 x) {
@@ -41,10 +27,10 @@ vec2 cellular2x2(vec2 P) {
   float jitter = 0.01;
 
   vec2 Pi = mod((P), 289.0);
-  vec2 Pf = fract(exp2(P));
+  vec2 Pf = sin(P);
 
-  vec4 Pfx = Pf.x - vec4(-0.5, -1.5, -0.5, -1.5);
-  vec4 Pfy = Pf.y - vec4(-0.5, -0.5, -1.5, -1.5);
+  vec4 Pfx = Pf.x + vec4(-0.5, -1.5, -0.5, -1.5);
+  vec4 Pfy = Pf.y + vec4(-0.5, -0.5, -1.5, -1.5);
 
   vec4 p = permute(Pi.x + vec4(0.0, 1.0, 0.0, 1.0));
   p = permute(p + Pi.y + vec4(0.0, 0.0, 1.0, 1.0));
@@ -61,7 +47,7 @@ vec2 cellular2x2(vec2 P) {
   vec4 d = dx * dx + dy * dy;
 
   // Sort out the two smallest distances
-  #if 0
+  #if 1
     // Cheat and pick only F1
     d.yx = max(d.wy, d.zw);
     d.x = min(d.x, d.y);
@@ -77,7 +63,7 @@ vec2 cellular2x2(vec2 P) {
     d.y = min(d.y, d.z);
     d.y = min(d.y, d.w);
 
-    return tan(d.xy);
+    return sqrt(d.xy);
   #endif
 
 }
@@ -163,42 +149,57 @@ void doppler_green_rooster(vec2 pos, float u_time, peakamp audio, out vec3 color
 }
 
 
-void main(){
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  vec2 st = pos;
-  // pos = pos.yx;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(1.0);
+void doppler_sun_star_rooster(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+
+  // pos.x += 0.40;
+  // pos.y += 0.50;
+  color = vec3(1.0, 0.1234, 0.34);
+  float pct = cross_sdf(rotate(pos, circle_sdf(vec2(pos.x, pos.x) * 0.5), 0.0), 0.4);
+  float pct2 = circle_sdf(pos);
+  color = vec3(pct * color + color * pct2);
+  // color.r = color.r * audio.highpass * 2.5;
+	color.b *= audio.notch;
+  color.g += audio.lowpass;
+}
+
+
+void bubble_up_22(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   vec3 color_bg = vec3(1.0);
+  // audio.lowpass   *= 1.5;
+  // audio.highpass  *= 1.5;
+  // audio.bandpass  *= 1.5;
+  // audio.notch     *= 1.5;
 
   float inv = -1.0;
-  float zoom = 60.0 * inv;
+  float zoom = 80.0 * inv;
   // pos.y += 0.20 * inv;
-  // pos.x += 1.80;
-  // pos.y += 0.975;
+  // pos.y -= 0.20;
   pos *= zoom;
 
   vec2 F = cellular2x2(pos * 1.0);
 
-  vec2 pos_tmp = pos;
+  vec2 pos_tmp = pos - 0.0;
   float time = mod(u_time, 60.0 * 6.0) + 666.0;
   float a = dot(pos_tmp, pos_tmp) / time * 0.07;
   // float n = step( abs( atan(a * 3.1415 * 5.0) ), F.x * sin(audio.notch * 0.10));
   float n = step( abs( log2(a * 3.1415 * 5.0) ), F.x * abs(audio.notch * 0.40));
 
+  audio.lowpass   *= 1.5;
+  audio.highpass  *= 1.5;
+  audio.bandpass  *= 1.5;
+  audio.notch     *= 1.5;
   color = vec3(n);
-  color *= abs(sin(audio.bandpass));
-  color.r /= abs(audio.notch);
+  color.b /= abs(audio.notch);
+  // color.g /= abs(audio.notch);
   // color.r /= abs(audio.notch);
-  // color /= abs(audio.notch);
+  color /= abs(audio.notch);
   color /= abs(audio.notch);
   color /= abs(audio.notch);
 
   // color_bg = vec3(1.0, 1.0, 1.0);
 
   // ~30s
-  color_bg = vec3(0.8, abs(sin(2.0 * audio.bandpass)) * 1.0, abs(sin(audio.highpass)));
-  // color_bg = vec3(abs(tan(abs(sin(u_time)))), abs(cos(2.0 * audio.bandpass)) * 1.5, abs(sin(audio.highpass)));
+  color_bg = vec3(abs(tan(abs(sin(u_time)))), abs(cos(2.0 * audio.bandpass)) * 1.5, abs(sin(audio.highpass)));
 
   vec2 pos_bg = pos;
   pos_bg = (pos / zoom) * 0.5;
@@ -207,15 +208,11 @@ void main(){
   vec3 color_doppler = vec3(1.0, 1.0, 1.0);
   doppler_green_rooster(pos_bg, u_time, audio, color_doppler);
 
-  // color_doppler.g = 0.4;
+  color_doppler.b = 0.4;
   // color_bg = color_doppler.brr;
 
-  // color /= color_bg;
-  // color = color_bg;
-
-  color_bg *= color;
+  color_bg /= color;
   color = color_bg;
-
   // // Color 0
   // color.b =  n;
   // color.r *= abs(sin(n * tan(u_time * 1.0)));
@@ -228,5 +225,6 @@ void main(){
   // color.g /= abs(sin(n * abs(cos((PI / 4.0) * color_time * (audio.bandpass) + PI / 2.0))));
   // color.g *= abs(cos(n * abs(sin((PI / 4.0) * color_time * (audio.bandpass) ))));
 
-  gl_FragColor = vec4(color, 1.0);
+  color = 1.0 - color;
 }
+#endif

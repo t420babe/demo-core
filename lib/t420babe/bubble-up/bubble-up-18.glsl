@@ -1,3 +1,7 @@
+// #effect #effectshape 
+#ifndef T420BABE_BUBBLE_UP_18
+#define T420BABE_BUBBLE_UP_18
+
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
 #endif
@@ -9,19 +13,6 @@
 #ifndef COMMON_MATH_CONSTANTS
 #include "./lib/common/math-constants.glsl"
 #endif
-
-// #ifndef BOS_TURBULENCE
-// #include "./lib/bos/turbulence.glsl"
-// #endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
 
 // Permutation polynomial: (34x^2 + x) mod 289
 vec4 permute(vec4 x) {
@@ -109,13 +100,70 @@ vec3 ikeda(vec2 pos, float time) {
 
 }
 
+#ifdef GL_OES_standard_derivatives
+#extension GL_OES_standard_derivatives : enable
+#endif
+float aastep(float threshold, float value) {
+    #ifdef GL_OES_standard_derivatives
+    float afwidth = 0.7 * length(vec2(dFdx(value), dFdy(value)));
+    return smoothstep(threshold-afwidth, threshold+afwidth, value);
+    #else
+    return step(threshold, value);
+    #endif
+}
 
-void main(){
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  vec2 st = pos;
-  // pos = pos.yx;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(1.0);
+float rect_sdf(vec2 st, vec2 s) {
+    st = st*2.-1.;
+    return max( abs(st.x/s.x),
+                abs(st.y/s.y) );
+}
+
+float cross_sdf(vec2 st, float s) {
+    vec2 size = vec2(.25, s);
+    return min( rect_sdf(st.xy,size.xy),
+                rect_sdf(st.xy,size.yx));
+}
+
+float circle_sdf(vec2 st) {
+    return length(st-.5)*2.;
+}
+vec2 rotate(vec2 pos, float a, float offset_value) {
+  pos = mat2(cos(a), -sin(a), sin(a), cos(a)) * (pos - offset_value);
+  return pos + offset_value;
+}
+
+// 809fde9, main.frag green rooster with the sun sofia's theme
+void doppler_green_rooster(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+
+  // pos.x += 0.40;
+  // pos.y += 0.50;
+  color = vec3(1.0, 0.1234, 0.34);
+  float pct = aastep(pos.y, -pos.y) * sin(u_time);
+  pct *= cross_sdf(rotate(pos, circle_sdf(vec2(pos.x, pos.x) * 0.5), 0.0), 0.4);
+  float pct2 = circle_sdf(pos);
+  color = vec3(pct * color + color * pct2);
+  // color.r = color.r * audio.highpass * 2.5;
+	color.b *= audio.notch;
+  color.g += audio.lowpass;
+}
+
+
+void doppler_sun_star_rooster(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+
+  // pos.x += 0.40;
+  // pos.y += 0.50;
+  color = vec3(1.0, 0.1234, 0.34);
+  float pct = cross_sdf(rotate(pos, circle_sdf(vec2(pos.x, pos.x) * 0.5), 0.0), 0.4);
+  float pct2 = circle_sdf(pos);
+  color = vec3(pct * color + color * pct2);
+  // color.r = color.r * audio.highpass * 2.5;
+	color.b *= audio.notch;
+  color.g += audio.lowpass;
+}
+
+void bubble_up_18(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+  vec3 color_bg = vec3(1.0);
+
   float inv = 1.0;
   float zoom = 30.0 * inv;
   // pos.y += 0.20 * inv;
@@ -127,15 +175,25 @@ void main(){
   vec2 pos_tmp = pos - 0.0;
   float time = mod(u_time, 60.0 * 3.0) + 60.0;
   float a = dot(pos_tmp, pos_tmp) / time * 0.1;
-  float n = step( abs( atan(a * 3.1415 * 5.0) ), F.x * abs(audio.notch * 0.95));
+  float n = step( abs( atan(a * 3.1415 * 5.0) ), F.x * abs(audio.notch * 0.25));
 
   color = vec3(n);
   color /= abs(audio.notch * 1.0);
-  vec3 color_ikeda = ikeda(pos / zoom, time);
-  color_ikeda += color;
-  color = color_ikeda;
+  // vec3 color_ikeda = ikeda(pos / zoom, time);
+  // color_ikeda *= color;
+  // color = color_ikeda;
+
+  // color_bg = vec3(1.0, 1.0, 1.0);
+  // ~30s
+  color_bg = vec3(abs(tan(abs(sin(u_time)))), abs(cos(2.0 * audio.bandpass)) * 1.5, abs(sin(audio.highpass)));
+
+  vec2 pos_bg = pos / zoom;
+  pos_bg.y -= 1.0;
+  doppler_green_rooster(pos_bg, u_time, audio, color_bg);
+  color_bg /= color;
+  color = color_bg;
   // // Color 0
-  // color.b =  abs(audio.highpass) * 1.5 * n;
+  // color.b =  n;
   // color.r *= abs(sin(n * tan(u_time * 1.0)));
   // color.g *= abs(sin(n * tan(u_time * 1.0)));
 
@@ -145,6 +203,5 @@ void main(){
   // color.r *= abs(sin(n * abs(cos((PI / 4.0) * color_time * (audio.bandpass) + PI / 2.0))));
   // color.g /= abs(sin(n * abs(cos((PI / 4.0) * color_time * (audio.bandpass) + PI / 2.0))));
   // color.g *= abs(cos(n * abs(sin((PI / 4.0) * color_time * (audio.bandpass) ))));
-
-  gl_FragColor = vec4(color, 1.0);
 }
+#endif

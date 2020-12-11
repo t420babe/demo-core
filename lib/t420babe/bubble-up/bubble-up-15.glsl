@@ -1,3 +1,7 @@
+// #effect #effectshape #fav2 #shadershoot
+#ifndef T420BABE_BUBBLE_UP_15
+#define T420BABE_BUBBLE_UP_15
+
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
 #endif
@@ -9,19 +13,6 @@
 #ifndef COMMON_MATH_CONSTANTS
 #include "./lib/common/math-constants.glsl"
 #endif
-
-// #ifndef BOS_TURBULENCE
-// #include "./lib/bos/turbulence.glsl"
-// #endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
 
 // Permutation polynomial: (34x^2 + x) mod 289
 vec4 permute(vec4 x) {
@@ -109,13 +100,7 @@ vec3 ikeda(vec2 pos, float time) {
 
 }
 
-
-void main(){
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  vec2 st = pos;
-  // pos = pos.yx;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(1.0);
+void bubble_up_15(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   float inv = 1.0;
   float zoom = 30.0 * inv;
   // pos.y += 0.20 * inv;
@@ -145,6 +130,5 @@ void main(){
   // color.r *= abs(sin(n * abs(cos((PI / 4.0) * color_time * (audio.bandpass) + PI / 2.0))));
   // color.g /= abs(sin(n * abs(cos((PI / 4.0) * color_time * (audio.bandpass) + PI / 2.0))));
   // color.g *= abs(cos(n * abs(sin((PI / 4.0) * color_time * (audio.bandpass) ))));
-
-  gl_FragColor = vec4(color, 1.0);
 }
+#endif

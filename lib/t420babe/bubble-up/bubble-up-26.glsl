@@ -1,32 +1,7 @@
-// autocmd BufWritePost * execute '!git add % && git commit -m %'`
-// #ifndef T420BABE_DOPPLER
-// #include "./lib/t420babe/doppler.glsl"
-// #endif
-
-#ifndef COMMON_PEAKAMP
-#include "./lib/common/peakamp.glsl"
-#endif
-
-#ifndef COMMON_PLOT
-#include "./lib/common/plot.glsl"
-#endif
-
-#ifndef COMMON_MATH_CONSTANTS
-#include "./lib/common/math-constants.glsl"
-#endif
-
-// #ifndef BOS_TURBULENCE
-// #include "./lib/bos/turbulence.glsl"
-// #endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
+// #effect #effectshape #fav5 #shadershoot #needsong
+// Mars - Kamilo Sanclemente
+#ifndef T420BABE_BUBBLE_UP_26
+#define T420BABE_BUBBLE_UP_26
 
 // Permutation polynomial: (34x^2 + x) mod 289
 vec4 permute(vec4 x) {
@@ -42,8 +17,8 @@ vec2 cellular2x2(vec2 P) {
   vec2 Pi = mod((P), 289.0);
   vec2 Pf = fract(exp2(P));
 
-  vec4 Pfx = Pf.x + vec4(-0.5, -1.5, -0.5, -1.5);
-  vec4 Pfy = Pf.y + vec4(-0.5, -0.5, -1.5, -1.5);
+  vec4 Pfx = Pf.x - vec4(-0.5, -1.5, -0.5, -1.5);
+  vec4 Pfy = Pf.y - vec4(-0.5, -0.5, -1.5, -1.5);
 
   vec4 p = permute(Pi.x + vec4(0.0, 1.0, 0.0, 1.0));
   p = permute(p + Pi.y + vec4(0.0, 0.0, 1.0, 1.0));
@@ -60,7 +35,7 @@ vec2 cellular2x2(vec2 P) {
   vec4 d = dx * dx + dy * dy;
 
   // Sort out the two smallest distances
-  #if 1
+  #if 0
     // Cheat and pick only F1
     d.yx = max(d.wy, d.zw);
     d.x = min(d.x, d.y);
@@ -76,7 +51,7 @@ vec2 cellular2x2(vec2 P) {
     d.y = min(d.y, d.z);
     d.y = min(d.y, d.w);
 
-    return sqrt(d.xy);
+    return tan(d.xy);
   #endif
 
 }
@@ -161,13 +136,7 @@ void doppler_green_rooster(vec2 pos, float u_time, peakamp audio, out vec3 color
   color.g += audio.lowpass;
 }
 
-
-void main(){
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  vec2 st = pos;
-  // pos = pos.yx;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(1.0);
+void bubble_up_26(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   vec3 color_bg = vec3(1.0);
 
   float inv = -1.0;
@@ -179,7 +148,7 @@ void main(){
 
   vec2 F = cellular2x2(pos * 1.0);
 
-  vec2 pos_tmp = pos - 0.0;
+  vec2 pos_tmp = pos;
   float time = mod(u_time, 60.0 * 6.0) + 666.0;
   float a = dot(pos_tmp, pos_tmp) / time * 0.07;
   // float n = step( abs( atan(a * 3.1415 * 5.0) ), F.x * sin(audio.notch * 0.10));
@@ -212,7 +181,7 @@ void main(){
   // color /= color_bg;
   // color = color_bg;
 
-  color_bg /= color;
+  color_bg *= color;
   color = color_bg;
 
   // // Color 0
@@ -226,6 +195,5 @@ void main(){
   // color.r *= abs(sin(n * abs(cos((PI / 4.0) * color_time * (audio.bandpass) + PI / 2.0))));
   // color.g /= abs(sin(n * abs(cos((PI / 4.0) * color_time * (audio.bandpass) + PI / 2.0))));
   // color.g *= abs(cos(n * abs(sin((PI / 4.0) * color_time * (audio.bandpass) ))));
-
-  gl_FragColor = vec4(color, 1.0);
 }
+#endif

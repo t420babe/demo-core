@@ -135,12 +135,14 @@ Rule: everything in lib can reference each other except for the t420babe folder.
 - effect - an effect
 - shape - a shape
 - effectshape - an effect and a shape
-- fav - a favorite
+- fav - a favorite (scale of 1(meh) - 5(absolute banger)
 - trippy
 - calm
 - seizure
 - needsong - this shader is a great one and i need to put a song to it
+- needvid - this shader is a great one and i need record it and post it
 - lathe - that lathe effect, ya know
+- ecstasy - good visuals for when im rolling and/or have too much weed and nicotine in my system
 
 
 i should write a tool that converts .frag to .glsl so i dont have to do it manually anymore
@@ -148,3 +150,6 @@ could be cool to capture the image it makes automatically?
 this is why i need to write my own glsl viewer....
 
 always put the uniforms at the top of frag files, above the include statements for easy transition to glsl file
+
+
+what if i used `u_time` to modify the magnitude of the `peakamp` members?

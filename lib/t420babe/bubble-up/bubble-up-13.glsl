@@ -1,3 +1,7 @@
+// #effect #fav3 #shadershoot
+#ifndef T420BABE_BUBBLE_UP_13
+#define T420BABE_BUBBLE_UP_13
+
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
 #endif
@@ -13,15 +17,6 @@
 #ifndef BOS_TURBULENCE
 #include "./lib/bos/turbulence.glsl"
 #endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
 
 // Permutation polynomial: (34x^2 + x) mod 289
 vec4 permute(vec4 x) {
@@ -44,7 +39,7 @@ vec2 cellular2x2(vec2 P) {
   p = permute(p + Pi.y + vec4(0.0, 0.0, 1.0, 1.0));
 
   // vec4 ox = mod(p, abs(2.0 * audio.notch)) * abs(tan(u_time) + 0.0) + K2;
-  vec4 ox = mod(p, abs(2.0 * audio.bandpass)) * (audio.notch);
+  vec4 ox = mod(p, abs(2.0 * audio.lowpass)) * (audio.notch);
   // vec4 oy = mod(floor(p * K), 1.0) * K  + K2;
   vec4 oy = mod(floor(p * K), 1.0) * K  + K2;
 
@@ -76,13 +71,7 @@ vec2 cellular2x2(vec2 P) {
 
 }
 
-
-void main(){
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  vec2 st = pos;
-  // pos = pos.yx;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(1.0);
+void bubble_up_13(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   float inv = 1.0;
   float zoom = 30.0 * inv;
   // pos.y += 0.20 * inv;
@@ -94,22 +83,38 @@ void main(){
   vec2 pos_tmp = pos - 0.0;
   float time = mod(u_time, 60.0 * 3.0) + 60.0;
   float a = dot(pos_tmp, pos_tmp) / time * 0.1;
-  float n = step( abs( sin(a * 3.1415 * 5.0) ), F.x * abs(audio.notch));
+  float n = step( abs( atan(a * 3.1415 * 5.0) ), F.x * abs(audio.notch));
 
   color = vec3(n);
+  // color *= abs(audio.bandpass);
+  color /= abs(audio.notch * 1.0);
+  // // Color 0
+  // color.b =  abs(audio.highpass) * 1.5 * n;
+  // color.r *= abs(sin(n * tan(u_time * 1.0)));
+  // color.g *= abs(sin(n * tan(u_time * 1.0)));
+
+  // // Color 1
+  // float color_time = mod(u_time, 10.0);
+  // color.b =  abs(audio.highpass) * 3.5 * n;
+  // color.r *= abs(sin(n * abs(cos((PI / 4.0) * color_time * (audio.bandpass) + PI / 2.0))));
+  // color.g /= abs(sin(n * abs(cos((PI / 4.0) * color_time * (audio.bandpass) + PI / 2.0))));
+  // color.g *= abs(cos(n * abs(sin((PI / 4.0) * color_time * (audio.bandpass) ))));
+
+  // // Color 1
+  // float color_time = mod(u_time, 10.0);
+  // color.b =  abs(audio.highpass) * 3.5 * n;
+  // color.r *= abs(sin(n * abs(cos((PI / 4.0) * color_time * (audio.bandpass) + PI / 2.0))));
+  // color.g /= abs(sin(n * abs(cos((PI / 4.0) * color_time * (audio.bandpass) + PI / 2.0))));
+  // color.g *= abs(cos(n * abs(sin((PI / 4.0) * color_time * (audio.bandpass) ))));
 
   // color.g = 0.6;
   // color.r *= clamp(cos(u_time * 0.5), 0.4, 0.8) + 0.3;
-  color.r =  abs(audio.highpass) * 5.5 * n;
   // color.r =  abs(audio.highpass) * 1.5;
-  color.b =  abs(audio.bandpass) * 1.5;
+  // color.b =  abs(audio.bandpass) * 1.5;
   // color.r *= abs((atan(u_time * 0.5)));
-  // color.r *= abs(sin(n * tan(u_time * 1.0)));
-  // color.g *= abs(sin(n * tan(u_time * 1.0)));
   // color.b = 0.3;
 
   // // Color 0
   // color.b *= abs(tan(n * sin(u_time)));
-
-  gl_FragColor = vec4(color, 1.0);
 }
+#endif
