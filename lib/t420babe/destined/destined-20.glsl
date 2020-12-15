@@ -1,6 +1,6 @@
-#ifdef GL_ES
-precision mediump float;
-#endif
+// #effect #effectshape #shadershoot #fav1 #trippy
+#ifndef T420BABE_DESTINED_20
+#define T420BABE_DESTINED_20
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -9,17 +9,6 @@ precision mediump float;
 #ifndef COMMON_PLOT
 #include "./lib/common/plot.glsl"
 #endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-
-float rows = 10.0;
 
 float circle(vec2 _pos, float _radius){
   vec2 pos = vec2(0.5) - _pos;
@@ -365,45 +354,33 @@ float triangle_0(vec2 st) {
     float r = max(abs(st.x) * 0.866025 + st.y * 0.5, -st.y * 0.5);
     return r;
 }
-//
-// float circle_1(vec2 st, float radius) {
-//     return length(st) * radius;
-// }
 
-void main() {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(1.0);
 
-  float tri = triangle_0(pos);
-  float circ = circle_1(pos, 0.5);
+void destined_20(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+  // float tri = triangle_0(pos);
+  float tri = circle_1(pos, 0.5);
 
   vec3 n_color;
   float n = cellular_3d(4.0 * pos, u_time, audio, n_color);
   say_nothing_none(3.0 * pos, u_time, audio, color);
   // color /= n + 0.00;
-  // color.r /= n + 0.00;
-  // color.g /= n + 0.10;
-  // color.b -= n + 0.10;
-
-  // color.r = tri;
+  color.r /= n + 0.00;
+  color.g /= n + 0.10;
+  // color.b += n + 0.10;
+  // color.b /= n + 0.00;
+  // color.b /= tri;
+  // color.r *= tri;
   // color.g /= tri;
-  // color.b *= circ;
-  // color = vec3(n);
-  //
-  color.b /= tri;
-  color.r *= tri;
-  color.g /= circ;
+  // color *= vec3(tri);
 
   // vec3 damier_color = damier(1.75 * pos, u_time);
   // color *= clamp(damier_color, 2.5, 10.0);
   // color *= damier_color;
   // color += 0.05;
 
-  gl_FragColor = vec4(color, 1.0);
+
+  // color = 1.0 - color;
+  // color = color.brg;
+  // color = color.grb;
 }
-
-
-
-
-
+#endif

@@ -19,8 +19,8 @@ uniform float u_time;
 #include "./lib/common/plot.glsl"
 #endif
 
-#ifndef T420BABE_BUBBLE_UP_26
-#include "./lib/t420babe/bubble-up/bubble-up-26.glsl"
+#ifndef T420BABE_DESTINED_23
+#include "./lib/t420babe/destined/destined-23.glsl"
 #endif
 
 void main() {
@@ -28,7 +28,7 @@ void main() {
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(1.0);
 
-  bubble_up_26(pos, u_time, audio, color);
+  destined_23(pos, u_time, audio, color);
 
   gl_FragColor = vec4(color, 1.0);
 }

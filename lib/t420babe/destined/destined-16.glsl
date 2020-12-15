@@ -1,6 +1,6 @@
-#ifdef GL_ES
-precision mediump float;
-#endif
+// #effect #effectshape #shadershoot #fav5 #trippy
+#ifndef T420BABE_DESTINED_16
+#define T420BABE_DESTINED_16
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -9,17 +9,6 @@ precision mediump float;
 #ifndef COMMON_PLOT
 #include "./lib/common/plot.glsl"
 #endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-
-float rows = 10.0;
 
 float circle(vec2 _pos, float _radius){
   vec2 pos = vec2(0.5) - _pos;
@@ -120,8 +109,8 @@ void clouds(vec2 pos, float u_time, peakamp audio, out vec3 color) {
     q.y = clouds_fbm( pos + vec2(1.0));
 
     vec2 r = vec2(0.);
-    r.x = clouds_fbm( pos + 1.0*q + vec2(1.7,9.2)+ 0.15 * u_time);
-    r.y = clouds_fbm( pos + 1.0*q + vec2(8.3,2.8)+ 0.126 * u_time);
+    r.x = clouds_fbm( pos + 5.0 * q + vec2(1.7,9.2)+ 0.15 * u_time);
+    r.y = clouds_fbm( pos + 5.0 * q + vec2(8.3,2.8)+ 0.126 * u_time);
 
     float f = clouds_fbm(pos+r);
 
@@ -157,9 +146,9 @@ void say_nothing_none(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   // color.r *= abs(audio.bandpass) * 2.0;
   // color.b += abs(audio.notch) * 0.2;
 
-  // color.g = abs(audio.lowpass) * 0.5;
-  // color.r *= abs(audio.bandpass) * 2.0;
-  // color.b += abs(audio.notch) * 0.2;
+  color.g = abs(audio.lowpass) * 0.5;
+  color.r *= abs(audio.bandpass) * 2.0;
+  color.b += abs(audio.notch) * 0.2;
 
   // color.g *= abs(audio.lowpass) * 0.5;
   // color.r *= abs(audio.bandpass) * 2.0;
@@ -173,9 +162,10 @@ void say_nothing_none(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   // color.r *= abs(audio.bandpass) * 2.0;
   // color.b = abs(audio.notch) * 0.3;
 
-  color.g *= 0.5 * 0.5;
-  color.r *= abs(audio.bandpass) * 2.0;
-  color.b = abs(audio.notch) * 0.3;
+  // color.g *= 0.5 * 0.5;
+  // color.r *= abs(audio.bandpass) * 2.0;
+  // color.b = abs(audio.notch) * 0.3;
+
 }
 #endif
 /* T420BABE_SHARP_HEART END */
@@ -191,23 +181,25 @@ vec3 permute(vec3 x) {
 vec2 cellular(vec2 P) {
 #define K 0.142857142857 // 1/7
 #define Ko 0.428571428571 // 3/7
-#define jitter 1.0 // Less gives more regular pattern
+// #define jitter 1.0 // Less gives more regular pattern
+	float jitter =  cos(u_time) * tan(u_time);
+  // jitter *= tan(jitter);
 	vec2 Pi = mod(floor(P), 289.0);
  	vec2 Pf = fract(P);
 	vec3 oi = vec3(-1.0, 0.0, 1.0);
 	vec3 of = vec3(-0.5, 0.5, 1.5);
 	vec3 px = permute(Pi.x + oi);
 	vec3 p = permute(px.x + Pi.y + oi); // p11, p12, p13
-	vec3 ox = fract(p*K) - Ko;
-	vec3 oy = mod(floor(p*K),7.0)*K - Ko;
-	vec3 dx = Pf.x + 0.5 + jitter*ox;
-	vec3 dy = Pf.y - of + jitter*oy;
+	vec3 ox = fract(p * K) - Ko;
+	vec3 oy = mod(floor(p*K),7.0) * K - Ko;
+	vec3 dx = Pf.x + 0.5 + jitter * ox;
+	vec3 dy = Pf.y - of + jitter * oy;
 	vec3 d1 = dx * dx + dy * dy; // d11, d12 and d13, squared
 	p = permute(px.y + Pi.y + oi); // p21, p22, p23
 	ox = fract(p*K) - Ko;
-	oy = mod(floor(p*K),7.0)*K - Ko;
-	dx = Pf.x - 0.5 + jitter*ox;
-	dy = Pf.y - of + jitter*oy;
+	oy = mod(floor(p * K), 7.0) * K - Ko;
+	dx = Pf.x - 0.5 + jitter * ox;
+	dy = Pf.y - of + jitter * oy;
 	vec3 d2 = dx * dx + dy * dy; // d21, d22 and d23, squared
 	p = permute(px.z + Pi.y + oi); // p31, p32, p33
 	ox = fract(p*K) - Ko;
@@ -232,31 +224,30 @@ vec2 cellular(vec2 P) {
 varying vec2 v_texcoord;
 float cellular_2d(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   float n = 1.0;
-  vec2 F = cellular((pos));
-  float facets = 0.01 + (F.y-F.x);
-  float dots = smoothstep(0.05, 0.1, F.x);
+  vec2 _pos = pos + 0.5;
+  vec2 F = cellular(_pos);
+  float facets = 0.01 + (F.y - F.x);
+  float dots = smoothstep(0.01, 0.1, F.x);
   // n = facets * dots;
   n = facets * abs(atan(u_time));
   return n;
 }
-void main() {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(1.0);
 
+void destined_16(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   vec3 n_color;
   float n = cellular_2d(3.0 * pos, u_time, audio, n_color);
-  say_nothing_none(5.0 * pos, u_time, audio, color);
+  say_nothing_none(9.5 * pos, u_time, audio, color);
   // color += 0.1;
-  color /= n + 0.2;
-  // vec3 damier_color = damier(1.75 * pos, u_time);
+  color /= n + 0.15;
+  vec3 damier_color = damier(1.75 * pos, u_time);
   // color *= clamp(damier_color, 2.5, 10.0);
   // color *= damier_color;
   // color += 0.05;
 
-  gl_FragColor = vec4(color, 1.0);
+  // color = 1.0 - color;
+  // color = color.gbr;
+
+  // color = 1.0 - color;
+  // color = color.brg;
 }
-
-
-
-
+#endif

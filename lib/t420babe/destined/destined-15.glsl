@@ -1,6 +1,6 @@
-#ifdef GL_ES
-precision mediump float;
-#endif
+// #effect #shadershoot #fav2 #trippy
+#ifndef T420BABE_DESTINED_15
+#define T420BABE_DESTINED_15
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -9,17 +9,6 @@ precision mediump float;
 #ifndef COMMON_PLOT
 #include "./lib/common/plot.glsl"
 #endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-
-float rows = 10.0;
 
 float circle(vec2 _pos, float _radius){
   vec2 pos = vec2(0.5) - _pos;
@@ -153,13 +142,13 @@ void say_nothing_none(vec2 pos, float u_time, peakamp audio, out vec3 color) {
   // color.b *= abs(tan(u_time * 0.5));
   // // color.r *= abs(audio.bandpass) * 0.5;
 
-  // color.g *= abs(audio.lowpass);
-  // color.r *= abs(audio.bandpass) * 2.0;
-  // color.b += abs(audio.notch) * 0.2;
-
-  color.g = abs(audio.lowpass) * 0.5;
+  color.g *= abs(audio.lowpass);
   color.r *= abs(audio.bandpass) * 2.0;
   color.b += abs(audio.notch) * 0.2;
+
+  // color.g = abs(audio.lowpass) * 0.5;
+  // color.r *= abs(audio.bandpass) * 2.0;
+  // color.b += abs(audio.notch) * 0.2;
 
   // color.g *= abs(audio.lowpass) * 0.5;
   // color.r *= abs(audio.bandpass) * 2.0;
@@ -194,7 +183,7 @@ vec2 cellular(vec2 P) {
 #define Ko 0.428571428571 // 3/7
 #define jitter 0.0 // Less gives more regular pattern
 	vec2 Pi = mod(floor(P), 289.0);
- 	vec2 Pf = tan(P);
+ 	vec2 Pf = log(atan(P)) * log(P);
 	vec3 oi = vec3(-1.0, 0.0, 1.0);
 	vec3 of = vec3(-0.5, 0.5, 1.5);
 	vec3 px = permute(Pi.x + oi);
@@ -233,32 +222,36 @@ vec2 cellular(vec2 P) {
 varying vec2 v_texcoord;
 float cellular_2d(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   float n = 1.0;
-  vec2 _pos = pos + 0.5;
+  vec2 _pos = pos;
+  _pos.y += 0.45;
+  _pos.x += 0.43;
   vec2 F = cellular(_pos);
-  float facets = 0.01 + (F.y - F.x);
+  float facets = 0.01 + (F.y / F.x);
   float dots = smoothstep(0.01, 0.1, F.x);
   // n = facets * dots;
   n = facets * abs(atan(u_time));
   return n;
 }
-void main() {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(1.0);
 
+
+void destined_15(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   vec3 n_color;
-  float n = cellular_2d(4.0 * pos, u_time, audio, n_color);
+  vec2 n_pos = pos.yx;
+  n_pos *= 0.05;
+  n_pos.x -= 0.13;
+  n_pos.y += 0.07;
+  float n = cellular_2d(n_pos, u_time, audio, n_color);
   say_nothing_none(9.5 * pos, u_time, audio, color);
   // color += 0.1;
-  color /= n + 0.15;
-  // vec3 damier_color = damier(1.75 * pos, u_time);
-  // color *= clamp(damier_color, 2.5, 10.0);
-  // color /= damier_color;
-  // color += 0.05;
+  color *= n;
+  vec3 damier_color = damier(1.75 * pos, u_time);
+  // color /= clamp(damier_color, 2.5, 10.0);
+  // color -= 0.15;
 
-  gl_FragColor = vec4(color, 1.0);
+  // color = 1.0 - color;
+  // color = color.gbr;
+
+  color = 1.0 - color;
+  color = color.brg;
 }
-
-
-
-
+#endif
