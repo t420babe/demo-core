@@ -34,7 +34,7 @@ void jail_01(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   color.r *= abs(audio.bandpass);
   color.g *= abs(audio.notch);
 
-  color *= step(sin(pos.x * 100.0 * u_time * abs(audio.bandpass)), pos.y - 0.5);
+  color *= step(sin(pos.x * 100.0 * u_time * abs(audio.bandpass)), pos.y - 0.2);
   // float t = step(
   // color = 1.0 - color;
 
