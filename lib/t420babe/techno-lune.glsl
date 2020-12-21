@@ -1,6 +1,5 @@
-#ifdef GL_ES
-precision mediump float;
-#endif
+#ifndef T420BABE_TECHNO_LUNE
+#define T420BABE_TECHNO_LUNE
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -9,16 +8,6 @@ precision mediump float;
 #ifndef COMMON_PLOT
 #include "./lib/common/plot.glsl"
 #endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-
 vec2 tile(vec2 _st, float _zoom){
   _st *= _zoom;
   return fract(_st);
@@ -35,10 +24,11 @@ float circle(vec2 pos, float _radius){
   return 1.-smoothstep(_radius-(_radius*0.05),_radius+(_radius*0.05),dot(pos,pos)*3.14);
 }
 
-void main() {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(1.0);
+void tencho_lune(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+  audio.lowpass   *= 1.0;
+  audio.highpass  *= 1.0;
+  audio.bandpass  *= 1.0;
+  audio.notch     *= 1.0;
 
   vec2 st = tile(pos,10.);
   color = vec3(jail(st, 5.2));
@@ -46,12 +36,6 @@ void main() {
 
   color.r *= abs(audio.bandpass) * 2.0;
   color.g *= abs(audio.notch) * 2.0;
-
-  gl_FragColor = vec4(color, 1.0);
 }
 
-
-
-
-
-
+#endif
