@@ -19,8 +19,8 @@ uniform float u_time;
 #include "./lib/common/plot.glsl"
 #endif
 
-#ifndef T420BABE_JAIL_01
-#include "./lib/t420babe/jail-01.glsl"
+#ifndef T420BABE_CHAIN_03
+#include "./lib/t420babe/chain/chain-03.glsl"
 #endif
 
 void main() {
@@ -28,7 +28,7 @@ void main() {
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(1.0);
 
-  jail_01(pos, u_time, audio, color);
+  chain_03(pos, u_time, audio, color);
 
   gl_FragColor = vec4(color, 1.0);
 }
