@@ -1,6 +1,6 @@
-#ifdef GL_ES
-precision mediump float;
-#endif
+// #effect #fav5 #shadershoot
+#ifndef T420BABE_GAZE_01
+#define T420BABE_GAZE_01
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -9,17 +9,6 @@ precision mediump float;
 #ifndef COMMON_PLOT
 #include "./lib/common/plot.glsl"
 #endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-
-float rows = 10.0;
 
 float circle(vec2 _pos, float _radius){
   vec2 pos = vec2(0.5) - _pos;
@@ -235,26 +224,30 @@ float cellular_2d(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   float n = 1.0;
   vec2 _pos = pos + 0.0;
   vec2 F = cellular(_pos);
-  float facets = 0.01 + (F.y / F.x);
+  float facets = 0.01 + (F.y - F.x);
   float dots = smoothstep(0.01, 0.1, F.x);
   // n = facets * dots;
   n = facets * abs(atan(u_time));
   return n;
 }
-void main() {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(1.0);
+
+void gaze_01(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+  audio.lowpass   *= 1.5;
+  audio.highpass  *= 1.5;
+  audio.bandpass  *= 1.5;
+  audio.notch     *= 1.5;
 
   vec3 n_color;
-  float n = cellular_2d(8.0 * pos, u_time, audio, n_color);
+  float n = cellular_2d(10.0 * pos, u_time, audio, n_color);
+  pos *=0.5;
   say_nothing_none(9.5 * pos, u_time, audio, color);
   // color += 0.1;
   color *= n - 1.00;
   vec3 damier_color = damier(1.75 * pos, u_time);
-  // color *= clamp(damier_color, 2.5, 10.0);
+  color *= clamp(damier_color, 2.5, 10.0);
   // color.b *= damier_color.b;
-  color.r += 0.05;
-
-  gl_FragColor = vec4(color, 1.0);
+  color.r += 0.35 * abs(audio.bandpass);
+  color = 1.0 - color;
 }
+
+#endif
