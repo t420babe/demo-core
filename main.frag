@@ -19,8 +19,8 @@ uniform float u_time;
 #include "./lib/common/plot.glsl"
 #endif
 
-#ifndef T420BABE_GAZE_10
-#include "./lib/t420babe/gaze/gaze-10.glsl"
+#ifndef T420BABE_FUR_12
+#include "./lib/t420babe/fur/fur-12.glsl"
 #endif
 
 void main() {
@@ -28,7 +28,7 @@ void main() {
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(1.0);
 
-  gaze_10(pos, u_time, audio, color);
+  fur_12(pos, u_time, audio, color);
 
   gl_FragColor = vec4(color, 1.0);
 }

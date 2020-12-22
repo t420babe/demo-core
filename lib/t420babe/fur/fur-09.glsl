@@ -1,7 +1,6 @@
-// Spa - Sofi Tukker, Icona Pop
-#ifdef GL_ES
-precision mediump float;
-#endif
+// #effect #fav5 #shadershoot
+#ifndef T420BABE_FUR_09
+#define T420BABE_FUR_09
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -10,15 +9,6 @@ precision mediump float;
 #ifndef COMMON_PLOT
 #include "./lib/common/plot.glsl"
 #endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
 
 vec2 tile(vec2 _st, float _zoom){
   _st *= _zoom;
@@ -33,10 +23,7 @@ float jail(vec2 _st, float _radius){
 
 float circle(vec2 pos, float _radius){
   _radius *= 0.75;
-  float mul_0 = -abs(sin(u_time * 3.6)) * 2.0;
-  if (abs(audio.notch) > 0.7) {
-    mul_0 = -1.0;
-  }
+  float mul_0 = -abs(sin(u_time));
   float mul_1 = mul_0;
   return 1.0 - smoothstep(_radius - (_radius * mul_0), _radius + (_radius * mul_1), (dot(pos, pos)) * 3.14);
 }
@@ -50,24 +37,26 @@ float rectangle(in vec2 pos, in vec2 origin, in vec2 dim) {
   return onblock.x * onblock.y * offblock.x * offblock.y;
 }
 
-void main() {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(1.0);
+void fur_09(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+  audio.lowpass   *= 1.5;
+  audio.highpass  *= 1.5;
+  audio.bandpass  *= 1.5;
+  audio.notch     *= 1.5;
 
   vec2 st = tile(pos,10.);
   color *= vec3(jail(st, 5.2));
   color /= vec3(circle(pos, 7.0 * abs(audio.notch)));
   vec2 origin = vec2(0.0);
-  vec2 dim = vec2(2.5);
+  vec2 dim = vec2(1.5);
   dim *= abs(audio.lowpass);
-  color.r /= rectangle(pos, origin, dim);
+  color.r *= rectangle(pos, origin, dim);
 
-  color.b *= abs(audio.bandpass) * 1.0;
+  color.b -= abs(audio.bandpass) * 1.0;
   // color.g *= abs(audio.notch) * 2.0;
   color.g *= abs(audio.bandpass) * 2.0;
-  color.r -= abs(audio.lowpass) * 2.5;
+  // color.r *= abs(audio.lowpass) * 2.0;
   // color.r *= abs(sin(u_time * audio.highpass));
-
-  gl_FragColor = vec4(color, 1.0);
 }
+
+#endif
+

@@ -1,6 +1,6 @@
-#ifdef GL_ES
-precision mediump float;
-#endif
+// #effect #shadershoot
+#ifndef T420BABE_FUR_11
+#define T420BABE_FUR_11
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -9,15 +9,6 @@ precision mediump float;
 #ifndef COMMON_PLOT
 #include "./lib/common/plot.glsl"
 #endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
 
 vec2 tile(vec2 _st, float _zoom){
   _st *= _zoom;
@@ -41,10 +32,11 @@ float circle(vec2 pos, float _radius){
   return 1.0 - smoothstep(_radius - (_radius * mul_0), _radius + (_radius * mul_1), dot(pos, pos) * 4.14);
 }
 
-void main() {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(1.0);
+void fur_11(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+  audio.lowpass   *= 1.5;
+  audio.highpass  *= 1.5;
+  audio.bandpass  *= 1.5;
+  audio.notch     *= 1.5;
 
   vec2 st = tile(pos, 5.0);
   color = vec3(jail(st, 5.2));
@@ -53,16 +45,9 @@ void main() {
   color.r /= abs(audio.bandpass) * 0.5;
   color.g = abs(audio.notch);
   // color.b *= abs(audio.bandpass) * 0.0;
-	
-  // color.r += abs(sin(u_time));
 
-  gl_FragColor = vec4(color, 1.0);
+  // color.r += abs(sin(u_time));
 }
 
-
-
-
-
-
-
+#endif
 
