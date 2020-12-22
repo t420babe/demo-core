@@ -5,9 +5,9 @@
 #include "./lib/common/00-common.glsl"
 #endif
 
-float hexagon_web(vec2 st) {
-  st = abs(st*2.);
-  return max(abs(st.x), st.x * 1.866025 + fract(st.x) * 0.5);
+float hexagon_web(vec2 pos) {
+  st = abs(pos * 2.0);
+  return max(abs(pos.x), pos.x * 1.866025 + fract(pos.x) * 0.5);
 }
 
 float hexagon_sdf(vec2 st, float size, float full_max) {

@@ -1,7 +1,6 @@
-// #effect #effectshape #fav2 #shadershoot #needsvid
-// Tondo by Disclosure
-#ifndef T420BABE_GAZE_01
-#define T420BABE_GAZE_01
+// #effect #shadershoot
+#ifndef T420BABE_GAZE_03
+#define T420BABE_GAZE_03
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -184,7 +183,7 @@ vec2 cellular(vec2 P) {
 #define Ko 0.428571428571 // 3/7
 #define jitter 0.0 // Less gives more regular pattern
 	vec2 Pi = mod(floor(P), 289.0);
- 	vec2 Pf = log(P);
+ 	vec2 Pf = fract(P);
 	vec3 oi = vec3(-1.0, 0.0, 1.0);
 	vec3 of = vec3(-0.5, 0.5, 1.5);
 	vec3 px = permute(Pi.x + oi);
@@ -223,7 +222,7 @@ vec2 cellular(vec2 P) {
 varying vec2 v_texcoord;
 float cellular_2d(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   float n = 1.0;
-  vec2 _pos = pos + 0.0;
+  vec2 _pos = pos + 0.5;
   vec2 F = cellular(_pos);
   float facets = 0.01 + (F.y - F.x);
   float dots = smoothstep(0.01, 0.1, F.x);
@@ -232,23 +231,24 @@ float cellular_2d(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   return n;
 }
 
-void gaze_01(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+void gaze_03(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   audio.lowpass   *= 1.5;
-  audio.highpass  *= 1.5;
+  audio.highpass  *= 1.0;
   audio.bandpass  *= 1.5;
-  audio.notch     *= 1.5;
+  audio.notch     *= 1.0;
 
   vec3 n_color;
-  float n = cellular_2d(10.0 * pos, u_time, audio, n_color);
-  pos *=0.5;
+  float n = cellular_2d(2.5 * pos, u_time, audio, n_color);
   say_nothing_none(9.5 * pos, u_time, audio, color);
   // color += 0.1;
-  color *= n - 1.00;
+  // color /= n + 0.15;
   vec3 damier_color = damier(1.75 * pos, u_time);
-  color *= clamp(damier_color, 2.5, 10.0);
-  // color.b *= damier_color.b;
-  color.r += 0.35 * abs(audio.bandpass);
-  color = 1.0 - color;
+  // color *= clamp(damier_color, 2.5, 10.0);
+  color.r *= damier_color.r;
+  color += 0.05;
+
+  // color = 1.5 - color;
+
 }
 
 #endif

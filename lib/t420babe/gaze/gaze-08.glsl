@@ -1,6 +1,6 @@
-#ifdef GL_ES
-precision mediump float;
-#endif
+// #effect #shadershoot
+#ifndef T420BABE_GAZE_08
+#define T420BABE_GAZE_08
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -9,17 +9,6 @@ precision mediump float;
 #ifndef COMMON_PLOT
 #include "./lib/common/plot.glsl"
 #endif
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-
-float rows = 10.0;
 
 float circle(vec2 _pos, float _radius){
   vec2 pos = vec2(0.5) - _pos;
@@ -249,10 +238,11 @@ float triangle_web_0(vec2 st, peakamp audio, float u_time) {
     return fract(tri_w);
 }
 
-void main() {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  vec3 color = vec3(1.0);
+void gaze_08(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+  audio.lowpass   *= 1.5;
+  audio.highpass  *= 1.0;
+  audio.bandpass  *= 1.5;
+  audio.notch     *= 1.0;
 
   float tri_n = triangle_web_0(pos, audio, u_time);
 
@@ -268,10 +258,11 @@ void main() {
 
   color -= vec3(sharp(tri_n));
   color.r /= (sharp(tri_n));
-  gl_FragColor = vec4(color, 1.0);
+  color = 1.0 - color;
+  color = color.bgr;
+  //
+  // color = color.rbg;
+
 }
 
-
-
-
-
+#endif
