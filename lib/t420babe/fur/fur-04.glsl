@@ -1,4 +1,6 @@
-// #effect #fav5 #shadershoot
+// #effect #effectshape #fav5 #shadershoot #instagram #youtube
+// About Us by Le Youth
+// im taking it slow goddammit
 #ifndef T420BABE_FUR_04
 #define T420BABE_FUR_04
 
@@ -36,14 +38,17 @@ void fur_04(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
 
   vec2 st = tile(pos, 10.0);
   color = vec3(jail(st, 5.2));
-  color /= vec3(circle(pos, 7.0 * abs(audio.notch)));
+  color /= vec3(circle(pos, 6.5 * abs(audio.notch)));
 
   color.r *= abs(audio.bandpass) * 0.5;
   color.g /= abs(audio.notch) * 0.5;
   color.b *= abs(audio.bandpass) * 0.0;
 	
   // color.b += abs(sin(u_time));
+  color.b += abs(sin(audio.bandpass * 0.8));
+  // color = 0.8 - color;
+  color = color.gbr;
+  // color = color.rbg;
 }
 
 #endif
-
