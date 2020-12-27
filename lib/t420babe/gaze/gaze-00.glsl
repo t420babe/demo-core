@@ -383,7 +383,7 @@ void gaze_00(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   // color += 0.05;
 
   // color = color.grb;
-  color = 1.5 - color;
+  // color = 1.5 - color;
 
 }
 

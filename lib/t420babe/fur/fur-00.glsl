@@ -26,7 +26,7 @@ float circle(vec2 pos, float _radius){
   return 1.-smoothstep(_radius-(_radius*0.05),_radius+(_radius*0.05),dot(pos,pos)*3.14);
 }
 
-void fur_01(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+void fur_00(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   audio.lowpass   *= 1.5;
   audio.highpass  *= 1.5;
   audio.bandpass  *= 1.5;
@@ -39,6 +39,8 @@ void fur_01(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   color.r += abs(audio.bandpass) * 2.0;
   color.g *= abs(audio.notch) * 2.0;
   color.b *= abs(audio.bandpass) * 2.0;
+
+  color = 1.0 - color;
 
 }
 

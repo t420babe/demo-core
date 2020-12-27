@@ -232,7 +232,7 @@ float cellular_2d(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   return n;
 }
 
-void destined_09(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+void destined_09a(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   vec3 n_color;
   // audio.highpass    *= 0.5;
   // audio.lowpass     *= 1.0;
