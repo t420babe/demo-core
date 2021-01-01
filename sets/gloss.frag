@@ -18,8 +18,8 @@ uniform float u_highpass;
 uniform float u_bandpass;
 uniform float u_notch;
 
-#ifndef T420BABE_GEO_GLOSS
-#include "./lib/t420babe/geo/gloss.glsl"
+#ifndef T420BABE_GAZE_05
+#include "./lib/t420babe/gaze/gaze-05.glsl"
 #endif
 
 void main(){
@@ -27,7 +27,7 @@ void main(){
 	peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
 	vec3 color = vec3(1.0);
 
-  gloss(pos, u_time, audio, color);
+  gaze_05(pos, u_time, audio, color);
   gl_FragColor = vec4( color , 1.0);
 }
 

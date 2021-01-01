@@ -255,8 +255,8 @@ void gaze_05(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   // color *= damier_color;
   // color += 0.05;
 
-  color /= vec3(sharp(tri_n));
-  color.g -= (sharp(tri_n));
+  color -= vec3(sharp(tri_n));
+  color.g *= (sharp(tri_n));
 
   // color = 1.0 - color;
   // color = color.bgr;
