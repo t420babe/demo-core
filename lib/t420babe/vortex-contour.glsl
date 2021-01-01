@@ -14,7 +14,7 @@
 #endif
 
 float vc_nyc(vec2 pos, float u_time, peakamp audio) {
-  pos = pos.yx;
+  pos = pos.yy;
   pos.x += 0.0;
   vec2 uv_int = hills_spherical_vortex(pos, u_time);
   float z = (5.0 * uv_int.x + 1.0 * uv_int.y) / 5.0 + 2.0;
