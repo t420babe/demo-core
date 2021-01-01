@@ -52,7 +52,7 @@ vec3 xtc_nyc(vec2 pos, float u_time, peakamp audio) {
   // Start with middle gray for softness
   vec3 color = vec3(0.5);
   // Even/wave-like panel behavior
-  color += 0.1 * sin(TAU * (panels + gradient));  // Mute brightness with 0.1
+  color += 0.1 * sin(TAU * (panels / gradient));  // Mute brightness with 0.1
   // Bright flash on notch
   color *= clamp(audio.notch * 2.5, 1.4, 2.0);
 
