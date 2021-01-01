@@ -14,8 +14,8 @@
 #endif
 
 float vc_nyc(vec2 pos, float u_time, peakamp audio) {
-  pos = atan(sin(pos.yx) * cos(pos.xy));
-  pos  = pos.xx;
+  pos = tan(fract(pos.yx) * cos(pos.xy));
+  // pos  = pos.xx;
   pos.x += 5.0 * abs(tan(u_time * 0.5));
   pos.y -= 1.0 * abs(tan(u_time * 0.5));
   vec2 uv_int = hills_spherical_vortex(pos, u_time);
@@ -24,13 +24,13 @@ float vc_nyc(vec2 pos, float u_time, peakamp audio) {
   float time_wrap = wrap_time(u_time, 20.0);
   z *= 10.0 * (time_wrap / 5.0);
   float d = atan(z * 5.0);
-  if(mod(z, 20.0) > 5.0) {
-    d = 3.0 +d;
-  }
+  // if(mod(z, 1.0) > 5.0) {
+  //   d = 5.0 *d;
+  // }
 
-  d = d / fwidth(z);
+  // d = fract(d) * fwidth(z / d);
   // d = atan(d);
-  return d;
+  return fract(d);
 }
 
 float vc(vec2 pos, float u_time, peakamp audio) {

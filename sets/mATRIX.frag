@@ -6,6 +6,10 @@ precision highp float;
 #include "./lib/common/peakamp.glsl"
 #endif
 
+#ifndef T420BABE_PLASMA
+#include "./lib/t420babe/plasma.glsl"
+#endif
+
 uniform sampler2D u_tex0;
 uniform sampler2D u_tex1;
 
@@ -84,7 +88,7 @@ float fbm ( in vec2 _st) {
     vec2 shift = vec2(100.0);
     // Rotate to reduce axial bias
     mat2 rot = mat2(cos(0.5), sin(0.5),
-                    -sin(0.5), cos(0.50));
+                    sin(0.5), tan(0.50));
     for (int i = 0; i < onum; ++i) {
         v += a * noise_clouds(_st);
         _st = rot * _st * 2.0 + shift;
@@ -94,7 +98,7 @@ float fbm ( in vec2 _st) {
 }
 
 vec3 clouds(vec2 st, float u_time, peakamp audio) {
-    // st += st * abs(sin(u_time*0.1)*3.0);
+    st += st * abs(sin(u_time*0.1)*3.0);
     vec3 color = vec3(0.0);
 
     vec2 q = vec2(0.);
@@ -108,12 +112,12 @@ vec3 clouds(vec2 st, float u_time, peakamp audio) {
     float f = fbm(st+r);
 
     color = mix(vec3(0.101961,0.619608,0.666667),
-                vec3(0.666667,0.666667,0.498039),
-                clamp((f*f)*4.0,0.0,1.0));
+                vec3(0.666667,0.966667,0.898039),
+                clamp((f*f)*1.0,0.0,1.0));
 
     color = mix(color,
                 vec3(0,0,0.164706),
-                clamp(length(q),0.0,1.0));
+                clamp(length(q),1.0,1.0));
 
     color = mix(color,
                 vec3(0.666667,1,1),
@@ -122,38 +126,44 @@ vec3 clouds(vec2 st, float u_time, peakamp audio) {
     return vec3((f*f*f+.6*f*f+.5*f)*color);
 }
 
+float circle_sdf(vec2 pos, float radius) {
+    return length(pos) / radius;
+}
 
 void main(){
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
 	peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
 	vec3 color = vec3(1.0);
   // shape_color_border(pos, 1.0, 0.10, u_time, audio, color);
+  color = xtc_nyc(pos, u_time, audio);
+  color *= circle_sdf(pos, 0.7 * abs(audio.notch));
 
-  // Color 0
-  color.g += audio.lowpass * 2.0;
-  vec3 clouds_color = clouds(pos, u_time, audio);
-  color = clouds_color + 0.2;
-  color *= shape_border(pos, 3.0, 2.00, u_time, audio);
-  color.b *= abs(audio.lowpass * 1.5);
-  color.g -= abs(audio.lowpass * 1.0);
+  // // Color 0
+  // color.g += audio.lowpass * 2.0;
+  // vec3 clouds_color = clouds(pos, u_time, audio);
+  // color = clouds_color + 0.2;
+  // color *= shape_border(pos, 3.0, 2.00, u_time, audio);
+  // color.r *= abs(audio.lowpass * 1.5);
+  // color.g -= abs(audio.lowpass * 1.0);
 
   // color += clouds_color;
   // color = color.bgr;
   //
   // Color 0
   // // color.g += audio.lowpass * 2.0;
-  // color /= shape_border(pos * 0.8, 1.0, 5.10, u_time, audio);
-  // // color.b /= audio.lowpass * 1.0;
+  // color *= shape_border(pos * 0.8, 1.0, 5.10, u_time, audio);
+  // color.b /= audio.lowpass * 1.0;
   // color.b *= abs(audio.highpass) * 1.5;
   // color.r /= abs(audio.notch) * 1.5;
-  color.b *= abs(audio.lowpass) * 1.5 - 0.29234;
+  // color.b *= abs(audio.lowpass) * 1.5 - 0.29234;
   //
 
-  // color = 0.7 - color;
-  color = color.bgr;
+  // color = 1.0 - color;
+  // color = color.bgr;
   // vec3 clouds_color = vec3(1.0);
   // clouds(pos, u_time, audio, clouds_color);
   // color *= clouds_color;
 
+  
   gl_FragColor = vec4( color , 1.0);
 }
