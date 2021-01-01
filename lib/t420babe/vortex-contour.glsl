@@ -24,7 +24,7 @@ float vc_nyc(vec2 pos, float u_time, peakamp audio) {
   float d = fract(z * 5.0);
   if(mod(z, 2.0) > 1.0) d = 1.0 -d;
 
-  d = d / fwidth(z);
+  // d = d / fwidth(z);
   // d = (d);
   return d;
 }
