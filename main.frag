@@ -18,6 +18,9 @@ precision highp float;
 #include "./lib/common/plot.glsl"
 #endif
 
+#ifndef CLOUDS
+#include "./lib/bos/clouds.glsl"
+#endif
 uniform sampler2D u_tex0;
 uniform sampler2D u_tex1;
 
@@ -254,7 +257,11 @@ void main(void) {
   // color.g /= 0.4;
   color.b *= abs(audio.highpass);
   color = vec3(0.0, 0.5, 1.0) * color;
-  // color = 1.0 - color;
+  vec3 clouds_color = vec3(1.0);
+  clouds(pos, u_time, audio, clouds_color);
+  color *= clouds_color;
+
+  color = 1.0 - color;
 	gl_FragColor = vec4(color, 1.0);
 }
 

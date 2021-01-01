@@ -1,21 +1,23 @@
 #ifndef CLOUDS
 #define CLOUDS
 
-float clouds_random (in vec2 _pos) {
-    return fract(sin(dot(_pos.xy, vec2(12.9898,78.233)))* 43758.5453123);
+float random (in vec2 _st) {
+    return fract(sin(dot(_st.xy,
+                         vec2(12.9898,78.233)))*
+        43758.5453123);
 }
 
 // Based on Morgan McGuire @morgan3d
 // https://www.shadertoy.com/view/4dS3Wd
-float clouds_noise (in vec2 _pos) {
-    vec2 i = floor(_pos);
-    vec2 f = fract(_pos);
+float noise_clouds (in vec2 _st) {
+    vec2 i = floor(_st);
+    vec2 f = fract(_st);
 
     // Four corners in 2D of a tile
-    float a = clouds_random(i);
-    float b = clouds_random(i + vec2(1.0, 0.0));
-    float c = clouds_random(i + vec2(0.0, 1.0));
-    float d = clouds_random(i + vec2(1.0, 1.0));
+    float a = random(i);
+    float b = random(i + vec2(1.0, 0.0));
+    float c = random(i + vec2(0.0, 1.0));
+    float d = random(i + vec2(1.0, 1.0));
 
     vec2 u = f * f * (3.0 - 2.0 * f);
 
@@ -24,42 +26,41 @@ float clouds_noise (in vec2 _pos) {
             (d - b) * u.x * u.y;
 }
 
+// #define NUM_OCTAVES 5
+//
 
-float clouds_fbm ( in vec2 _pos) {
-  int num_octaves = 5;
+float fbm ( in vec2 _st) {
+    float onum = 5;
     float v = 0.0;
     float a = 0.5;
-    vec2 shift = vec2(5.0);
+    vec2 shift = vec2(100.0);
     // Rotate to reduce axial bias
-    mat2 rot = mat2(cos(0.5), sin(0.5), sin(0.5), cos(0.50));
-    for (int i = 0; i < num_octaves; ++i) {
-        v += a * clouds_noise(_pos);
-        _pos = rot * _pos * 2.0 + shift;
+    mat2 rot = mat2(cos(0.5), sin(0.5),
+                    -sin(0.5), cos(0.50));
+    for (int i = 0; i < onum; ++i) {
+        v += a * noise_clouds(_st);
+        _st = rot * _st * 2.0 + shift;
         a *= 0.5;
     }
     return v;
 }
 
-void clouds(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+vec3 clouds(vec2 pos, float u_time, peakamp audio) {
+    // st += st * abs(sin(u_time*0.1)*3.0);
+    vec3 color = vec3(0.0);
 
-    pos *= 2.5;
-    pos = log(pos);
-    vec2 q = vec2(2.);
-    q.x = clouds_fbm( pos + 0.00*u_time);
-    q.y = clouds_fbm( pos + vec2(1.0));
+    vec2 q = vec2(0.);
+    q.x = fbm( st + 0.00*u_time);
+    q.y = fbm( st + vec2(1.0));
 
-    vec2 r = vec2(0.0);
-    r.x = clouds_fbm( pos + 0.0 * q + vec2(0.7,9.2)+ 0.15 * u_time );
-    r.y = clouds_fbm( pos + 0.0 * q + vec2(0.3,2.8)+ 0.15 * u_time);
-    // r.y += fract(abs(sin(u_time * 0.5)));
-    r.y *- fract(u_time);
-    // r.x += abs(cos(u_time * 0.5)) * r.y;
-    r.x *- r.y;
+    vec2 r = vec2(0.);
+    r.x = fbm( st + 1.0*q + vec2(1.7,9.2)+ 0.15*u_time );
+    r.y = fbm( st + 1.0*q + vec2(8.3,2.8)+ 0.126*u_time);
 
-    float f = clouds_fbm(pos+r);
+    float f = fbm(st+r);
 
-    color = mix(vec3(0.001961,0.619608,0.366667),
-                vec3(0.966667,0.966667,0.998039),
+    color = mix(vec3(0.101961,0.619608,0.666667),
+                vec3(0.666667,0.666667,0.498039),
                 clamp((f*f)*4.0,0.0,1.0));
 
     color = mix(color,
@@ -67,9 +68,10 @@ void clouds(vec2 pos, float u_time, peakamp audio, out vec3 color) {
                 clamp(length(q),0.0,1.0));
 
     color = mix(color,
-                vec3(0.066667,1,1),
-                clamp(length(r.x),1.0,0.0));
+                vec3(0.666667,1,1),
+                clamp(length(r.x),0.0,1.0));
 
-    color = vec3((f*f*f+.6*f*f+.5*f)*color);
+    return vec3((f*f*f+.6*f*f+.5*f)*color,1.);
 }
+
 #endif

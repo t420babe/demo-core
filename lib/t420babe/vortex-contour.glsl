@@ -14,20 +14,20 @@
 #endif
 
 float vc_nyc(vec2 pos, float u_time, peakamp audio) {
-  pos = pos.yy;
-  pos.x += 5.0 * (tan(u_time * 0.5));
+  pos = atan(pos.xy * pos.xy);
+  pos.y -= 5.0 * (tan(u_time * 0.5));
   vec2 uv_int = hills_spherical_vortex(pos, u_time);
-  float z = (1.0 / uv_int.x + 1.0 * uv_int.y) / 5.0 + 2.0;
+  float z = (5.0 * uv_int.x + 1.0 * uv_int.y) / 5.0 + 2.0;
 
   float time_wrap = wrap_time(u_time, 10.0);
   z *= 10.0 * (time_wrap / 5.0);
   float d = atan(z * 5.0);
   if(mod(z, 10.0) > 5.0) {
-    d = 3.0 -d;
+    d = 3.0 +d;
   }
 
   d = d / fwidth(z);
-  d = sin(d);
+  // d = atan(d);
   return d;
 }
 
