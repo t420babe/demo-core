@@ -64,21 +64,21 @@ void main(){
   // shape_color_border(pos, 1.0, 0.10, u_time, audio, color);
 
   // Color 0
-  // color.b += audio.lowpass * 2.0;
-  // color *= shape_border(pos, 1.0, 0.50, u_time, audio);
-  // color.b *= abs(audio.lowpass * 2.0);
-  // color.g -= abs(audio.lowpass * 2.0);
+  color.b += audio.lowpass * 2.0;
+  color *= shape_border(pos, 1.0, 0.50, u_time, audio);
+  color.b *= abs(audio.lowpass * 2.0);
+  color.g -= abs(audio.lowpass * 2.0);
 
   // color = color.bgr;
   //
   // Color 0
-  // color.g += audio.lowpass * 2.0;
-  color /= shape_border(pos * 0.8, 1.0, 5.10, u_time, audio);
-  // color.b /= audio.lowpass * 1.0;
-  color.b *= abs(audio.highpass) * 1.5;
-  color.g /= abs(audio.notch) * 1.5;
-  color.b += abs(audio.lowpass) * 1.5 - 0.29234;
-  // color = color.rbg;
+  // // color.g += audio.lowpass * 2.0;
+  // color /= shape_border(pos * 0.8, 1.0, 5.10, u_time, audio);
+  // // color.b /= audio.lowpass * 1.0;
+  // color.b *= abs(audio.highpass) * 1.5;
+  // color.r /= abs(audio.notch) * 1.5;
+  // color.b += abs(audio.lowpass) * 1.5 - 0.29234;
+  // // color = color.rbg;
 
   // color = 1.0 - color;
 
