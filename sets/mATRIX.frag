@@ -64,7 +64,7 @@ void main(){
   // shape_color_border(pos, 1.0, 0.10, u_time, audio, color);
 
   // Color 0
-  color.r += audio.lowpass * 2.0;
+  color.g += audio.lowpass * 2.0;
   color *= shape_border(pos, 3.0, 1.00, u_time, audio);
   color.b *= abs(audio.lowpass * 2.0);
   color.g -= abs(audio.lowpass * 2.0);
