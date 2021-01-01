@@ -75,9 +75,10 @@ void main(){
   // color.g += audio.lowpass * 2.0;
   color /= shape_border(pos * 0.8, 1.0, 5.10, u_time, audio);
   // color.b /= audio.lowpass * 1.0;
-  color.r *= abs(audio.highpass) * 1.5;
-  color.b /= abs(audio.notch) * 1.5;
-  // color.g *= abs(audio.notch) * 1.5;
+  color.b *= abs(audio.highpass) * 1.5;
+  color.g /= abs(audio.notch) * 1.5;
+  color.b += abs(audio.lowpass) * 1.5 - 0.29234;
+  // color = color.rbg;
 
   // color = 1.0 - color;
 
