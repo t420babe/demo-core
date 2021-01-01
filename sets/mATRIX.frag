@@ -136,7 +136,7 @@ void main(){
 	vec3 color = vec3(1.0);
   // shape_color_border(pos, 1.0, 0.10, u_time, audio, color);
   color = xtc_nyc(pos, u_time, audio);
-  color *= sin(circle_sdf(pos, 0.4 * abs(audio.notch)));
+  color *= sin(circle_sdf(pos, 0.7 * abs(audio.notch)));
   color = 1.0 - color;
 
   // // Color 0
