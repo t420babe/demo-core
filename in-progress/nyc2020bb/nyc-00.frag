@@ -228,9 +228,9 @@ void doppler_green_rooster(vec2 pos, float u_time, peakamp audio, out vec3 color
 }
 
 float spiral_pxl(vec2 st, float t) {
-    float r = dot(st.yx, st.yx);
+    float r = dot(st,st);
     float a = atan(st.y,st.x);
-    return abs(((fract(r) * t / a * 1.000)));
+    return abs(((log(r)*t+a*0.159)));
 }
 
 void main(void) {
@@ -242,18 +242,14 @@ void main(void) {
 
   st *= 25.0 * abs(sin(u_time * 0.01));
   st += 1.0;
-	vec2 F = cellular2x2x2(vec3(st * 1.0, u_time));
-	float n = smoothstep(0.0, abs(sin(u_time * 0.05)) + 1.0, F.x) / ( abs(audio.notch));
+	vec2 F = cellular2x2x2(vec3(st, u_time));
+	float n = smoothstep(0.1, abs(sin(u_time * 0.05)) + 0.8, F.y * F.x);
   // n = step(n, sin(pos.x));
   color = vec3(n);
-  color += spiral_pxl(pos.yx * 5.5 * abs(audio.bandpass), wrap_time(u_time, 10.0) + 10.0);
-  color.b *= 1.053 / abs(audio.lowpass);
-  // color.b -= 0.4;
-  color.r *= 0.4 * abs(audio.highpass);
-  color = color.brg;
-  // color.g /= 0.4;
-  color.b *= abs(audio.highpass);
-  color = vec3(0.0, 0.5, 1.0) * color;
+  color /= spiral_pxl(pos * 1.1, wrap_time(u_time, 30.0) + 10.0);
+  color.b *= 1.553 - abs(audio.bandpass);
+  // color.g *= abs(audio.highpass);
+  // color = vec3(1.5, 1.0, 1.0) - color;
   // color = 1.0 - color;
 	gl_FragColor = vec4(color, 1.0);
 }

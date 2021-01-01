@@ -246,15 +246,15 @@ void main(void) {
 	float n = smoothstep(0.0, abs(sin(u_time * 0.05)) + 1.0, F.x) / ( abs(audio.notch));
   // n = step(n, sin(pos.x));
   color = vec3(n);
-  color += spiral_pxl(pos.yx * 5.5 * abs(audio.bandpass), wrap_time(u_time, 10.0) + 10.0);
-  color.b *= 1.053 / abs(audio.lowpass);
-  // color.b -= 0.4;
-  color.r *= 0.4 * abs(audio.highpass);
-  color = color.brg;
-  // color.g /= 0.4;
-  color.b *= abs(audio.highpass);
-  color = vec3(0.0, 0.5, 1.0) * color;
-  // color = 1.0 - color;
+  color /= spiral_pxl(pos.yx * 5.5 * abs(audio.bandpass), wrap_time(u_time, 10.0) + 10.0);
+  color.b *= 1.053 / abs(audio.bandpass);
+  color.b -= 0.4;
+  color.r *= 0.4;
+  color = color.gbr;
+  color.g /= 0.4;
+  color.g *= abs(audio.highpass);
+  // color = vec3(0.5, 0.5, 1.0) * color;
+  color = 1.0 - color;
 	gl_FragColor = vec4(color, 1.0);
 }
 

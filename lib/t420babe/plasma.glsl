@@ -31,7 +31,7 @@ vec3 xtc_debug(vec2 pos, float u_time, peakamp audio) {
   color += 0.1 * sin(TAU * (panels + gradient));  // Mute brightness with 0.1
   // color += 0.1 * panels;
   // Bright flash on notch
-  color *= clamp(audio.notch * 10.5, 1.4, 2.0);
+  color *= clamp(audio.notch * 2.5, 1.4, 2.0);
 
   return color;
 }
@@ -53,7 +53,7 @@ vec3 xtc(vec2 pos, float u_time, peakamp audio) {
   // Even/wave-like panel behavior
   color += 0.1 * sin(TAU * (panels + gradient));  // Mute brightness with 0.1
   // Bright flash on notch
-  color *= clamp(audio.notch * 2.5, 1.4, 10.0);
+  color *= clamp(audio.notch * 2.5, 1.4, 2.0);
 
   return color;
 }

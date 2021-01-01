@@ -13,6 +13,11 @@
 #define TWO_PI 6.28318530717958647692
 #endif
 
+// 2π 
+#ifndef TAU
+#define TAU 6.28318530717958647692
+#endif
+
 #ifndef PI180
 #define PI180 0.0174532925199432957692
 #endif

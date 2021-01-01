@@ -47,7 +47,7 @@ float shape(vec2 pos, float radius, float u_time, peakamp audio) {
   f += noise(pos + u_time * 1.0) * 0.1;
   // f1 /= (theta * 50.0) * noise(pos + u_time * 1.0) * 0.05 * audio.bandpass;
   // f1 += sin(theta * 20.0) * 0.1 * pow(m, 2.0);
-  f1 = vc_nyc(pos, u_time, audio);
+  f1 = vc(pos, u_time, audio);
 
   // return 1.0 - smoothstep(f1, f + 1.007, r) / fwidth(f1);
   return 1.0 - sharp(smoothstep(f1, f + 1.007, r) );
@@ -65,11 +65,9 @@ void main(){
 
   // Color 0
   // color.b += audio.lowpass * 2.0;
-  color *= shape_border(pos, 1.0, 0.50, u_time, audio);
-  color.b *= abs(audio.lowpass * 2.0);
-  color.g -= abs(audio.lowpass * 2.0);
-
-  color = color.bgr;
+  color *= shape_border(pos, 1.0, 0.10, u_time, audio);
+  color.g *= abs(audio.lowpass * 2.0);
+  color.r -= abs(audio.lowpass * 2.0);
   //
   // Color 0
   // color.g += audio.lowpass * 2.0;

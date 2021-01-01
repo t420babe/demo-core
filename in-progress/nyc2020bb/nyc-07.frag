@@ -249,12 +249,12 @@ void main(void) {
   color += spiral_pxl(pos.yx * 5.5 * abs(audio.bandpass), wrap_time(u_time, 10.0) + 10.0);
   color.b *= 1.053 / abs(audio.lowpass);
   // color.b -= 0.4;
-  color.r *= 0.4 * abs(audio.highpass);
-  color = color.brg;
+  color.r /= 0.4 * abs(audio.highpass);
+  color = color.rbg;
   // color.g /= 0.4;
-  color.b *= abs(audio.highpass);
-  color = vec3(0.0, 0.5, 1.0) * color;
-  // color = 1.0 - color;
+  color.g *= abs(audio.highpass);
+  // color = vec3(0.5, 0.5, 1.0) * color;
+  color = 1.0 - color;
 	gl_FragColor = vec4(color, 1.0);
 }
 
