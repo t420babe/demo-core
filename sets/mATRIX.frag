@@ -78,7 +78,8 @@ void main(){
   // color.b *= abs(audio.highpass) * 1.5;
   // color.r /= abs(audio.notch) * 1.5;
   // color.b += abs(audio.lowpass) * 1.5 - 0.29234;
-  // // color = color.rbg;
+  color = color.rbg;
+  //
 
   // color = 1.0 - color;
 

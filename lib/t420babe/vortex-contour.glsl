@@ -22,10 +22,12 @@ float vc_nyc(vec2 pos, float u_time, peakamp audio) {
   float time_wrap = wrap_time(u_time, 10.0);
   z *= 10.0 * (time_wrap / 5.0);
   float d = atan(z * 5.0);
-  if(mod(z, 2.0) > 1.0) d = 1.0 -d;
+  if(mod(z, 10.0) > 5.0) {
+    d = 3.0 -d;
+  }
 
-  // d = d / fwidth(z);
-  d = fract(d);
+  d = d / fwidth(z);
+  d = sin(d);
   return d;
 }
 
