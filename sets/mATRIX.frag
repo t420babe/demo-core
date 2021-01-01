@@ -132,7 +132,7 @@ void main(){
   // Color 0
   color.g += audio.lowpass * 2.0;
   vec3 clouds_color = clouds(pos, u_time, audio);
-  color = clouds_color;
+  color = clouds_color + 0.2;
   color *= shape_border(pos, 3.0, 2.00, u_time, audio);
   color.b *= abs(audio.lowpass * 1.5);
   color.g -= abs(audio.lowpass * 1.0);
@@ -150,7 +150,7 @@ void main(){
   //
 
   // color = 0.7 - color;
-  // color = color.bgr;
+  color = color.bgr;
   // vec3 clouds_color = vec3(1.0);
   // clouds(pos, u_time, audio, clouds_color);
   // color *= clouds_color;
