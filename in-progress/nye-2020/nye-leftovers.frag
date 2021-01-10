@@ -1,5 +1,21 @@
-#ifndef T420BABE_RIDGE_20
-#define T420BABE_RIDGE_20
+/* Kungs - I Feel So Bad */
+/* target qmetro: 60 ms */
+
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+#ifndef COMMON_PEAKAMP
+#include "./lib/common/peakamp.glsl"
+#endif
+
+uniform float u_lowpass;
+uniform float u_highpass;
+uniform float u_bandpass;
+uniform float u_notch;
+
+uniform vec2 u_resolution;
+uniform float u_time;
 
 // 53d1470 - almost
 vec3 r20_mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 989.0; }
@@ -141,4 +157,27 @@ void r20_ridge_main_built(vec2 pos, float u_time, peakamp audio, out vec3 color)
    // color.b = 0.5;
    color += 0.05;
 }
-#endif
+
+float circle_sdf(vec2 st) {
+    return length(st)*2.;
+}
+
+void main() {
+  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
+  vec3 color = vec3(1.0);
+  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
+
+  r20_ridge_main(pos, u_time, audio, color);
+  color /= circle_sdf(pos);
+  // color.r *= clamp(sin(u_time), 0.0, 1.0);
+  // color.r *= clamp(audio.notch * 1.5, 0.5, 1.0);
+  // color.g *= clamp(audio.bandpass * 0.5, 0.0, 1.0);
+  color.r *= abs(sin(u_time * 3.14 / 4.0));
+  color.g *= abs(cos(u_time * 3.14 / 2.0));
+  color.b *= clamp(audio.bandpass * 1.5, 0.0, 3.0);
+  // color.b *= abs(audio.bandpass) * 1.5;
+  // color = vec3(1.7345, 1.08342, 1.08340) / color;
+  // color = color.grb;
+
+  gl_FragColor = vec4(color, 1.0);
+}

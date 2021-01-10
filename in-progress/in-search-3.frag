@@ -30,16 +30,11 @@ uniform float u_highpass;
 uniform float u_bandpass;
 uniform float u_notch;
 
-float center_ring(vec2 pos, float crisp) {
-    float ring = log(dot(pos, pos));
-    // Abs keeps cellular inside ring
-    return abs( ring * crisp);
-}
-
 // Cellular noise ("Worley noise") in 3D in GLSL.
 // Copyright (c) Stefan Gustavson 2011-04-19. All rights reserved.
 // This code is released under the conditions of the MIT license.
 // See LICENSE file for details.
+
 // Permutation polynomial: (34x^2 + x) mod 289
 vec4 permute(vec4 x) {
   return mod((34.0 * x + 1.0) * x, 289.0);
@@ -83,28 +78,63 @@ vec2 cellular2x2x2(vec3 P) {
 	vec4 d1 = dx1 * dx1 + dy1 * dy1 + dz1 * dz1; // z+0
 	vec4 d2 = dx2 * dx2 + dy2 * dy2 + dz2 * dz2; // z+1
 
-	// Sort out the two smallest distances (F1, F2) (consider F1 only)
+	// Sort out the two smallest distances (F1, F2)
+#if 1
+	// Cheat and sort out only F1
 	d1 = min(d1, d2);
 	d1.xy = min(d1.xy, d1.wz);
 	d1.x = min(d1.x, d1.y);
 	return sqrt(d1.xx);
+#else
+	// Do it right and sort out both F1 and F2
+	vec4 d = min(d1,d2); // F1 is now in d
+	d2 = max(d1,d2); // Make sure we keep all candidates for F2
+	d.xy = (d.x < d.y) ? d.xy : d.yx; // Swap smallest to d.x
+	d.xz = (d.x < d.z) ? d.xz : d.zx;
+	d.xw = (d.x < d.w) ? d.xw : d.wx; // F1 is now in d.x
+	d.yzw = min(d.yzw, d2.yzw); // F2 now not in d2.yzw
+	d.y = min(d.y, d.z); // nor in d.z
+	d.y = min(d.y, d.w); // nor in d.w
+	d.y = min(d.y, d2.x); // F2 is now in d.y
+	return sqrt(d.yz); // F1 and F2
+#endif
+}
+float circle_sdf(vec2 st) {
+    return length(st-.5)*2.;
+}
+
+float spiral_pxl(vec2 st, float t) {
+    float r = dot(st.yx, st.yx);
+    float a = atan(st.y,st.x);
+    return abs(((fract(r) * t / 1.0 * 1.000)));
 }
 
 void main(void) {
+	// vec2 st = gl_FragCoord.xy/u_resolution.xy;
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
+  vec2 st = pos;
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
+  audio.lowpass *= 1.0;
+  audio.highpass *= 1.0;
+  audio.bandpass *= 1.0;
+  audio.notch *= 1.0;
+  vec3 color = vec3(1.0);
 
-  vec2 pos_cell = pos;
-  pos_cell *= 25.0 * abs(sin(u_time * 0.01));
-  pos_cell += 1.0;
-	vec2 F = cellular2x2x2(vec3(pos_cell, u_time));
-	float n = smoothstep(0.1, abs(sin(u_time * 0.05)) + 0.8, F.y * F.x);
-  vec3 color = vec3(n);
-
-  color /= center_ring((pos * 3.50 * audio.notch), wrap_time(u_time, 30.0) + 10.0) * wrap_time(u_time, 10.0) / 10.0;
-  color.b *= 1.553 - abs(audio.bandpass);
-  color *= abs(audio.notch) * 5.5;
-
+  st.y += 1.0;
+  st *= 25.0 * abs(sin(u_time * 0.01));
+	vec2 F = cellular2x2x2(vec3(st * 1.0, u_time));
+	float n = smoothstep(0.0, abs(sin(u_time * 0.05)) + 1.0, F.x) / ( abs(audio.notch * 1.0));
+  // n = step(n, sin(pos.x));
+  color = vec3(n);
+  color -= spiral_pxl(pos.yx * 7.0 * abs(audio.bandpass * 0.5), wrap_time(u_time, 10.0) + 10.0);
+  color.b *= 1.053 / abs(audio.lowpass * 0.9);
+  // color.b -= 0.4;
+  color.r *= 1.0 * abs(audio.highpass * 2.0);
+  color = color.gbr;
+  // color.g /= 0.4;
+  color.g *= abs(audio.highpass);
+  // color = vec3(0.5, 0.5, 1.0) * color;
+  // color = 1.5 - color;
 	gl_FragColor = vec4(color, 1.0);
 }
 

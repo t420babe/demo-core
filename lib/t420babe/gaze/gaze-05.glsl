@@ -231,10 +231,15 @@ float cellular_2d(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   return n;
 }
 
+vec2 rotate(vec2 pos, float theta) {
+    pos = mat2(cos(theta), -sin(theta), sin(theta), cos(theta))*(pos - 0.5);
+    return pos + 0.5;
+}
 float triangle_web_0(vec2 st, peakamp audio, float u_time) {
-    st = (st*2.)*1. * (tan(u_time * 0.3));
-    float tri_w = max(abs(st.x) * 0.866025 + st.y * 0.5, -st.y * 0.5);
-    return fract(tri_w);
+    st.y -= 0.90;
+    st = (st*2.)*1. * (atan(u_time * 0.3));
+    float tri_w = min(abs(st.x) * 0.866025 + st.x * 0.1, -st.y * 0.5);
+    return fract(tri_w * u_time) - fract(tri_w) * abs(audio.notch);
 }
 
 void gaze_05(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
@@ -246,22 +251,22 @@ void gaze_05(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   float tri_n = triangle_web_0(pos, audio, u_time);
 
   vec3 n_color;
-  float n = cellular_2d(5.5 * pos, u_time, audio, n_color);
+  float n = cellular_2d(0.5 * pos, u_time, audio, n_color);
   say_nothing_none(9.5 * pos, u_time, audio, color);
   // color += 0.1;
-  color /= n + 0.15;
+  color /= n;
   vec3 damier_color = damier(1.75 * pos, u_time);
   // color *= clamp(damier_color, 2.5, 10.0);
   // color *= damier_color;
   // color += 0.05;
 
   color -= vec3(sharp(tri_n));
-  color.g *= (sharp(tri_n));
+  // color.r *= (sharp(tri_n));
 
-  // color = 1.0 - color;
+  color = 1.0 - color;
   // color = color.bgr;
   //
-  // color = color.rbg;
+  color = color.rbg;
 
 }
 

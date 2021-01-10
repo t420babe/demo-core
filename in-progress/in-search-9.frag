@@ -227,13 +227,16 @@ void doppler_green_rooster(vec2 pos, float u_time, peakamp audio, out vec3 color
   color.g += audio.lowpass;
 }
 
+float spiral_pxl_og(vec2 st, float t) {
+    float r = dot(st.yx, st.yx);
+    float a = atan(st.y,st.x);
+    return abs(((fract(r) * t / 1.0 * 1.000)));
+}
+
 float spiral_pxl(vec2 st, float t) {
-    // float r = dot(st,st);
-    // float a = atan(st.y,st.x);
-    // return abs(((exp(r)/t+a*0.159)));
-    float r = dot(st,st);
-    float a = atan(st.x * st.x,st.y *st.y);
-    return abs(tan(((r)*t+a*0.159)));
+    float r = dot(st.yx, st.yx) * 0.5;
+    float a = atan(st.y,st.x)  * 0.5;
+    return abs(((sin(r * t)   / r)));
 }
 
 void main(void) {
@@ -241,23 +244,32 @@ void main(void) {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   vec2 st = pos;
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
+  audio.lowpass *= 1.5;
+  audio.highpass *= 2.5;
+  audio.bandpass *= 1.0;
+  audio.notch *= 1.0;
   vec3 color = vec3(1.0);
 
-  st *= 25.0 * abs(sin(u_time * 0.01));
-  st += 1.0;
-	vec2 F = cellular2x2x2(vec3(st, u_time));
-	float n = smoothstep(0.0, abs(sin(u_time * 0.05)) + 1.0, F.x);
+  st.y += 1.0;
+  st *= 20.0;
+	vec2 F = cellular2x2x2(vec3(st * 1.0, u_time));
+	float n = smoothstep(0.0, abs(sin(u_time * 0.05)) + 1.0, F.x) / ( abs(audio.notch * 0.5));
   // n = step(n, sin(pos.x));
   color = vec3(n);
-  color /= spiral_pxl(pos.yx * 1.3, wrap_time(u_time, 10.0) + 5.0);
-  color.b *= 1.053 / abs(audio.bandpass);
-  color.b -= 0.4;
-  color.r *= 0.4;
-  // color.g *= 0.4;
-  color.g *= abs(audio.highpass);
-  // color = color.rgb;
-  color = vec3(1.5, 0.5, 0.3) * color;
-  // color = 1.0 - color;
+  pos *= 2.0;
+  // color -= spiral_pxl(abs(sin(pos.yy) * cos(pos.xy)) * 3.0 * abs(audio.bandpass), 1.0 * wrap_time(u_time, 10.0) + 10.0);
+  color -= spiral_pxl(3.0 * pos.yx * abs(audio.bandpass), 1.0 * wrap_time(u_time, 10.0) + 10.0);
+  color.b *= 1.053 / abs(audio.lowpass);
+  // color.b -= 0.4;
+  color.r *= 1.5 * abs(audio.highpass);
+  // color = color.gbr;
+  // color.g /= 0.4;
+  color.g *=  1.0 * abs(audio.highpass);
+  color -= (0.8 - n * 0.5);
+  // color = vec3(0.1, 0.5, 1.1) * color;
+  // color = 0.8 - color;
 	gl_FragColor = vec4(color, 1.0);
 }
+
+
 

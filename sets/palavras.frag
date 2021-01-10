@@ -72,6 +72,10 @@ void main() {
 	
   color.g *= abs(sin(u_time * audio.notch * 0.5));
   color.b *= abs(cos(u_time * audio.highpass * 0.5));
+  // color = 1.0 - color;
+  color.r /= 0.4;
+  // color.b /= 0.4;
+  // color.b *= 0.4;
 
   gl_FragColor = vec4(color, 1.0);
 }
