@@ -1,14 +1,7 @@
-#ifdef GL_ES
-precision highp float;
-#endif
-
-#ifndef COMMON_WRAP_TIME
-#include "./lib/common/wrap-time.glsl"
-#endif
-
-#ifndef COMMON_MATH_CONSTANTS
-#include "./lib/common/math-constants.glsl"
-#endif
+// #fuckmeup #fav5 #xtc
+// Human by Sevdaliza
+#ifndef T420BABE_NYC2020BB_00
+#define T420BABE_NYC2020BB_00
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -18,17 +11,9 @@ precision highp float;
 #include "./lib/common/plot.glsl"
 #endif
 
-uniform sampler2D u_tex0;
-uniform sampler2D u_tex1;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
+#ifndef COMMON_MATH_CONSTANTS
+#include "./lib/common/math-constants.glsl"
+#endif
 
 float center_ring(vec2 pos, float crisp) {
     float ring = log(dot(pos, pos));
@@ -90,10 +75,12 @@ vec2 cellular2x2x2(vec3 P) {
 	return sqrt(d1.xx);
 }
 
-void main(void) {
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
 
+vec3 nyc2020bb_00(vec2 pos, float u_time, peakamp audio) {
+  audio.lowpass   *= 1.0;
+  audio.highpass  *= 1.0;
+  audio.bandpass  *= 1.0;
+  audio.notch     *= 1.0;
   vec2 pos_cell = pos;
   pos_cell *= 25.0 * abs(sin(u_time * 0.01));
   pos_cell += 1.0;
@@ -105,7 +92,6 @@ void main(void) {
   color.b *= 1.553 - abs(audio.bandpass);
   color *= abs(audio.notch) * 5.5;
 
-	gl_FragColor = vec4(color, 1.0);
+  return color;
 }
-
-
+#endif

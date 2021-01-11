@@ -1,14 +1,5 @@
-#ifdef GL_ES
-precision highp float;
-#endif
-
-#ifndef COMMON_WRAP_TIME
-#include "./lib/common/wrap-time.glsl"
-#endif
-
-#ifndef COMMON_MATH_CONSTANTS
-#include "./lib/common/math-constants.glsl"
-#endif
+#ifndef T420BABE_NYC2020BB_07
+#define T420BABE_NYC2020BB_07
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -18,17 +9,9 @@ precision highp float;
 #include "./lib/common/plot.glsl"
 #endif
 
-uniform sampler2D u_tex0;
-uniform sampler2D u_tex1;
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-
-uniform float u_lowpass;
-uniform float u_highpass;
-uniform float u_bandpass;
-uniform float u_notch;
+#ifndef COMMON_MATH_CONSTANTS
+#include "./lib/common/math-constants.glsl"
+#endif
 
 // Cellular noise ("Worley noise") in 3D in GLSL.
 // Copyright (c) Stefan Gustavson 2011-04-19. All rights reserved.
@@ -233,17 +216,14 @@ float spiral_pxl(vec2 st, float t) {
     return abs(((fract(r) * t / 1.0 * 1.000)));
 }
 
-void main(void) {
-	// vec2 st = gl_FragCoord.xy/u_resolution.xy;
-  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  vec2 st = pos;
-  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
-  audio.lowpass *= 1.5;
-  audio.highpass *= 2.5;
-  audio.bandpass *= 1.0;
-  audio.notch *= 1.0;
-  vec3 color = vec3(1.0);
 
+vec3 nyc2020bb_07(vec2 pos, float u_time, peakamp audio) {
+  vec3 color = vec3(1.0);
+  audio.lowpass   *= 1.0;
+  audio.highpass  *= 1.0;
+  audio.bandpass  *= 1.0;
+  audio.notch     *= 1.0;
+  vec2 st = pos;
   st.y += 1.0;
   st *= 25.0 * abs(sin(u_time * 0.01));
 	vec2 F = cellular2x2x2(vec3(st * 1.0, u_time));
@@ -259,6 +239,7 @@ void main(void) {
   color.g *= abs(audio.highpass);
   // color = vec3(0.5, 0.5, 1.0) * color;
   color = 1.5 - color;
-	gl_FragColor = vec4(color, 1.0);
-}
 
+  return color;
+}
+#endif
