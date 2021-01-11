@@ -46,6 +46,7 @@ void fur_11(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   color.g = abs(audio.notch);
   // color.b *= abs(audio.bandpass) * 0.0;
 
+  // color = 1.0 - color;
   // color.r += abs(sin(u_time));
 }
 

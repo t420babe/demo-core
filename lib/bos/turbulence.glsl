@@ -6,6 +6,7 @@
 #endif
 
 
+#ifndef COMMON_WRAP_TIME
 float wrap_time(float u_time, float limit) {
   limit *= 2.0;
   float mod_time = mod(u_time, limit);
@@ -15,6 +16,7 @@ float wrap_time(float u_time, float limit) {
     return limit - mod_time;
   }
 }
+#endif
 
 #ifndef COMMON_NOISE
 float turbulence_snoise(vec2 v, peakamp audio) {
