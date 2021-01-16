@@ -1,5 +1,6 @@
-#ifndef T420BABE_DAY_0_07
-#define T420BABE_DAY_0_07
+// #effect #effectshape #fav4 #shadershoot
+#ifndef T420BABE_DAY_0_11
+#define T420BABE_DAY_0_11
 
 #ifndef COMMON_WRAP_TIME
 #include "./lib/common/wrap-time.glsl"
@@ -167,111 +168,83 @@ vec3 ikeda(vec2 pos, float time) {
 
 }
 
-#ifdef GL_OES_standard_derivatives
-#extension GL_OES_standard_derivatives : enable
-#endif
-float aastep(float threshold, float value) {
-    #ifdef GL_OES_standard_derivatives
-    float afwidth = 0.7 * length(vec2(dFdx(value), dFdy(value)));
-    return smoothstep(threshold-afwidth, threshold+afwidth, value);
-    #else
-    return step(threshold, value);
-    #endif
-}
-
-float rect_sdf(vec2 st, vec2 s) {
-    st = st*2.-1.;
-    return max( abs(st.x/s.x),
-                abs(st.y/s.y) );
-}
-
-float cross_sdf(vec2 st, float s) {
-    vec2 size = vec2(.25, s);
-    return min( rect_sdf(st.xy,size.xy),
-                rect_sdf(st.xy,size.yx));
-}
-
-float circle_sdf(vec2 st) {
-    return length(st-.5)*2.;
-}
-vec2 rotate(vec2 pos, float a, float offset_value) {
-  pos = mat2(cos(a), -sin(a), sin(a), cos(a)) * (pos - offset_value);
-  return pos + offset_value;
-}
-
-// 809fde9, main.frag green rooster with the sun sofia's theme
-void doppler_green_rooster(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-
-  // pos.x += 0.40;
-  // pos.y += 0.50;
-  color = vec3(1.0, 0.1234, 0.34);
-  float pct = aastep(pos.y, -pos.y) * sin(u_time);
-  pct *= cross_sdf(rotate(pos, circle_sdf(vec2(pos.x, pos.x) * 0.5), 0.0), 0.4);
-  float pct2 = circle_sdf(pos);
-  color = vec3(pct * color + color * pct2);
-  // color.r = color.r * audio.highpass * 2.5;
-	color.b *= audio.notch;
-  color.g += audio.lowpass;
-}
-
-float spiral_pxl_og(vec2 st, float t) {
-    float r = dot(st.yx, st.yx);
-    float a = atan(st.y,st.x);
-    return abs(((fract(r) * t / 1.0 * 1.000)));
-}
-
 float spiral_pxl(vec2 st, float t) {
     float r = dot(st.yx, st.yx) * 0.5;
     float a = atan(st.y,st.x)  * 0.5;
     return abs(((sin(r * t)   / r)));
 }
 
+vec3 shapes(vec2 pos, float u_time, peakamp audio) {
+    float x = pos.x;
+    float y = pos.y;
 
-float star_sdf(vec2 st, int V, float s) {
-    st = st*4.-2.;
-    float a = atan(st.y, st.x)/TWO_PI;
-    float seg = a * float(V);
-    a = ((floor(seg) + 0.5)/float(V) + 
-        mix(s,-s,step(.5,fract(seg)))) 
-        * TWO_PI;
-    return abs(dot(vec2(cos(a),sin(a)),
-                   st));
+    float a0 = step(x*x + y*y, 1.0); 
+    
+    float y1 = 0.4*log(0.63*x+0.64)+1.8;
+    float a1 = step(y, y1);
+
+    float y2 = 0.3*log(10.0*x-2.0)+0.8;
+    float a2 = step(y2, y) + step(x,0.2);
+
+    float y3 = -0.1 * pow(x+-0.5, 2.0)+1.8;
+    float a3 = step(y, y3);
+
+    float a = max(a0, a1*a2*a3*step(0.0,y));
+
+    vec3 col_back = vec3(0.0);
+    vec3 col_fill = vec3(0.2353, 0.34580, 0.9872340);
+
+    vec3 rgb = mix(col_back, col_fill, a) + 0.4 * vec3(a1, a2, a3);
+    return rgb;
 }
 
-
-vec3 day_0_07(vec2 pos, float u_time, peakamp audio) {
+vec3 day_0_11(vec2 pos, float u_time, peakamp audio) {
   vec3 color = vec3(1.0);
-  audio.lowpass   *= 1.0;
-  audio.highpass  *= 1.0;
-  audio.bandpass  *= 1.0;
-  audio.notch     *= 1.0;
+  audio.lowpass = abs(audio.lowpass);
+  audio.highpass = abs(audio.highpass);
+  audio.bandpass = abs(audio.bandpass);
+  audio.notch = abs(audio.notch);
 
+  audio.lowpass *= 1.0;
+  audio.highpass *= 1.0;
+  audio.bandpass *= 1.0;
+  audio.notch *= 1.0;
+
+  vec2 ux = pos;
   vec2 st = pos;
   st.y += 1.0;
   st *= 20.0;
 	vec2 F = cellular2x2x2(vec3(st * 1.0, u_time));
-	float n = smoothstep(0.0, abs(sin(u_time * 0.05)) + 1.1, F.y) / ( abs(audio.notch * 0.015));
+  float n = smoothstep(0.0, abs(sin(u_time * 0.05)) + 1.0, F.y) / ( clamp(audio.bandpass * 0.045, 0.01, 1.0));
+  // float n = smoothstep(0.0, abs(sin(u_time * 0.05)) + 1.0, F.y) / ( (audio.bandpass * 0.015));
   // n = step(n, sin(pos.x));
-  color = vec3(n);
-  // pos *= 1.25;
-  // pos *= wrap_time(u_time * 0.2, 3.0);
-  pos *= 1.25;
-  pos.y *= 1.5;
-  pos.x *= 1.5;
-  color -= abs(sin(u_time * 0.1) + 2.0) + 5.0 * tan(spiral_pxl(abs(sin(pos.xy) * cos(pos.xy)) * 4.5 * abs(1.0 * audio.bandpass), 0.1 * wrap_time(u_time, 10.0) + 10.0));
+  color = vec3(n * 0.9);
+  // pos = pos.yx;
+  pos *= 5.5;
+  pos.y *= 1.5 * sin(pos.y);
+  // pos.y += abs(audio.notch) * 5.0;
+  pos.x *= 5.5 * sin(pos.y);
+  color -= abs(sin(u_time * 0.1) + 2.0) + 5.0 * spiral_pxl(abs(sin(pos.yy) * cos(pos.xy)) * 4.5 * abs(1.0 * audio.bandpass), 0.1 * wrap_time(u_time, 10.0) + 10.0);
   // color -= spiral_pxl(3.0 * pos.yx * abs(audio.bandpass), 1.0 * wrap_time(u_time, 10.0) + 10.0);
-  color.b *= 4.5 * abs(audio.lowpass);
+  color.b *= 2.5 * abs(audio.lowpass);
   color.b += 5.4;
-  color.r /= 1.5 * abs(audio.highpass);
+  color.r /= 2.5 * 1.5 * abs(audio.highpass);
   // color = color.gbr;
   // color.g /= 0.4;
-  color.g *=  1.5 * abs(audio.notch);
-  color /= (0.5 - n * 0.8);
-  // vec3 col_fill = vec3(0.34580, abs(sin(u_time)), 0.9872340);
-  vec3 col_fill = vec3(0.34580, abs(sin(u_time)), abs(tan(u_time)));
-  color *= col_fill;
+  color.g *=  2.5 * abs(audio.notch);
+  // color /= (0.1 - n * 0.5);
+  color += (0.1 - n * 0.8);
   // color = vec3(0.1, 0.5, 1.1) * color;
   // color -= 1.5;
+  ux.y += 1.5;
+  color /= 1.0 * shapes(ux * 20.0, u_time, audio);
+
+  if (abs(audio.notch) > 0.7) {
+    color = color.gbr;
+    color = color.gbr;
+  } else if (audio.notch > 0.6) {
+    color = color.gbr;
+  }
   return color;
 }
 #endif
