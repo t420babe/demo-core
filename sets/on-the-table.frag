@@ -1,7 +1,12 @@
 // #effectshape #xtc #feb #fav5
-// I Hope You Get It (feat. Ivan Ooze) by Crooked Colors
-#ifndef T420BABE_LIGHTS_10
-#define T420BABE_LIGHTS_10
+// Running Blind by Crooked Colors
+uniform vec2 u_resolution;
+uniform float u_time;
+
+uniform float u_lowpass;
+uniform float u_highpass;
+uniform float u_bandpass;
+uniform float u_notch;
 
 #ifndef COMMON_WRAP_TIME
 #include "./lib/common/wrap-time.glsl"
@@ -53,7 +58,7 @@ mat2 rotate2d(float theta) {
 }
 
 vec3 alternate(in vec2 pos, vec3 color, peakamp audio) {
-  // pos = pos.yx * pos.yx * 0.5;
+  pos = pos.yx;
   pos = abs(sin(pos * 0.8) * (wrap_time(u_time, 4.0) + 2.0));
   pos = rotate2d(fract(u_time) * tan(u_time) *0.14) * pos.yx;
   // pos = abs(sin(pos * 0.8)) * 4.0;
@@ -90,16 +95,17 @@ vec3 alternate(in vec2 pos, vec3 color, peakamp audio) {
 
   color *= vec3(c01 *  1.0 / c02 * c03 * c04);
   color *= vec3(1.0 / c13 );
-  color *= vec3(c21 * c23 * c24);
+  color *= vec3(1.0/ c21 * c23 * c24);
   color /= fill;
 
   // color = 1.0 - color;
   return color;
 }
 
-vec3 lights_10(vec2 pos, float u_time, peakamp audio) {
+// vec3 lights_11(vec2 pos, float u_time, peakamp audio) {
+vec3 on_the_table(vec2 pos, float u_time, peakamp audio) {
   vec3 color = vec3(1.0);
-  float mul = 0.7;
+  float mul = 0.5;
   audio.lowpass   *= mul;
   audio.highpass  *= mul;
   audio.bandpass  *= mul;
@@ -118,4 +124,13 @@ vec3 lights_10(vec2 pos, float u_time, peakamp audio) {
 
   return color;
 }
-#endif
+
+void main(void) {
+  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
+  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
+
+  vec3 color = on_the_table(pos, u_time, audio);
+
+	gl_FragColor = vec4(color, 1.0);
+}
+

@@ -1,7 +1,13 @@
 // #effectshape #xtc #feb #fav5
 // I Hope You Get It (feat. Ivan Ooze) by Crooked Colors
-#ifndef T420BABE_LIGHTS_10
-#define T420BABE_LIGHTS_10
+
+uniform vec2 u_resolution;
+uniform float u_time;
+
+uniform float u_lowpass;
+uniform float u_highpass;
+uniform float u_bandpass;
+uniform float u_notch;
 
 #ifndef COMMON_WRAP_TIME
 #include "./lib/common/wrap-time.glsl"
@@ -55,17 +61,17 @@ mat2 rotate2d(float theta) {
 vec3 alternate(in vec2 pos, vec3 color, peakamp audio) {
   // pos = pos.yx * pos.yx * 0.5;
   pos = abs(sin(pos * 0.8) * (wrap_time(u_time, 4.0) + 2.0));
-  pos = rotate2d(fract(u_time) * tan(u_time) *0.14) * pos.yx;
+  pos = rotate2d(sin(u_time) *3.14) * pos;
   // pos = abs(sin(pos * 0.8)) * 4.0;
   // vec3 fill = vec3(222.0, 200.0, 91.0);
   vec3 fill = vec3(1.0);
-  fill = vec3(33.0, 55.0, 164.0);
-  from_255(fill);
+  // fill = vec3(33.0, 55.0, 164.0);
   if (abs(audio.notch) > 0.20) {
     fill = vec3(0.0, 174.0, 217.0);
     from_255(fill);
-  }
     fill = 1.0 - fill;
+  }
+  from_255(fill);
   float r = 0.5 * abs(audio.notch * audio.lowpass + abs(audio.notch) + abs(audio.bandpass));
   float mul1 = abs(sin(u_time));
   // float r = 1.5 * abs(audio.bandpass * audio.notch);
@@ -88,8 +94,8 @@ vec3 alternate(in vec2 pos, vec3 color, peakamp audio) {
   float c23 = place(pos, r, vec2(-1.5, 0.75));
   float c24 = place(pos, r, vec2(1.5, 0.75));
 
-  color *= vec3(c01 *  1.0 / c02 * c03 * c04);
-  color *= vec3(1.0 / c13 );
+  color *= vec3(c01 * c03 * c04);
+  color *= vec3(1.0 / c13 * abs(sin(u_time)));
   color *= vec3(c21 * c23 * c24);
   color /= fill;
 
@@ -97,9 +103,10 @@ vec3 alternate(in vec2 pos, vec3 color, peakamp audio) {
   return color;
 }
 
-vec3 lights_10(vec2 pos, float u_time, peakamp audio) {
+// vec3 lights_07(vec2 pos, float u_time, peakamp audio) {
+vec3 take_my_hand(vec2 pos, float u_time, peakamp audio) {
   vec3 color = vec3(1.0);
-  float mul = 0.7;
+  float mul = 0.5;
   audio.lowpass   *= mul;
   audio.highpass  *= mul;
   audio.bandpass  *= mul;
@@ -108,8 +115,8 @@ vec3 lights_10(vec2 pos, float u_time, peakamp audio) {
   color = alternate(pos, color, audio);
   color = 1.0 - color;
 
-  color = color.bgr;
-  // color = color.gbr;
+  // color = color.bgr;
+  color = color.gbr;
   if (abs(audio.notch) > 0.2) {
     color = color.bgr;
    // color = color.rbg;
@@ -118,4 +125,12 @@ vec3 lights_10(vec2 pos, float u_time, peakamp audio) {
 
   return color;
 }
-#endif
+
+void main(void) {
+  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
+  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
+
+  vec3 color = take_my_hand(pos, u_time, audio);
+
+	gl_FragColor = vec4(color, 1.0);
+}

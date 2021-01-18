@@ -475,3 +475,34 @@ ancient-names-8001:
 
 ancient-names-dbg:
 	glslViewer sets/ancient-names.frag  --nocursor -I./lib
+
+# Running Blind by Crooked Colors
+on-the-table:
+	glslViewer sets/on-the-table.frag  -p 8000 --nocursor -I./lib
+
+on-the-table-8001:
+	glslViewer sets/on-the-table.frag  -p 8001 --nocursor -I./lib
+
+on-the-table-dbg:
+	glslViewer sets/on-the-table.frag  --nocursor -I./lib
+
+# I Hope You Get It (ft. Ivan Ooze) by Crooked Colors
+take-my-hand:
+	glslViewer sets/take-my-hand.frag  -p 8000 --nocursor -I./lib
+
+take-my-hand-8001:
+	glslViewer sets/take-my-hand.frag  -p 8001 --nocursor -I./lib
+
+take-my-hand-dbg:
+	glslViewer sets/take-my-hand.frag  --nocursor -I./lib
+
+# Voodoo Ray by Tall Paul
+last-call:
+	glslViewer sets/last-call.frag  -p 8000 --nocursor -I./lib
+
+last-call-8001:
+	glslViewer sets/last-call.frag  -p 8001 --nocursor -I./lib
+
+last-call-dbg:
+	glslViewer sets/last-call.frag  --nocursor -I./lib
+

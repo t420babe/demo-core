@@ -1,7 +1,10 @@
-// #effectshape #xtc #feb #fav5
-// Voodoo Ray by Tall Paul
-#ifndef T420BABE_LIGHTS_05
-#define T420BABE_LIGHTS_05
+uniform vec2 u_resolution;
+uniform float u_time;
+
+uniform float u_lowpass;
+uniform float u_highpass;
+uniform float u_bandpass;
+uniform float u_notch;
 
 #ifndef COMMON_WRAP_TIME
 #include "./lib/common/wrap-time.glsl"
@@ -76,7 +79,8 @@ vec3 alternate(in vec2 pos, vec3 color, peakamp audio) {
   return color;
 }
 
-vec3 lights_05(vec2 pos, float u_time, peakamp audio) {
+// vec3 lights_05(vec2 pos, float u_time, peakamp audio) {
+vec3 last_call(vec2 pos, float u_time, peakamp audio) {
   vec3 color = vec3(1.0);
   float mul = 1.0;
   audio.lowpass   *= mul;
@@ -87,7 +91,14 @@ vec3 lights_05(vec2 pos, float u_time, peakamp audio) {
   color = alternate(pos, color, audio);
   color = 1.0 - color;
 
-
   return color;
 }
-#endif
+
+void main(void) {
+  vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
+  peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
+
+  vec3 color = last_call(pos, u_time, audio);
+
+	gl_FragColor = vec4(color, 1.0);
+}

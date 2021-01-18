@@ -2,11 +2,7 @@
 precision highp float;
 #endif
 
-uniform sampler2D u_tex0;
-uniform sampler2D u_tex1;
-
 uniform vec2 u_resolution;
-uniform vec2 u_mouse;
 uniform float u_time;
 
 uniform float u_lowpass;
@@ -30,15 +26,15 @@ uniform float u_notch;
 #include "./lib/common/plot.glsl"
 #endif
 
-#ifndef T420BABE_LIGHTS_07
-#include "./lib/t420babe/lights/lights-07.glsl"
+#ifndef T420BABE_LIGHTS_05
+#include "./lib/t420babe/lights/lights-05.glsl"
 #endif
 
 void main(void) {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
 
-  vec3 color = lights_07(pos, u_time, audio);
+  vec3 color = lights_05(pos, u_time, audio);
 
 	gl_FragColor = vec4(color, 1.0);
 }
