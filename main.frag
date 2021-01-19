@@ -26,15 +26,15 @@ uniform float u_notch;
 #include "./lib/common/plot.glsl"
 #endif
 
-#ifndef T420BABE_LIGHTS_13
-#include "./lib/t420babe/lights/lights-13.glsl"
+#ifndef T420BABE_LIGHTS_16
+#include "./lib/t420babe/lights/lights-16.glsl"
 #endif
 
 void main(void) {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
 
-  vec3 color = lights_13(pos, u_time, audio);
+  vec3 color = lights_16(pos, u_time, audio);
 
 	gl_FragColor = vec4(color, 1.0);
 }
