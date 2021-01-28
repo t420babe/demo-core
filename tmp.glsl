@@ -1,52 +1,61 @@
-float circ(vec2 st,float r){return length(st)*r;}
-float place(vec2 p,float r,vec2 off){
-  p +=off;
-  return circ(p,r);
+float circle_1(vec2 st,float radius) {
+return length(st)*radius;
 }
-void from_255(inout vec3 rgb){rgb/=255.0;}
-vec3 alt(in vec2 pos,vec3 color,pa a){
-  pos=pos.yx*pos.yx*0.5;
-  pos=abs(sin(pos*0.8)*(wrap_time(u_time,4.0) + 2.0));
-  vec3 fill=vec3(1.0);
-  fill=vec3(33.0,55.0,164.0);
-  if (abs(a.n)>0.50){
-    fill=vec3(0.0,174.0,217.0);
-    from_255(fill);
-    fill=1.0-fill;
-  }
-  from_255(fill);
-  float r=1.0*abs(a.hp*a.lp + abs(a.n));
-  float mul=abs(sin(u_time));
-  float c00=place(pos,r,vec2(1.,-0.75));
-  float c01=place(pos,r,vec2(0.,-0.75));
-  float c02=place(pos,r,vec2(-1.,-0.75));
-  float c03=place(pos,r,vec2(-1.5,-0.75));
-  float c04=place(pos,r,vec2(1.5,-0.75));
-  float c10=place(pos,r*mul,vec2(1.,0.));
-  float c11=place(pos,r*mul,vec2(0.,0.));
-  float c12=place(pos,r*mul,vec2(-1.,0.));
-  float c13=place(pos,r*mul,vec2(-1.5,0.));
-  float c14=place(pos,r*mul,vec2(1.5,0.));
-  float c20=place(pos,r,vec2(1.,0.75));
-  float c21=place(pos,r,vec2(0.,0.75));
-  float c22=place(pos,r,vec2(-1.,0.75));
-  float c23=place(pos,r,vec2(-1.5,0.75));
-  float c24=place(pos,r,vec2(1.5,0.75));
-  color*=vec3(fract(c01*c03*c04));
-  color*=vec3(fract(c11)*c13*fract(c14));
-  color*=vec3(fract(c21*c23*c24));
-  color/=fill;
-  color=1.-color;
-  return color;
+float place(vec2 p,float r,vec2 off) {
+p+=off;
+return circle_1(p,r);
 }
-vec3 last_call(vec2 pos,float u_time,pa a){
-  vec3 c=vec3(1.0);
-  float mul=1.0;
-  a.lp*=mul;
-  a.hp*=mul;
-  a.bp*=mul;
-  a.n*=mul;
-  c=alt(pos,c,a);
-  c=1.-c;
-  return c;
+void from_255(inout vec3 rgb) {
+rgb/=255.0;
+}
+mat2 rotate2d(float theta) {
+return mat2(cos(theta),-sin(theta),sin(theta),cos(theta));
+}
+vec3 alternate(in vec2 pos,vec3 color) {
+pos=abs(sin(pos*5.5))+0.05;
+// pos=abs(sin(pos*2.8)*(wrap_time(u_time,30.0)*0.5+1.01));
+vec3 fill=vec3(1.0);
+fill=vec3(233.0,255.0,164.0);
+from_255(fill);
+if (abs(ntch)>0.4) {
+fill=vec3(200.0,174.0,117.0);
+from_255(fill);
+fill=1.0-fill;
+}
+fill.r*=abs(sin(u_time)+0.1);
+fill.g*=abs(cos(u_time)+0.4);
+float r=0.5*abs(hp*lp+abs(ntch));
+float r0=1.0*abs(hp*lp+abs(ntch));
+float mul=(clamp(sin(u_time*0.5),0.5,1.0)+0.05)*0.1;
+pos/=0.5;
+pos=rotate2d(tan(u_time)*3.14/5.0)*abs(tan(pos.yx))*pos;
+float play=1.5;
+float f0=abs(cos(u_time/0.3))+0.1;
+float c00=place(pos,r0,vec2(f0*1.0, f0*-0.75));
+float c01=place(pos,r,vec2(f0,f0*-0.75));
+float c02=place(pos,r0,vec2(f0*-2.0,f0*-0.75));
+float c03=place(pos,r,vec2(f0*-1.5,f0*-0.75));
+float c04=place(pos,r0,vec2(f0*1.5,f0*-0.75));
+float c10=place(pos,abs(sin(r*mul)),vec2(f0*0.5,play));
+float c11=place(pos*vec2(0.5),abs(sin(r*mul)),vec2(f0,play));
+float c12=place(pos,abs(sin(r*mul)),vec2(f0*-0.5,play));
+float c13=place(pos*vec2(0.5),abs(sin(r*mul)),vec2(f0*-.3,play));
+float c14=place(pos,abs(sin(r*mul)),vec2(f0*1.5, play));
+float c20=place(pos*vec2(0.5),r,vec2(f0*1.0, f0*0.75));
+float c21=place(pos,r,vec2(f0*0.2, f0*0.75));
+float c22=place(pos,r,vec2(f0*0.2, f0*1.75));
+float c23=place(pos*vec2(0.5),r,vec2(f0*-1.0,f0*0.75));
+float c24=place(pos,r,vec2(f0*0.5, f0*0.5));
+color*=vec3((c01*c02*c03/c04));
+color/=vec3(c01/(c11)*c13/(c14));
+color*=vec3((c20*c21*c23*c24));
+color*=fill;
+color=1.0-color;
+return color;
+}
+vec3 its_voodoo(vec2 pos) {
+vec3 color=vec3(1.0);
+color=alternate(pos,color);
+color=1.0-color;
+return color;
 }
