@@ -48,7 +48,8 @@ float shape_border(vec2 pos, float radius, float width, float u_time, peakamp au
   return shape(pos, radius, u_time, audio) - shape(pos, radius - width, u_time, audio);
 }
 
-void misx_11(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+vec3 misx_11(vec2 pos, float u_time, peakamp audio) {
+  vec3 color = vec3(1.0);
   audio.lowpass   *= 0.1;
   audio.highpass  *= 1.0;
   audio.bandpass  *= 2.0;
@@ -68,5 +69,6 @@ void misx_11(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   // color.r *= audio.lowpass * 1.0;
 
   // color = 1.0 - color;
+  return color;
 }
 #endif
