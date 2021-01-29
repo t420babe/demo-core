@@ -1,4 +1,4 @@
-// #effect #fav5 #shadershoot
+// #effect #fav3 #shadershoot
 #ifndef T420BABE_FUR_08
 #define T420BABE_FUR_08
 
@@ -37,7 +37,8 @@ float rectangle(in vec2 pos, in vec2 origin, in vec2 dim) {
   return onblock.x * onblock.y * offblock.x * offblock.y;
 }
 
-void fur_08(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+vec3 fur_08(vec2 pos, float u_time, peakamp audio) {
+  vec3 color = vec3(1.0);
   audio.lowpass   *= 1.5;
   audio.highpass  *= 1.5;
   audio.bandpass  *= 1.5;
@@ -57,8 +58,7 @@ void fur_08(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   // color.r *= abs(audio.lowpass) * 2.0;
   // color.r *= abs(sin(u_time * audio.highpass));
 
-
+  return color;
 }
-
 #endif
 
