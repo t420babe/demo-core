@@ -1,4 +1,4 @@
-// #effect #fav5 #shadershoot #needssong
+// #effect #fav4 #shadershoot #needssong
 #ifndef T420BABE_FUR_12
 #define T420BABE_FUR_12
 
@@ -42,7 +42,8 @@ float rectangle(in vec2 pos, in vec2 origin, in vec2 dim) {
 }
 
 
-void fur_12(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+vec3 fur_12(vec2 pos, float u_time, peakamp audio) {
+  vec3 color = vec3(1.0);
   audio.lowpass   *= 1.5;
   audio.highpass  *= 1.5;
   audio.bandpass  *= 1.5;
@@ -62,6 +63,7 @@ void fur_12(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
 
   // color = 0.5 - color;
 
+  return color;
 }
 
 #endif
