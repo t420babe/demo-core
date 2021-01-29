@@ -1,4 +1,4 @@
-// #effect #shadershoot #fav5
+// #effect #shadershoot #faveffect3
 #ifndef T420BABE_DESTINED_04
 #define T420BABE_DESTINED_04
 
@@ -8,6 +8,10 @@
 
 #ifndef COMMON_PLOT
 #include "./lib/common/plot.glsl"
+#endif
+
+#ifndef COMMON_PERMUTE
+#include "./lib/common/permute.glsl"
 #endif
 
 float circle(vec2 _pos, float _radius){
@@ -151,10 +155,10 @@ void say_nothing_none(vec2 pos, float u_time, peakamp audio, out vec3 color) {
 #endif
 /* T420BABE_SHARP_HEART END */
 
-// Permutation polynomial: (34x^2 + x) mod 289
-vec3 permute(vec3 x) {
-  return mod((34.0 * x + 1.0) * x, 289.0);
-}
+// // Permutation polynomial: (34x^2 + x) mod 289
+// vec3 permute(vec3 x) {
+//   return mod((34.0 * x + 1.0) * x, 289.0);
+// }
 
 
 // Cellular noise, returning F1 and F2 in a vec2.
@@ -211,7 +215,8 @@ float cellular_2d(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   return n;
 }
 
-void destined_04(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+vec3 destined_04(vec2 pos, float u_time, peakamp audio) {
+  vec3 color = vec3(1.0);
   vec3 n_color;
   audio.notch     *= 1.5;
   audio.lowpass   *= 1.5;
@@ -226,5 +231,6 @@ void destined_04(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   // color *= clamp(damier_color, 2.5, 10.0);
   // color *= damier_color;
   // color += 0.05;
+  return color;
 }
 #endif
