@@ -20,6 +20,10 @@
 #include "./lib/common/plot.glsl"
 #endif
 
+#ifndef PXL_ROTATE
+#include "./lib/pxl/rotate-sdf.glsl"
+#endif
+
 float circle_1(vec2 st, float radius) {
     return length(st) * radius;
 }
@@ -47,10 +51,6 @@ vec3 four_dots(vec2 pos, vec3 color, peakamp audio) {
 
 void from_255(inout vec3 rgb) {
   rgb /= 255.0;
-}
-
-mat2 rotate2d(float theta) {
-  return mat2(cos(theta), -sin(theta), sin(theta), cos(theta));
 }
 
 vec3 alternate(in vec2 pos, vec3 color, peakamp audio) {

@@ -31,6 +31,10 @@
 #include  "lib/common/noise.glsl"
 #endif
 
+#ifndef PXL_ROTATE
+#include "./lib/pxl/rotate-sdf.glsl"
+#endif
+
 
 float misx_27_shape(vec2 pos, float radius, float u_time, peakamp audio) {
   float r = length(pos / audio.highpass * 5.0);
@@ -59,9 +63,6 @@ float shape_border(vec2 pos, float radius, float width, float u_time, peakamp au
   return misx_27_shape(pos, radius, u_time, audio) - misx_27_shape(pos, radius - width, u_time, audio);
 }
 
-mat2 rotate2d(float theta){
-    return mat2(cos(theta), -sin(theta), sin(theta), cos(theta));
-}
 
 vec3 misx_27(vec2 pos, float u_time, peakamp audio) {
   u_time = wrap_time(u_time * 0.5, 20.0) + 1.0;
