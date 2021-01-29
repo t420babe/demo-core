@@ -85,7 +85,8 @@ float wbl_hexagon_now(vec2 pos, float size, peakamp audio) {
   return hexagon;
 }
 
-void misx_23(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+vec3 misx_23(vec2 pos, float u_time, peakamp audio) {
+  vec3 color = vec3(1.0);
   audio.lowpass   *= 1.0;
   audio.highpass  *= 1.0;
   audio.bandpass  *= 1.0;
@@ -114,5 +115,6 @@ void misx_23(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   color = vec3(0.1457, 0.234, 0.187) - color;
 
   color = 1.0 - color;
+  return color;
 }
 #endif
