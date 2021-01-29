@@ -14,7 +14,12 @@
 #include "./lib/common/permute.glsl"
 #endif
 
-float circle(vec2 _pos, float _radius){
+
+#ifndef PXL_CIRCLE
+#include "./lib/pxl/circle-sdf.glsl"
+#endif
+
+float destined_04_circle(vec2 _pos, float _radius){
   vec2 pos = vec2(0.5) - _pos;
   // _radius *= tan(u_time * 0.1) * -0.10;
   _radius *= 1.0 / cos(pos.x * pos.y) * sin(u_time);
@@ -37,10 +42,10 @@ vec3 damier(vec2 pos, float u_time) {
   pos *= zoom;
   pos.y += 0.5;
   pos.x += 0.5;
-  color -= vec3(circle(pos + vec2(0.,0.1), 1.000)+
-                    circle(pos+vec2(0.00,-0.1), 1.000)+
-                    circle(pos+vec2(-0.1,0.), -1.000)+
-                    circle(pos+vec2(0.1,0), 0.007));
+  color -= vec3(destined_04_circle(pos + vec2(0.,0.1), 1.000)+
+                    destined_04_circle(pos+vec2(0.00,-0.1), 1.000)+
+                    destined_04_circle(pos+vec2(-0.1,0.), -1.000)+
+                    destined_04_circle(pos+vec2(0.1,0), 0.007));
 
   return color;
 }
