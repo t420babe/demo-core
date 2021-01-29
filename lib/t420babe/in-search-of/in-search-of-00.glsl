@@ -1,3 +1,4 @@
+// #fav5
 #ifndef T420BABE_IN_SEARCH_OF_00
 #define T420BABE_IN_SEARCH_OF_00
 
@@ -9,22 +10,14 @@
 #include "./lib/common/plot.glsl"
 #endif
 
+#ifndef COMMON_PERMUTE
+#include "./lib/common/permute.glsl"
+#endif
+
 #ifndef COMMON_MATH_CONSTANTS
 #include "./lib/common/math-constants.glsl"
 #endif
 
-// Cellular noise ("Worley noise") in 3D in GLSL.
-// Copyright (c) Stefan Gustavson 2011-04-19. All rights reserved.
-// This code is released under the conditions of the MIT license.
-// See LICENSE file for details.
-
-// Permutation polynomial: (34x^2 + x) mod 289
-vec4 permute(vec4 x) {
-  return mod((34.0 * x + 1.0) * x, 289.0);
-}
-vec3 permute(vec3 x) {
-  return mod((34.0 * x + 1.0) * x, 289.0);
-}
 
 // Cellular noise, returning F1 and F2 in a vec2.
 // Speeded up by using 2x2x2 search window instead of 3x3x3,
@@ -109,14 +102,6 @@ vec2 cellular2x2(vec2 P) {
   vec4 d = dx * dx + dy * dy;
 
   // Sort out the two smallest distances
-  #if 0
-    // Cheat and pick only F1
-    d.yx = max(d.wy, d.zw);
-    d.x = min(d.x, d.y);
-
-    return d.xx;                // F1 duplicated, F2 not computed
-
-  #else
     // Do it right and find both F1 and F2
     d.xy = (d.x < d.y) ? d.xy : d.yx; // Swap if smaller
     d.xz = (d.x < d.z) ? d.xz : d.zx;
@@ -126,54 +111,8 @@ vec2 cellular2x2(vec2 P) {
     d.y = min(d.y, d.w);
 
     return tan(d.xy);
-  #endif
-
 }
 
-float random (in float x) {
-    return fract(sin(x)*1e4);
-}
-
-float random (in vec2 st) {
-    return fract(sin(dot(st.xy, vec2(12.9898,78.233)))* 43758.5453123);
-}
-
-float randomSerie(float x, float freq, float t) {
-    return step(.8,random( floor(x*freq)-floor(t) ));
-}
-
-vec3 ikeda(vec2 pos, float time) {
-    float cols = 1.5;
-    // float freq = random(floor(time)) + abs(atan(time) * 0.1);
-    // float freq = random(floor(time));
-    float freq = 1.0;
-    float t = 60. + time * (1.0 - freq) * 30.;
-
-    if (fract(cols * 0.5) < 0.5){
-        t *= -1.0;
-    }
-    t = 60.0;
-
-    // freq += random(floor(pos.y));
-
-    float offset = 0.025;
-    return vec3(randomSerie(sin(pos.x), freq * 100.0, t + offset),
-                 randomSerie(tan(pos.x), freq * 100.0, t),
-                 randomSerie(cos(pos.x), freq * 100.0, t - offset));
-
-}
-
-#ifdef GL_OES_standard_derivatives
-#extension GL_OES_standard_derivatives : enable
-#endif
-float aastep(float threshold, float value) {
-    #ifdef GL_OES_standard_derivatives
-    float afwidth = 0.7 * length(vec2(dFdx(value), dFdy(value)));
-    return smoothstep(threshold-afwidth, threshold+afwidth, value);
-    #else
-    return step(threshold, value);
-    #endif
-}
 
 float spiral_pxl(vec2 st, float t) {
     float r = dot(st.yx, st.yx);
