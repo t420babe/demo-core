@@ -1,7 +1,7 @@
-// #effect #effectshape #fav5 #shadershoot #corey #needsvid
+// #effect #effectmisx_15_shape #fav3 #shadershoot #corey #needsvid
 // ENG98 - Extended Mix by Monki
-#ifndef T420BABE_MISX_06
-#define T420BABE_MISX_06
+#ifndef T420BABE_MISX_15
+#define T420BABE_MISX_15
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -23,7 +23,7 @@
 #include "./lib/t420babe/vortex-contour.glsl"
 #endif
 
-float shape(vec2 pos, float radius, float u_time, peakamp audio) {
+float misx_15_shape(vec2 pos, float radius, float u_time, peakamp audio) {
   float r = length(pos / audio.highpass);
   // float r = length(pos) * 2.0;
   // float theta = atan(pos.y, pos.x);
@@ -46,26 +46,27 @@ float shape(vec2 pos, float radius, float u_time, peakamp audio) {
   // return tt;
 }
 
-float shape_border(vec2 pos, float radius, float width, float u_time, peakamp audio) {
-  return shape(pos, radius, u_time, audio) - shape(pos, radius - width, u_time, audio);
+float misx_15_shape_border(vec2 pos, float radius, float width, float u_time, peakamp audio) {
+  return misx_15_shape(pos, radius, u_time, audio) - misx_15_shape(pos, radius - width, u_time, audio);
 }
 
-void misx_06(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+vec3 misx_15(vec2 pos, float u_time, peakamp audio) {
+  vec3 color = vec3(1.0);
   audio.lowpass   *= 1.0;
   audio.highpass  *= 1.0;
   audio.bandpass  *= 1.0;
   audio.notch     *= 1.0;
 
-  // shape_color_border(pos, 1.0, 0.10, u_time, audio, color);
+  // misx_15_shape_color_border(pos, 1.0, 0.10, u_time, audio, color);
 
   // // Color 0
-  // color /= shape_border(pos, 1.0, 0.10, u_time, audio);
+  // color /= misx_15_shape_border(pos, 1.0, 0.10, u_time, audio);
   // color.r /= sin(audio.lowpass * 0.5);
   // color.b *= audio.lowpass * 1.0;
 
   // Color 0
   color.b += audio.lowpass * 1.0;
-  color *= shape_border(pos, 3.0, 0.01, u_time, audio);
+  color *= misx_15_shape_border(pos, 3.0, 0.01, u_time, audio);
   color.b *= abs(audio.highpass) * 1.0;
   // color.r *= audio.lowpass * 1.0;
   // color.r -= audio.lowpass * 1.0;
@@ -74,5 +75,6 @@ void misx_06(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   // color = vec3(0.843, 0.6243, 0.645) - color;
   // color = vec3(0.943, 0.5243, 0.145) - color;
   color = vec3(0.843, 0.6243, 0.645) - color;
+  return color;
 }
 #endif
