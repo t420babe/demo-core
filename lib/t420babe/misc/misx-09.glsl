@@ -1,4 +1,4 @@
-// #effect #effectshape #fav5 #shadershoot #corey
+// #effect #effectmisx_09_shap #fav5 #shadershoot #corey
 #ifndef T420BABE_MISX_09
 #define T420BABE_MISX_09
 
@@ -22,7 +22,7 @@
 #include "./lib/t420babe/vortex-contour.glsl"
 #endif
 
-float shape(vec2 pos, float radius, float u_time, peakamp audio) {
+float misx_09_shap(vec2 pos, float radius, float u_time, peakamp audio) {
   float r = length(pos / audio.highpass);
   // float r = length(pos) * 2.0;
   // float theta = atan(pos.y, pos.x);
@@ -44,29 +44,31 @@ float shape(vec2 pos, float radius, float u_time, peakamp audio) {
   // return tt;
 }
 
-float shape_border(vec2 pos, float radius, float width, float u_time, peakamp audio) {
-  return shape(pos, radius, u_time, audio) - shape(pos, radius - width, u_time, audio);
+float misx_09_shap_border(vec2 pos, float radius, float width, float u_time, peakamp audio) {
+  return misx_09_shap(pos, radius, u_time, audio) - misx_09_shap(pos, radius - width, u_time, audio);
 }
 
-void misx_09(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+vec3  misx_09(vec2 pos, float u_time, peakamp audio) {
+  vec3 color = vec3(1.0);
   audio.lowpass   *= 0.1;
   audio.highpass  *= 1.0;
   audio.bandpass  *= 2.0;
   audio.notch     *= 1.0;
 
-  // shape_color_border(pos, 1.0, 0.10, u_time, audio, color);
+  // misx_09_shap_color_border(pos, 1.0, 0.10, u_time, audio, color);
 
   // Color 0
   // color.b += audio.lowpass * 2.0;
-  color *= shape_border(pos, 1.0, 0.10, u_time, audio);
+  color *= misx_09_shap_border(pos, 1.0, 0.10, u_time, audio);
   color.g *= audio.lowpass * 2.0;
 
   // // Color 0
   // color.g += audio.lowpass * 2.0;
-  // color *= shape_border(pos, 1.0, 0.01, u_time, audio);
+  // color *= misx_09_shap_border(pos, 1.0, 0.01, u_time, audio);
   // color.g *= audio.lowpass * 2.0;
   // color.r *= audio.lowpass * 1.0;
 
   // color = 1.0 - color;
+  return color;
 }
 #endif
