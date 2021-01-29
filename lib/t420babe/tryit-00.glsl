@@ -1,4 +1,4 @@
-// #effect #fav5 #shadershoot
+// #effect #fav1 #shadershoot
 #ifndef T420BABE_TRYIT_00
 #define T420BABE_TRYIT_00
 #ifndef T420BABE_TRYIT_01
@@ -46,7 +46,8 @@ float circle_1(vec2 st, float radius) {
 }
 #endif
 
-void tryit_00(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+vec3 tryit_00(vec2 pos, float u_time, peakamp audio) {
+  vec3 color = vec3(1.0);
   pos /= 1.5;
   pos.y -= 0.5;
   color = vec3(0.435, 0.9854, 0.9208);
@@ -64,6 +65,7 @@ void tryit_00(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   // color /= c_pct;
   // color /= zz_color;
 
+  return color;
 }
 
 
