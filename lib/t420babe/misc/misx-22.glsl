@@ -1,4 +1,4 @@
-// #effect #effectshape #fav5 #shadershoot #corey #needsvid #igloorave
+// #effect #effectmisx_22_shape #faveffect4 #shadershoot #corey #needsvid #igloorave
 #ifndef T420BABE_MISX_22
 #define T420BABE_MISX_22
 
@@ -130,7 +130,8 @@ float rays_audio(vec2 st, int N, peakamp audio) {
     return log(atan(st.x,st.y) * audio.notch * 1.01 /TWO_PI*float(N));
 }
 
-void misx_22(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+vec3 misx_22(vec2 pos, float u_time, peakamp audio) {
+  vec3 color = vec3(1.0);
   audio.lowpass   *= 1.0;
   audio.highpass  *= 1.0;
   audio.bandpass  *= 1.0;
@@ -158,4 +159,5 @@ void misx_22(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   color = vec3(0.5457, 0.934, 0.587) - color;
 
   // color = 1.0 - color;
+  return color;
 }
