@@ -79,7 +79,7 @@ vec3 alternate(in vec2 pos, vec3 color, peakamp audio) {
 
 vec3 lights_14(vec2 pos, float u_time, peakamp audio) {
   vec3 color = vec3(1.0);
-  float mul = 0.8;
+  float mul = 2.8;
   audio.lowpass   *= mul;
   audio.highpass  *= mul;
   audio.bandpass  *= mul;
