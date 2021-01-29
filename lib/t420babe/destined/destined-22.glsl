@@ -1,4 +1,4 @@
-// #effect #effectshape #shadershoot #fav5
+// #effect #effectshape #shadershoot #fav4
 #ifndef T420BABE_DESTINED_22
 #define T420BABE_DESTINED_22
 
@@ -8,6 +8,10 @@
 
 #ifndef COMMON_PLOT
 #include "./lib/common/plot.glsl"
+#endif
+
+#ifndef COMMON_PERMUTE
+#include "./lib/common/permute.glsl"
 #endif
 
 float circle(vec2 _pos, float _radius){
@@ -171,10 +175,6 @@ void say_nothing_none(vec2 pos, float u_time, peakamp audio, out vec3 color) {
 #endif
 /* T420BABE_SHARP_HEART END */
 
-// Permutation polynomial: (34x^2 + x) mod 289
-vec3 permute(vec3 x) {
-  return mod((34.0 * x + 1.0) * x, 289.0);
-}
 
 vec2 cellular(vec3 P) {
 #define K 0.142857142857 // 1/7
@@ -355,7 +355,8 @@ float triangle_0(vec2 st) {
     return r;
 }
 
-void destined_22(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+vec3 destined_22(vec2 pos, float u_time, peakamp audio) {
+  vec3 color = vec3(1.0);
   float tri = triangle_0(pos);
   float circ = circle_1(pos, 0.5);
 
@@ -384,5 +385,6 @@ void destined_22(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   // color = 1.0 - color;
   // color = color.brg;
   // color = color.grb;
+  return color;
 }
 #endif
