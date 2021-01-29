@@ -32,11 +32,11 @@
 #endif
 
 
-float misx_06_shape(vec2 pos, float radius, float u_time, peakamp audio) {
-  float r = length(pos / audio.highpass * 3.0);
+float misx_26_shape(vec2 pos, float radius, float u_time, peakamp audio) {
+  float r = length(pos / audio.highpass * 5.0);
   // float r = length(pos) * 2.0;
   // float theta = atan(pos.y, pos.x);
-  float theta = pos.y  * pos.x + audio.notch * 1.0;
+  float theta = pos.y  * pos.x + audio.notch * 30.0;
   float m = abs( mod( theta + u_time * 2.0, 3.14 * 2.0) - 3.14 ) / (3.14 * 2.0);
   float f = radius;
   float f1 = radius;
@@ -46,7 +46,7 @@ float misx_06_shape(vec2 pos, float radius, float u_time, peakamp audio) {
   // f += noise(pos + u_time * 1.0) * 0.1;
   // f1 /= (theta * 50.0) * noise(pos + u_time * 1.0) * 0.05 * audio.bandpass;
   // f1 += sin(theta * 20.0) * 0.1 * pow(m, 2.0);
-  f1 = vc(pos, u_time, audio);
+  f1 = vc(pos, u_time, audio) * 0.1;
 
   // return 1.0 - smoothstep(f, f + 0.007, r);
   // return 1.0 - smoothstep(f, f + 0.507, r) / fwidth(f1);
@@ -56,7 +56,7 @@ float misx_06_shape(vec2 pos, float radius, float u_time, peakamp audio) {
 }
 
 float shape_border(vec2 pos, float radius, float width, float u_time, peakamp audio) {
-  return misx_06_shape(pos, radius, u_time, audio) - misx_06_shape(pos, radius - width, u_time, audio);
+  return misx_26_shape(pos, radius, u_time, audio) - misx_26_shape(pos, radius - width, u_time, audio);
 }
 
 mat2 rotate2d(float theta){
@@ -72,8 +72,9 @@ vec3 misx_26(vec2 pos, float u_time, peakamp audio) {
   audio.bandpass  = 1.0 * abs(audio.bandpass);
   audio.notch     = 1.0 * abs(audio.notch);
   // pos = pos.yx;
-  pos *= 0.7;
-  pos = rotate2d(sin(u_time * pos.x) * 10.14 / 1.0) * pos * 0.5;
+  pos *= 0.55;
+  pos = rotate2d(sin(u_time * pos.x) * 3.14  * 2.0) * pos * 0.6;
+  // pos = rotate2d(sin(u_time * pos.x) * 3.14 / 1.25) * pos * 0.6;
 
   // shape_color_border(pos, 1.0, 0.10, u_time, audio, color);
 
