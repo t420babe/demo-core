@@ -81,7 +81,7 @@ float iso_06_spiral_pxl(vec2 st, float t) {
 }
 
 vec3 iso_06(vec2 pos, float u_time, peakamp audio) {
-  // u_time += 100.0;
+  // u_time -= 260.0;
   vec3 color = vec3(1.0);
   audio.lowpass   *= 0.8;
   audio.highpass  *= 0.8;
