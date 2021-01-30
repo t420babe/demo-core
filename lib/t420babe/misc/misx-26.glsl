@@ -71,35 +71,17 @@ vec3 misx_26(vec2 pos, float u_time, peakamp audio) {
   audio.highpass  = 1.0 * abs(audio.highpass);
   audio.bandpass  = 1.0 * abs(audio.bandpass);
   audio.notch     = 1.0 * abs(audio.notch);
-  // pos = pos.yx;
   pos *= 0.55;
   pos = rotate2d(sin(u_time * pos.x) * 3.14  * 2.0) * pos * 0.6;
-  // pos = rotate2d(sin(u_time * pos.x) * 3.14 / 1.25) * pos * 0.6;
 
-  // shape_color_border(pos, 1.0, 0.10, u_time, audio, color);
-
-  // // Color 0
-  // color /= shape_border(pos, 1.0, 0.10, u_time, audio);
-  // color.r /= sin(audio.lowpass * 0.5);
-  // color.b *= audio.lowpass * 1.0;
-
-  // Color 0
   color.b += audio.lowpass * 5.0;
   color *= shape_border(pos, 3.0, 0.01, u_time, audio);
   color.b *= audio.highpass * 1.0;
-  // color.r *= audio.lowpass * 1.0;
-  // color.r -= audio.lowpass * 1.0;
-
-  // color = vec3(0.843, 0.6243, 0.245) - color;
-  // color = vec3(0.843, 0.6243, 0.645) - color;
-  // color = vec3(0.943, 0.5243, 0.145) - color;
-  // color = vec3(0.543, 0.5243, 0.845) - color;
   color *= vec3(0.543, 0.5243, 0.845);
   color = color.gbr;
   color.r *= audio.notch;
   color.g *= audio.bandpass;
 
-  // color = 1.0 - color;
   return color;
 }
 #endif
