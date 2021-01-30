@@ -48,7 +48,7 @@ vec2 ios_08_cellular2x2x2(vec3 P) {
 	vec4 d2 = dx2 * dx2 + dy2 * dy2 + dz2 * dz2; // z+1
 
 	// Sort out the two smallest distances (F1, F2)
-#if 0
+#if 1
 	// Cheat and sort out only F1
 	d1 = min(d1, d2);
 	d1.xy = min(d1.xy, d1.wz);
@@ -100,7 +100,7 @@ vec3 iso_08(vec2 pos, float u_time, peakamp audio) {
   color.b *=  2.5 * abs(audio.highpass);
   color -= (1.0 - n * 1.5);
   color = vec3(0.1, 0.5, 1.1) * color;
-  // color = 0.8 - color;
+  // color = 0.5 - color;
 
   return color;
 }

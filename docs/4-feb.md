@@ -1,5 +1,69 @@
 
 
+
+# BEN BOHMER SET
+00:00 Ben Böhmer-ID
+6:31 ID - ID 
+10:57 Monolink- Father Ocean (Ben Böhmer Remix) 
+
+16:28 Ben Böhmer- After Earth
+iso-01, iso-02, iso-05
+
+23:03 Ben Böhmer- Maelstrom
+iso-17
+
+27:59 Ben Böhmer&Romain Garcia- Cappadocia
+
+33:00 Pryda-SOL (Ben Böhmer Remix) [unreleased]
+iso-03
+iso-04
+
+37:00 Ben Böhmer- Zeit & Raum
+42:01 Spencer Brown&Ben Böhmer- Phases
+iso-06. excellent. needs some work to always make it look watery. modify the time to be low.
+
+maybe use, the colors change a lot with this song: iso-15 - some indescribable shape, mint green
+
+46:59 Ben Böhmer& Nils Hofmann ft. Malou- Breathing
+maybe iso-16? 
+
+52:30 Worakls- Red dressed (Ben Böhmer Remix)
+57:00 Ben Böhmer- In Memorian
+
+1:03:00 Ben Böhmer- Flug&Fall
+iso-07, start @0.0,  try to make time=0.0 @ 1:04:58
+
+1:09:00 Ben Böhmer- Little lights 
+
+
+all the isos need to prevent time from getting too small
+in-search-of-01
+in-search-of-02, simliar to 01, use as an easy transition
+iso-17, same as 02 but uses different dim sort. use this in conjuntion with the 01 and 02? change colors more?
+
+
+iso-08 - really pretty colors
+iso-09 - really pretty colors
+iso-10
+
+iso-11 - middle square now
+iso-12 - dancing vagina
+iso-13
+iso-14 - flower
+iso-14 - flower alt
+iso-15 - some indescribable shape, mint green
+iso-16 - some indescribable shape, purple
+
+misx-26
+
+# TODOS
+- fix timing on all iso's
+- play with iso's sort distance algos
+
+
+
+
+# FUCK THIS DO BEN BOHMER SET
 ## Set
 I Quit
 Coming Your Way by Andre Lodemann
