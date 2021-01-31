@@ -55,6 +55,12 @@ iso-15 - some indescribable shape, mint green
 iso-16 - some indescribable shape, purple
 
 misx-26
+nye-2021-01 + 02
+nye-2021-24
+nye-2021-25
+
+nye-2021-03 -> nye-2021-26 - real good transition here
+ 
 
 # TODOS
 - fix timing on all iso's

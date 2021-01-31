@@ -97,6 +97,30 @@ uniform float u_at;
 #include "./lib/t420babe/in-search-of/iso-17.glsl"
 #endif
 
+#ifndef T420BABE_NYE_2021_01
+#include "./lib/t420babe/nye2021/nye-2021-01.glsl"
+#endif
+
+#ifndef T420BABE_NYE_2021_02
+#include "./lib/t420babe/nye2021/nye-2021-02.glsl"
+#endif
+
+#ifndef T420BABE_NYE_2021_03
+#include "./lib/t420babe/nye2021/nye-2021-03.glsl"
+#endif
+
+#ifndef T420BABE_NYE_2021_24
+#include "./lib/t420babe/nye2021/nye-2021-24.glsl"
+#endif
+
+#ifndef T420BABE_NYE_2021_25
+#include "./lib/t420babe/nye2021/nye-2021-25.glsl"
+#endif
+
+#ifndef T420BABE_NYE_2021_26
+#include "./lib/t420babe/nye2021/nye-2021-26.glsl"
+#endif
+
 void main(void) {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
@@ -105,14 +129,13 @@ void main(void) {
   vec3 color_1 = vec3(1.0);
 
   // color_0 = in_search_of_01(pos, u_at, audio);
-  color_0 = iso_07(pos, u_at, audio);
-  color_1 = iso_16(pos, u_at, audio);
+  color_0 = nye_2021_03(pos, u_at, audio);
+  color_1 = nye_2021_26(pos, u_at, audio);
 
   float start = 00.0;
   float end = 20.0;
-  // color = mix(color_1, color_0, trans(u_at, start, end));
+  color = mix(color_1, color_0, trans(u_at, start, end));
 
-  color = color_1;
 
 	gl_FragColor = vec4(color, 1.0);
 }
