@@ -58,8 +58,11 @@ misx-26
 nye-2021-01 + 02
 nye-2021-24
 nye-2021-25
+nye-2021-26 + 27 + 28 + 29
 
 nye-2021-03 -> nye-2021-26 - real good transition here
+nye-2021-04
+nye-2021-05 real good, fun one
  
 
 # TODOS

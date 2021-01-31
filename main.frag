@@ -1,5 +1,3 @@
-// check out phish visuals/lights, flaming lips, 9 inch nails, lcd sound system
-// lights 02
 #ifdef GL_ES
 precision highp float;
 #endif
@@ -109,6 +107,14 @@ uniform float u_at;
 #include "./lib/t420babe/nye2021/nye-2021-03.glsl"
 #endif
 
+#ifndef T420BABE_NYE_2021_04
+#include "./lib/t420babe/nye2021/nye-2021-04.glsl"
+#endif
+
+#ifndef T420BABE_NYE_2021_05
+#include "./lib/t420babe/nye2021/nye-2021-05.glsl"
+#endif
+
 #ifndef T420BABE_NYE_2021_24
 #include "./lib/t420babe/nye2021/nye-2021-24.glsl"
 #endif
@@ -129,8 +135,8 @@ void main(void) {
   vec3 color_1 = vec3(1.0);
 
   // color_0 = in_search_of_01(pos, u_at, audio);
-  color_0 = nye_2021_03(pos, u_at, audio);
-  color_1 = nye_2021_26(pos, u_at, audio);
+  color_0 = nye_2021_04(pos, u_at, audio);
+  color_1 = nye_2021_05(pos, u_at, audio);
 
   float start = 00.0;
   float end = 20.0;

@@ -18,7 +18,7 @@
 #include "./lib/common/noise.glsl"
 #endif
 
-vec2 nye_2021_04_hills_spherical_vortex(vec2 pos, float u_time) {
+vec2 nye_2021_04_hsv(vec2 pos, float u_time) {
   float a = 1.0;
   float u_0 = 10.0;
   float A = 15.0 / 2.0 * u_0 * 1.0 / pow(a, 2.0);
@@ -30,9 +30,8 @@ vec2 nye_2021_04_hills_spherical_vortex(vec2 pos, float u_time) {
 }
 
 float nye_2021_04_vc_nyc(vec2 pos, float u_time, peakamp audio) {
-  // pos = pos.xx;
   pos.x += 5.0;
-  vec2 uv_int = nye_2021_04_hills_spherical_vortex(pos, u_time);
+  vec2 uv_int = nye_2021_04_hsv(pos, u_time);
   float z = (5.0 * uv_int.x + 1.0 * uv_int.y) / 5.0 + 2.0;
 
   float time_wrap = wrap_time(u_time, 10.0);
@@ -40,13 +39,13 @@ float nye_2021_04_vc_nyc(vec2 pos, float u_time, peakamp audio) {
   float d = fract(z * 5.0);
   if(mod(z, 2.0) > 1.0) d = 1.0 -d;
 
-  d = d / fwidth(z);
+  // d = d / fwidth(z);
   // d = (d);
   return d;
 }
 
 
-float nye_2021_04_shape(vec2 pos, float radius, float u_time, peakamp audio) {
+float shape(vec2 pos, float radius, float u_time, peakamp audio) {
   float r = length(pos / audio.highpass);
   // float r = length(pos) * 2.0;
   // float theta = atan(pos.y, pos.x);
@@ -65,37 +64,39 @@ float nye_2021_04_shape(vec2 pos, float radius, float u_time, peakamp audio) {
   return 1.0 - sharp(smoothstep(f1, f + 1.007, r) );
 }
 
-float nye_2021_04_shape_border(vec2 pos, float radius, float width, float u_time, peakamp audio) {
-  return nye_2021_04_shape(pos, radius, u_time, audio) - nye_2021_04_shape(pos, radius - width, u_time, audio);
+float shape_border(vec2 pos, float radius, float width, float u_time, peakamp audio) {
+  return shape(pos, radius, u_time, audio) - shape(pos, radius - width, u_time, audio);
 }
 
 vec3 nye_2021_04(vec2 pos, float u_time, peakamp audio) {
+  pos = -pos.yx;
   vec3 color = vec3(1.0);
-  audio.lowpass   *= 1.0;
-  audio.highpass  *= 1.0;
-  audio.bandpass  *= 1.0;
-  audio.notch     *= 1.0;
+  audio.lowpass   *= 2.0;
+  audio.highpass  *= 4.0;
+  audio.bandpass  *= 2.0;
+  audio.notch     *= 2.0;
 
-  // nye_2021_04_shape_color_border(pos, 1.0, 0.10, u_time, audio, color);
+  // shape_color_border(pos, 1.0, 0.10, u_time, audio, color);
 
   // Color 0
-  color.b += audio.lowpass * 2.0;
-  color *= nye_2021_04_shape_border(pos, 1.0, 0.50, u_time, audio);
+  // color.b += audio.lowpass * 2.0;
+  color *= shape_border(pos, 1.0, 0.50, u_time, audio);
   color.b *= abs(audio.lowpass * 2.0);
-  color.g -= abs(audio.lowpass * 2.0);
+  // color.g -= abs(audio.lowpass * 2.0);
 
   // color = color.bgr;
   //
   // Color 0
-  // // color.g += audio.lowpass * 2.0;
-  // color /= nye_2021_04_shape_border(pos * 0.8, 1.0, 5.10, u_time, audio);
-  // // color.b /= audio.lowpass * 1.0;
-  // color.b *= abs(audio.highpass) * 1.5;
-  // color.r /= abs(audio.notch) * 1.5;
+  // color.g += audio.lowpass * 2.0;
+  color /= shape_border(pos * 0.8, 1.0, 5.10, u_time, audio);
+  // color.b /= audio.lowpass * 1.0;
+  color.b *= abs(audio.highpass) * 1.5;
+  color.r *= abs(audio.notch) * 2.5;
   // color.b += abs(audio.lowpass) * 1.5 - 0.29234;
-  // // color = color.rbg;
+  // color = color.rbg;
 
-  // color = 1.0 - color;
+  // color += 0.2;
+  // color = 2.1 - color;
 
   return color;
 }
