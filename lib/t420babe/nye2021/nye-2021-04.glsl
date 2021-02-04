@@ -71,10 +71,10 @@ float nye_2021_04_shape_border(vec2 pos, float radius, float width, float u_time
 
 vec3 nye_2021_04(vec2 pos, float u_time, peakamp audio) {
   vec3 color = vec3(1.0);
-  audio.lowpass   *= 1.0;
-  audio.highpass  *= 1.0;
-  audio.bandpass  *= 1.0;
-  audio.notch     *= 1.0;
+  audio.lowpass   *= 2.0;
+  audio.highpass  *= 2.0;
+  audio.bandpass  *= 2.0;
+  audio.notch     *= 2.0;
 
   // nye_2021_04_shape_color_border(pos, 1.0, 0.10, u_time, audio, color);
 

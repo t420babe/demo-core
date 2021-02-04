@@ -25,7 +25,7 @@
 #include "./lib/common/noise.glsl"
 #endif
 
-vec3 xtc_nyc(vec2 pos, float u_time, peakamp audio) {
+vec3 nye_2021_20_xtc_nyc(vec2 pos, float u_time, peakamp audio) {
   // pos /= 6.0;
   // Vertical panels & "separator" line
   float panels = tan(TAU * pos.x);
@@ -48,7 +48,7 @@ vec3 xtc_nyc(vec2 pos, float u_time, peakamp audio) {
 
   return color;
 }
-vec2 hills_spherical_vortex(vec2 pos, float u_time) {
+vec2 nye_2021_20_hills_spherical_vortex(vec2 pos, float u_time) {
   float a = 1.0;
   float u_0 = 10.0;
   float A = 15.0 / 2.0 * u_0 * 1.0 / pow(a, 2.0);
@@ -59,12 +59,12 @@ vec2 hills_spherical_vortex(vec2 pos, float u_time) {
   return vec2(u_int, v_int);
 }
 
-float vc_nyc(vec2 pos, float u_time, peakamp audio) {
+float nye_2021_20_vc_nyc(vec2 pos, float u_time, peakamp audio) {
   pos = tan(fract(pos.yx) * cos(pos.xy));
   // pos  = pos.xx;
   pos.x += 5.0 * abs(tan(u_time * 0.5));
   pos.y -= 1.0 * abs(tan(u_time * 0.5));
-  vec2 uv_int = hills_spherical_vortex(pos, u_time);
+  vec2 uv_int = nye_2021_20_hills_spherical_vortex(pos, u_time);
   float z = (5.0 * uv_int.x + 1.0 * uv_int.y) / 5.0 + 2.0;
 
   float time_wrap = wrap_time(u_time, 20.0);
@@ -92,7 +92,7 @@ float shape(vec2 pos, float radius, float u_time, peakamp audio) {
   f += noise(pos + u_time * 1.0) * 0.1;
   // f1 /= (theta * 50.0) * noise(pos + u_time * 1.0) * 0.05 * audio.bandpass;
   // f1 += sin(theta * 20.0) * 0.1 * pow(m, 2.0);
-  f1 = vc_nyc(pos, u_time, audio);
+  f1 = nye_2021_20_vc_nyc(pos, u_time, audio);
 
   // return 1.0 - smoothstep(f1, f + 1.007, r) / fwidth(f1);
   return 1.0 - sharp(smoothstep(f1, f + 1.007, r) );
@@ -101,7 +101,7 @@ float shape(vec2 pos, float radius, float u_time, peakamp audio) {
 float shape_border(vec2 pos, float radius, float width, float u_time, peakamp audio) {
   return shape(pos, radius, u_time, audio) - shape(pos, radius - width, u_time, audio);
 }
-float noise_clouds (in vec2 _st) {
+float nye_2021_20_noise_clouds (in vec2 _st) {
     vec2 i = floor(_st);
     vec2 f = fract(_st);
 
@@ -127,7 +127,7 @@ float fbm ( in vec2 _st) {
     mat2 rot = mat2(cos(0.5), sin(0.5),
                     sin(0.5), tan(0.50));
     for (int i = 0; i < onum; ++i) {
-        v += a * noise_clouds(_st);
+        v += a * nye_2021_20_noise_clouds(_st);
         _st = rot * _st * 2.0 + shift;
         a *= 0.5;
     }
@@ -163,7 +163,7 @@ vec3 clouds(vec2 st, float u_time, peakamp audio) {
     return vec3((f*f*f+.6*f*f+.5*f)*color);
 }
 
-float circle_sdf(vec2 pos, float radius) {
+float nye_2021_20_circle_sdf(vec2 pos, float radius) {
     return length(pos) / radius;
 }
 
@@ -176,8 +176,8 @@ vec3 nye_2021_20(vec2 pos, float u_time, peakamp audio) {
   audio.notch     *= 1.0;
 
   // shape_color_border(pos, 1.0, 0.10, u_time, audio, color);
-  color = xtc_nyc(pos, u_time, audio);
-  color *= sin(circle_sdf(pos, 0.4 * abs(audio.notch)));
+  color = nye_2021_20_xtc_nyc(pos, u_time, audio);
+  color *= sin(nye_2021_20_circle_sdf(pos, 0.4 * abs(audio.notch)));
   color = 1.0 - color;
 
   // // Color 0

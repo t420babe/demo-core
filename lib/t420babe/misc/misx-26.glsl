@@ -31,6 +31,9 @@
 #include  "lib/common/noise.glsl"
 #endif
 
+#ifndef PXL_ROTATE
+#include "lib/pxl/rotate-sdf.glsl"
+#endif
 
 float misx_26_shape(vec2 pos, float radius, float u_time, peakamp audio) {
   float r = length(pos / audio.highpass * 5.0);
@@ -55,32 +58,32 @@ float misx_26_shape(vec2 pos, float radius, float u_time, peakamp audio) {
   // return tt;
 }
 
-float shape_border(vec2 pos, float radius, float width, float u_time, peakamp audio) {
+float misx_26_shape_border(vec2 pos, float radius, float width, float u_time, peakamp audio) {
   return misx_26_shape(pos, radius, u_time, audio) - misx_26_shape(pos, radius - width, u_time, audio);
 }
 
-mat2 rotate2d(float theta){
-    return mat2(cos(theta), -sin(theta), sin(theta), cos(theta));
-}
+// mat2 rotate2d(float theta){
+//     return mat2(cos(theta), -sin(theta), sin(theta), cos(theta));
+// }
 
 vec3 misx_26(vec2 pos, float u_time, peakamp audio) {
   u_time *= 0.5;
   vec3 color = vec3(1.0);
 
-  audio.lowpass   = 1.0 * abs(audio.lowpass);
-  audio.highpass  = 1.0 * abs(audio.highpass);
-  audio.bandpass  = 1.0 * abs(audio.bandpass);
-  audio.notch     = 1.0 * abs(audio.notch);
+  audio.lowpass   = 1.2 * abs(audio.lowpass);
+  audio.highpass  = 1.2 * abs(audio.highpass);
+  audio.bandpass  = 1.2 * abs(audio.bandpass);
+  audio.notch     = 1.2 * abs(audio.notch);
   pos *= 0.55;
   pos = rotate2d(sin(u_time * pos.x) * 3.14  * 2.0) * pos * 0.6;
 
-  color.b += audio.lowpass * 5.0;
-  color *= shape_border(pos, 3.0, 0.01, u_time, audio);
-  color.b *= audio.highpass * 1.0;
-  color *= vec3(0.543, 0.5243, 0.845);
+  color.b += audio.lowpass * 2.0;
+  color *= misx_26_shape_border(pos, 3.0, 0.01, u_time, audio);
+  color.b *= audio.highpass * 2.0;
+  // color *= vec3(0.543, 0.8243, 0.845);
   color = color.gbr;
-  color.r *= audio.notch;
-  color.g *= audio.bandpass;
+  color.r *= audio.notch * 1.5;
+  color.g *= audio.bandpass * 1.0;
 
   return color;
 }

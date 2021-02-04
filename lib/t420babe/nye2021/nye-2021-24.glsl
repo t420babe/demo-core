@@ -38,7 +38,7 @@ vec2 nye_2021_24_hsv(vec2 pos, float u_time) {
   return vec2(u_int, v_int);
 }
 
-float nye_2021_vc_nyc(vec2 pos, float u_time, peakamp audio) {
+float nye_2021_vc_24_nyc(vec2 pos, float u_time, peakamp audio) {
   pos = pos.yx;
   pos.x += 0.0;
   vec2 uv_int = nye_2021_24_hsv(pos, u_time);
@@ -67,7 +67,7 @@ float nye2021_24_shape(vec2 pos, float radius, float u_time, peakamp audio) {
   f += noise(pos + u_time * 1.0) * 0.1;
   // f1 /= (theta * 50.0) * noise(pos + u_time * 1.0) * 0.05 * audio.bandpass;
   // f1 += sin(theta * 20.0) * 0.1 * pow(m, 2.0);
-  f1 = nye_2021_vc_nyc(pos, u_time * 10.0, audio);
+  f1 = nye_2021_vc_24_nyc(pos, u_time * 10.0, audio);
 
   return 1.0 - smoothstep(f1, f + 1.007, r) / fwidth(f1);
   // return 1.0 - sharp(smoothstep(f1, f + 1.000, r) );
@@ -82,10 +82,10 @@ vec3 nye_2021_24(vec2 pos, float u_time, peakamp audio) {
   pos = pos.yx;
   vec2 st = pos;
   vec3 color = vec3(1.0);
-  audio.lowpass   *= 1.5;
-  audio.highpass  *= 1.5;
-  audio.bandpass  *= 1.5;
-  audio.notch     *= 1.5;
+  audio.lowpass   *= 2.5;
+  audio.highpass  *= 2.5;
+  audio.bandpass  *= 2.5;
+  audio.notch     *= 2.5;
 
   // Color 0
   color.b += audio.lowpass * 2.0;

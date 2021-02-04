@@ -63,7 +63,22 @@ nye-2021-26 + 27 + 28 + 29
 nye-2021-03 -> nye-2021-26 - real good transition here
 nye-2021-04
 nye-2021-05 real good, fun one
+
+nye-2021-06 + 07 REAL REAL good
+
+nye-2021-08
+nye-2021-09
+nye-2021-12
+nye-2021-13
+
+nye-2021-14 - best ones to just leave on, 25:26 haus set, good transition into 16, 40s min
+nye-2021-16 - best ones to just leave on, 30ish haus set
+nye-2021-17 - best ones to just leave on, 40 haus set, big transition from 16, but i like it
+nye-2021-16 + nye-2021-17 with `t = wrap_time(u_time * 0.5, 1.0);`, love the wierd transitions here
  
+18 + 19 sin mix
+
+misx-26 leave on
 
 # TODOS
 - fix timing on all iso's

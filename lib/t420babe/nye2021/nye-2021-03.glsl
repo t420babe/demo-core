@@ -21,7 +21,7 @@
 #include "./lib/common/hills-vortex.glsl"
 #endif
 
-float vc_nyc(vec2 pos, float u_time, peakamp audio) {
+float nye_2021_03_vc_nyc(vec2 pos, float u_time, peakamp audio) {
   pos = abs(tan(fract(pos.yx) * abs(cos(pos.xy))));
   pos  = pos.xx;
   pos.x += 5.0 * abs(tan(u_time * 0.5));
@@ -56,7 +56,7 @@ float nye_2021_03_shape(vec2 pos, float radius, float u_time, peakamp audio) {
   f += noise(pos + u_time * 1.0) * 0.1;
   // f1 /= (theta * 50.0) * noise(pos + u_time * 1.0) * 0.05 * audio.bandpass;
   // f1 += sin(theta * 20.0) * 0.1 * pow(m, 2.0);
-  f1 = vc_nyc(pos, u_time, audio);
+  f1 = nye_2021_03_vc_nyc(pos, u_time, audio);
 
   return 1.0 - smoothstep(f1, f + 5.107, r) / fwidth(f1);
   // return 1.0 - sharp(smoothstep(f1, f + 1.007, r) );

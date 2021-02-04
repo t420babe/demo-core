@@ -1,3 +1,4 @@
+// #fav6 #hills
 #ifndef T420BABE_NYE_2021_07
 #define T420BABE_NYE_2021_07
 
@@ -18,7 +19,7 @@
 #include "./lib/common/noise.glsl"
 #endif
 
-vec2 hills_spherical_vortex(vec2 pos, float u_time) {
+vec2 nye_2021_07_hills_spherical_vortex(vec2 pos, float u_time) {
   float a = 1.0;
   float u_0 = 10.0;
   float A = 15.0 / 2.0 * u_0 * 1.0 / pow(a, 2.0);
@@ -29,10 +30,10 @@ vec2 hills_spherical_vortex(vec2 pos, float u_time) {
   return vec2(u_int, v_int);
 }
 
-float vc_nyc(vec2 pos, float u_time, peakamp audio) {
+float nye_2021_07_vc_nyc(vec2 pos, float u_time, peakamp audio) {
   pos = pos.yx;
   pos.x += 5.0 * (sin(u_time * 0.5));
-  vec2 uv_int = hills_spherical_vortex(pos, u_time);
+  vec2 uv_int = nye_2021_07_hills_spherical_vortex(pos, u_time);
   float z = (5.0 * uv_int.x + 1.0 * uv_int.y) / 5.0 + 2.0;
 
   float time_wrap = wrap_time(u_time, 10.0);
@@ -45,7 +46,7 @@ float vc_nyc(vec2 pos, float u_time, peakamp audio) {
   return d;
 }
 
-float shape(vec2 pos, float radius, float u_time, peakamp audio) {
+float nye_2021_07_shape(vec2 pos, float radius, float u_time, peakamp audio) {
   float r = length(pos / audio.highpass);
   // float r = length(pos) * 2.0;
   // float theta = atan(pos.y, pos.x);
@@ -58,14 +59,14 @@ float shape(vec2 pos, float radius, float u_time, peakamp audio) {
   f += noise(pos + u_time * 1.0) * 0.1;
   // f1 /= (theta * 50.0) * noise(pos + u_time * 1.0) * 0.05 * audio.bandpass;
   // f1 += sin(theta * 20.0) * 0.1 * pow(m, 2.0);
-  f1 = vc_nyc(pos, u_time, audio);
+  f1 = nye_2021_07_vc_nyc(pos, u_time, audio);
 
   // return 1.0 - smoothstep(f1, f + 1.007, r) / fwidth(f1);
   return 1.0 - sharp(smoothstep(f1, f + 1.007, r) );
 }
 
-float shape_border(vec2 pos, float radius, float width, float u_time, peakamp audio) {
-  return shape(pos, radius, u_time, audio) - shape(pos, radius - width, u_time, audio);
+float nye_2021_07_shape_border(vec2 pos, float radius, float width, float u_time, peakamp audio) {
+  return nye_2021_07_shape(pos, radius, u_time, audio) - nye_2021_07_shape(pos, radius - width, u_time, audio);
 }
 
 vec3 nye_2021_07(vec2 pos, float u_time, peakamp audio) {
@@ -76,11 +77,11 @@ vec3 nye_2021_07(vec2 pos, float u_time, peakamp audio) {
   audio.bandpass  *= 1.0;
   audio.notch     *= 1.0;
 
-  // shape_color_border(pos, 1.0, 0.10, u_time, audio, color);
+  // nye_2021_07_shape_color_border(pos, 1.0, 0.10, u_time, audio, color);
 
   // Color 0
   color.b += audio.lowpass * 2.0;
-  color *= shape_border(pos, 3.0, 1.00, u_time, audio);
+  color *= nye_2021_07_shape_border(pos, 3.0, 1.00, u_time, audio);
   color.b *= abs(audio.lowpass * 2.0);
   color.g -= abs(audio.lowpass * 2.0);
 
@@ -88,7 +89,7 @@ vec3 nye_2021_07(vec2 pos, float u_time, peakamp audio) {
   //
   // Color 0
   // // color.g += audio.lowpass * 2.0;
-  // color /= shape_border(pos * 0.8, 1.0, 5.10, u_time, audio);
+  // color /= nye_2021_07_shape_border(pos * 0.8, 1.0, 5.10, u_time, audio);
   // // color.b /= audio.lowpass * 1.0;
   // color.b *= abs(audio.highpass) * 1.5;
   // color.r /= abs(audio.notch) * 1.5;

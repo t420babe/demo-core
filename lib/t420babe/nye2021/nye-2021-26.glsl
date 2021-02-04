@@ -59,7 +59,7 @@ float nye_2021_26_shape(vec2 pos, float radius, float time, peakamp audio) {
 }
 
 float nye_2021_26_shape_border(vec2 pos, float radius, float width, float time, peakamp audio) {
-  return nye_2021_26_shape(pos, radius, time, audio) - nye_2021_26_shape(pos, radius - width, time, audio);
+  return nye_2021_26_shape(pos, radius - abs(audio.bandpass), time, audio) - nye_2021_26_shape(pos, radius - width + abs(audio.notch), time, audio);
 }
 
 
@@ -67,7 +67,7 @@ vec3 nye_2021_26(vec2 pos, float time, peakamp audio) {
   // pos *= 2.0;
   vec2 st = pos;
   vec3 color = vec3(1.0);
-  audio.lowpass   *= 1.0;
+  audio.lowpass   *= 0.5;
   audio.highpass  *= 2.0;
   audio.bandpass  *= 1.0;
   audio.notch     *= 2.0;
