@@ -68,6 +68,22 @@ float quartic_in_out(float t) {
     : -8.0 * pow(t - 1.0, 4.0) + 1.0;
 }
 
+float ease_in_out_cubic(float x) {
+  if (x < 0.5) {
+    return 4.0 * easeInCubic(x);
+  } else {
+    return 1.0 - pow(-2.0 * x + 2.0, 3.0) / 2.0;
+  }
+}
+
+float ease_in_out_quart(float x) {
+  if (x < 0.5) {
+    return 8.0 * easeInQuart(x);
+  } else {
+    return 1.0 - pow(-2.0 * x + 2.0, 4.0);
+  }
+}
+
 float quadratic_in_out(float t) {
   float p = 2.0 * t * t;
   return t < 0.5 ? p : -p + (4.0 * t) - 1.0;

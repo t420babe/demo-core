@@ -236,7 +236,7 @@ void main(void) {
   // t = 0.8;
   //
   // color_0 = nye_2021_09(pos, u_at, audio);
-  // color_1 = day_0_00(pos, u_at, audio);
+  // color_1 = day_00(pos, u_at, audio);
   //
   //
   // color = mix(color_1, color_0, t);

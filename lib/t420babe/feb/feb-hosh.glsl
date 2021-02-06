@@ -173,7 +173,7 @@ vec3 feb_hosh(vec2 pos, float u_time, peakamp audio) {
   // color_1 = nye_2021_11(pos.yx, u_at, audio);
   // color = mix(color_1.bgr, color_0, t);
 
-  // // 49:49? hunger games
+  // 49:49? hunger games
   // color_0 = nye_2021_10(pos, u_at, audio);
   // color_1 = nye_2021_11(pos.yx, u_at, audio);
   // color = mix(color_1, color_0.bgr, t);
@@ -195,15 +195,17 @@ vec3 feb_hosh(vec2 pos, float u_time, peakamp audio) {
   // color = mix(color_1, color_0.grb, t);
   // color = mix(color.rgb, color_1.brg, 0.3);
 
-  // // 1:10:09, fav drop
+  // // // 1:10:09, fav drop
   // color_0 = nye_2021_14(pos, u_at, audio);
   // color_1 = nye_2021_14(pos, u_at, audio);
   // color = mix(color_1, color_0.grb, t);
+  // color = color_0;
 
-  // // 1:13:15, great drop
+  // // // 1:13:15, great drop
   // color_0 = nye_2021_16(pos, u_at, audio);
   // color_1 = nye_2021_16(pos, u_at, audio);
   // color = mix(color_0, color_1.brg, t);
+  // color = color_1;
 
   // // 1:13:15, great drop
   // color_0 = nye_2021_18(pos, u_at, audio);

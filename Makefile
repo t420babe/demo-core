@@ -1,5 +1,5 @@
 main:
-	glslViewer main.frag rsc/img/graf.jpeg rsc/img/mel-sprinkles.jpeg --nocursor -I./lib -p 8000
+	glslViewer main.frag --nocursor -I./lib -p 8000
 
 main-dbg:
 	glslViewer main.frag --nocursor -I./lib

@@ -18,25 +18,10 @@
 #include "./lib/common/plot.glsl"
 #endif
 
-// Cellular noise ("Worley noise") in 3D in GLSL.
-// Copyright (c) Stefan Gustavson 2011-04-19. All rights reserved.
-// This code is released under the conditions of the MIT license.
-// See LICENSE file for details.
-
-// Permutation polynomial: (34x^2 + x) mod 289
-vec4 permute(vec4 x) {
-  return mod((34.0 * x + 1.0) * x, 289.0);
-}
-vec3 permute(vec3 x) {
-  return mod((34.0 * x + 1.0) * x, 289.0);
-}
-
-// Cellular noise, returning F1 and F2 in a vec2.
-// Speeded up by using 2x2x2 search window instead of 3x3x3,
-// at the expense of some pattern artifacts.
-// F2 is often wrong and has sharp discontinuities.
-// If you need a good F2, use the slower 3x3x3 version.
-vec2 cellular2x2x2(vec3 P) {
+#ifndef COMMON_PERMUTE
+#include "./lib/common/permute.glsl"
+#endif
+vec2 day_01_cellular2x2x2(vec3 P) {
 	float K = 0.142857142857; // 1/7
 	float Ko = 0.428571428571; // 1/2-K/2
 	float K2 = 0.020408163265306; // 1/(7*7)
@@ -87,13 +72,13 @@ vec2 cellular2x2x2(vec3 P) {
 	return sqrt(d.yz); // F1 and F2
 #endif
 }
-float spiral_pxl(vec2 st, float t) {
+float day_01_spiral(vec2 st, float t) {
     float r = dot(st.yx, st.yx) * 0.5;
     float a = atan(st.y,st.x)  * 0.5;
     return abs(((sin(r * t)   / r)));
 }
 
-vec3 shapes(vec2 pos, float u_time, peakamp audio) {
+vec3 day_01_shapes(vec2 pos, float u_time, peakamp audio) {
     float x = pos.x;
     float y = pos.y;
 
@@ -117,7 +102,7 @@ vec3 shapes(vec2 pos, float u_time, peakamp audio) {
     return rgb;
 }
 
-vec3 day_0_01(vec2 pos, float u_time, peakamp audio) {
+vec3 day_01(vec2 pos, float u_time, peakamp audio) {
   vec3 color = vec3(1.0);
   audio.lowpass   *= 1.0;
   audio.highpass  *= 1.0;
@@ -128,7 +113,7 @@ vec3 day_0_01(vec2 pos, float u_time, peakamp audio) {
   vec2 st = pos;
   st.y += 1.0;
   st *= 20.0;
-	vec2 F = cellular2x2x2(vec3(st * 1.0, u_time));
+	vec2 F = day_01_cellular2x2x2(vec3(st * 1.0, u_time));
 	float n = smoothstep(0.0, abs(sin(u_time * 0.05)) + 1.0, F.y) / ( abs(audio.notch * 0.015));
   // n = step(n, sin(pos.x));
   color = vec3(n);
@@ -137,8 +122,8 @@ vec3 day_0_01(vec2 pos, float u_time, peakamp audio) {
   pos.y += 1.0;
   pos.y *= 1.5 * sin(pos.y);
   pos.x *= 5.5 * sin(pos.y);
-  color -= abs(sin(u_time * 0.1) + 2.0) + 5.0 * spiral_pxl(abs(sin(pos.yy) * cos(pos.xy)) * 4.5 * abs(1.0 * audio.bandpass), 0.1 * wrap_time(u_time, 10.0) + 10.0);
-  // color -= spiral_pxl(3.0 * pos.yx * abs(audio.bandpass), 1.0 * wrap_time(u_time, 10.0) + 10.0);
+  color -= abs(sin(u_time * 0.1) + 2.0) + 5.0 * day_01_spiral(abs(sin(pos.yy) * cos(pos.xy)) * 4.5 * abs(1.0 * audio.bandpass), 0.1 * wrap_time(u_time, 10.0) + 10.0);
+  // color -= day_01_spiral(3.0 * pos.yx * abs(audio.bandpass), 1.0 * wrap_time(u_time, 10.0) + 10.0);
   color.b *= 4.5 * abs(audio.lowpass);
   color.b += 5.4;
   color.r /= 1.5 * abs(audio.highpass);
@@ -150,7 +135,7 @@ vec3 day_0_01(vec2 pos, float u_time, peakamp audio) {
   // color = vec3(0.1, 0.5, 1.1) * color;
   // color -= 1.5;
   ux.y -= 1.0;
-  color *= 1.0 * shapes(ux * 20.0, u_time, audio);
+  color *= 1.0 * day_01_shapes(ux * 20.0, u_time, audio);
   return color;
 }
 #endif

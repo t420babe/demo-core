@@ -25,7 +25,7 @@
 #include "./lib/pxl/circle-sdf.glsl"
 #endif
 
-vec2 day_0_00_cellular2x2x2(vec3 P) {
+vec2 day_00_cellular2x2x2(vec3 P) {
 	float K = 0.142857142857; // 1/7
 	float Ko = 0.428571428571; // 1/2-K/2
 	float K2 = 0.020408163265306; // 1/(7*7)
@@ -56,7 +56,7 @@ vec2 day_0_00_cellular2x2x2(vec3 P) {
 	vec4 d2 = dx2 * dx2 + dy2 * dy2 + dz2 * dz2; // z+1
 
 	// Sort out the two smallest distances (F1, F2)
-#if 0
+#if 1
 	// Cheat and sort out only F1
 	d1 = min(d1, d2);
 	d1.xy = min(d1.xy, d1.wz);
@@ -79,14 +79,14 @@ vec2 day_0_00_cellular2x2x2(vec3 P) {
 
 
 
-float day_0_00_spiral_pxl(vec2 st, float t) {
+float day_00_spiral_pxl(vec2 st, float t) {
     float r = dot(st.yx, st.yx) * 0.5;
     float a = atan(st.y,st.x)  * 0.5;
     return abs(((sin(r * t)   / r)));
 }
 
 
-vec3 day_0_00(vec2 pos, float u_time, peakamp audio) {
+vec3 day_00(vec2 pos, float u_time, peakamp audio) {
   vec3 color = vec3(1.0);
   audio.lowpass   *= 2.0;
   audio.highpass  *= 2.0;
@@ -96,14 +96,14 @@ vec3 day_0_00(vec2 pos, float u_time, peakamp audio) {
   vec2 st = pos;
   st.y += 1.0;
   st *= 20.0;
-	vec2 F = day_0_00_cellular2x2x2(vec3(st * 1.0, u_time));
+	vec2 F = day_00_cellular2x2x2(vec3(st * 1.0, u_time));
 	float n = smoothstep(0.0, abs(sin(u_time * 0.05)) + 1.0, F.y) / ( abs(audio.notch * 0.015));
   // n = step(n, sin(pos.x));
   color = vec3(n);
   pos *= 1.5;
   pos.y += 1.5;
-  color -= abs(sin(u_time * 0.1) + 2.0) + 5.0 * day_0_00_spiral_pxl(abs(sin(pos.yy) * cos(pos.xy)) * 4.5 * abs(1.0 * audio.bandpass), 0.1 * wrap_time(u_time, 10.0) + 10.0);
-  // color -= day_0_00_spiral_pxl(3.0 * pos.yx * abs(audio.bandpass), 1.0 * wrap_time(u_time, 10.0) + 10.0);
+  color -= abs(sin(u_time * 0.1) + 2.0) + 5.0 * day_00_spiral_pxl(abs(sin(pos.yy) * cos(pos.xy)) * 4.5 * abs(1.0 * audio.bandpass), 0.1 * wrap_time(u_time, 10.0) + 10.0);
+  // color -= day_00_spiral_pxl(3.0 * pos.yx * abs(audio.bandpass), 1.0 * wrap_time(u_time, 10.0) + 10.0);
   color.b *= 4.5 * abs(audio.lowpass);
   color.b += 5.4;
   color.r /= 1.5 * abs(audio.highpass);
