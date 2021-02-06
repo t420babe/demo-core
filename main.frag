@@ -211,37 +211,86 @@ uniform float u_at;
 // #include "./lib/t420babe/feb/feb-00.glsl"
 // #endif
 //
-// #ifndef T420BABE_FEB_HOSH
-// #include "./lib/t420babe/feb/feb-hosh.glsl"
-// #endif
+#ifndef T420BABE_FEB_HOSH
+#include "./lib/t420babe/feb/feb-hosh.glsl"
+#endif
 
-#ifndef T420BABE_FEB_MIXING
-#include "./lib/t420babe/feb/feb-mixing.glsl"
+// #ifndef T420BABE_FEB_MIXING
+// #include "./lib/t420babe/feb/feb-mixing.glsl"
+// #endif
+//
+#ifndef T420BABE_LIGHTS_00
+#include "./lib/t420babe/lights/lights-00.glsl"
+#endif
+
+#ifndef T420BABE_LIGHTS_15
+#include "./lib/t420babe/lights/lights-15.glsl"
+#endif
+
+#ifndef T420BABE_LIGHTS_16
+#include "./lib/t420babe/lights/lights-16.glsl"
+#endif
+
+#ifndef T420BABE_ADDICTED_00
+#include "./lib/t420babe/addicted/addicted-00.glsl"
+#endif
+
+#ifndef T420BABE_ADDICTED_05
+#include "./lib/t420babe/addicted/addicted-05.glsl"
+#endif
+
+#ifndef T420BABE_ADDICTED_08
+#include "./lib/t420babe/addicted/addicted-08.glsl"
+#endif
+
+#ifndef T420BABE_ADDICTED_09
+#include "./lib/t420babe/addicted/addicted-09.glsl"
+#endif
+
+#ifndef T420BABE_ADDICTED_10
+#include "./lib/t420babe/addicted/addicted-10.glsl"
+#endif
+
+#ifndef T420BABE_ADDICTED_11
+#include "./lib/t420babe/addicted/addicted-11.glsl"
+#endif
+
+#ifndef T420BABE_ADDICTED_12
+#include "./lib/t420babe/addicted/addicted-12.glsl"
+#endif
+
+#ifndef T420BABE_ADDICTED_13
+#include "./lib/t420babe/addicted/addicted-13.glsl"
+#endif
+
+#ifndef T420BABE_ADDICTED_14
+#include "./lib/t420babe/addicted/addicted-14.glsl"
 #endif
 
 void main(void) {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
+  vec2 uv = gl_FragCoord.xy / u_resolution.xy;
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(1.0);
-  color = feb_mixing(pos, u_at, audio);
-  // vec3 color_0 = vec3(1.0);
-  // vec3 color_1 = vec3(1.0);
-  //
-  // float t;
-  // float start = 00.0;
-  // float end = 20.0;
-  //
-  // t = trans(u_at, start, end);
-  // t = wrap_time(u_time * 0.5, 1.0);
-  // t = 0.8;
-  //
-  // color_0 = nye_2021_09(pos, u_at, audio);
-  // color_1 = day_00(pos, u_at, audio);
-  //
-  //
-  // color = mix(color_1, color_0, t);
-  // color = color_0;
+  vec3 color_0 = vec3(1.0);
+  vec3 color_1 = vec3(1.0);
 
+  float t;
+  float start = 00.0;
+  float end = 20.0;
+
+  t = trans(u_at, start, end);
+  t = wrap_time(u_time * 0.1, 1.0);
+  color_0 = addicted_12(pos, u_at, audio, u_resolution);
+  color_1 = addicted_11(pos.yx, u_at, audio, u_resolution);
+  color = mix(color_0, color_1, t);
+
+  color = addicted_12(pos, u_at, audio, u_resolution);
+
+
+  // color_0 = addicted_10(pos, u_at, audio, u_resolution);
+  // color_1 = addicted_05(pos, u_at, audio, u_resolution);
+  // color = mix(color_1, color_0, t);
 	gl_FragColor = vec4(color, 1.0);
 }
 
