@@ -267,6 +267,10 @@ uniform float u_at;
 #include "./lib/t420babe/addicted/addicted-14.glsl"
 #endif
 
+#ifndef T420BABE_ADDICTED_15
+#include "./lib/t420babe/addicted/addicted-15.glsl"
+#endif
+
 void main(void) {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   vec2 uv = gl_FragCoord.xy / u_resolution.xy;
@@ -282,10 +286,18 @@ void main(void) {
   t = trans(u_at, start, end);
   t = wrap_time(u_time * 0.1, 1.0);
   color_0 = addicted_12(pos, u_at, audio, u_resolution);
-  color_1 = addicted_11(pos.yx, u_at, audio, u_resolution);
+  color_1 = addicted_15(pos.yx, u_at, audio, u_resolution);
   color = mix(color_0, color_1, t);
 
-  color = addicted_12(pos, u_at, audio, u_resolution);
+  // color_0 = addicted_05(pos, u_at, audio, u_resolution);
+  // color_1 = addicted_15(pos.yx, u_at, audio, u_resolution);
+  // color = mix(color_0, color_1, t);
+  //
+  // color_0 = addicted_15(pos, u_at, audio, u_resolution);
+  // color_1 = addicted_15(pos.yx, u_at, audio, u_resolution);
+  // color = mix(color_0, color_1, t);
+
+  // color = addicted_15(pos, u_at, audio, u_resolution);
 
 
   // color_0 = addicted_10(pos, u_at, audio, u_resolution);

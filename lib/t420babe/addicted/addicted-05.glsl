@@ -60,7 +60,7 @@ vec3 addicted_05(vec2 pos, float u_time, peakamp audio, vec2 res) {
   audio.notch     *= mul;
 
   vec2 center = vec2(0.0, 0.0);
-  float speed = 0.05;
+  float speed = 0.15;
   float invAr = (1.5 * res.y) / res.x;
 
   vec3 texcol;
