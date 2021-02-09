@@ -211,25 +211,25 @@ uniform float u_at;
 // #include "./lib/t420babe/feb/feb-00.glsl"
 // #endif
 //
-#ifndef T420BABE_FEB_HOSH
-#include "./lib/t420babe/feb/feb-hosh.glsl"
-#endif
+// #ifndef T420BABE_FEB_HOSH
+// #include "./lib/t420babe/feb/feb-hosh.glsl"
+// #endif
 
 // #ifndef T420BABE_FEB_MIXING
 // #include "./lib/t420babe/feb/feb-mixing.glsl"
 // #endif
 //
-#ifndef T420BABE_LIGHTS_00
-#include "./lib/t420babe/lights/lights-00.glsl"
-#endif
-
-#ifndef T420BABE_LIGHTS_15
-#include "./lib/t420babe/lights/lights-15.glsl"
-#endif
-
-#ifndef T420BABE_LIGHTS_16
-#include "./lib/t420babe/lights/lights-16.glsl"
-#endif
+// #ifndef T420BABE_LIGHTS_00
+// #include "./lib/t420babe/lights/lights-00.glsl"
+// #endif
+//
+// #ifndef T420BABE_LIGHTS_15
+// #include "./lib/t420babe/lights/lights-15.glsl"
+// #endif
+//
+// #ifndef T420BABE_LIGHTS_16
+// #include "./lib/t420babe/lights/lights-16.glsl"
+// #endif
 
 #ifndef T420BABE_ADDICTED
 #include "./lib/t420babe/addicted/addicted.glsl"

@@ -21,7 +21,7 @@ vec3 addicted_27(vec2 pos, float time, peakamp audio, vec2 res) {
   vec2 uv = pos;
   vec3 color = vec3(1.0);
 
-  float mul = 1.0;
+  float mul = 3.0;
   audio.lowpass   *= mul;
   audio.highpass  *= mul;
   audio.bandpass  *= mul;
@@ -52,7 +52,7 @@ vec3 addicted_27(vec2 pos, float time, peakamp audio, vec2 res) {
   texcol.y = z;
   texcol.z = z;
 
-  color =  color - texcol;
+  color -=  texcol;
 
   return color;
 }

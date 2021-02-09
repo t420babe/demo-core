@@ -23,14 +23,14 @@ vec3 addicted_12(vec2 pos, float time, peakamp audio, vec2 res) {
   uv *= 15.0;
   vec3 color = vec3(1.0);
 
-  float mul = 3.0;
+  float mul = 5.0;
   audio.lowpass   *= mul;
   audio.highpass  *= mul;
   audio.bandpass  *= mul;
   audio.notch     *= mul;
 
   vec2 center = vec2(0.0, 0.0);
-  float speed = 0.8;
+  float speed = 1.5;
   float icoord = (1.5 * uv.y) / uv.x;
 
   vec3 texcol;
@@ -54,7 +54,7 @@ vec3 addicted_12(vec2 pos, float time, peakamp audio, vec2 res) {
   color.b *= abs(sin(time) * audio.lowpass * 2.5 + 0.3);
   color.r *= abs(audio.notch * 2.5) + 0.2;
 
-  color = 0.5 - color;
+  // color = 0.5 - color;
   color = color.grb;
 
   return color;

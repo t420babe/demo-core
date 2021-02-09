@@ -18,43 +18,12 @@
 #include "./lib/common/plot.glsl"
 #endif
 
-
-// vec2 center = vec2(0.5,0.5);
-// float speed = 0.035;
-//
-// void mainImage( out vec4 fragColor, in vec2 fragCoord )
-// {
-//     float invAr = iResolution.y / iResolution.x;
-//
-//     vec2 uv = fragCoord.xy / iResolution.xy;
-//
-//   vec3 col = vec4(uv,0.5+0.5*sin(iTime),1.0).xyz;
-//
-//      vec3 texcol;
-//
-//   float x = (center.x-uv.x);
-//   float y = (center.y-uv.y) *invAr;
-//
-//   //float r = -sqrt(x*x + y*y); //uncoment this line to symmetric ripples
-//   float r = -(x*x + y*y);
-//   float z = 1.0 + 0.5*sin((r+iTime*speed)/0.013);
-//
-//   texcol.x = z;
-//   texcol.y = z;
-//   texcol.z = z;
-//
-//   fragColor = vec4(col*texcol,1.0);
-// }
-
-
-
-
 vec3 addicted_09(vec2 pos, float time, peakamp audio, vec2 res) {
   vec2 uv = pos.yx;
   uv *= 7.0;
   vec3 color = vec3(1.0);
 
-  float mul = 3.0;
+  float mul = 5.0;
   audio.lowpass   *= mul;
   audio.highpass  *= mul;
   audio.bandpass  *= mul;
@@ -62,12 +31,12 @@ vec3 addicted_09(vec2 pos, float time, peakamp audio, vec2 res) {
 
   vec2 center = vec2(0.0, 0.0);
   float speed = 0.05;
-  float invAr = (1.5 * res.x) / uv.x;
+  float inv = (1.5 * res.x) / uv.x;
 
   vec3 texcol;
 
   float x = (center.x + sin(uv.x));
-  float y = (center.y - sin(uv.x * uv.y)) *invAr;
+  float y = (center.y - sin(uv.x * uv.y)) *inv;
 
   //float r = -sqrt(x*x + y*y); //uncoment this line to symmetric ripples
   float r = (x*x - y*y);

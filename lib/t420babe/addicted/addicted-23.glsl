@@ -20,6 +20,7 @@
 #ifndef COMMON_EASING_FUNCTIONS
 #include "./lib/common/easing-functions.glsl"
 #endif
+
 vec3 addicted_23(vec2 pos, float time, peakamp audio, vec2 res) {
   vec2 uv = pos;
   vec3 color = vec3(1.0);
