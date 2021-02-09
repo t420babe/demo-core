@@ -231,44 +231,8 @@ uniform float u_at;
 #include "./lib/t420babe/lights/lights-16.glsl"
 #endif
 
-#ifndef T420BABE_ADDICTED_00
-#include "./lib/t420babe/addicted/addicted-00.glsl"
-#endif
-
-#ifndef T420BABE_ADDICTED_05
-#include "./lib/t420babe/addicted/addicted-05.glsl"
-#endif
-
-#ifndef T420BABE_ADDICTED_08
-#include "./lib/t420babe/addicted/addicted-08.glsl"
-#endif
-
-#ifndef T420BABE_ADDICTED_09
-#include "./lib/t420babe/addicted/addicted-09.glsl"
-#endif
-
-#ifndef T420BABE_ADDICTED_10
-#include "./lib/t420babe/addicted/addicted-10.glsl"
-#endif
-
-#ifndef T420BABE_ADDICTED_11
-#include "./lib/t420babe/addicted/addicted-11.glsl"
-#endif
-
-#ifndef T420BABE_ADDICTED_12
-#include "./lib/t420babe/addicted/addicted-12.glsl"
-#endif
-
-#ifndef T420BABE_ADDICTED_13
-#include "./lib/t420babe/addicted/addicted-13.glsl"
-#endif
-
-#ifndef T420BABE_ADDICTED_14
-#include "./lib/t420babe/addicted/addicted-14.glsl"
-#endif
-
-#ifndef T420BABE_ADDICTED_15
-#include "./lib/t420babe/addicted/addicted-15.glsl"
+#ifndef T420BABE_ADDICTED
+#include "./lib/t420babe/addicted/addicted.glsl"
 #endif
 
 void main(void) {
@@ -276,18 +240,37 @@ void main(void) {
   vec2 uv = gl_FragCoord.xy / u_resolution.xy;
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec3 color = vec3(1.0);
-  vec3 color_0 = vec3(1.0);
-  vec3 color_1 = vec3(1.0);
+  // vec3 color_0 = vec3(1.0);
+  // vec3 color_1 = vec3(1.0);
+  //
+  // float t;
+  // float start = 00.0;
+  // float end = 20.0;
+  //
+  // t = trans(u_at, start, end);
+  // t = wrap_time(u_at * 0.1, 1.0);
+  // color_0 = addicted_12(pos, u_at, audio, u_resolution);
+  // color_1 = addicted_15(pos.yx, u_at, audio, u_resolution);
+  // color = mix(color_0, color_1, t);
+  color = addicted(pos.yx, u_at, audio, u_resolution);
 
-  float t;
-  float start = 00.0;
-  float end = 20.0;
 
-  t = trans(u_at, start, end);
-  t = wrap_time(u_time * 0.1, 1.0);
-  color_0 = addicted_12(pos, u_at, audio, u_resolution);
-  color_1 = addicted_15(pos.yx, u_at, audio, u_resolution);
-  color = mix(color_0, color_1, t);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // color = addicted_16(pos, u_at, audio, u_resolution);
 
   // color_0 = addicted_05(pos, u_at, audio, u_resolution);
   // color_1 = addicted_15(pos.yx, u_at, audio, u_resolution);

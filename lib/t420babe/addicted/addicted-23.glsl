@@ -1,5 +1,5 @@
-#ifndef T420BABE_ADDICTED_02
-#define T420BABE_ADDICTED_02
+#ifndef T420BABE_ADDICTED_23
+#define T420BABE_ADDICTED_23
 
 #ifndef COMMON_WRAP_TIME
 #include "./lib/common/wrap-time.glsl"
@@ -17,7 +17,10 @@
 #include "./lib/common/plot.glsl"
 #endif
 
-vec3 addicted_02(vec2 pos, float time, peakamp audio, vec2 res) {
+#ifndef COMMON_EASING_FUNCTIONS
+#include "./lib/common/easing-functions.glsl"
+#endif
+vec3 addicted_23(vec2 pos, float time, peakamp audio, vec2 res) {
   vec2 uv = pos;
   vec3 color = vec3(1.0);
 
@@ -39,8 +42,8 @@ vec3 addicted_02(vec2 pos, float time, peakamp audio, vec2 res) {
 
   vec3 texcol;
 
-  float x = (center.x-uv.x);
-  float y = (center.y-uv.y) *inv;
+  float x = (center.x-uv.x) * inv * 0.5;
+  float y = (center.y-uv.y) * inv * 0.1;
 
   float r = 1.0;
   r = -sqrt(x*x + y*y);
@@ -55,6 +58,10 @@ vec3 addicted_02(vec2 pos, float time, peakamp audio, vec2 res) {
   // color.b *= abs(audio.notch) * 2.0;
 
   color =  color - texcol;
+  color.g -= abs(audio.notch) * 0.05;
+  color.b -= abs(audio.lowpass) * 0.05;
+  color.g /= abs(audio.highpass) * 0.05;
+  // color.b += abs(audio.highpass);
   // color = 1.0 - color;
   // color = color.bgr;
   // color = color.grb;

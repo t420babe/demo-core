@@ -1,5 +1,5 @@
-#ifndef T420BABE_ADDICTED_02
-#define T420BABE_ADDICTED_02
+#ifndef T420BABE_ADDICTED_22
+#define T420BABE_ADDICTED_22
 
 #ifndef COMMON_WRAP_TIME
 #include "./lib/common/wrap-time.glsl"
@@ -17,18 +17,18 @@
 #include "./lib/common/plot.glsl"
 #endif
 
-vec3 addicted_02(vec2 pos, float time, peakamp audio, vec2 res) {
-  vec2 uv = pos;
+vec3 addicted_22(vec2 pos, float time, peakamp audio, vec2 res) {
+  vec2 uv = pos * time;
   vec3 color = vec3(1.0);
 
-  float mul = 5.0;
+  float mul = 1.0;
   audio.lowpass   *= mul;
   audio.highpass  *= mul;
   audio.bandpass  *= mul;
   audio.notch     *= mul;
 
   vec2 center = vec2(0.0, 0.0);
-  float speed = 0.035;
+  float speed = 0.08;
 
   // float inv = (2.0 * res.y) / res.x;
   float inv = uv.y / uv.x;
@@ -44,7 +44,7 @@ vec3 addicted_02(vec2 pos, float time, peakamp audio, vec2 res) {
 
   float r = 1.0;
   r = -sqrt(x*x + y*y);
-  // r *= -(x*x + y*y);
+  r /= -(x*x + y*y);
   float z = 1.0 + 0.5*sin((r+time*speed)/0.013);
 
   texcol.x = z;

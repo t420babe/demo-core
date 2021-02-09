@@ -1,5 +1,5 @@
-#ifndef T420BABE_ADDICTED_00
-#define T420BABE_ADDICTED_00
+#ifndef T420BABE_ADDICTED_01
+#define T420BABE_ADDICTED_01
 
 #ifndef COMMON_WRAP_TIME
 #include "./lib/common/wrap-time.glsl"
@@ -17,7 +17,7 @@
 #include "./lib/common/plot.glsl"
 #endif
 
-vec3 addicted_00(vec2 pos, float u_time, peakamp audio, vec2 res) {
+vec3 addicted_01(vec2 pos, float u_time, peakamp audio, vec2 res) {
   vec2 uv = pos;
   vec3 color = vec3(1.0);
 
