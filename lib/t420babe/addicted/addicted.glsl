@@ -157,6 +157,14 @@
 #include "./lib/t420babe/addicted/addicted-32.glsl"
 #endif
 
+#ifndef T420BABE_ADDICTED_33
+#include "./lib/t420babe/addicted/addicted-33.glsl"
+#endif
+
+#ifndef T420BABE_ADDICTED_34
+#include "./lib/t420babe/addicted/addicted-34.glsl"
+#endif
+
 
 vec3 addicted(vec2 pos, float time, peakamp audio, vec2 res) {
   vec3 color = vec3(1.0);
@@ -322,11 +330,17 @@ vec3 addicted(vec2 pos, float time, peakamp audio, vec2 res) {
 
   // x = r cos(t)    y = r sin(t)
   color_0 = addicted_29(pos, u_at * 1.0, audio, u_resolution);
-  pos = rotate2d(sin(u_time * 0.1) * 3.14 / 5.0) * pos;
-  pos.x = 1.0 * cos(pos.x);
-  pos.y = 1.0 * sin(pos.y);
+  pos = rotate2d(sin(time * 0.1) * 3.14 / 5.0) * pos;
+  // pos.x = 1.0 * cos(pos.y + pos.x * 1.0);
+  // pos.y = 1.0 * tan(pos.y - pos.x * 1.0) * time * 0.1;
+  // pos.x -= 1.5;
+  // pos *= 0.10;
+  // pos.y = 3.0 * cos(pos.y * pos.x * 1.0);
+  // pos.y = 3.0 * sin(pos.y * pos.x * 1.0);
   color_1 = addicted_31(pos, u_at * 1.0, audio, u_resolution);
-  color = mix(color_1, color_0, t);
+  color_0 = addicted_34(pos.yx, u_at * 1.0, audio, u_resolution);
+  color = mix(color_0, color_1, t);
+  color = addicted_34(pos, u_at * 1.0, audio, u_resolution);
   // color = color_1;
 
   return color;
