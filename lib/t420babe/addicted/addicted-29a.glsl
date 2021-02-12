@@ -1,6 +1,6 @@
 // #fav5 #feb
-#ifndef T420BABE_ADDICTED_29
-#define T420BABE_ADDICTED_29
+#ifndef T420BABE_ADDICTED_29A
+#define T420BABE_ADDICTED_29A
 
 #ifndef COMMON_WRAP_TIME
 #include "./lib/common/wrap-time.glsl"
@@ -18,7 +18,7 @@
 #include "./lib/common/plot.glsl"
 #endif
 
-vec3 addicted_29_12(vec2 pos, float time, peakamp audio, vec2 res) {
+vec3 addicted_29a_12(vec2 pos, float time, peakamp audio, vec2 res) {
   vec2 uv = pos.yx;
   uv *= 15.0;
   vec3 color = vec3(1.0);
@@ -60,7 +60,7 @@ vec3 addicted_29_12(vec2 pos, float time, peakamp audio, vec2 res) {
   return color;
 }
 
-vec3 addicted_29_02(vec2 pos, float time, peakamp audio, vec2 res) {
+vec3 addicted_29a_02(vec2 pos, float time, peakamp audio, vec2 res) {
   vec2 uv = pos;
   vec3 color = vec3(1.0);
 
@@ -108,7 +108,7 @@ vec3 addicted_29_02(vec2 pos, float time, peakamp audio, vec2 res) {
 }
 
 // 19:25 
-vec3 addicted_29(vec2 pos, float time, peakamp audio, vec2 res) {
+vec3 addicted_29a(vec2 pos, float time, peakamp audio, vec2 res) {
   vec3 color = vec3(1.0);
 
   // pos *= (sin(time * 0.05) * 10.0);
@@ -117,9 +117,9 @@ vec3 addicted_29(vec2 pos, float time, peakamp audio, vec2 res) {
   float t = 0.6;
   vec2 pos_02 = pos;
   // uncomment at 20:30
-  // pos_02.y += sin(time * 0.2);
-  vec3 color_0 = addicted_29_02(pos_02, u_at, audio, u_resolution);
-  vec3 color_1 = addicted_29_12(pos.yx, u_at, audio, u_resolution);
+  pos_02.y += sin(time * 0.2);
+  vec3 color_0 = addicted_29a_02(pos_02, u_at, audio, u_resolution);
+  vec3 color_1 = addicted_29a_12(pos.yx, u_at, audio, u_resolution);
   color = mix(color_0, color_1, t);
 
   // color = color.gbr;

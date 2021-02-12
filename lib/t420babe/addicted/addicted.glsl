@@ -97,10 +97,6 @@
 #include "./lib/t420babe/addicted/addicted-17.glsl"
 #endif
 
-#ifndef T420BABE_ADDICTED_18
-#include "./lib/t420babe/addicted/addicted-18.glsl"
-#endif
-
 #ifndef T420BABE_ADDICTED_19
 #include "./lib/t420babe/addicted/addicted-19.glsl"
 #endif
@@ -145,6 +141,10 @@
 #include "./lib/t420babe/addicted/addicted-29.glsl"
 #endif
 
+#ifndef T420BABE_ADDICTED_29A
+#include "./lib/t420babe/addicted/addicted-29a.glsl"
+#endif
+
 #ifndef T420BABE_ADDICTED_30
 #include "./lib/t420babe/addicted/addicted-30.glsl"
 #endif
@@ -165,184 +165,172 @@
 #include "./lib/t420babe/addicted/addicted-34.glsl"
 #endif
 
+#ifndef T420BABE_ADDICTED_34A
+#include "./lib/t420babe/addicted/addicted-34a.glsl"
+#endif
+
+// #ifndef T420BABE_ADDICTED_35
+// #include "./lib/t420babe/addicted/addicted-35.glsl"
+// #endif
+
+vec3 addicted_set(vec2 pos, float time, peakamp audio, vec2 res) {
+  vec3 color = vec3(1.0);
+  vec3 color_0 = vec3(1.0);
+  vec3 color_1 = vec3(1.0);
+
+  float t_mul = 60.0;
+  int pick = 0;
+  float t, start, end;
+
+  start = 00.0;
+  end = 20.0;
+  t = trans(time, start, end);
+
+  float set_time = time;
+  set_time = time + 50.45 * 60.0;
+
+  if (set_time < 4.55 * t_mul) {
+    color = addicted_34a(pos, time * 1.0, audio, u_resolution);
+
+  } else if (set_time > 4.55 * t_mul && set_time < 6.50 * t_mul) {
+    color = vec3(0.5);
+
+  } else if (set_time > 6.50 * t_mul && set_time < 8.00 * t_mul) {
+    start = 6.55 * 60.0;
+    end = 7.15 * 60.0;
+    t = trans(time, start, end);
+
+    color_0 = addicted_34a(pos, time * 1.0, audio, u_resolution);
+    pos *= wrap_time(time * 0.3, 10.0) + 0.5;
+    color_1 = addicted_34a(pos, time * 1.0, audio, u_resolution);
+
+    color = mix(color_0, color_1, t);
+
+  } else if (set_time > 8.0 * t_mul && set_time < 10.0 * t_mul) {
+    color = addicted_34a(pos, time * 1.0, audio, u_resolution);
+
+  } else if (set_time > 10.00 * t_mul && set_time < 12.00 * t_mul) {
+    start = 00.0;
+    end = 60.0;
+    t = trans(time, start, end);
+
+    color_0 = addicted_34a(pos, time * 1.0, audio, u_resolution);
+    color_1 = addicted_29(pos, time * 1.0, audio, u_resolution);
+    color = mix(color_1, color_0, t);
+
+  } else if (set_time > 19.25 * t_mul && set_time < 20.30 * t_mul) {
+    color = addicted_29(pos, time * 1.0, audio, u_resolution);
+
+  } else if (set_time > 20.30 * t_mul && set_time < 24.25 * t_mul) {
+    start = 0.0;
+    end = 15.0;
+    t = trans(time, start, end);
+
+    color_0 = addicted_29(pos, time * 1.0, audio, u_resolution);
+    color_1 = addicted_29a(pos, time * 1.0, audio, u_resolution);
+    color = mix(color_1, color_0, t);
+
+  } else if (set_time > 24.25 * t_mul && set_time < 25.5 * t_mul) {
+    t = 0.8;
+
+    color_0 = addicted_29(pos, time * 1.0, audio, u_resolution);
+    color_1 = addicted_27(pos, time * 1.0, audio, u_resolution);
+    color = mix(color_1, color_0, t);
+
+  } else if (set_time > 25.5 * t_mul && set_time < 28.3 * t_mul) {
+    start = 0.0;
+    end = 15.0;
+    t = trans(time, start, end);
+    t = wrap_time(time * 0.1, 0.8) + 0.1;
+    t = 0.3;
+
+    color_0 = addicted_27(pos, time * 1.0, audio, u_resolution);
+    color_1 = addicted_25(pos, time * 1.0, audio, u_resolution);
+    color = mix(color_1, color_0, t);
+
+    if (set_time > 26.0 * t_mul) {
+      color_0 = addicted_25(pos, time * 1.0, audio, u_resolution);
+      color_1 = addicted_23(pos, time * 1.0, audio, u_resolution);
+
+      start = 26.0 * t_mul;
+      end = 26.10 * t_mul + 20.0;
+      t = trans(set_time, start, end);
+      vec3 color_next = mix(color_1, color_0, t);
+      color = mix(color_next, color, t);
+    }
+
+  } else if (set_time > 28.3 * t_mul && set_time < 31.4 * t_mul) {
+    start = 0.0;
+    end = 20.0;
+    t = trans(time, start, end);
+
+    color_0 = addicted_25(pos, time * 1.0, audio, u_resolution);
+    color_1 = addicted_23(pos, time * 1.0, audio, u_resolution);
+    color = mix(color_1, color_0, t);
+
+  } else if (set_time > 30.00 * t_mul && set_time < 31.4 * t_mul) {
+    color = addicted_23(pos, time * 1.0, audio, u_resolution);
+
+  } else if (set_time > 31.4 * t_mul && set_time < 37.18 * t_mul) {
+    color = vec3(0.5);
+  } else if (set_time > 37.18 * t_mul && set_time < 45.02 * t_mul) {
+    color = addicted_20(pos, set_time * 0.5, audio, u_resolution);
+
+  } else if (set_time > 45.02 * t_mul && set_time < 50.45 * t_mul) {
+    start = 45.02 * t_mul;
+    end = 45.02 * t_mul + 15.0;
+    t = trans(set_time, start, end);
+
+    color_0 = addicted_20(pos, set_time * 1.0, audio, u_resolution);
+    color_1 = addicted_23(pos, set_time * 0.5, audio, u_resolution);
+    // color_1 = addicted_18(pos, set_time * 0.5, audio, u_resolution);
+    color = mix(color_1, color_0, t);
+
+  } else if (set_time > 50.45 * t_mul && set_time < 56.30 * t_mul) {
+    start = 50.45 * t_mul;
+    end = 52.46 * t_mul;
+    t = trans(set_time, start, end);
+
+    color_0 = addicted_23(pos, set_time - start, audio, u_resolution);
+    color_1 = addicted_17(pos, set_time - start, audio, u_resolution);
+    color = mix(color_1, color_0, t);
+
+  } else if (set_time > 56.30 * t_mul && set_time < 63.25 * t_mul) {
+    start = 56.30 * t_mul;
+    end = 56.30 * t_mul;
+    t = trans(set_time, start, end);
+
+    color_0 = addicted_17(pos, set_time - start, audio, u_resolution);
+    color_1 = addicted_17(pos, set_time - start, audio, u_resolution);
+    color = mix(color_1, color_0, t);
+
+  } else {
+    color = vec3(0.5);
+  }
+
+  return color;
+}
 
 vec3 addicted(vec2 pos, float time, peakamp audio, vec2 res) {
   vec3 color = vec3(1.0);
   vec3 color_0 = vec3(1.0);
   vec3 color_1 = vec3(1.0);
 
-  int pick = 0;
-  float t;
+  float t, start, end;
+  start = 00.0;
+  end = 20.0;
+  t = trans(time, start, end);
 
-  float start = 00.0;
-  float end = 20.0;
-  t = trans(u_at, start, end);
+  // t = wrap_time(time * 0.1, 1.0);
+  t = trans(time, start, end);
 
-  if (pick == 0) {
-    color_0 = addicted_00(pos, u_at, audio, u_resolution);
-  } else if (pick == 1) {
-    t = wrap_time(time * 0.1, 1.0);
-    color_0 = addicted_06(pos, u_at, audio, u_resolution);
-    color_1 = addicted_05(pos.yx, u_at, audio, u_resolution);
-    color = mix(color_0, color_1, t);
-  } else if (pick == 2) {
-    t = wrap_time(time * 0.1, 1.0);
-    color_0 = addicted_06(pos, u_at, audio, u_resolution);
-    color_1 = addicted_07(pos.yx, u_at, audio, u_resolution);
-    color = mix(color_0, color_1, t);
-  } else if (pick == 3) {
-    t = wrap_time(time * 0.1, 1.0);
-    color_0 = addicted_05(pos, u_at, audio, u_resolution);
-    color_1 = addicted_07(pos.yx, u_at, audio, u_resolution);
-  } else if (pick == 4) {
-    t = wrap_time(time * 0.1, 1.0);
-    color_0 = addicted_00(pos, u_at, audio, u_resolution);
-    color_1 = addicted_06(pos.yx, u_at, audio, u_resolution);
-  } else if (pick == 5) {
-    t = wrap_time(time * 0.1, 1.0);
-    color_0 = addicted_03(pos.yx, u_at, audio, u_resolution);
-    color_1 = addicted_06(pos, u_at, audio, u_resolution);
-    color = mix(color_0, color_1, t);
-  } else if (pick == 6) {
-    t = wrap_time(time * 0.1, 1.0);
-    color_0 = addicted_04(pos, u_at, audio, u_resolution);
-    color_1 = addicted_03(pos, u_at, audio, u_resolution);
-    color = mix(color_0, color_1, t);
-  } else if (pick == 6) {
-    // speed increase, 2:46:31 
-    t = wrap_time(time * 0.1, 1.0);
-    color_0 = addicted_07(pos.yx, u_at, audio, u_resolution);
-    color_1 = addicted_06(pos, u_at, audio, u_resolution);
-    color = mix(color_0, color_1, t);
-  } else if (pick == 7) {
-    // 2:49 chiller, speed decrease
-    color = addicted_08(pos.yx, u_at, audio, u_resolution);
-  } else if (pick == 8) {
-    // 2:50:29, long transition to here
-    t = wrap_time(time * 0.1, 1.0);
-    color_0 = addicted_09(pos.yx, u_at, audio, u_resolution);
-    color_1 = addicted_08(pos, u_at, audio, u_resolution);
-    color = mix(color_0, color_1, t);
-  } else if (pick == 9) {
-    color_0 = addicted_10(pos, u_at, audio, u_resolution);
-  } else if (pick == 10) {
-    // wow, 2:50:29 + some time. could leave this one on for a while
-    color_0 = addicted_11(pos.yx, u_at, audio, u_resolution);
-  } else if (pick == 10) {
-    t = wrap_time(time * 0.1, 1.0);
-    color_0 = addicted_11(pos.yx, u_at, audio, u_resolution);
-    color_1 = addicted_10(pos, u_at, audio, u_resolution);
-    color = mix(color_0, color_1, t);
-  } else if (pick == 11) {
-    // ~13:00:00
-    t = wrap_time(time * 0.1, 1.0);
-    // speed to 1.5
-    color_0 = addicted_12(pos.yx, u_at, audio, u_resolution);
-    color_1 = addicted_07(pos, u_at, audio, u_resolution);
-    color = mix(color_1, color_0, t);
-  } else if (pick == 12) {
-    // ~16:00:00
-    t = wrap_time(time * 0.1, 1.0);
-    // speed = 0.8
-    color_0 = addicted_12(pos, u_at, audio, u_resolution);
-    // speed = 0.2
-    color_1 = addicted_08(pos, u_at, audio, u_resolution);
-    color = mix(color_1, color_0, t);
-  } else if (pick == 12) {
-    // play with speeding up and slowing down
-    t = wrap_time(time * 0.1, 1.0);
-    // speed = 1.5
-    color_0 = addicted_12(pos.yx, u_at, audio, u_resolution);
-    // speed = 0.2
-    color_1 = addicted_10(pos.yx, u_at, audio, u_resolution);
-    color = mix(color_1, color_0, t);
-  } else if (pick == 12) {
-    // best
-    color = addicted_12(pos.yx, u_at, audio, u_resolution);
-  } else if (pick == 13) {
-    // best, trippy af
-    // ~1:34, still could be too soon? idk
-    // start slow then speed it up gradually until this song drops
-    color = addicted_13(pos.yx, u_at, audio, u_resolution);
-  } else if (pick == 14) {
-    // doesnt belong here
-    color_1 = addicted_14(pos.yx, u_at, audio, u_resolution);
-  } else if (pick == 14) {
-    // Transition only
-    t = wrap_time(time * 0.1, 1.0);
-    color_0 = addicted_13(pos.yx, u_at, audio, u_resolution);
-    color_1 = addicted_15(pos.yx, u_at, audio, u_resolution);
-    color = mix(color_1, color_0, t);
-  } else if (pick == 14) {
-    // maybe transition and slow part of ~1:39:00
-    color_0 = addicted_16(pos.yx, u_at, audio, u_resolution);
-  } else if (pick == 15) {
-    // t = 0, ..16
-    t = wrap_time(time * 0.1, 1.0);
-    color_0 = addicted_17(pos.yx, u_at, audio, u_resolution);
-    color_1 = addicted_15(pos.yx, u_at, audio, u_resolution);
-    color = mix(color_1, color_0, t);
-  } else if (pick == 16) {
-    // @1:42:55, 15..
-    t = wrap_time(time * 0.1, 1.0);
-    color = addicted_17(pos.yx, u_at, audio, u_resolution);
-  } else if (pick == 17) {
-    // @1:42:55, u_at = 420s
-    color = addicted_30(pos.yx, u_at * 2.0, audio, u_resolution);
-  } else if (pick == 18) {
-    // @1:57:15 - 2:03:27, it picks up at drop to be cool
-    // u_at = 1300
-    t = 0.3;
-    color_0 = addicted_23(pos, u_at * 1.0, audio, u_resolution);
-    color_1 = addicted_17(pos, u_at * 1.0, audio, u_resolution);
-    color = mix(color_1, color_0, t);
-  } else if (pick == 19) {
-    // bright pretty trippy
-    // ~1:57:15 - 2:03:27, it picks up at drop to be cool
-    // u_at = 1300
-    color = addicted_20(pos.yx, u_at * 1.0, audio, u_resolution);
-  } else if (pick == 20) {
-    // ~2:21:00, little bit earlier
-    t = (0.3 + wrap_time(time * 0.1, 1.0)) * 0.7;
-
-    color_0 = addicted_05(pos, u_at * 1.0, audio, u_resolution);
-    color_1 = addicted_27(pos, u_at * 1.0, audio, u_resolution);
-    color = mix(color_1, color_0, t);
-  } else if (pick == 21) {
-  t = (0.3 + wrap_time(time * 0.1, 1.0)) * 0.8;
-  color_0 = addicted_06(pos, u_at * 1.0, audio, u_resolution);
-  color_1 = addicted_27(pos, u_at * 1.0, audio, u_resolution);
+  color_0 = addicted_34a(pos, time * 1.0, audio, u_resolution);
+  color_1 = addicted_29(pos, time * 1.0, audio, u_resolution);
   color = mix(color_1, color_0, t);
-  } else if (pick == 22) {
-    // meh
-    t = (0.3 + wrap_time(time * 0.1, 1.0)) * 0.6;
 
-    color_0 = addicted_09(pos, u_at * 1.0, audio, u_resolution);
-    color_1 = addicted_27(pos, u_at * 1.0, audio, u_resolution);
-    color = mix(color_1, color_0, t);
-  } else if (pick == 23) {
-    color_1 = addicted_29(pos, u_at * 1.0, audio, u_resolution);
-  }
+  color = addicted_set(pos, time, audio, res);
 
-  // ~2:32:14 - 2:40:00, make the transistions in and out long
-  // t = (0.3 + wrap_time(time * 0.1, 1.0)) * 0.6;
-  t = wrap_time(time * 0.1, 1.0);
-
-  // x = r cos(t)    y = r sin(t)
-  color_0 = addicted_29(pos, u_at * 1.0, audio, u_resolution);
-  pos = rotate2d(sin(time * 0.1) * 3.14 / 5.0) * pos;
-  // pos.x = 1.0 * cos(pos.y + pos.x * 1.0);
-  // pos.y = 1.0 * tan(pos.y - pos.x * 1.0) * time * 0.1;
-  // pos.x -= 1.5;
-  // pos *= 0.10;
-  // pos.y = 3.0 * cos(pos.y * pos.x * 1.0);
-  // pos.y = 3.0 * sin(pos.y * pos.x * 1.0);
-  color_1 = addicted_31(pos, u_at * 1.0, audio, u_resolution);
-  color_0 = addicted_34(pos.yx, u_at * 1.0, audio, u_resolution);
-  color = mix(color_0, color_1, t);
-  color = addicted_34(pos, u_at * 1.0, audio, u_resolution);
-  // color = color_1;
-
+  // color = addicted_23(pos, time * 1.0, audio, u_resolution);
   return color;
 }
 #endif

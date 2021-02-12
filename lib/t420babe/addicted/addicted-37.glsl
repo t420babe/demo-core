@@ -23,7 +23,7 @@ vec3 addicted_29_12(vec2 pos, float time, peakamp audio, vec2 res) {
   uv *= 15.0;
   vec3 color = vec3(1.0);
 
-  float mul = 1.5;
+  float mul = 1.0;
   audio.lowpass   *= mul;
   audio.highpass  *= mul;
   audio.bandpass  *= mul;
@@ -49,13 +49,13 @@ vec3 addicted_29_12(vec2 pos, float time, peakamp audio, vec2 res) {
   color *= texcol;
   // color.r *= abs(audio.bandpass * 2.0);
   // color.g *= abs(sin(time) );
-  // color.b *= abs(audio.notch * 1.0);
+  // color.b *= abs(audio.notch * 2.0);
   color.g *= abs(audio.bandpass * 2.5);
   color.b *= abs(sin(time) * audio.lowpass * 2.5);
   color.r *= abs(audio.notch * 2.5);
 
   // color = 1.0 - color;
-  color = color.grb;
+  // color = color.grb;
 
   return color;
 }
@@ -64,7 +64,7 @@ vec3 addicted_29_02(vec2 pos, float time, peakamp audio, vec2 res) {
   vec2 uv = pos;
   vec3 color = vec3(1.0);
 
-  float mul = 1.5;
+  float mul = 1.0;
   audio.lowpass   *= mul;
   audio.highpass  *= mul;
   audio.bandpass  *= mul;
@@ -88,8 +88,8 @@ vec3 addicted_29_02(vec2 pos, float time, peakamp audio, vec2 res) {
 
   float r = 1.0;
   r = -sqrt(x * x + y * y);
-  // r *= -(x * x - y * y);
-  float z = 0.0 + 1.5 * sin( (r + time * speed) / 0.013 );
+  r *= -(x * x - y * y);
+  float z = 1.0 + 0.5 * sin( (r + time * speed) / 0.013 );
 
   texcol.x = z;
   texcol.y = z;
@@ -99,26 +99,17 @@ vec3 addicted_29_02(vec2 pos, float time, peakamp audio, vec2 res) {
   // color.b *= abs(audio.notch) * 2.0;
 
   color =  color - texcol;
-  color.r *= abs(audio.notch);
-  color.b *= abs(audio.lowpass) * 1.2;
-  color.g *= abs(audio.highpass) * 3.5;
+  // color = 1.0 - color;
   // color = color.bgr;
   // color = color.grb;
   return color;
 }
 
-// 19:25 
 vec3 addicted_29(vec2 pos, float time, peakamp audio, vec2 res) {
   vec3 color = vec3(1.0);
 
-  // pos *= (sin(time * 0.05) * 10.0);
-  pos *= 2.0;
-  pos = rotate2d(sin(-pos.y) * 3.14 / 5.0) * sin(pos);
-  float t = 0.6;
-  vec2 pos_02 = pos;
-  // uncomment at 20:30
-  // pos_02.y += sin(time * 0.2);
-  vec3 color_0 = addicted_29_02(pos_02, u_at, audio, u_resolution);
+  float t = 0.2;
+  vec3 color_0 = addicted_29_02(pos, u_at, audio, u_resolution);
   vec3 color_1 = addicted_29_12(pos.yx, u_at, audio, u_resolution);
   color = mix(color_0, color_1, t);
 

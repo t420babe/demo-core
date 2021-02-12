@@ -22,7 +22,8 @@
 #endif
 vec3 addicted_24(vec2 pos, float time, peakamp audio, vec2 res) {
   // vec2 uv = pos * sin(;
-  vec2 uv = pos * (time * 0.50) + 0.5;
+  vec2 uv = pos * (time * 0.50);
+  uv *= 0.01;
   vec3 color = vec3(1.0);
 
   float mul = 1.0;
