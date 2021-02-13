@@ -187,7 +187,8 @@ vec3 addicted_set(vec2 pos, float time, peakamp audio, vec2 res) {
   t = trans(time, start, end);
 
   float set_time = time;
-  set_time = time + 50.45 * 60.0;
+  float x = 83.00;
+  set_time = time + x * 60.0;
 
   if (set_time < 4.55 * t_mul) {
     color = addicted_34a(pos, time * 1.0, audio, u_resolution);
@@ -217,6 +218,9 @@ vec3 addicted_set(vec2 pos, float time, peakamp audio, vec2 res) {
     color_0 = addicted_34a(pos, time * 1.0, audio, u_resolution);
     color_1 = addicted_29(pos, time * 1.0, audio, u_resolution);
     color = mix(color_1, color_0, t);
+
+  } else if (set_time > 12.00 * t_mul && set_time < 19.25 * t_mul) {
+    color = vec3(0.5);
 
   } else if (set_time > 19.25 * t_mul && set_time < 20.30 * t_mul) {
     color = addicted_29(pos, time * 1.0, audio, u_resolution);
@@ -283,10 +287,10 @@ vec3 addicted_set(vec2 pos, float time, peakamp audio, vec2 res) {
 
     color_0 = addicted_20(pos, set_time * 1.0, audio, u_resolution);
     color_1 = addicted_23(pos, set_time * 0.5, audio, u_resolution);
-    // color_1 = addicted_18(pos, set_time * 0.5, audio, u_resolution);
     color = mix(color_1, color_0, t);
 
   } else if (set_time > 50.45 * t_mul && set_time < 56.30 * t_mul) {
+    // this transition in misses cool pos zoom in add17
     start = 50.45 * t_mul;
     end = 52.46 * t_mul;
     t = trans(set_time, start, end);
@@ -295,14 +299,71 @@ vec3 addicted_set(vec2 pos, float time, peakamp audio, vec2 res) {
     color_1 = addicted_17(pos, set_time - start, audio, u_resolution);
     color = mix(color_1, color_0, t);
 
-  } else if (set_time > 56.30 * t_mul && set_time < 63.25 * t_mul) {
+  } else if (set_time > 56.30 * t_mul && set_time < 60.13 * t_mul) {
     start = 56.30 * t_mul;
     end = 56.30 * t_mul;
     t = trans(set_time, start, end);
+    t = 0.5;
 
     color_0 = addicted_17(pos, set_time - start, audio, u_resolution);
-    color_1 = addicted_17(pos, set_time - start, audio, u_resolution);
+    color_1 = addicted_15(pos.yx, set_time - start, audio, u_resolution);
     color = mix(color_1, color_0, t);
+  } else if (set_time > 56.30 * t_mul && set_time < 63.25 * t_mul) {
+    start = 56.30 * t_mul;
+    end = 56.30 * t_mul + 15.0;
+    t = trans(set_time, start, end);
+    t = 0.5;
+
+    color_0 = addicted_17(pos, set_time - start, audio, u_resolution);
+    color_1 = addicted_15(pos.yx, set_time - start, audio, u_resolution);
+    color = mix(color_1, color_0, t);
+
+  } else if (set_time > 63.25 * t_mul && set_time < 69.16 * t_mul) {
+    color = vec3(0.5);
+
+  } else if (set_time > 69.16 * t_mul && set_time < 73.52 * t_mul) {
+    t = 0.8;
+
+    color_0 = addicted_29(pos, time * 1.0, audio, u_resolution);
+    color_1 = addicted_27(pos, time * 1.0, audio, u_resolution);
+    color = mix(color_1, color_0, t);
+
+  } else if (set_time > 73.52 * t_mul && set_time < 76.52 * t_mul) {
+    start = 73.52 * t_mul;
+    end = 73.52 * t_mul + 15.0;
+    t = trans(set_time, start, end);
+
+    color_0 = addicted_27(pos, time * 1.0, audio, u_resolution);
+    color_1 = addicted_20(pos, time * 1.0, audio, u_resolution);
+    color = mix(color_1, color_0, t);
+
+  } else if (set_time > 76.52 * t_mul && set_time < 80.51 * t_mul) {
+    start = 76.52 * t_mul;
+    end = 76.52 * t_mul + 15.0;
+    t = trans(set_time, start, end);
+
+    color_0 = addicted_13(pos, time * 1.0, audio, u_resolution);
+    color_1 = addicted_13(pos, time * 1.0, audio, u_resolution);
+    color = mix(color_1, color_0, t);
+
+  } else if (set_time > 80.15 * t_mul && set_time < 83.00 * t_mul) {
+    start = 80.15 * t_mul;
+    end = 80.15 * t_mul + 15.0;
+    t = trans(set_time, start, end);
+
+    color_0 = addicted_11(pos, time * 1.0, audio, u_resolution);
+    color_1 = addicted_11(pos, time * 1.0, audio, u_resolution);
+    color = mix(color_1, color_0, t);
+
+  } else if (set_time > 83.00 * t_mul && set_time < 89.00 * t_mul) {
+    start = 83.00 * t_mul;
+    end = 83.00 * t_mul + 15.0;
+    t = trans(set_time, start, end);
+
+    color_0 = addicted_12(pos, time * 1.0, audio, u_resolution);
+    color_1 = addicted_07(pos, time * 1.0, audio, u_resolution);
+    color = mix(color_1, color_0, t);
+
 
   } else {
     color = vec3(0.5);
