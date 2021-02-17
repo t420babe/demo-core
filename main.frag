@@ -211,17 +211,17 @@ uniform float u_at;
 // #include "./lib/t420babe/feb/feb-00.glsl"
 // #endif
 //
-// #ifndef T420BABE_FEB_HOSH
-// #include "./lib/t420babe/feb/feb-hosh.glsl"
-// #endif
+#ifndef T420BABE_FEB_HOSH
+#include "./lib/t420babe/feb/feb-hosh.glsl"
+#endif
 
 // #ifndef T420BABE_FEB_MIXING
 // #include "./lib/t420babe/feb/feb-mixing.glsl"
 // #endif
 //
-// #ifndef T420BABE_LIGHTS_00
-// #include "./lib/t420babe/lights/lights-00.glsl"
-// #endif
+#ifndef T420BABE_LIGHTS_08
+#include "./lib/t420babe/lights/lights-08.glsl"
+#endif
 //
 // #ifndef T420BABE_LIGHTS_15
 // #include "./lib/t420babe/lights/lights-15.glsl"
@@ -252,7 +252,9 @@ void main(void) {
   // color_0 = addicted_12(pos, u_at, audio, u_resolution);
   // color_1 = addicted_15(pos.yx, u_at, audio, u_resolution);
   // color = mix(color_0, color_1, t);
-  color = addicted(pos.yx, u_at, audio, u_resolution);
+  // color = addicted(pos.yx, u_at, audio, u_resolution);
+  // color = feb_hosh(pos, u_at, audio);
+  color = addicted_set(pos, u_at, audio, u_resolution);
 
 
 
