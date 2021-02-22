@@ -155,3 +155,5 @@ always put the uniforms at the top of frag files, above the include statements f
 
 
 what if i used `u_time` to modify the magnitude of the `peakamp` members?
+
+we're in the matrix now bb
