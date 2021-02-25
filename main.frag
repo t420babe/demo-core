@@ -31,8 +31,8 @@ uniform float u_at;
 // #include "./lib/common/plot.glsl"
 // #endif
 
-#ifndef T420BABE_CHOICE_25
-#include "./lib/t420babe/choice/choice-25.glsl"
+#ifndef T420BABE_CHOICE_28
+#include "./lib/t420babe/choice/choice-28.glsl"
 #endif
 
 void main(void) {
@@ -41,7 +41,7 @@ void main(void) {
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec2 frag_coord = gl_FragCoord.xy;
 
-  vec3 color = choice_25(pos, u_at, audio);
+  vec3 color = choice_28(pos, u_at, audio);
 
 
 

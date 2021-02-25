@@ -1,6 +1,6 @@
 // Lonely by Rezz, The Riggs
-#ifndef T420BABE_CHOICE_25
-#define T420BABE_CHOICE_25
+#ifndef T420BABE_CHOICE_26
+#define T420BABE_CHOICE_26
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -30,10 +30,10 @@
 // https://www.shadertoy.com/view/MsjSW3
 
 
-float choice_25_map(vec3 pos, float time){
+float choice_26_map(vec3 pos, float time, peakamp audio){
   pos.xz *= rotate2d(time * 0.3);
   pos.xy *= rotate2d(time * 0.2);
-  vec3 q = pos * 2.0 + time;
+  vec3 q = pos * 1.0 + time;
   float x0 = length( pos + vec3( sin(time * 0.7) ) );
   float x1 = tan(length(pos) + 1.0);
   // float x2 = sin(q.x + atan(q.z + sin(q.y) ) ) * 5.5;
@@ -41,7 +41,7 @@ float choice_25_map(vec3 pos, float time){
   return x0 *  x1 + x2 * 5.0;
 }
 
-vec3 choice_25(vec2 pos, float time, peakamp audio) {
+vec3 choice_26(vec2 pos, float time, peakamp audio) {
   // 365.0
   // float start = t2s(0.0, 4.0, 20.0);
   float start = t2s(0.0, 0.0, 0.0);
@@ -57,12 +57,17 @@ vec3 choice_25(vec2 pos, float time, peakamp audio) {
 
   float d = 5.0;
 
-  for(int i = 0; i <= 8; i++)	{
+  for(int i = 0; i <= 2; i++)	{
     vec3 pos = vec3(0.0, 0.0, 5.0) + normalize( vec3(pos, -1.0) ) * d;
-    pos *= sin(time * 0.1) * 30.0 + 10.0;
-    float rz = choice_25_map(pos, time);
+    pos *= 8.0;
+    // pos *= sin(time * 0.1) * 30.0 + 10.0;
+    float rz = choice_26_map(pos, time, audio);
     float dim = 1.0;
-    float f = clamp( ( rz - choice_25_map(pos + 0.5, wrap_time(time, 10.0)) ) * dim, 0.5, 5.0 );
+    // float f = clamp( ( rz - choice_26_map(pos * audio.notch * 3.0, wrap_time(time, 10.0), audio) ) * dim, 0.5, 5.0 );
+
+    // float f = clamp( ( rz - choice_26_map(pos + 0.5, wrap_time(time, 10.0), audio) ) * dim, 0.5, 5.0 );
+    float f = clamp( ( rz - choice_26_map(abs(sin(pos)) * audio.lowpass * 4.0, wrap_time(time, 10.0), audio) ) * dim, 0.5, 5.0 );
+
     float r_mul = 1.1;
     float g_mul = 2.0;
     float b_mul = 1.5;
@@ -74,23 +79,21 @@ vec3 choice_25(vec2 pos, float time, peakamp audio) {
     color *= l * 1.5;
     // color += ( 1.0 - smoothstep(0.0, 0.1, rz * pos.x * pos.y) ) * 0.6 * l * abs(audio.notch);
     color += ( 1.0 - smoothstep(0.0, 0.1, rz * pos.x * pos.y) ) * 0.6 * l;
-
-    color = color.brg;
-    color.r *= 0.5;
-    color.b *= 1.5;
-    color.g *= 1.2;
-
-    // color.r *= 0.5 * abs(audio.notch);
-    // color.b *= 1.5 * abs(audio.lowpass);
-    // color.g *= 1.2 * abs(audio.bandpass);
-
-
-
   }
-    // color = color.brg;
-    // color.r *= abs(audio.notch) * 0.5;
-    // color.b *= 1.5 * abs(audio.bandpass);
-    // color.g *= 1.2 * abs(audio.lowpass);
+
+
+  // color.r += 2.5;
+  // color.b += 8.0;
+  // color.g += 25.0;
+  //
+  //
+  // // color.r *= audio.lowpass * 2.0;
+  // color.g *= audio.highpass * 1.0;
+  // // color.b *= audio.bandpass;
+
+  // color = rgb2hsv(color);
+
+
   return color;
 }
 #endif
