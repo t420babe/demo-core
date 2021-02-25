@@ -22,17 +22,13 @@
 #include "./lib/pxl/rotate-sdf.glsl"
 #endif
 
+#ifndef COMMON_TIME_CONVERT
+#include "./lib/common/time-convert.glsl"
+#endif
+
 // FORKED FROM Ether by nimitz (twitter: @stormoid)
 // https://www.shadertoy.com/view/MsjSW3
 
-
-float t2s(float hour, float min, float sec) {
-  float s = sec;
-  s += min * 60.0;
-  s += hour * 60.0 * 60.0;
-
-  return s;
-}
 
 float choice_18_map(vec3 pos, float time){
   pos.xz *= rotate2d(time * 0.3);

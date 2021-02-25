@@ -22,17 +22,13 @@
 #include "./lib/pxl/rotate-sdf.glsl"
 #endif
 
+#ifndef COMMON_TIME_CONVERT
+#include "./lib/common/time-convert.glsl"
+#endif
+
 // FORKED FROM Ether by nimitz (twitter: @stormoid)
 // https://www.shadertoy.com/view/MsjSW3
 
-
-float t2s(float hour, float min, float sec) {
-  float s = sec;
-  s += min * 60.0;
-  s += hour * 60.0 * 60.0;
-
-  return s;
-}
 
 float choice_22_map(vec3 pos, float time){
   pos.xz *= rotate2d(time * 0.3);
@@ -61,7 +57,7 @@ vec3 choice_22(vec2 pos, float time, peakamp audio) {
   float d = 5.0;
 
   for(int i = 0; i <= 7; i++)	{
-    vec3 pos = vec3(0.0, 0.0, 5.0) + normalize( vec3(pos, 1.0 * abs(sin(time * 0.1))) ) * d;
+    vec3 pos = vec3(0.0, 0.0, 5.0) + normalize( vec3(pos, 1.0 * abs(sin(time * 1.0))) ) * d;
     pos *= sin(time * 0.1) * 30.0 + 10.0;
     float rz = choice_22_map(pos, time);
     float dim = 1.0;
@@ -77,11 +73,12 @@ vec3 choice_22(vec2 pos, float time, peakamp audio) {
 
   }
   // color = color.brg;
+  color = color - 1.0;
   color = rgb2hsv(color);
-  color.r *= abs(audio.notch) * 1.5;
-  color.b *= 1.5;
-  color.g *= 0.5;
-  color = color.brg;
+  color.r *= abs(audio.notch) * 1.2;
+  color.b *= abs(audio.bandpass) * 0.8;
+  color.g *= abs(audio.bandpass) * 1.3;
+  // color = color.brg;
 
 
   return color;
