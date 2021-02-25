@@ -31,8 +31,8 @@ uniform float u_at;
 // #include "./lib/common/plot.glsl"
 // #endif
 
-#ifndef T420BABE_CHOICE_16
-#include "./lib/t420babe/choice/choice-16.glsl"
+#ifndef T420BABE_CHOICE_20
+#include "./lib/t420babe/choice/choice-20.glsl"
 #endif
 
 void main(void) {
@@ -41,7 +41,7 @@ void main(void) {
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec2 frag_coord = gl_FragCoord.xy;
 
-  vec3 color = choice_16(pos, u_at, audio);
+  vec3 color = choice_20(pos, u_at, audio);
 
 
 
@@ -54,7 +54,7 @@ void main(void) {
   //
   // t = trans(u_at, start, end);
   // t = wrap_time(u_at * 0.1, 1.0);
-  // color_0 = addicted_12(pos, u_at, audio, u_resolution);
+  // color_0 = addicted_20(pos, u_at, audio, u_resolution);
   // color_1 = addicted_15(pos.yx, u_at, audio, u_resolution);
   // color = mix(color_0, color_1, t);
   gl_FragColor = vec4(color, 1.0);

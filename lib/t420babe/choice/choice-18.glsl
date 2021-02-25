@@ -1,6 +1,6 @@
 // Like I Don't Exist by Nicky Night Time
-#ifndef T420BABE_CHOICE_09
-#define T420BABE_CHOICE_09
+#ifndef T420BABE_CHOICE_18
+#define T420BABE_CHOICE_18
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -34,7 +34,7 @@ float t2s(float hour, float min, float sec) {
   return s;
 }
 
-float choice_09_map(vec3 pos, float time){
+float choice_18_map(vec3 pos, float time){
   pos.xz *= rotate2d(time * 0.3);
   pos.xy *= rotate2d(time * 0.2);
   vec3 q = pos * 2.0 + time;
@@ -45,9 +45,9 @@ float choice_09_map(vec3 pos, float time){
 }
 
 
-vec3 choice_09(vec2 pos, float time, peakamp audio) {
+vec3 choice_18(vec2 pos, float time, peakamp audio) {
   // 365.0
-  float start = t2s(0.0, 4.0, 20.0);
+  float start = t2s(0.0, 0.0, 0.0);
   time += start;
 
   float offset = 0.0;
@@ -60,19 +60,28 @@ vec3 choice_09(vec2 pos, float time, peakamp audio) {
 
   float d = 5.0;
 
-  for(int i = 0; i <= 10; i++)	{
+  for(int i = 0; i <= 3; i++)	{
     vec3 pos = vec3(0.0, 0.0, 5.0) + normalize( vec3(pos, -1.0) ) * d;
     pos *= sin(time * 0.1) * 30.0 + 10.0;
-    float rz = choice_09_map(pos, time);
+    float rz = choice_18_map(pos, time);
     float dim = 1.0;
-    float f = clamp( ( rz - choice_09_map(pos + 0.5, wrap_time(time, 10.0)) ) * dim, 0.5, 5.0 );
+    float f = clamp( ( rz - choice_18_map(pos + 0.5, wrap_time(time, 10.0)) ) * dim, 0.5, 5.0 );
     float r_mul = 0.1;
     float g_mul = 2.0;
     float b_mul = 1.5;
-    vec3 l = vec3(0.35, 0.1, 0.3) + vec3(abs(audio.bandpass) * r_mul, abs(audio.bandpass) * g_mul, abs(audio.highpass) * b_mul) * f;
+    vec3 l = vec3(0.35, 0.1, 0.3) + vec3(abs(audio.bandpass) * r_mul, abs(audio.bandpass) * g_mul, abs(audio.notch) * b_mul) * f;
     color *= l;
     color += ( 1.0 - smoothstep(0.0, 0.1, rz) ) * 0.6 * l * (abs(audio.notch) + 0.3);
-
+  }
+    // color = sin(color) / 2.0;
+    // color /= 10.0;
+    // color = color.bgr;
+    // color *= abs(sin(time));
+      // color = color.gbr;
+      // color = rgb2hsv(color);
+      // color.r *= 0.5;
+      // color.b *= 1.5;
+      // color.g *= 0.5;
     //
     // // RR TODO: adjust l.r, don't multiply by lowpass maybe
     // if (time - offset < t2s(0.0, 1.0, 35.0)) {
@@ -151,8 +160,8 @@ vec3 choice_09(vec2 pos, float time, peakamp audio) {
       // White small pink ball, green flashes
       // color = color.gbr;
       // color = color.grb;
-      color = rgb2hsv(color);
-      color = 1.0 - color;
+      // color = 0.8 - color;
+      // color = rgb2hsv(color);
       // color.r *= 0.6;
       // color.b *= 1.8;
       // color.g *= 0.85;
@@ -167,7 +176,6 @@ vec3 choice_09(vec2 pos, float time, peakamp audio) {
     // add slight color change (still white and black) around 1:50ish
 
 
-  }
   return color;
 }
 #endif
