@@ -1,4 +1,4 @@
-// Lonely by Rezz, The Riggs
+// Itchy by Siriusmo
 #ifndef T420BABE_CHOICE_28
 #define T420BABE_CHOICE_28
 
@@ -66,7 +66,7 @@ vec3 choice_28(vec2 pos, float time, peakamp audio) {
     // float f = clamp( ( rz - choice_28_map(pos * audio.notch * 3.0, wrap_time(time, 10.0), audio) ) * dim, 0.5, 5.0 );
 
     // float f = clamp( ( rz - choice_28_map(pos + 0.5, wrap_time(time, 10.0), audio) ) * dim, 0.5, 5.0 );
-    float f = clamp( ( rz - choice_28_map(abs(sin(pos * time * 0.3)) * audio.lowpass * 4.0, wrap_time(time, 10.0), audio) ) * dim, 0.5, 5.0 );
+    float f = clamp( ( rz - choice_28_map(abs(sin(pos * time * 0.5)) * audio.lowpass * 4.0, wrap_time(time, 10.0), audio) ) * dim, 0.5, 5.0 );
 
     float r_mul = 1.1;
     float g_mul = 2.0;
