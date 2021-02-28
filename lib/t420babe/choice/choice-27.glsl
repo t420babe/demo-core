@@ -59,14 +59,22 @@ vec3 choice_27(vec2 pos, float time, peakamp audio) {
 
   for(int i = 0; i <= 2; i++)	{
     vec3 pos = vec3(0.0, 0.0, 5.0) + normalize( vec3(pos, -1.0) ) * d;
-    pos *= 8.0;
-    // pos *= sin(time * 0.1) * 30.0 + 10.0;
+    pos *= sin(time * 0.1) * 30.0 + 10.0;
     float rz = choice_27_map(pos, time, audio);
     float dim = 1.0;
     // float f = clamp( ( rz - choice_27_map(pos * audio.notch * 3.0, wrap_time(time, 10.0), audio) ) * dim, 0.5, 5.0 );
-
-    // float f = clamp( ( rz - choice_27_map(pos + 0.5, wrap_time(time, 10.0), audio) ) * dim, 0.5, 5.0 );
-    float f = clamp( ( rz - choice_27_map(abs(sin(pos)) * audio.lowpass * 4.0, wrap_time(time, 10.0), audio) ) * dim, 0.5, 5.0 );
+    float f;
+    if (time < t2s(0.0, 1.0, 32.0)) {
+      f = clamp( ( rz - choice_27_map(pos + 0.5, wrap_time(time, 10.0), audio) ) * dim, 0.5, 5.0 );
+    } else if (time > t2s(0.0, 1.0, 32.0) && time <= t2s(0.0, 1.0, 57.0)) {
+      f = clamp( ( rz - choice_27_map(abs(sin(pos)) * audio.lowpass * 4.0, wrap_time(time, 10.0), audio) ) * dim, 0.5, 5.0 );
+    } else if (time > t2s(0.0, 1.0, 57.0) && time <= t2s(0.0, 2.0, 47.0)) {
+      f = clamp( ( rz - choice_27_map(pos + 0.5, wrap_time(time, 10.0), audio) ) * dim, 0.5, 5.0 );
+    } else if (time > t2s(0.0, 2.0, 47.0) && time <= t2s(0.0, 3.0, 12.0)) {
+      f = clamp( ( rz - choice_27_map(abs(sin(pos)) * audio.lowpass * 4.0, wrap_time(time, 10.0), audio) ) * dim, 0.5, 5.0 );
+    } else {
+      f = clamp( ( rz - choice_27_map(pos + 0.5, wrap_time(time, 10.0), audio) ) * dim, 0.5, 5.0 );
+    }
 
     float r_mul = 1.1;
     float g_mul = 2.0;
@@ -81,18 +89,28 @@ vec3 choice_27(vec2 pos, float time, peakamp audio) {
     color += ( 1.0 - smoothstep(0.0, 0.1, rz * pos.x * pos.y) ) * 0.6 * l;
   }
 
+  if (time < t2s(0.0, 1.0, 33.0)) {
+  } else if (time > t2s(0.0, 1.0, 33.0) && time <= t2s(0.0, 1.0, 57.0)) {
+    color.r += 2.0;
+    color.b += 5.0;
+    color.g += 25.0;
+    color.r *= audio.lowpass * 2.0;
+    color.g *= audio.highpass * 1.0;
+    color.b *= audio.bandpass;
 
-  // color.r += 2.5;
-  // color.b += 8.0;
-  // color.g += 25.0;
-  //
-  //
-  // // color.r *= audio.lowpass * 2.0;
-  // color.g *= audio.highpass * 1.0;
-  // // color.b *= audio.bandpass;
+    color = rgb2hsv(color);
+  } else if (time > t2s(0.0, 1.0, 57.0) && time <= t2s(0.0, 2.0, 47.0)) {
+  } else if (time > t2s(0.0, 2.0, 57.0) && time <= t2s(0.0, 3.0, 12.0)) {
+    color.r += 2.0;
+    color.b += 5.0;
+    color.g += 25.0;
+    color.r *= audio.lowpass * 2.0;
+    color.g *= audio.highpass * 1.0;
+    color.b *= audio.bandpass;
 
-  // color = rgb2hsv(color);
-
+    color = rgb2hsv(color);
+  } else {
+  }
 
   return color;
 }
