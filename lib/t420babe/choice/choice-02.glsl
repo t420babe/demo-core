@@ -16,7 +16,7 @@
 // FORKED FROM Ether by nimitz (twitter: @stormoid)
 // https://www.shadertoy.com/view/MsjSW3
 
-float choice02_map(vec3 pos, float time){
+float choice_02_map(vec3 pos, float time){
   pos.xz *= rotate2d(time * 0.4);
   pos.xy *= rotate2d(time * 0.3);
   vec3 q = pos * 2.0 + time;
@@ -38,8 +38,8 @@ vec3 choice_02(vec2 pos, float time, peakamp audio) {
   for(int i = 0; i <= 10; i++)	{
     vec3 pos = vec3(0.0, 0.0, 5.0) + normalize( vec3(pos, -1.0) ) * d;
     pos *= sin(time * 0.1) * 30.0 + 0.0;
-    float rz = choice02_map(pos, time);
-    float f = clamp( ( rz - choice02_map(pos + 0.5, time) ) * 0.5, 0.1, 1.0 );
+    float rz = choice_02_map(pos, time);
+    float f = clamp( ( rz - choice_02_map(pos + 0.5, time) ) * 0.5, 0.1, 1.0 );
     float r_mul = 2.0;
     float g_mul = 1.5;
     float b_mul = 3.0;

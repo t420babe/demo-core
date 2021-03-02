@@ -26,7 +26,7 @@
 // https://www.shadertoy.com/view/MsjSW3
 
 
-float choice10_map(vec3 pos, float time){
+float choice_10_map(vec3 pos, float time){
   pos.xz *= rotate2d(time * 0.3);
   pos.xy *= rotate2d(time * 0.2);
   vec3 q = pos * 2.0 + time;
@@ -52,12 +52,12 @@ vec3 choice_10(vec2 pos, float time, peakamp audio) {
 
   float d = 5.0;
 
-  for(int i = 0; i <= 10; i++)	{
+  for(int i = 0; i <= 2; i++)	{
     vec3 pos = vec3(0.0, 0.0, 5.0) + normalize( vec3(pos, -1.0) ) * d;
     pos *= sin(time * 0.1) * 30.0 + 10.0;
-    float rz = choice10_map(pos, time);
+    float rz = choice_10_map(pos, time);
     float dim = 1.0;
-    float f = clamp( ( rz - choice10_map(pos + 0.5, wrap_time(time, 10.0)) ) * dim, 0.5, 5.0 );
+    float f = clamp( ( rz - choice_10_map(pos + 0.5, wrap_time(time, 10.0)) ) * dim, 0.5, 5.0 );
     float r_mul = 0.1;
     float g_mul = 2.0;
     float b_mul = 1.5;

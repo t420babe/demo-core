@@ -1,4 +1,3 @@
-// Like I Don't Exist by Nicky Night Time
 #ifndef T420BABE_CHOICE_15
 #define T420BABE_CHOICE_15
 
@@ -52,7 +51,7 @@ vec3 choice_15(vec2 pos, float time, peakamp audio) {
 
   float d = 5.0;
 
-  for(int i = 0; i <= 8; i++)	{
+  for(int i = 0; i <= 2; i++)	{
     vec3 pos = vec3(0.0, 0.0, 5.0) + normalize( vec3(pos, -1.0) ) * d;
     pos *= sin(time * 0.1) * 30.0 + 10.0;
     float rz = choice_15_map(pos, time);

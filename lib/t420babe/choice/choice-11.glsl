@@ -52,7 +52,7 @@ vec3 choice_11(vec2 pos, float time, peakamp audio) {
 
   float d = 5.0;
 
-  for(int i = 0; i <= 7; i++)	{
+  for(int i = 0; i <= 3; i++)	{
     vec3 pos = vec3(0.0, 0.0, 5.0) + normalize( vec3(pos, -1.0) ) * d;
     pos *= sin(time * 0.1) * 30.0 + 10.0;
     float rz = choice_11_map(pos, time);
