@@ -50,10 +50,10 @@ vec3 choice_28(vec2 pos, float time, peakamp audio) {
   float offset = 0.0;
   time += offset;
   vec3 color = vec3(1.0);
-  audio.lowpass   *= 1.5;
-  audio.highpass  *= 1.5;
-  audio.bandpass  *= 1.5;
-  audio.notch     *= 1.5;
+  audio.lowpass   *= 1.0;
+  audio.highpass  *= 1.0;
+  audio.bandpass  *= 1.0;
+  audio.notch     *= 1.0;
 
   float d = 5.0;
 
@@ -78,7 +78,7 @@ vec3 choice_28(vec2 pos, float time, peakamp audio) {
     vec3 l = vec3(0.35, 0.1, 0.3) + vec3(r_mul, g_mul, b_mul) * sin(f) * 2.0;
     color *= l * 1.5;
     // color += ( 1.0 - smoothstep(0.0, 0.1, rz * pos.x * pos.y) ) * 0.6 * l * abs(audio.notch);
-    color += ( 1.0 - smoothstep(0.0, 0.1, rz * pos.x * pos.y) ) * 0.6 * l;
+    color += ( 1.0 - smoothstep(0.0, 0.1, rz * sin(pos.x * pos.y)) ) * 0.6 * l;
   }
 
 
