@@ -62,7 +62,7 @@ vec3 choice_21(vec2 pos, float time, peakamp audio) {
     float rz = choice_21_map(pos, time);
     float dim = 1.0;
     float f = clamp( ( rz - choice_21_map(pos + 0.5, wrap_time(time, 10.0)) ) * dim, 0.05, 10.0 );
-    float r_mul = 0.1;
+    float r_mul = 0.20;
     float g_mul = 2.0;
     float b_mul = 1.5;
     // vec3 l = vec3(0.35, 0.1, 0.3) + vec3(abs(audio.bandpass) * r_mul, abs(audio.bandpass) * g_mul, abs(audio.highpass) * b_mul) * f;

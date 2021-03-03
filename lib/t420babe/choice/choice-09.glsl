@@ -71,8 +71,8 @@ vec3 choice_09(vec2 pos, float time, peakamp audio) {
 
 
   }
-      color = 1.0 - color;
-      color = rgb2hsv(color);
+  color = 1.0 - color;
+  color = rgb2hsv(color);
   return color;
 }
 #endif

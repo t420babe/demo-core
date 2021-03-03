@@ -45,10 +45,10 @@ vec3 choice_11(vec2 pos, float time, peakamp audio) {
   float offset = 0.0;
   time += offset;
   vec3 color = vec3(1.0);
-  audio.lowpass   *= 1.5;
-  audio.highpass  *= 1.5;
-  audio.bandpass  *= 1.5;
-  audio.notch     *= 1.5;
+  audio.lowpass   *= 2.0;
+  audio.highpass  *= 2.0;
+  audio.bandpass  *= 2.0;
+  audio.notch     *= 2.0;
 
   float d = 5.0;
 

@@ -67,6 +67,7 @@ vec3 choice_12(vec2 pos, float time, peakamp audio) {
     color += ( 1.0 - smoothstep(0.0, 0.1, rz * pos.x * pos.y) ) * 0.6 * l * (abs(audio.notch) + 0.3);
 
     color = color.brg;
+    // color.r *= abs(audio.notch) * 1.5;
     color.r *= abs(audio.notch) * 1.5;
     color.b *= 1.5;
     color.g *= 0.5;
