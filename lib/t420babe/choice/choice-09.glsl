@@ -56,7 +56,7 @@ vec3 choice_09(vec2 pos, float time, peakamp audio) {
 
   float d = 5.0;
 
-  for(int i = 0; i <= 4; i++)	{
+  for(int i = 0; i <= 2; i++)	{
     vec3 pos = vec3(0.0, 0.0, 5.0) + normalize( vec3(pos, -1.0) ) * d;
     pos *= sin(time * 0.1) * 30.0 + 10.0;
     float rz = choice_09_map(pos, time);
@@ -69,101 +69,10 @@ vec3 choice_09(vec2 pos, float time, peakamp audio) {
     color *= l;
     color += ( 1.0 - smoothstep(0.0, 0.1, rz) ) * 0.6 * l * (abs(audio.notch) + 0.3);
 
-    //
-    // // RR TODO: adjust l.r, don't multiply by lowpass maybe
-    // if (time - offset < t2s(0.0, 1.0, 35.0)) {
-    //   // 0:00 - 1:35
-    //   // White, blue, green
-    //   color = color.gbr;
-    //   color.r *= 0.5;
-    //   color.b *= 1.5;
-    //   color.g *= 0.5;
-    // } else if (time - offset >= t2s(0.0, 1.0, 35.0) && time - offset < t2s(0.0, 2.0, 52.0)) {
-    //   // X - 1:35 - 2:52, White pink purple
-    //   color = color.bgr;
-    //   color.r *= 0.5;
-    //   color.b *= 1.5;
-    //   color.g *= 0.5;
-    // } else if (time - offset >= t2s(0.0, 2.0, 52.0) && time - offset < t2s(0.0, 3.0, 23.0)) {
-    //   // NEED TO COME BACK TO THIS ONE....
-    //   // 2:52 - 3:23, White pink purple
-    //   color = color.gbr;
-    //   color = color.grb;
-    //   color.r *= 0.6;
-    //   color.b *= 1.8;
-    //   color.g *= 0.85;
-    // } else if (time - offset >= t2s(0.0, 3.0, 23.0) && time - offset < t2s(0.0, 4.0, 24.0) + 0.3) {
-    //   // X 3:23 - 3:51: Blue, red, soft yellow
-    //   color.r *= 1.0;
-    //   color.b *= 0.5;
-    //   color.g *= 1.2;
-    //   color = color.gbr;
-    //   color = color.grb;
-    //   color = 1.0 - color;
-    //
-    //   // 3:56
-    // } else if (time - offset >= t2s(0.0, 4.0, 25.0) + 0.3 && time - offset < t2s(0.0, 6.0, 26.0)) {
-    //   // 4:24 - 6:26,  6:27 (660)
-    //   color = color.bgr;
-    //   color.r *= 0.5;
-    //   color.b *= 1.5;
-    //   color.g *= 0.5;
-    // } else if (time - offset >= t2s(0.0, 6.0, 26.0) && time - offset < 441.0) {
-    //   // 6:26 - 7:21, Red, soft yellow
-    //   color = 2.0 - color;
-    //   color.b *= 0.5;
-    //   color.g *= 1.7;
-    // } else if (time - offset >= 441.0 && time - offset < 524.0) {
-    //   // 7:21 - 8:24
-    //   color = color.gbr;
-    //   color.r *= 0.7;
-    //   color.b *= 1.5;
-    //   color.g *= 0.5;
-    // } else {
-    //   // 8:24 - 9:24 (end) Blue, peach, red highlights/flashes
-    //   color.r *= 1.0;
-    //   color.b *= 0.5;
-    //   color.g *= 1.2;
-    //   color = color.gbr;
-    //   color = color.grb;
-    //   color = 1.0 - color;
-    //
-    // }
-
-    // 6:26 no color changes
-
-
-      // color = color.gbr;
-      // color.r *= 0.5;
-      // color.b *= 1.5;
-      // color.g *= 0.5;
-    // white, start
-      // color = color.gbr;
-      // color.r *= 0.7;
-      // color.r *= abs(sin(u_time));
-      // color.b *= 1.5;
-      // color.g *= 0.5;
-
-      // White small pink ball, green flashes
-      // color = color.gbr;
-      // color = color.grb;
-      color = rgb2hsv(color);
-      color = 1.0 - color;
-      // color.r *= 0.6;
-      // color.b *= 1.8;
-      // color.g *= 0.85;
-      //
-    // 3:23, 3:53, 4:24
-
-
-    // 7:21
-
-
-    // color = color.grb;
-    // add slight color change (still white and black) around 1:50ish
-
 
   }
+      color = 1.0 - color;
+      color = rgb2hsv(color);
   return color;
 }
 #endif

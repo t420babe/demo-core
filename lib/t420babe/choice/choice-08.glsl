@@ -29,10 +29,10 @@ float choice08_map(vec3 pos, float time){
 
 vec3 choice_08(vec2 pos, float time, peakamp audio) {
   vec3 color = vec3(1.0);
-  audio.lowpass   *= 1.2;
-  audio.highpass  *= 1.2;
-  audio.bandpass  *= 1.2;
-  audio.notch     *= 1.2;
+  audio.lowpass   *= 2.0;
+  audio.highpass  *= 2.0;
+  audio.bandpass  *= 2.0;
+  audio.notch     *= 2.0;
 
   float d = 5.0;
 

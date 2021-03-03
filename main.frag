@@ -31,12 +31,12 @@ uniform float u_at;
 // #include "./lib/common/plot.glsl"
 // #endif
 
-#ifndef T420BABE_CHOICE_28
-#include "./lib/t420babe/choice/choice-28.glsl"
+#ifndef T420BABE_CHOICE_09
+#include "./lib/t420babe/choice/choice-09.glsl"
 #endif
 
-#ifndef T420BABE_COMPLETE_01
-#include "./lib/t420babe/complete/complete-01.glsl"
+#ifndef T420BABE_COMPLETE_09
+#include "./lib/t420babe/complete/complete-09.glsl"
 #endif
 
 void main(void) {
@@ -45,19 +45,19 @@ void main(void) {
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   vec2 frag_coord = gl_FragCoord.xy;
 
-  // vec3 color = complete_01(pos, u_at, audio);
+  // vec3 color = complete_09(pos, u_at, audio);
   vec3 color = vec3(1.0);
   vec3 color_0 = vec3(1.0);
   vec3 color_1 = vec3(1.0);
 
   float t;
-  float start = 01.0;
+  float start = 09.0;
   float end = 20.0;
 
   // t = trans(u_at, start, end);
   // t = wrap_time(u_at * 1.0, 1.0);
-  color_0 = complete_01(pos, u_at, audio);
-  // color_1 = choice_28(pos.yx, u_at, audio);
+  color_0 = choice_09(pos, u_at, audio);
+  // color_1 = choice_09(pos.yx, u_at, audio);
   // color = mix(color_1, color_0, 1.00);
   color = color_0;
   gl_FragColor = vec4(color, 1.0);
