@@ -39,8 +39,8 @@ uniform float u_at;
 #include "./lib/t420babe/choice/choice-33.glsl"
 #endif
 
-#ifndef T420BABE_CHOICE_34
-#include "./lib/t420babe/choice/choice-34.glsl"
+#ifndef T420BABE_CHOICE_37
+#include "./lib/t420babe/choice/choice-37.glsl"
 #endif
 
 // #ifndef T420BABE_COMPLETE_20
@@ -65,7 +65,7 @@ void main(void) {
   // t = trans(u_at, start, end);
   // t = wrap_time(u_at * 1.0, 1.0);
   // color_0 = choice_33(pos, u_at, audio);
-  color_1 = choice_34(pos.yx, u_at, audio);
+  color_1 = choice_37(pos.yx, u_at, audio);
   // color = mix(color_1, color_0, );
   color = color_1;
   gl_FragColor = vec4(color, 1.0);
