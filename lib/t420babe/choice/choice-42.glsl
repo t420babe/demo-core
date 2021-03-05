@@ -1,5 +1,5 @@
-#ifndef T420BABE_CHOICE_40
-#define T420BABE_CHOICE_40
+#ifndef T420BABE_CHOICE_41
+#define T420BABE_CHOICE_41
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -29,11 +29,11 @@
 // https://www.shadertoy.com/view/MsjSW3
 
 
-float choice_40_map(vec3 pos, float time, peakamp audio){
+float choice_41_map(vec3 pos, float time, peakamp audio){
   // pos.xz *= rotate2d(time * 0.3) * audio.notch * 0.5;
   // pos.yz *= rotate2d(time * 0.3) * audio.notch * 0.5;
   // pos.xy *= rotate2d(time * 0.2);
-  vec3 q = pos * 0.5 + time;
+  vec3 q = pos * 0.5;
   // vec3 q = pos * 0.1 + time;
   float x0 = length( pos + vec3( sin(time * 0.7) ) );
   float x1 = tan(length(pos) + 0.5 * audio.notch);
@@ -42,7 +42,7 @@ float choice_40_map(vec3 pos, float time, peakamp audio){
   return x0 *  x1 ;
 }
 
-vec3 choice_40(vec2 pos, float time, peakamp audio) {
+vec3 choice_41(vec2 pos, float time, peakamp audio) {
   // 365.0
   // float start = t2s(0.0, 4.0, 20.0);
   // float start = t2s(0.0, 0.0, 0.0);
@@ -77,30 +77,32 @@ vec3 choice_40(vec2 pos, float time, peakamp audio) {
   for(int i = 0; i <= 3; i++)	{
     vec3 pos3 = vec3(0.0, 0.0, 5.0) + normalize( vec3(pos, -1.0) ) * d;
     pos *= 10.0;
-    pos /= sin(time * 0.1) * 30.0 + 10.0;
-    float rz = choice_40_map(pos3, time, audio);
-    float dim = 1.0;
-    // float f = clamp( ( rz - choice_40_map(pos * audio.notch * 3.0, wrap_time(time, 10.0), audio) ) * dim, 0.5, 5.0 );
+    // pos *= sin(time * 0.1) * 30.0 + 10.0;
+    float rz = choice_41_map(pos3, time, audio);
+    float dim = 1.0 * (sin(time * 0.5));
+    // float f = clamp( ( rz - choice_41_map(pos * audio.notch * 3.0, wrap_time(time, 10.0), audio) ) * dim, 0.5, 5.0 );
 
-    // float f = clamp( ( rz - choice_40_map(pos + 0.5, wrap_time(time, 10.0), audio) ) * dim, 0.5, 5.0 );
-    float f = clamp( ( rz - choice_40_map(abs(sin(pos3 * 5.0)) * audio.lowpass * 4.0, wrap_time(time, 10.0), audio) ) * dim, 0.1, 5.0 );
+    // float f = clamp( ( rz - choice_41_map(pos + 0.5, wrap_time(time, 10.0), audio) ) * dim, 0.5, 5.0 );
+    float f = clamp( ( rz - choice_41_map(abs(sin(pos3 * 5.0)) * audio.lowpass * 4.0, time, audio) ) * dim, 0.1, 5.0 );
 
     float r_mul = 1.5;
-    float g_mul = 2.0;
+    float g_mul = 2.5;
     float b_mul = 1.0;
     r_mul *= clamp(audio.bandpass, 0.5, 10.0);
     g_mul *= clamp(audio.bandpass, 0.5, 10.0);
     b_mul *= clamp(audio.notch, 0.5, 10.0);
-    // vec3 l = vec3(0.35, 0.1, 0.3) + vec3(abs(audio.bandpass) * r_mul, abs(audio.bandpass) * g_mul, abs(audio.highpass) * b_mul) * f;
     vec3 l = vec3(0.35, 0.1, 0.3) + vec3(r_mul, g_mul, b_mul) * sin(f) * 2.0;
-    color *= l * 1.5;
-    // color += ( 1.0 - smoothstep(0.0, 0.1, rz * pos.x * pos.y) ) * 0.6 * l * abs(audio.notch);
-    color += ( 1.0 - smoothstep(0.01, 0.1, rz * pos.x * pos.y) )  * l;
+    // color *= l * 1.5;
+    color += ( 1.0 - smoothstep(0.0, 0.1, rz ) ) * 0.6 * l * abs(audio.notch);
+    // color += ( 1.0 - smoothstep(0.01, 0.1, rz) )  * l;
   }
   // color = rgb2hsv(1.0 - color);
-  return 1.0 - color;
+  // color = 1.0 - color;
+  // color = color.brg;
+  return color;
 }
 #endif
+
 
 
 

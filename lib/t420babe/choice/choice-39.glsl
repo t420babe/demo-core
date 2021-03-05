@@ -86,7 +86,7 @@ vec3 choice_39(vec2 pos, float time, peakamp audio) {
     float f = clamp( ( rz - choice_39_map(abs(sin(pos3 * 5.0)) * audio.lowpass * 4.0, time, audio) ) * dim, 0.1, 5.0 );
 
     float r_mul = 1.5;
-    float g_mul = 2.0;
+    float g_mul = 2.5;
     float b_mul = 1.0;
     r_mul *= clamp(audio.bandpass, 0.5, 10.0);
     g_mul *= clamp(audio.bandpass, 0.5, 10.0);
