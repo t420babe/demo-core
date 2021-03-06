@@ -55,11 +55,6 @@ vec2 el_00_cxMult(vec2 a, vec2 b) {
   return vec2(a.x * b.x - a.y * b.y, a.x * b.y + a.y * b.x);
 }
 
-// RR LOOK
-float el_00_atanz(float a) {
-  if(a != a) return PI / 2.0;
-  return atan(a);
-}
 
 float el_00_atan2(float y, float x){
   if (x > 0.0) return atan(y / x);
@@ -70,8 +65,6 @@ float el_00_atan2(float y, float x){
   }
   return atan(y/x) - PI;
 }
-
-
 
 vec2 el_00_cxPow(vec2 a, vec2 b){
   float len = length(a);
@@ -117,7 +110,7 @@ float gen_el_00_nCr(float n, int r){
   return pow(n, float(r)) / float(el_00_fac(r));
 }
 
-//laguerre polynomial
+// Laguerre polynomial
 float el_00_L(float x, int n, int a){
   float s = 0.0;
   for(int i = 0; i <= n; i++){
@@ -139,7 +132,7 @@ float el_00_R(float r, int n, int l){
   return sqroot * expterm * lpow * lagp;
 }
 
-//legendre polynomial
+// Legendre polynomial
 float el_00_P(float x, int m, int l){
   float scale=pow(-1.0,  float(m)) * pow(2.0,  float(l)) *pow(1.0 -x * x, float(m) / 2.0);
   float s = 0.0;
@@ -154,7 +147,7 @@ float el_00_P(float x, int m, int l){
 }
 
 
-//el_00_spherical harmonics
+// Spherical harmonics
 vec2 el_00_Y(float phi, float theta, int m, int l){
   vec2 I = vec2(0.0, 1.0);
 
@@ -198,8 +191,8 @@ vec2 el_00_raytrace(vec3 p, vec3 v, ivec3 pq){
 vec3 electrons_00(vec2 uv, float time, peakamp audio, vec2 res) {
   int n = 4, l = 3, m = 1;
 
-  // 0<n; 0<=l<n; -1<=m<=l;
-  // n->energy; l->angular momentum; m->magnatism
+  // 0 < n; 0 <= l<n; -1 <= m <= l;
+  // n -> energy; l -> angular momentum; m -> magnatism
 
   uv -= 0.5;
   uv *= 2.0;
