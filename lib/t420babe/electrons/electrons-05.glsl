@@ -34,31 +34,31 @@
 // Forked from djddkkss: https://www.shadertoy.com/view/3lyfDy
 
 
-mat3 el_05_get_rot_z(float theta) {
+mat3 ele_05_get_rot_z(float theta) {
   return mat3(cos(theta), sin(theta), 0.0,  
       -sin(theta), cos(theta), 0.0,  
       0.0, 0.0, 1.0);
 }
 
-mat3 el_05_get_rot_y(float theta) {
+mat3 ele_05_get_rot_y(float theta) {
   return mat3(cos(theta), 0.0, -sin(theta), 
       0.0, 1.0, 0.0,  
       sin(theta), 0.0, cos(theta));
 }
 
-mat3 el_05_get_rot_x(float theta) {
+mat3 ele_05_get_rot_x(float theta) {
   return mat3(1.0, 0.0, 0.0, 
       0.0, cos(theta), sin(theta), 
       0.0, -sin(theta), cos(theta));
 }
 
 
-vec2 el_05_cxMult(vec2 a, vec2 b) {
+vec2 ele_05_cxMult(vec2 a, vec2 b) {
   return vec2(a.x * b.x - a.y * b.y, a.x * b.y + a.y * b.x);
 }
 
 
-float el_05_atan2(float y, float x){
+float ele_05_atan2(float y, float x){
   if (x > 0.0) return atan(y / x);
   if (y >= 0.0 && x!=0.0) return atan(y / x) + PI;
   if (x == 0.0){
@@ -68,81 +68,81 @@ float el_05_atan2(float y, float x){
   return atan(y/x) - PI;
 }
 
-vec2 el_05_cxPow(vec2 a, vec2 b){
+vec2 ele_05_cxPow(vec2 a, vec2 b){
   float len = length(a);
-  float theta = b.x * el_05_atan2(a.y, a.x);
+  float theta = b.x * ele_05_atan2(a.y, a.x);
   float phi = b.y * log(len);
   return vec2(cos(theta) * cos(phi) - sin(theta) * sin(phi), 
       cos(theta) * sin(phi) + sin(theta) * cos(phi))
-    * pow(len, b.x) * exp(-b.y * el_05_atan2(a.y, a.x));
+    * pow(len, b.x) * exp(-b.y * ele_05_atan2(a.y, a.x));
 }
 
-vec2 el_05_cxPow(vec2 a, float b){
-  return el_05_cxPow(a, vec2(b, 0.0));
+vec2 ele_05_cxPow(vec2 a, float b){
+  return ele_05_cxPow(a, vec2(b, 0.0));
 }
 
-vec2 el_05_conj(vec2 z){
+vec2 ele_05_conj(vec2 z){
   return vec2(z.x, -z.y);
 }
 
-vec2 el_05_cxDiv(vec2 a, vec2 b){
-  return el_05_cxMult(a, el_05_conj(b)) / (pow(b.x, 2.0) + pow(b.y, 2.0));
+vec2 ele_05_cxDiv(vec2 a, vec2 b){
+  return ele_05_cxMult(a, ele_05_conj(b)) / (pow(b.x, 2.0) + pow(b.y, 2.0));
 }
 
-vec2 el_05_cxExp(vec2 a) {
+vec2 ele_05_cxExp(vec2 a) {
   return exp(a.x) * vec2(cos(a.y), sin(a.y));
 }
 
-vec2 el_05_cxSin(vec2 a) {
+vec2 ele_05_cxSin(vec2 a) {
   vec2 I = vec2(0.0, 1.0);
-  return el_05_cxDiv(el_05_cxExp(el_05_cxMult(I, a)) - el_05_cxExp(el_05_cxMult(-I, a)), 2.0 * I);
+  return ele_05_cxDiv(ele_05_cxExp(ele_05_cxMult(I, a)) - ele_05_cxExp(ele_05_cxMult(-I, a)), 2.0 * I);
 }
 
-int el_05_fac(int n){
+int ele_05_fac(int n){
   int f = 1;
   for(int i=1; i<=n; i++) f *= i;
   return f;
 }
 
-int el_05_nCr(int n, int r){
-  return el_05_fac(n) / (el_05_fac(r) * el_05_fac(n - r));
+int ele_05_nCr(int n, int r){
+  return ele_05_fac(n) / (ele_05_fac(r) * ele_05_fac(n - r));
 }
 
-float gen_el_05_nCr(float n, int r){
-  return pow(n, float(r)) / float(el_05_fac(r));
+float gen_ele_05_nCr(float n, int r){
+  return pow(n, float(r)) / float(ele_05_fac(r));
 }
 
 // Laguerre polynomial
-float el_05_L(float x, int n, int a){
+float ele_05_L(float x, int n, int a){
   float s = 0.0;
   for(int i = 0; i <= n; i++){
-    s += pow(-1.0, float(i)) * float(el_05_nCr(n + a, n - i)) * pow(x, float(i)) / float(el_05_fac(i));
+    s += pow(-1.0, float(i)) * float(ele_05_nCr(n + a, n - i)) * pow(x, float(i)) / float(ele_05_fac(i));
   }
   return s;
 }
 
 
-float el_05_R(float r, int n, int l){
+float ele_05_R(float r, int n, int l){
   float Z = 1.0;
   float _a = 1.0;
   float cube = pow(2.0 * Z / (float(n) * _a), 3.0);
-  float el_05_facterm = float(el_05_fac(n - l - 1)) / float(2 * n * el_05_fac(n + l));
-  float sqroot = -sqrt(cube * el_05_facterm);
+  float ele_05_facterm = float(ele_05_fac(n - l - 1)) / float(2 * n * ele_05_fac(n + l));
+  float sqroot = -sqrt(cube * ele_05_facterm);
   float expterm = exp( -Z * r / ( float(n) * _a ) );
   float lpow = pow( 2.0 * Z * r / ( float(n) * _a ), float(l) );
-  float lagp = el_05_L(2.0 * Z * r / (float(n) * _a), n - l - 1, 2 * l + 1);
+  float lagp = ele_05_L(2.0 * Z * r / (float(n) * _a), n - l - 1, 2 * l + 1);
   return sqroot * expterm * lpow * lagp;
 }
 
 // Legendre polynomial
-float el_05_P(float x, int m, int l){
+float ele_05_P(float x, int m, int l){
   float scale=pow(-1.0,  float(m)) * pow(2.0,  float(l)) *pow(1.0 -x * x, float(m) / 2.0);
   float s = 0.0;
   float ft = 1.0;
   float ct = 1.0;
   for(int k = m;k <= l; k++){
-    ft=float(el_05_fac(k)) / float(el_05_fac(k - m));
-    ct=float(el_05_nCr(l, k)) * gen_el_05_nCr(float(l + k - 1) / 2.0,  l);
+    ft=float(ele_05_fac(k)) / float(ele_05_fac(k - m));
+    ct=float(ele_05_nCr(l, k)) * gen_ele_05_nCr(float(l + k - 1) / 2.0,  l);
     s += pow(x, float(k - m)) * float(ct) * ft;
   }
   return scale*s;
@@ -150,47 +150,47 @@ float el_05_P(float x, int m, int l){
 
 
 // Spherical harmonics
-vec2 el_05_Y(float phi, float theta, int m, int l){
+vec2 ele_05_Y(float phi, float theta, int m, int l){
   vec2 I = vec2(0.0, 1.0);
 
   float a = (2.0 * float(l) + 1.0) / (4.0 * PI);
-  float el_05_facterm = float(el_05_fac(l - m)) / float(el_05_fac(l + m));
-  float sqroot = sqrt(a * float(el_05_facterm));
-  vec2 expterm = el_05_cxExp(I * float(m) * phi);
-  float pterm = el_05_P(cos(theta), m, l);
+  float ele_05_facterm = float(ele_05_fac(l - m)) / float(ele_05_fac(l + m));
+  float sqroot = sqrt(a * float(ele_05_facterm));
+  vec2 expterm = ele_05_cxExp(I * float(m) * phi);
+  float pterm = ele_05_P(cos(theta), m, l);
 
-  return el_05_cxMult(vec2(sqroot * pterm, 0.0), expterm);
+  return ele_05_cxMult(vec2(sqroot * pterm, 0.0), expterm);
 }
 
-vec2 el_05_psi(float r, float phi, float theta, int n, int m, int l){
-  return el_05_cxMult(vec2(el_05_R(r, n, l), 0.0), el_05_Y(phi, theta, m, l));
+vec2 ele_05_psi(float r, float phi, float theta, int n, int m, int l){
+  return ele_05_cxMult(vec2(ele_05_R(r, n, l), 0.0), ele_05_Y(phi, theta, m, l));
 }
 
-float el_05_map(float t, float a, float b, float c, float d){
+float ele_05_map(float t, float a, float b, float c, float d){
   return c + (d - c) * (t - a) / (b - a);
 }
 
-vec3 el_05_spherical(vec3 v){
-  return vec3(length(v), atan(length(v.xy) / v.z), el_05_atan2(v.x, v.y));
+vec3 ele_05_spherical(vec3 v){
+  return vec3(length(v), atan(length(v.xy) / v.z), ele_05_atan2(v.x, v.y));
 }
 
-vec2 el_05_psi3(vec3 p, int n, int m, int l){
-  p = el_05_spherical(p);
-  return el_05_psi(p.x, p.y, p.z, n, m, l);
+vec2 ele_05_psi3(vec3 p, int n, int m, int l){
+  p = ele_05_spherical(p);
+  return ele_05_psi(p.x, p.y, p.z, n, m, l);
 }
 
-vec2 el_05_raytrace(vec3 p, vec3 v, ivec3 pq){
+vec2 ele_05_raytrace(vec3 p, vec3 v, ivec3 pq){
   vec2 mx = vec2(0.0);
   int imax = 20;
   float dt = 2.0 * length(p) / float(imax);
   for (int i = 0; i < imax; i++) {
-    mx = max(mx, abs(el_05_psi3(p, pq.x, pq.y, pq.z)));
+    mx = max(mx, abs(ele_05_psi3(p, pq.x, pq.y, pq.z)));
     p += tan(v * dt);
   }
   return mx;
 }
 
-vec3 electrons_05(vec2 uv, float time, peakamp audio, vec2 res) {
+vec3 ele_05(vec2 uv, float time, peakamp audio, vec2 res) {
   // uv /= 1.5;
   int n = 5, l = 2, m = 1;
 
@@ -200,8 +200,8 @@ vec3 electrons_05(vec2 uv, float time, peakamp audio, vec2 res) {
   uv -= 0.5;
   uv *= 3.0;
 
-  float theta = el_05_map(-cos(time) * 100.0, cos(time) * -sin(time) * 100.0, res.x, -PI, PI);
-  float phi = el_05_map(sin(time) * 100.0, -cos(time) * sin(time) * 100.0, res.y, -PI / 2.0,  PI / 2.0);
+  float theta = ele_05_map(-cos(time) * 100.0, cos(time) * -sin(time) * 100.0, res.x, -PI, PI);
+  float phi = ele_05_map(sin(time) * 100.0, -cos(time) * sin(time) * 100.0, res.y, -PI / 2.0,  PI / 2.0);
   vec3 v = vec3(uv.x, uv.y, -1.0);
   v = normalize(v);
   vec3 p = vec3(0.0,  0.0,  pow(2.0, 3.5) * 1.5 * float(n));
@@ -211,21 +211,21 @@ vec3 electrons_05(vec2 uv, float time, peakamp audio, vec2 res) {
   float rate = time * speed;
 
 
-  v = el_05_get_rot_y(-theta) * el_05_get_rot_x(phi) * v;
-  p = el_05_get_rot_y(-theta) * el_05_get_rot_x(phi) * p;
+  v = ele_05_get_rot_y(-theta) * ele_05_get_rot_x(phi) * v;
+  p = ele_05_get_rot_y(-theta) * ele_05_get_rot_x(phi) * p;
 
-  // p=el_05_get_rot_y(rate) * p;
-  v=el_05_get_rot_y(rate) * v * 10.0;
+  // p=ele_05_get_rot_y(rate) * p;
+  v=ele_05_get_rot_y(rate) * v * 10.0;
 
 
   int ti = int(mod(time, 5.0));
 
   ivec3 pq = ivec3(n, m, l);
-  vec2 el_05_psipv = el_05_raytrace(p, v, pq);
-  vec3 col = vec3(0.0,  el_05_psipv);
+  vec2 ele_05_psipv = ele_05_raytrace(p, v, pq);
+  vec3 col = vec3(0.0,  ele_05_psipv);
 
 
-  float mag = el_05_cxMult(el_05_psipv, el_05_psipv * vec2(1.0, -1.0)).x;
+  float mag = ele_05_cxMult(ele_05_psipv, ele_05_psipv * vec2(1.0, -1.0)).x;
   float sc = 1.0e1;
   // if( length(col) == 0.0) col = vec3(1.0,  0.0,  1.0);
   vec3 color = vec3(sc * mag, 0.0,  sc * mag);
