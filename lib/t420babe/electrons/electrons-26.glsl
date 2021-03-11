@@ -189,13 +189,14 @@ vec2 ele_26_raytrace(vec3 p, vec3 v, ivec3 pq){
 }
 
 vec3 ele_26(vec2 uv, float time, peakamp audio, vec2 res) {
-  int n = 4, l = 3, m = 1;
+  int n = 4, l = 2, m = 1;
 
   // 0 < n; 0 <= l<n; -1 <= m <= l;
   // n -> energy; l -> angular momentum; m -> magnatism
 
   // uv -= 0.5;
-  // uv *= 10.0;
+  uv *= 10.0;
+  uv = uv.yx;
 
   float t_mul = 0.4;
   float theta = ele_26_map(degrees(-cos(time * t_mul)), degrees(cos(time * t_mul)) * 0.5 * degrees(-sin(time * t_mul)), res.x, -PI, PI);
@@ -225,7 +226,7 @@ vec3 ele_26(vec2 uv, float time, peakamp audio, vec2 res) {
   float sc = 1e1;
   //if( length(col) == 0.0) col = vec3(1.0,  0.0,  1.0);
   //fragColor = vec4(sc * mag, 0.0,  sc * mag, 1.0);
-  return sc*col.brg;
+  return sc*col.brg * rgb2hsv(col);
   return sc*col.yxz;
 
 }
