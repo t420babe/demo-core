@@ -169,7 +169,7 @@ float ele_28_map(float t, float a, float b, float c, float d){
 }
 
 vec3 ele_28_spherical(vec3 v){
-  return vec3(length(v), atan(length(v.xy) / v.z), ele_28_atan2(v.x, v.y));
+  return vec3(length(v), sin(length(v.xy) / v.z), ele_28_atan2(v.x, v.y));
 }
 
 vec2 ele_28_psi3(vec3 p, int n, int m, int l){
