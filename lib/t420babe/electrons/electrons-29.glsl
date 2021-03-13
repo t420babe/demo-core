@@ -225,9 +225,12 @@ vec3 ele_29(vec2 uv, float time, peakamp audio, vec2 res) {
 
   float mag = ele_29_cxMult(ele_29_psipv, ele_29_psipv * vec2(1.0, -1.0)).x;
   float sc = 1e1;
-  return sc * col.bgr * audio.notch;
-  return sc * col.grb * audio.notch;
-  return sc * col.rbg * audio.notch;
+  // return sc * col.bgr * audio.notch;
+  // return sc * col.grb * audio.notch;
+  // return sc * col.rbg * audio.notch;
+
+  return rgb2hsv((1.0 - col) * sc * audio.notch);
+  return sc * col.rbg * audio.notch * rgb2hsv(col);
 
 }
 #endif
