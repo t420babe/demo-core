@@ -40,8 +40,8 @@ vec3 choice_02(vec2 pos, float time, peakamp audio) {
     pos *= sin(time * 0.1) * 30.0 + 0.0;
     float rz = choice_02_map(pos, time);
     float f = clamp( ( rz - choice_02_map(pos + 0.5, time) ) * 0.5, 0.1, 1.0 );
-    float r_mul = 5.0;
-    float g_mul = 1.5;
+    float g_mul = wrap_time(time, 5.0);
+    float r_mul = 1.5;
     float b_mul = 3.0;
     vec3 l = vec3(0.1, 0.25, 0.3) + vec3(abs(audio.notch) * r_mul, abs(audio.bandpass) * g_mul, abs(audio.highpass) * b_mul) * f;
     // color -= l * 0.2;
