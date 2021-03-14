@@ -204,11 +204,12 @@ vec3 ele_14(vec2 uv, float time, peakamp audio, vec2 res) {
   float theta = ele_14_map(-cos(time), cos(time) * -sin(time), tan(res.x * 0.5), PI, PI);
   // float phi = ele_14_map(sin(time) * 100.0, -cos(time) * sin(time) * 100.0, res.y, -PI / 2.0,  PI / 2.0);
   float phi = 0.0;
-  vec3 v = vec3(uv.x, uv.y, -0.01);
+  // vec3 v = vec3(uv.x, uv.y, -0.01);
+  vec3 v = vec3(uv.x, uv.y, abs(atan(time) * 0.05));
   v = normalize(v);
   vec3 p = vec3(0.0,  0.0,  pow(1.5, 2.5) * 3.5 * float(n));
 
-  float rate = time * 1.0;
+  float rate = time * 1.5;
 
 
 	v = ele_14_get_rot_y(theta) * v;

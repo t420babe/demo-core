@@ -235,10 +235,10 @@ vec3 ele_15(vec2 uv, float time, peakamp audio, vec2 res) {
   float mag = ele_15_cxMult(ele_15_psipv, ele_15_psipv * vec2(1.0, -1.0)).x;
   float sc = 1.2e1;
   // vec3 color =  vec3(sc * mag, audio.lowpass * 0.1,  sc * mag);
-  vec3 color =  vec3(sc * mag, 0.0,  sc * mag);
-  // color.r *= abs(sin(time));
-  // color.b *= abs(cos(time));
-  return color.gbr * abs(audio.notch) * 15.0;
+  vec3 color =  vec3(sc * mag, 1.0 - sc,  sc * mag);
+  color.r *= abs(;
+  // color.b = abs(cos(time)) * 0.1 + 0.5;
+  return color * abs(audio.notch) * 15.0;
 }
 #endif
 

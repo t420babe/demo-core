@@ -1,4 +1,4 @@
-// Tarengiri (Abgt407) by Sultan + Sheperd
+// Tarengiri (Abgt438) by Sultan + Sheperd
 #ifdef GL_ES
 precision highp float;
 #endif
@@ -24,20 +24,8 @@ uniform float u_at;
 #include "./lib/common/trans.glsl"
 #endif
 
-#ifndef T420BABE_ELECTRONS_08
-#include "./lib/t420babe/electrons/electrons-08.glsl"
-#endif
-
-#ifndef T420BABE_ELECTRONS_02
-#include "./lib/t420babe/electrons/electrons-02.glsl"
-#endif
-
-#ifndef T420BABE_ELECTRONS_02
-#include "./lib/t420babe/electrons/electrons-02.glsl"
-#endif
-
-#ifndef T420BABE_ELECTRONS_02
-#include "./lib/t420babe/electrons/electrons-02.glsl"
+#ifndef T420BABE_CHOICE_02
+#include "./lib/t420babe/choice/choice-02.glsl"
 #endif
 
 void main(void) {
@@ -51,11 +39,11 @@ void main(void) {
   float t;
   t = wrap_time(u_at * 1.0, 1.0);
 
-  // color_0 = ele_02(pos, u_at, audio, u_resolution);
-  // color_1 = ele_02(pos, u_at, audio, u_resolution);
+  // color_0 = ele_38(pos, u_at, audio, u_resolution);
+  // color_1 = ele_38(pos, u_at, audio, u_resolution);
   // color = mix(color_1, color_0, t);
 
-  color = ele_02(pos, u_at, audio, u_resolution);
+  color = choice_02(pos, u_at, audio);
 
   gl_FragColor = vec4(color, 1.0);
 }

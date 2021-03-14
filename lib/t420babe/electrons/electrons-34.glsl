@@ -196,15 +196,15 @@ vec3 ele_34(vec2 uv, float time, peakamp audio, vec2 res) {
 
   // uv.x -= 1.00;
   // uv *= 20.0;
-  uv *= wrap_time(time, 20.0);
+  uv *= wrap_time(time, 20.0) + 10.0;
   // uv *= 1.0;
   // uv *= 1.0;
   uv.x /= 4.0;
   uv = uv.yx;
 
   float t_mul = 0.1;
-  float theta = ele_34_map(degrees(-cos(time * t_mul)), degrees(cos(time * t_mul)) * 0.5 * degrees(-sin(time * t_mul)), res.x, -PI, PI);
-  float phi = ele_34_map(degrees(sin(time)), degrees(-cos(time * t_mul) * 0.5 * degrees(sin(time * t_mul))), res.y, -PI / 2.0,  PI / 2.0);
+  float theta = ele_34_map(degrees(-cos(time * t_mul)), degrees(cos(time * t_mul)) ), res.x, -PI, PI);
+  float phi = ele_34_map(degrees(sin(time)), degrees(cos(time)), res.y, -PI / 2.0,  PI / 2.0);
   vec3 v = vec3(uv.x, sin(uv.y * uv.y), -1.0);
   v = normalize(v);
   vec3 p = vec3(0.0,  0.0,  pow(4.0, 1.0) * 1.0 * float(n));

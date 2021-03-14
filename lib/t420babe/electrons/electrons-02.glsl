@@ -229,7 +229,7 @@ vec3 ele_02(vec2 uv, float time, peakamp audio, vec2 res) {
   color.b *= abs(cos(time));
   // color.g *= abs(sin(time + PI / 4.0));
   // color.g *= abs(tan(time));
-  return color.gbr;
+  return color.gbr * abs(audio.notch) * 10.0;
 
   // return sc*col.yxz;
 

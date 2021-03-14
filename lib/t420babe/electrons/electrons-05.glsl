@@ -197,6 +197,10 @@ vec3 ele_05(vec2 uv, float time, peakamp audio, vec2 res) {
   // 0 < n; 0 <= l<n; -1 <= m <= l;
   // n -> energy; l -> angular momentum; m -> magnatism
 
+  audio.lowpass     *= 0.5;
+  audio.highpass    *= 0.5;
+  audio.bandpass    *= 0.5;
+  audio.notch       *= 0.5;
   uv -= 0.5;
   uv *= 3.0;
 
@@ -228,12 +232,12 @@ vec3 ele_05(vec2 uv, float time, peakamp audio, vec2 res) {
   float mag = ele_05_cxMult(ele_05_psipv, ele_05_psipv * vec2(1.0, -1.0)).x;
   float sc = 1.0e1;
   // if( length(col) == 0.0) col = vec3(1.0,  0.0,  1.0);
-  vec3 color = vec3(sc * mag, 0.0,  sc * mag);
-  color.r *= abs(audio.notch * 2.0);
-  color.b *= abs(cos(time) * audio.bandpass * 2.0);
-  color.g *= abs(audio.highpass * 5.0);
-  // return color;
-  return color.gbr;
+  vec3 color = vec3(sc * mag, sc * mag,  sc * mag);
+  color.r *= abs(audio.notch * 20.0);
+  color.b *= abs(cos(time) * audio.bandpass * 20.0);
+  color.g *= abs(audio.highpass * 20.0);
+  return color.grb * abs(audio.notch);
+  return color.gbr * abs(audio.notch);
 
   // return sc*col.yxz;
 
