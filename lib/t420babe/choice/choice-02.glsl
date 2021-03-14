@@ -37,7 +37,7 @@ vec3 choice_02(vec2 pos, float time, peakamp audio) {
 
   for(int i = 0; i <= 10; i++)	{
     vec3 pos = vec3(0.0, 0.0, 5.0) + normalize( vec3(pos, -1.0) ) * d;
-    pos *= sin(time * 0.1) * 30.0 + 0.0;
+    pos *= sin(time * 0.1) + cos(time * 0.1) * 20.0 - 10.0;
     float rz = choice_02_map(pos, time);
     float f = clamp( ( rz - choice_02_map(pos + 0.5, time) ) * 0.5, 0.1, 1.0 );
     float b_mul = wrap_time(time, 5.0);
