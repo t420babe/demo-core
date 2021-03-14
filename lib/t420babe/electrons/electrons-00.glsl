@@ -194,8 +194,8 @@ vec3 ele_00(vec2 uv, float time, peakamp audio, vec2 res) {
   // 0 < n; 0 <= l<n; -1 <= m <= l;
   // n -> energy; l -> angular momentum; m -> magnatism
 
-  uv -= 0.5;
-  uv *= 2.0;
+  // uv -= 0.5;
+  // uv *= 2.0;
 
   float theta = ele_00_map(-cos(time) * 100.0, cos(time) * -sin(time) * 100.0, res.x, -PI, PI);
   float phi = ele_00_map(sin(time) * 100.0, -cos(time) * sin(time) * 100.0, res.y, -PI / 2.0,  PI / 2.0);

@@ -28,16 +28,16 @@ uniform float u_at;
 #include "./lib/t420babe/electrons/electrons-08.glsl"
 #endif
 
-#ifndef T420BABE_ELECTRONS_01
-#include "./lib/t420babe/electrons/electrons-01.glsl"
+#ifndef T420BABE_ELECTRONS_02
+#include "./lib/t420babe/electrons/electrons-02.glsl"
 #endif
 
 #ifndef T420BABE_ELECTRONS_02
 #include "./lib/t420babe/electrons/electrons-02.glsl"
 #endif
 
-#ifndef T420BABE_ELECTRONS_35
-#include "./lib/t420babe/electrons/electrons-35.glsl"
+#ifndef T420BABE_ELECTRONS_02
+#include "./lib/t420babe/electrons/electrons-02.glsl"
 #endif
 
 void main(void) {
@@ -52,10 +52,10 @@ void main(void) {
   t = wrap_time(u_at * 1.0, 1.0);
 
   // color_0 = ele_02(pos, u_at, audio, u_resolution);
-  // color_1 = ele_01(pos, u_at, audio, u_resolution);
+  // color_1 = ele_02(pos, u_at, audio, u_resolution);
   // color = mix(color_1, color_0, t);
 
-  color = ele_35(pos, u_at, audio, u_resolution);
+  color = ele_02(pos, u_at, audio, u_resolution);
 
   gl_FragColor = vec4(color, 1.0);
 }
