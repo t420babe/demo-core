@@ -28,21 +28,24 @@ float choice_02_map(vec3 pos, float time){
 
 vec3 choice_02(vec2 pos, float time, peakamp audio) {
   vec3 color = vec3(1.0);
-  audio.lowpass   *= 1.0;
-  audio.highpass  *= 1.0;
-  audio.bandpass  *= 1.0;
-  audio.notch     *= 1.0;
+  audio.lowpass   *= 1.5;
+  audio.highpass  *= 1.5;
+  audio.bandpass  *= 1.5;
+  audio.notch     *= 1.5;
 
   float d = 0.9;
 
   for(int i = 0; i <= 10; i++)	{
     vec3 pos = vec3(0.0, 0.0, 5.0) + normalize( vec3(pos, -1.0) ) * d;
-    pos *= sin(time * 0.1) + cos(time * 0.1) * 20.0 - 10.0;
+    pos *= sin(time * 0.05) + tan(time * 0.1) * 20.0 - 10.0;
     float rz = choice_02_map(pos, time);
-    float f = clamp( ( rz - choice_02_map(pos + 0.5, time) ) * 0.5, 0.1, 1.0 );
-    float b_mul = wrap_time(time, 5.0);
-    float r_mul = 1.5;
-    float g_mul = 3.0;
+    float f = clamp( ( rz - choice_02_map(pos + 0.1, time) ) * 0.5, 0.1, 1.0 );
+    // float b_mul = wrap_time(time, 5.0);
+    // float r_mul = 1.5;
+    // float g_mul = 3.0;
+    float r_mul = wrap_time(time, 5.0);
+    float g_mul = 1.5 * abs(sin(time));
+    float b_mul = 3.0;
     vec3 l = vec3(0.1, 0.25, 0.3) + vec3(abs(audio.notch) * r_mul, abs(audio.bandpass) * g_mul, abs(audio.highpass) * b_mul) * f;
     // color -= l * 0.2;
     color *= l;

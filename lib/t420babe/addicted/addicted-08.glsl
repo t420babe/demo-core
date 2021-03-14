@@ -23,6 +23,11 @@
 #include "./lib/common/plot.glsl"
 #endif
 
+#ifndef COMMON_RGB_HSV
+#include "./lib/common/rgb-hsv.glsl"
+#endif
+
+
 vec3 addicted_08_00(vec2 pos, float u_time, peakamp audio, vec2 res) {
   vec2 uv = pos;
   uv *= 3.5;
@@ -114,7 +119,7 @@ vec3 addicted_08(vec2 pos, float u_time, peakamp audio, vec2 res) {
   color_1 = addicted_08_00(pos, u_at, audio, u_resolution);
   color = mix(color_0, color_1, t);
 
-  color = color.rbg;
+  color = rgb2hsv(1.0 - color);
 
 
   return color;

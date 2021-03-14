@@ -28,6 +28,18 @@ uniform float u_at;
 #include "./lib/t420babe/choice/choice-02.glsl"
 #endif
 
+#ifndef T420BABE_ADDICTED_00
+#include "./lib/t420babe/addicted/addicted-00.glsl"
+#endif
+
+#ifndef T420BABE_ADDICTED_07
+#include "./lib/t420babe/addicted/addicted-07.glsl"
+#endif
+
+#ifndef T420BABE_ADDICTED_08
+#include "./lib/t420babe/addicted/addicted-08.glsl"
+#endif
+
 void main(void) {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
@@ -39,11 +51,14 @@ void main(void) {
   float t;
   t = wrap_time(u_at * 1.0, 1.0);
 
-  // color_0 = ele_38(pos, u_at, audio, u_resolution);
-  // color_1 = ele_38(pos, u_at, audio, u_resolution);
-  // color = mix(color_1, color_0, t);
+  color_0 = addicted_07(pos, u_at, audio, u_resolution);
+  color_1 = addicted_08(pos, u_at, audio, u_resolution);
+  // color = mix(color_0, color_1, t);
+  color = color_1;
 
-  color = choice_02(pos, u_at, audio);
+  // float g = abs(sin(u_time * 0.5));
+  // color = vec3(0.0, g, 0.0);
+
 
   gl_FragColor = vec4(color, 1.0);
 }

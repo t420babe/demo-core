@@ -22,7 +22,7 @@ vec3 addicted_05(vec2 pos, float u_time, peakamp audio, vec2 res) {
   uv *= 7.0;
   vec3 color = vec3(1.0);
 
-  float mul = 2.0;
+  float mul = 3.0;
   audio.lowpass   *= mul;
   audio.highpass  *= mul;
   audio.bandpass  *= mul;

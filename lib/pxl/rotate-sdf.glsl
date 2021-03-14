@@ -10,3 +10,11 @@ mat2 rotate2d(float theta){
     return mat2(cos(theta), -sin(theta), sin(theta), cos(theta));
 }
 #endif
+
+
+
+// pub fn foo(arg: u8) -> u8 {
+//   arg
+// }
+//
+// $ rg "fn foo"
