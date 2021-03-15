@@ -18,6 +18,10 @@
 #include "./lib/common/plot.glsl"
 #endif
 
+#ifndef COMMON_RGB_HSV
+#include "./lib/common/rgb-hsv.glsl"
+#endif
+
 vec3 addicted_09(vec2 pos, float time, peakamp audio, vec2 res) {
   vec2 uv = pos.yx;
   uv *= 7.0;
@@ -54,7 +58,7 @@ vec3 addicted_09(vec2 pos, float time, peakamp audio, vec2 res) {
   color.b *= abs(sin(time) * audio.lowpass * 2.0 + 0.3);
   color.r *= abs(audio.notch * 2.5) + 0.2;
 
-  return color;
+  return rgb2hsv(color);
 }
 #endif
 

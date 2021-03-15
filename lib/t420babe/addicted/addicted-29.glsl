@@ -110,9 +110,14 @@ vec3 addicted_29_02(vec2 pos, float time, peakamp audio, vec2 res) {
 // 19:25 
 vec3 addicted_29(vec2 pos, float time, peakamp audio, vec2 res) {
   vec3 color = vec3(1.0);
+  audio.lowpass   *= 0.8;
+  audio.highpass  *= 0.8;
+  audio.bandpass  *= 0.8;
+  audio.notch     *= 0.8;
 
   // pos *= (sin(time * 0.05) * 10.0);
   pos *= 2.0;
+  pos.x += 1.55;
   pos = rotate2d(sin(-pos.y) * 3.14 / 5.0) * sin(pos);
   float t = 0.6;
   vec2 pos_02 = pos;

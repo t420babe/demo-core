@@ -28,7 +28,7 @@ vec3 addicted_25(vec2 pos, float time, peakamp audio, vec2 res) {
   audio.notch     *= mul;
 
   vec2 center = vec2(0.0, 0.0);
-  float speed = 0.08;
+  float speed = 0.8;
 
   // float inv = (2.0 * res.y) / res.x;
   float inv = uv.y / uv.x;

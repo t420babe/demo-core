@@ -32,12 +32,16 @@ uniform float u_at;
 #include "./lib/t420babe/addicted/addicted-00.glsl"
 #endif
 
-#ifndef T420BABE_ADDICTED_07
-#include "./lib/t420babe/addicted/addicted-07.glsl"
+#ifndef T420BABE_ADDICTED_23
+#include "./lib/t420babe/addicted/addicted-23.glsl"
 #endif
 
-#ifndef T420BABE_ADDICTED_08
-#include "./lib/t420babe/addicted/addicted-08.glsl"
+#ifndef T420BABE_ADDICTED_29
+#include "./lib/t420babe/addicted/addicted-29.glsl"
+#endif
+
+#ifndef COMMON_RGB_HSV
+#include "./lib/common/rgb-hsv.glsl"
 #endif
 
 void main(void) {
@@ -51,10 +55,11 @@ void main(void) {
   float t;
   t = wrap_time(u_at * 1.0, 1.0);
 
-  color_0 = addicted_07(pos, u_at, audio, u_resolution);
-  color_1 = addicted_08(pos, u_at, audio, u_resolution);
-  // color = mix(color_0, color_1, t);
-  color = color_1;
+  color_0 = addicted_23(pos, u_at, audio, u_resolution);
+  color_1 = addicted_29(pos, u_at, audio, u_resolution);
+  color = mix(color_0, color_1, 0.5);
+  color = rgb2hsv(1.0 - color_1);
+  // color = color_1;
 
   // float g = abs(sin(u_time * 0.5));
   // color = vec3(0.0, g, 0.0);
