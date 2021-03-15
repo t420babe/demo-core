@@ -1,4 +1,3 @@
-// Tarengiri (Abgt407) by Sultan + Sheperd
 #ifdef GL_ES
 precision highp float;
 #endif
@@ -12,16 +11,8 @@ uniform float u_bandpass;
 uniform float u_notch;
 uniform float u_at;
 
-#ifndef COMMON_WRAP_TIME
-#include "./lib/common/wrap-time.glsl"
-#endif
-
-#ifndef COMMON_PEAKAMP
-#include "./lib/common/peakamp.glsl"
-#endif
-
-#ifndef COMMON_TRANS
-#include "./lib/common/trans.glsl"
+#ifndef COMMON_COMMON
+#include "lib/common/00-common.glsl"
 #endif
 
 #ifndef T420BABE_ELECTRONS_08
@@ -53,9 +44,12 @@ void main(void) {
 
   // color_0 = ele_02(pos, u_at, audio, u_resolution);
   // color_1 = ele_02(pos, u_at, audio, u_resolution);
-  // color = mix(color_1, color_0, t);
+  color = mix(color_1, color_0, t);
 
   color = ele_02(pos, u_at, audio, u_resolution);
+  // color = vec3(1.0, 0.0, 1.0);
+  color = flash_mul(color, u_at, 50.0);
+  // color = flash_mul(color, u_at, 50.0);
 
   gl_FragColor = vec4(color, 1.0);
 }
