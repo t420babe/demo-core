@@ -42,7 +42,7 @@ vec3 ttt_02(vec2 pos, float time, peakamp audio) {
   float poly = sharp(polygon(pos, num_sides, poly_size));
   color *= poly;
   vec3 hsv_color = rgb2hsv(color);
-  color.r = hsv_color.r * audio.bandpass * 5.0;
+  color.r = hsv_color.r * audio.bandpass ;
 
   return color;
 }

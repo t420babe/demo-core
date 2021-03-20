@@ -15,8 +15,8 @@ uniform float u_at;
 #include "lib/common/00-common.glsl"
 #endif
 
-#ifndef T4B_TTT_02
-#include "lib/t420babe/talk-talk-talk/ttt-02.glsl"
+#ifndef T4B_TTT_03
+#include "lib/t420babe/talk-talk-talk/ttt-03.glsl"
 #endif
 
 void main(void) {
@@ -25,7 +25,7 @@ void main(void) {
   float time = u_at;
 
   vec3 color = vec3(1.0);
-  color = ttt_02(pos, time, audio);
+  color = ttt_03(pos, time, audio);
 
 
 	gl_FragColor = vec4(color, 1.0);
