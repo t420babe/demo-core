@@ -19,13 +19,17 @@ uniform float u_at;
 #include "lib/t420babe/talk-talk-talk/ttt-03.glsl"
 #endif
 
+#ifndef T4B_TTT_10
+#include "lib/t420babe/talk-talk-talk/ttt-10.glsl"
+#endif
+
 void main(void) {
 	vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
 	peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   float time = u_at;
 
   vec3 color = vec3(1.0);
-  color = ttt_03(pos, time, audio);
+  color = ttt_10(pos, time, audio);
 
 
 	gl_FragColor = vec4(color, 1.0);
