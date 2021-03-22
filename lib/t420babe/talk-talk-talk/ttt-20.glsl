@@ -1,7 +1,8 @@
-// Ecstasy - Disclosure
-// time @ 10,000
-#ifndef T4B_TTT_19
-#define T4B_TTT_19
+// Tondo - Eko Roosevelt by Disclosure
+// Tondo by Disclosure
+// Ecstasy by Disclosure
+#ifndef T4B_TTT_20
+#define T4B_TTT_20
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -38,22 +39,30 @@ vec3 party_starter(vec2 pos, float time, peakamp audio) {
   color = mix(
     col,
     bg,
-    1.0-smoothstep(0.0,abs(sin(time*0.05)*3.0 / audio.bandpass), map(pos * abs(audio.notch) * 4.0))
+    1.0-smoothstep(0.0,abs(sin(time*0.05)*3.0 / abs(audio.bandpass)), map(pos * abs(audio.notch) * 4.0))
   );   
 
   return color;
 }
 
-vec3 ttt_19(vec2 pos, float time, peakamp audio) {
-  pos *= 8.0;
-  vec3 color = vec3(0.5, 0.0, 1.0);
+vec3 ttt_20(vec2 pos, float time, peakamp audio) {
+  float w_time = wrap_time(time, t2s(0.0, 4.0, 23.0)/ 2.0);
+  // pos.x -= 0.5;
+  pos *= 3.0;
+  vec3 color = vec3(0.0);
   // pos = rotate2d(time * 1.0) * pos;
   // float poly = sharp(polygon(pos, 5, 5.0 * audio.bandpass));
   // color *= poly;
-  color = party_starter(pos, time, audio);
-  color = flash_add(color, time, 0.0 + abs(audio.notch));
+  color = party_starter(pos.yx, w_time, audio);
+  // color = 0.5 * flash_add(color, time, 1.0 * abs(audio.notch));
 
-  color = rgb2hsv(color);
+  vec3 hsv_color = rgb2hsv(color);
+  // color.r = hsv_color.r;
+  // color.b = hsv_color.b;
+  // color.g = hsv_color.g;
+  // return color.grb;
+  // return color.bgr;
+  // return color.rbg;
   return color;
 }
 #endif

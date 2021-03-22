@@ -19,8 +19,8 @@ uniform float u_at;
 #include "lib/t420babe/talk-talk-talk/ttt-03.glsl"
 #endif
 
-#ifndef T4B_TTT_19
-#include "lib/t420babe/talk-talk-talk/ttt-19.glsl"
+#ifndef T4B_TTT_21
+#include "lib/t420babe/talk-talk-talk/ttt-21.glsl"
 #endif
 
 void main(void) {
@@ -29,7 +29,7 @@ void main(void) {
   float time = u_at;
 
   vec3 color = vec3(1.0);
-  color = ttt_19(pos, time, audio);
+  color = ttt_21(pos, time, audio);
 
 
 	gl_FragColor = vec4(color, 1.0);
