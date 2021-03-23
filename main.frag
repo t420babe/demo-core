@@ -23,13 +23,18 @@ uniform float u_at;
 #include "lib/t420babe/talk-talk-talk/ttt-21.glsl"
 #endif
 
+#ifndef T420BABE_CHOICE_45
+#include "lib/t420babe/choice/choice-45.glsl"
+#endif
+
 void main(void) {
 	vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
 	peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   float time = u_at;
 
   vec3 color = vec3(1.0);
-  color = ttt_21(pos, time, audio);
+  // color = ttt_21(pos, time, audio);
+  color = choice_45(pos, time, audio);
 
 
 	gl_FragColor = vec4(color, 1.0);
