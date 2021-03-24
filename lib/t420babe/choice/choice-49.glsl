@@ -94,6 +94,9 @@ vec3 choice_49(vec2 pos, float time, peakamp audio) {
   
   // time += t2s(0.0, 7.0, 25.0);
 
+  time = abs(time);
+  // time = 2.0;
+
   if (time < t2s(0.0, 1.0, 35.0)) {
     color = choice_49_single(pos, time, audio);
   } else if (time > t2s(0.0, 1.0, 35.0) && time < t2s(0.0, 7.0, 30.0))  {
