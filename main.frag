@@ -19,17 +19,22 @@ uniform float u_at;
 #include "lib/common/00-common.glsl"
 #endif
 
-#ifndef T4B_TTT_03
-#include "lib/t420babe/talk-talk-talk/ttt-03.glsl"
+// #ifndef T4B_TTT_28
+// #include "lib/t420babe/talk-talk-talk/ttt-28.glsl"
+// #endif
+//
+// #ifndef T4B_TTT_28
+// #include "lib/t420babe/talk-talk-talk/ttt-28.glsl"
+// #endif
+//
+// #ifndef T420BABE_CHOICE_49
+// #include "lib/t420babe/choice/choice-49.glsl"
+// #endif
+
+#ifndef T420BABE_ELECTRONS_28
+#include "./lib/t420babe/electrons/electrons-28.glsl"
 #endif
 
-#ifndef T4B_TTT_21
-#include "lib/t420babe/talk-talk-talk/ttt-21.glsl"
-#endif
-
-#ifndef T420BABE_CHOICE_49
-#include "lib/t420babe/choice/choice-49.glsl"
-#endif
 
 void main(void) {
 	vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
@@ -37,9 +42,11 @@ void main(void) {
   float time = u_at;
 
   vec3 color = vec3(1.0);
-  // color = ttt_21(pos, time, audio);
-  color = choice_49(pos, time, audio);
+  // color = ttt_28(pos, time, audio);
+  // color = choice_49(pos, time, audio);
 
+  color = ele_28(pos, time, audio, u_resolution);
+  // color *= audio.notch * 200.0;
 
 	gl_FragColor = vec4(color, 1.0);
 }

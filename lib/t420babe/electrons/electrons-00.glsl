@@ -160,7 +160,7 @@ vec2 ele_00_Y(float phi, float theta, int m, int l){
   return ele_00_cxMult(vec2(sqroot * pterm, 0.0), expterm);
 }
 
-vec2 ele_00_psi(float r, float phi, float theta, int n, int m, int l){
+vec2 ele_00_psi(float r, float phi, float theta, int n, int m, int l) {
   return ele_00_cxMult(vec2(ele_00_R(r, n, l), 0.0), ele_00_Y(phi, theta, m, l));
 }
 
