@@ -31,8 +31,8 @@ uniform float u_at;
 // #include "lib/t420babe/choice/choice-49.glsl"
 // #endif
 
-#ifndef T420BABE_ELECTRONS_28
-#include "./lib/t420babe/electrons/electrons-28.glsl"
+#ifndef T420BABE_LAG_00
+#include "./lib/t420babe/lag/lag-00.glsl"
 #endif
 
 
@@ -41,12 +41,13 @@ void main(void) {
 	peakamp audio = peakamp(u_lowpass, u_highpass, u_bandpass, u_notch);
   float time = u_at;
 
-  vec3 color = vec3(1.0);
+  // vec3 color = vec3(1.0);
   // color = ttt_28(pos, time, audio);
   // color = choice_49(pos, time, audio);
 
-  color = ele_28(pos, time, audio, u_resolution);
+  // color = ele_28(pos, time, audio, u_resolution);
   // color *= audio.notch * 200.0;
+  vec4  color = lag_00(pos, time, audio, u_resolution);
 
 	gl_FragColor = vec4(color, 1.0);
 }
