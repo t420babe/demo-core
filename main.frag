@@ -30,8 +30,24 @@ uniform sampler2D u_freq_slow;
 #include "lib/common/s4y.glsl"
 #endif
 
-#ifndef T4B_FRACTIONS_14
-#include "lib/t420babe/fractions/fractions-14.glsl"
+#ifndef T4B_ARRIVAL_05
+#include "lib/t420babe/arrival/arrival-05.glsl"
+#endif
+
+#ifndef T4B_ARRIVAL_06
+#include "lib/t420babe/arrival/arrival-06.glsl"
+#endif
+
+#ifndef T4B_ARRIVAL_07
+#include "lib/t420babe/arrival/arrival-07.glsl"
+#endif
+
+#ifndef T4B_ARRIVAL_08
+#include "lib/t420babe/arrival/arrival-08.glsl"
+#endif
+
+#ifndef T4B_ARRIVAL_09
+#include "lib/t420babe/arrival/arrival-09.glsl"
 #endif
 
 void main(void) {
@@ -39,5 +55,5 @@ void main(void) {
   audio = u_audio;
   float time = t;
 
-  fractions_14(p3, time, audio);
+  arrival_05(p3, time, audio);
 }

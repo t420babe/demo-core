@@ -6,7 +6,7 @@
 #endif
 
 float hexagon_web(vec2 pos) {
-  st = abs(pos * 2.0);
+  vec2 st = abs(pos * 2.0);
   return max(abs(pos.x), pos.x * 1.866025 + fract(pos.x) * 0.5);
 }
 
