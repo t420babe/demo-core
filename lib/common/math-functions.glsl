@@ -13,4 +13,21 @@
 #define ONE_MINUS_POW_MAX_ABS(x, e) 1.0 - pow(max(0.0, abs(x) * 2.0 - 1.0), e)
 #define POW_MIN_COS_MINUS_ABS(x, e) pow(min(cos(PI * x ), 1.0 - abs(x)), e)
 
+float cosh(float x) {
+  return ( exp(x) - exp(-x) ) / 2.0;
+}
+
+float sinh(float x) {
+  return ( exp(x) + exp(-x) ) / 2.0;
+}
+
+float asinh(float x) {
+  return log(x + sqrt( pow(x, 2.0) - 1.0) );
+}
+
+float acosh(float x) {
+  return 1.0 / cosh(x);
+  // return ln(x + sqrt( x^2.0 + 1.0) );
+}
+
 #endif

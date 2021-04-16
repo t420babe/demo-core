@@ -15,9 +15,9 @@
 
 void arrival_08(vec3 p3, float time, peakamp audio) {
   audio.bandpass  *= 2.0;
-  audio.highpass  *= 2.0;
+  audio.highpass  *= 5.0;
   audio.lowpass   *= 2.0;
-  audio.notch     *= 10.5;
+  audio.notch     *= 10.0;
   vec3 color = vec3(1.0);
   vec2 rhom_p = p3.xy * 2.0;
   // rhom_p.x += 0.5;
@@ -28,7 +28,7 @@ void arrival_08(vec3 p3, float time, peakamp audio) {
   // float flower_size = 6.5 * audio.highpass;
   float flower = flower_sdf(vec2(rhom_p.x + flower_size / 2.0, rhom_p.y + flower_size / 2.0) / flower_size, 100);
   float rhombus = rhombus_sdf(rhom_p, 1.0);
-  float hex = hexagon_sdf(rhom_p, wrap_time(time * 0.5, 15.0) + 5.0, audio.notch * 40.0 + 1.0);
+  float hex = hexagon_sdf(rhom_p, wrap_time(time * 0.5, 15.0) + 5.0, audio.highpass * 100.0 + 1.0);
   vec2 rays_p = rhom_p;
   rays_p.y += 1.0;
   float rays = rays_audio(rays_p, 20, audio);

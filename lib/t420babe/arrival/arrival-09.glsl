@@ -13,8 +13,7 @@
 #include "lib/common/square-position.glsl"
 #endif
 
-void arrival_09(vec3 p3, float time, peakamp audio, vec2 u_resolution) {
-  // p3 = square_position(p3.xy, u_resolution);
+void arrival_09(vec3 p3, float time, peakamp audio) {
   audio.bandpass  *= 2.0;
   audio.highpass  *= 2.0;
   audio.lowpass   *= 2.0;
