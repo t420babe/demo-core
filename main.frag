@@ -30,34 +30,33 @@ uniform sampler2D u_freq_slow;
 #include "lib/common/s4y.glsl"
 #endif
 
-#ifndef T4B_ARRIVAL_05
-#include "lib/t420babe/arrival/arrival-05.glsl"
+// #ifndef T4B_ARRIVAL_16
+// #include "lib/t420babe/arrival/arrival-16.glsl"
+// #endif
+
+#ifndef T4B_FRACTIONS_22
+#include "lib/t420babe/fractions/fractions-22.glsl"
 #endif
 
-#ifndef T4B_ARRIVAL_06
-#include "lib/t420babe/arrival/arrival-06.glsl"
-#endif
 
-#ifndef T4B_ARRIVAL_07
-#include "lib/t420babe/arrival/arrival-07.glsl"
-#endif
-
-#ifndef T4B_ARRIVAL_08
-#include "lib/t420babe/arrival/arrival-08.glsl"
-#endif
-
-#ifndef T4B_ARRIVAL_09
-#include "lib/t420babe/arrival/arrival-09.glsl"
-#endif
-
-#ifndef T4B_ARRIVAL_10
-#include "lib/t420babe/arrival/arrival-10.glsl"
-#endif
+float plot(vec2 uv) {
+  return smoothstep(0.02, 0.0, abs(uv.y - uv.x));
+}
 
 void main(void) {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   audio = u_audio;
   float time = t;
+  vec3 color = vec3(1.0);
+  color.r *= audio.lowpass;
+  color.g *= audio.highpass;
+  color.b *= audio.notch;
+  // arrival_16(p3, time, audio);
+  fractions_22(p3, time, audio);
 
-  arrival_08(p3, time, audio);
+  // gl_FragColor += texture2D(u_fb, vec2(p3.xy/ 2.0 + 0.5) - vec2(0.00, 0.001)) - 0.002;
+//
+  // gl_FragColor = vec4(color, 1.0);;
+
 }
+

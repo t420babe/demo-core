@@ -6,21 +6,10 @@
 #include "lib/common/00-common.glsl"
 #endif
 
-#ifndef PXL_RHOMBUS
-#include "lib/pxl/rhombus-sdf.glsl"
+#ifndef PXL
+#include "lib/pxl/00-pxl.glsl"
 #endif
 
-#ifndef PXL_HEXAGON
-#include "lib/pxl/hex-sdf.glsl"
-#endif
-
-#ifndef PXL_ROTATE
-#include "lib/pxl/rotate-sdf.glsl"
-#endif
-
-#ifndef PXL_RAYS
-#include "lib/pxl/rays-sdf.glsl"
-#endif
 
 vec4 arrival_10_08a(vec3 p3, float time, peakamp audio) {
   audio.bandpass  *= 2.0;

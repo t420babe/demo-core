@@ -9,10 +9,6 @@
 #include "lib/pxl/00-pxl.glsl"
 #endif
 
-#ifndef SQUARE_POSITION
-#include "lib/common/square-position.glsl"
-#endif
-
 void arrival_08(vec3 p3, float time, peakamp audio) {
   audio.bandpass  *= 2.0;
   audio.highpass  *= 5.0;
