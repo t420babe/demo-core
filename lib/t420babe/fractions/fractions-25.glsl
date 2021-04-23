@@ -1,4 +1,4 @@
-// Music: Sola by Nina Cobham
+// Ready, Able by Grizzly Bear
 #ifndef T4B_FRACTIONS_22
 #define T4B_FRACTIONS_22
 
@@ -41,18 +41,12 @@ void fractions_22(vec3 p3, float time, peakamp audio) {
   float rz = fractions_22_map(p3, time);
   float y = 1.0 * abs(sin(p3.x + 1.0) + sin(p3.x * time));
   float m = plot(vec2(p3.x, p3.y), y, 1.50) * 1.0;
-
-  vec3 c_mul = vec3(1.1, 2.0, 1.5);
-
-  // c_mul.r *= audio.lowpass;
-  // c_mul.g *= audio.highpass;
-  // c_mul.b *= audio.bandpass;
-
+  float r_mul = 0.1;
+  float g_mul = 2.0;
+  float b_mul = 1.5;
   float f = clamp( ( rz - fractions_22_map(p3 + 0.5, wrap_time(time, 10.0)) ) * 1.0, 0.05, 10.0 );
   vec3 l = vec3(1.0, 1.0, 1.0) * atan(f * p3.y * 0.1) ;
   color *= l;
-
-  // color *= c_mul;
   // color = vec3((1.0 - m) * (p3.y * 5.0));
   // color += ( 1.0 - smoothstep(0.0, 0.1, rz) ) * 0.6 * l * (abs(audio.notch) + 0.3);
 
@@ -62,8 +56,8 @@ void fractions_22(vec3 p3, float time, peakamp audio) {
   // gl_FragColor += texture2D(u_fb, audio.notch * vec2(tan(p3.xy/ 2.0 + 0.5)) - vec2(0.00, 0.001)) - 0.002;
   // gl_FragColor += texture2D(u_fb, vec2(p3.xy/ 2.0 + 0.5) - vec2(0.00, 0.001)) - 0.002;
   // gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
-  gl_FragColor += texture2D(u_fb, vec2(p3.yx/2.+.5) + vec2(0.001, 0.00)) - 0.002;
-  // gl_FragColor /= texture2D(u_fb, vec2(p3.xy + 0.5));
+  // gl_FragColor += texture2D(u_fb, vec2(p3.yx/2.+.5) + vec2(0.001, 0.00)) - 0.002;
+  gl_FragColor /= texture2D(u_fb, vec2(p3.xy + 0.5));
 }
 
 #endif
