@@ -1,5 +1,5 @@
-#ifndef T4B_FRACTIONS_25
-#define T4B_FRACTIONS_25
+#ifndef T4B_FRACTIONS_26
+#define T4B_FRACTIONS_26
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -9,7 +9,7 @@
 #include "./lib/pxl/rotate-sdf.glsl"
 #endif
 
-float fractions_25_map(vec3 p3, float time) {
+float fractions_26_map(vec3 p3, float time) {
   p3.xz *= rotate2d(time * 0.3);
   p3.xy *= rotate2d(time * 0.2);
 
@@ -20,32 +20,34 @@ float fractions_25_map(vec3 p3, float time) {
   return x0 *  x1 + x2 * 5.0;
 }
 
-void fractions_25(vec3 p3, float time, peakamp audio) {
-  audio.lowpass *= 2.0;
-  audio.highpass *= 2.0;
-  audio.bandpass *= 2.0;
-  audio.notch *= 2.0;
+void fractions_26(vec3 p3, float time, peakamp audio) {
+  audio.lowpass   *= 1.0;
+  audio.highpass  *= 1.0;
+  audio.bandpass  *= 1.0;
+  audio.notch     *= 1.0;
   vec3 color = vec3(1.0);
   // p3 *= time * 0.5;
   // p3 *= 5.0 * sin(time * 0.1);
-  p3 *= 10.0;
+  // p3 *= 10.0;
   // p3.y += 0.5;
   // p3.x *= 4.0;
+  // p3.xz *= rotate2d(time * 1.3);
+  p3.xy *= rotate2d(time * 0.2);
+  p3.xy += 0.1;
   float y1 = 1.0 * (sin(p3.x + 1.0) * sin(p3.x * time));
   float m1 = plot(vec2(p3.x, p3.y), y1, 0.10) * 1.0;
-  // p3.xz *= rotate2d(time * 1.3);
-  p3.xy *= rotate2d(time * 0.2) + m1;
-  // p3.x += 0.5;
+  p3.xy *= m1;
 
-  float rz = fractions_25_map(p3, time);
+  float rz = fractions_26_map(p3, time);
   float y = 1.0 * abs(sin(p3.x + 1.0) + sin(p3.x * time));
   float m = plot(vec2(p3.x, p3.y), y, 1.50) * 1.0;
   float r_mul = 0.1;
   float g_mul = 2.0;
   float b_mul = 1.5;
-  float f = clamp( ( rz - fractions_25_map(p3 + 0.5, wrap_time(time, 10.0)) ) * 1.0, 0.05, 10.0 );
+  // float f = clamp( ( rz - fractions_26_map(p3 * 5.0, wrap_time(time, 10.0)) ) * 1.0, 0.05, 10.0 );
+  float f =  ( rz - fractions_26_map(p3 * 5.0, wrap_time(time, 10.0)) ) * 1.0;
   vec3 l = vec3(1.0, 1.0, 1.0) * atan(f * p3.y * 0.1) ;
-  color *= l;
+  color *= pow(l, vec3(0.5));
   // color = vec3((1.0 - m) * (p3.y * 5.0));
   // color += ( 1.0 - smoothstep(0.0, 0.1, rz) ) * 0.6 * l * (abs(audio.notch) + 0.3);
 
@@ -56,7 +58,7 @@ void fractions_25(vec3 p3, float time, peakamp audio) {
   // gl_FragColor += texture2D(u_fb, vec2(p3.xy/ 2.0 + 0.5) - vec2(0.00, 0.001)) - 0.002;
   // gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
   // gl_FragColor += texture2D(u_fb, vec2(p3.yx/2.+.5) + vec2(0.001, 0.00)) - 0.002;
-  gl_FragColor /= texture2D(u_fb, vec2(p3.xy + 0.5));
+  // gl_FragColor += texture2D(u_fb, vec2(p3.xy + 0.5));
 }
 
 #endif

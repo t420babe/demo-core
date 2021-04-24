@@ -34,8 +34,8 @@ uniform sampler2D u_freq_slow;
 // #include "lib/t420babe/arrival/arrival-16.glsl"
 // #endif
 
-#ifndef T4B_FRACTIONS_22
-#include "lib/t420babe/fractions/fractions-22.glsl"
+#ifndef T4B_FRACTIONS_32
+#include "lib/t420babe/fractions/fractions-32.glsl"
 #endif
 
 
@@ -52,7 +52,7 @@ void main(void) {
   color.g *= audio.highpass;
   color.b *= audio.notch;
   // arrival_16(p3, time, audio);
-  fractions_22(p3, time, audio);
+  fractions_32(p3, time, audio);
 
   // gl_FragColor += texture2D(u_fb, vec2(p3.xy/ 2.0 + 0.5) - vec2(0.00, 0.001)) - 0.002;
 //

@@ -1,6 +1,5 @@
-// Ready, Able by Grizzly Bear
-#ifndef T4B_FRACTIONS_22
-#define T4B_FRACTIONS_22
+#ifndef T4B_FRACTIONS_23
+#define T4B_FRACTIONS_23
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -10,7 +9,7 @@
 #include "./lib/pxl/rotate-sdf.glsl"
 #endif
 
-float fractions_22_map(vec3 p3, float time) {
+float fractions_23_map(vec3 p3, float time) {
   p3.xz *= rotate2d(time * 0.3);
   p3.xy *= rotate2d(time * 0.2);
 
@@ -21,7 +20,7 @@ float fractions_22_map(vec3 p3, float time) {
   return x0 *  x1 + x2 * 5.0;
 }
 
-void fractions_22(vec3 p3, float time, peakamp audio) {
+void fractions_23(vec3 p3, float time, peakamp audio) {
   audio.lowpass *= 2.0;
   audio.highpass *= 2.0;
   audio.bandpass *= 2.0;
@@ -38,13 +37,13 @@ void fractions_22(vec3 p3, float time, peakamp audio) {
   p3.xy *= rotate2d(time * 0.2) * m1;
   p3.xy += 0.1;
 
-  float rz = fractions_22_map(p3, time);
+  float rz = fractions_23_map(p3, time);
   float y = 1.0 * abs(sin(p3.x + 1.0) + sin(p3.x * time));
   float m = plot(vec2(p3.x, p3.y), y, 1.50) * 1.0;
   float r_mul = 0.1;
   float g_mul = 2.0;
   float b_mul = 1.5;
-  float f = clamp( ( rz - fractions_22_map(p3 + 0.5, wrap_time(time, 10.0)) ) * 1.0, 0.05, 10.0 );
+  float f = clamp( ( rz - fractions_23_map(p3 + 0.5, wrap_time(time, 10.0)) ) * 1.0, 0.05, 10.0 );
   vec3 l = vec3(1.0, 1.0, 1.0) * atan(f * p3.y * 0.1) ;
   color *= l;
   // color = vec3((1.0 - m) * (p3.y * 5.0));
