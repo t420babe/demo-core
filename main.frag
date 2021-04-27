@@ -30,13 +30,18 @@ uniform sampler2D u_freq_slow;
 #include "lib/common/s4y.glsl"
 #endif
 
-// #ifndef T4B_ARRIVAL_16
-// #include "lib/t420babe/arrival/arrival-16.glsl"
+// #ifndef T4B_FRACTIONS_33
+// #include "lib/t420babe/fractions/fractions-33.glsl"
+// #endif
+//
+// #ifndef T4B_FRACTIONS_34
+// #include "lib/t420babe/fractions/fractions-34.glsl"
 // #endif
 
-#ifndef T4B_FRACTIONS_32
-#include "lib/t420babe/fractions/fractions-32.glsl"
+#ifndef T4B_FRACTIONS_35
+#include "lib/t420babe/fractions/fractions-35.glsl"
 #endif
+
 
 
 float plot(vec2 uv) {
@@ -51,8 +56,9 @@ void main(void) {
   color.r *= audio.lowpass;
   color.g *= audio.highpass;
   color.b *= audio.notch;
-  // arrival_16(p3, time, audio);
-  fractions_32(p3, time, audio);
+  // fractions_34(p3, time, audio);
+  // fractions_33(p3, time, audio);
+  fractions_35(p3, time, audio);
 
   // gl_FragColor += texture2D(u_fb, vec2(p3.xy/ 2.0 + 0.5) - vec2(0.00, 0.001)) - 0.002;
 //
