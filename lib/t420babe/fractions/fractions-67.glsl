@@ -1,4 +1,4 @@
-// Just Came For the Music by Billy Kenny
+// Kings and Queens by Coppola, 2STRANGE
 #ifndef T4B_FRACTIONS_35
 #define T4B_FRACTIONS_35
 

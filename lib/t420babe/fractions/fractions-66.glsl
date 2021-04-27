@@ -23,7 +23,7 @@ float fractions_35_map(vec3 p3, float time) {
 
 void fractions_35(vec3 p3, float time, peakamp audio) {
   // Add 10s to avoid solid black screen @ t=0
-  // time += 10.0;
+  time += 10.0;
   vec3 color = vec3(1.0);
   audio.lowpass   *= 1.0;
   audio.highpass  *= 1.0;
@@ -41,7 +41,7 @@ void fractions_35(vec3 p3, float time, peakamp audio) {
 
   float y1 = 1.0 * (sin(p3.x ));
   // float m1 = plot(vec2(p3.x, p3.y), y1, wrap_time(time, 10.0));
-  float m1 = plot(vec2(p3.x, p3.y), y1, 1.5);
+  float m1 = plot(vec2(p3.x, p3.y), y1, 15.5);
   p3.xy *= m1;
 
   float rz = fractions_35_map(p3, time);
@@ -61,7 +61,6 @@ void fractions_35(vec3 p3, float time, peakamp audio) {
   // color.r += 10.0 * audio.highpass;
   color.r *= 1.0 * audio.bandpass;
   color.g *= 8.0 * audio.notch;
-  // color.b *= 8.0 * audio.notch;
   //
   // color.r += 10.0;
   // color.g *= 10.0;
