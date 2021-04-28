@@ -21,10 +21,9 @@ void fractions_09(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   // p3 *= time * 0.5;
   // p3 *= 3.0;
-  // p3 *= 3.0;
+  p3 *= 1.8;
   // p3.y += 0.5;
-  p3.x *= 1.1;
-  float y1 = 0.1 * (tan(p3.x * 10.0) + cos(p3.x * time));
+  float y1 = 0.1 * (atan(p3.x * 10.0) + cos(p3.x * time));
   float m1 = plot(vec2(p3.x, p3.y), y1, 1.20) * 1.0;
   p3.xz *= rotate2d(time * 0.3 + 0.4) * m1;
   p3.xy *= rotate2d(time * 0.2) * m1;

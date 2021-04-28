@@ -1,24 +1,24 @@
 // #deni #relax #chill
-#ifndef T4B_FRACTIONS_05
-#define T4B_FRACTIONS_05
+#ifndef T4B_FRACTIONS_70
+#define T4B_FRACTIONS_70
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
 #endif
 
-float f_05_plot(vec2 p2, float m) {
-  return smoothstep(m - 0.02, m, p2.y) - smoothstep(m, m + 0.02, p2.y);
-}
-
-void fractions_05(vec3 p3, float time, peakamp audio) {
+// float f_70_plot(vec2 p2, float m) {
+//   return smoothstep(m - 0.02, m, p2.y) - smoothstep(m, m + 0.02, p2.y);
+// }
+//
+void fractions_70(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   // p3 *= time * 0.1;
   p3.y += 0.5;
   // float y = mod(tan(2.0 * p3.x) * (cos(time), tan(time)), 0.75);
   // float y = (tan(2.0 * p3.x) + cos(p3.y * wrap_time(time, 20.0)));
 
-  float y = (tan(2.0 * p3.x) + cos(p3.y * time));
-  float m = f_05_plot(vec2(p3.x, p3.y), y) * 50.0;
+  float y = (tan(2.0 * p3.x) + cos(p3.y * time)) * p3.x;
+  float m = plot(vec2(p3.x, p3.y), y, 0.02) * 50.0;
   color = (1.0 - m) * color + m * vec3(audio.notch, audio.highpass, audio.lowpass);
 
   gl_FragColor = vec4(1.0 - color, 1.0);

@@ -1,3 +1,4 @@
+// #deni #chill #relax
 // Ready, Able by Grizzly Bear
 #ifndef T4B_FRACTIONS_06
 #define T4B_FRACTIONS_06
@@ -12,7 +13,7 @@ float f_06_plot(vec2 p2, float m) {
 
 void fractions_06(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
-  // p3 *= time * 0.01;
+  p3 *= time * 0.01;
   p3.y += 0.5;
   // float y = mod(tan(2.0 * p3.x) * (cos(time), tan(time)), 0.75);
 
