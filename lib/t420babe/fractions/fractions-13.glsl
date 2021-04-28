@@ -1,6 +1,6 @@
 // Beech Street - Simon Doty Remix Extended
-#ifndef T4B_FRACTIONS_12
-#define T4B_FRACTIONS_12
+#ifndef T4B_FRACTIONS_13
+#define T4B_FRACTIONS_13
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -11,11 +11,11 @@
 #endif
 
 
-float f_12_plot(vec2 p2, float m) {
+float f_13_plot(vec2 p2, float m) {
   return smoothstep(m - 0.15, m, p2.y) - smoothstep(m, m + 0.15, p2.y);
 }
 
-void fractions_12(vec3 p3, float time, peakamp audio) {
+void fractions_13(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   // p3 *= time * 0.5;
   float scale = 0.5;
@@ -30,7 +30,7 @@ void fractions_12(vec3 p3, float time, peakamp audio) {
   // p3.xy *= rotate2d(time * 0.2);
 
   float y = 1.0 * (tan(p3.y * 10.0) + cos(p3.x * time));
-  // float m = f_12_plot(vec2(p3.x, p3.y), y) * 1.0;
+  // float m = f_13_plot(vec2(p3.x, p3.y), y) * 1.0;
   float m = plot(vec2(p3.x, p3.y), y, 2.0 * audio.notch) * 1.0;
   // float m = plot(vec2(p3.x, p3.y), y, -0.2
   color = (1.0 - m) * color + 1.0 * m * vec3(audio.notch, audio.highpass, audio.lowpass);
