@@ -1,6 +1,6 @@
 // #deni #favdeni #chill #relax
-#ifndef T4B_FRACTIONS_79
-#define T4B_FRACTIONS_79
+#ifndef T4B_FRACTIONS_94
+#define T4B_FRACTIONS_94
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -11,7 +11,7 @@
 #endif
 
 
-void fractions_79(vec3 p3, float time, peakamp audio) {
+void fractions_94(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   p3.y /= 1.0;
   p3 *= 1.0;
