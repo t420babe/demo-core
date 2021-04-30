@@ -42,8 +42,8 @@ uniform sampler2D u_freq_slow;
 #include "lib/t420babe/fractions/fractions-35.glsl"
 #endif
 
-#ifndef T4B_FRACTIONS_79
-#include "lib/t420babe/fractions/fractions-79.glsl"
+#ifndef T4B_FRACTIONS_78
+#include "lib/t420babe/fractions/fractions-78.glsl"
 #endif
 
 // #ifndef T4B_FRACTIONS_94
@@ -61,13 +61,13 @@ void main(void) {
   audio = u_audio;
   float time = t;
   vec3 color = vec3(1.0);
-  color.r *= audio.lowpass;
-  color.g *= audio.highpass;
-  color.b *= audio.notch;
+  // color.r *= audio.lowpass;
+  // color.g *= audio.highpass;
+  // color.b *= audio.notch;
   // fractions_34(p3, time, audio);
   // fractions_33(p3, time, audio);
   // fractions_35(p3, time, audio);
-  fractions_79(p3, time, audio);
+  fractions_78(p3, time, audio);
   // fractions_94(p3, time, audio);
 
   // gl_FragColor += texture2D(u_fb, vec2(p3.xy/ 2.0 + 0.5) - vec2(0.00, 0.001)) - 0.002;

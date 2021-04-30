@@ -1,7 +1,6 @@
 // #deni #relax #favdeni #chill
-// Ready, Able by Grizzly Bear
-#ifndef T4B_FRACTIONS_09
-#define T4B_FRACTIONS_09
+#ifndef T4B_FRACTIONS_78
+#define T4B_FRACTIONS_78
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -11,7 +10,7 @@
 #include "./lib/pxl/rotate-sdf.glsl"
 #endif
 
-void fractions_09(vec3 p3, float time, peakamp audio) {
+void fractions_78(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   time = wrap_time(time, 800.0);
 
@@ -24,14 +23,14 @@ void fractions_09(vec3 p3, float time, peakamp audio) {
   float m = plot(vec2(p3.x, 2.0 * p3.y), y, 0.80);
   color = vec3(5.0 * m);
 
-  color.r += abs(sin(time * 0.3));
-  color.b += abs(tan(time * 0.2));
-  color.g += abs(cos(time * 0.1));
+  // color.r += abs(sin(time * 0.3));
+  // color.b += abs(tan(time * 0.2));
+  // color.g += abs(cos(time * 0.1));
 
   // color = hsv2rgb(color);
 
   color = 1.0 - color;
-  gl_FragColor = vec4(color.rbg, 1.0);
+  gl_FragColor = vec4(color, 1.0);
   gl_FragColor += texture2D(u_fb, vec2(p3.yx/2.+.5) + vec2(0.001, 0.00)) - 0.002;
 }
 
