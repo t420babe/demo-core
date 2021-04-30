@@ -1,7 +1,7 @@
 // #deni #favdeni #chill #relax
-// Ready, Able by Grizzly Bear
-#ifndef T4B_FRACTIONS_11
-#define T4B_FRACTIONS_11
+// Hypnotise Me by Sonny Grin, KP Hydes
+#ifndef T4B_FRACTIONS_80
+#define T4B_FRACTIONS_80
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -12,7 +12,7 @@
 #endif
 
 
-void fractions_11(vec3 p3, float time, peakamp audio) {
+void fractions_80(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   // p3 *= time * 0.5;
   p3.x /= 10.0;
