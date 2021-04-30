@@ -1,7 +1,7 @@
 // #deni #denifav #chill
 // Beech Street - Simon Doty Remix Extended
-#ifndef T4B_FRACTIONS_13
-#define T4B_FRACTIONS_13
+#ifndef T4B_FRACTIONS_82
+#define T4B_FRACTIONS_82
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -12,7 +12,7 @@
 #endif
 
 
-void fractions_13(vec3 p3, float time, peakamp audio) {
+void fractions_82(vec3 p3, float time, peakamp audio) {
   p3.xy = p3.yx;
   vec3 color = vec3(1.0);
   float scale = 0.3;

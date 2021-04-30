@@ -1,6 +1,6 @@
 // Is This Our Earth? by Lane 8
-#ifndef T4B_FRACTIONS_19
-#define T4B_FRACTIONS_19
+#ifndef T4B_FRACTIONS_83
+#define T4B_FRACTIONS_83
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -11,11 +11,7 @@
 #endif
 
 
-float f_19_plot(vec2 p2, float m) {
-  return smoothstep(m - 0.15, m, p2.y) - smoothstep(m, m + 0.15, p2.y);
-}
-
-void fractions_19(vec3 p3, float time, peakamp audio) {
+void fractions_83(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   float scale = 0.50;
   p3 *= wrap_time(time * scale, t2s(0, 1, 00) * scale);
