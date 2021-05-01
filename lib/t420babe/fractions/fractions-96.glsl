@@ -21,16 +21,22 @@ void fractions_77(vec3 p3, float time, peakamp audio) {
 
   float y = 1.0 * (tan(p3.x * 10.0) + cos(p3.x * time));
   float m = plot(vec2(p3.x, 2.0 * p3.y), y, 0.50);
-  color = vec3(5.0 * m);
+  color = vec3(1.0 * m);
 
-  color.r += abs(sin(time * 0.3));
-  color.b += abs(tan(time * 0.2));
-  color.g += abs(cos(time * 0.1));
+  color.r *= abs(sin(time * 0.1));
+  color.b *= abs(tan(time * 0.1));
+  color.g *= abs(cos(time * 0.1));
+
+
+  // color.r += abs(sin(time * 0.2)) * 0.2;
+  // color.b += abs(tan(time * 0.3)) * 0.2;
+  // color.g += abs(cos(time * 0.1)) * 0.2;
 
   // color = hsv2rgb(color);
 
   color = 1.0 - color;
-  gl_FragColor = vec4(color, 1.0);
+  gl_FragColor = vec4(color.gbr, 1.0);
+  gl_FragColor -= texture2D(u_fb, vec2(p3.xy/3.+.5) + vec2(0.002, 0.00)) - 0.002;
   gl_FragColor += texture2D(u_fb, vec2(p3.yx/2.+.5) + vec2(0.001, 0.00)) - 0.002;
 }
 
