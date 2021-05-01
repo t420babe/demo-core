@@ -1,7 +1,7 @@
 // #deni #favdeni #chill #relax
 // Ready, Able by Grizzly Bear
-#ifndef T4B_FRACTIONS_79
-#define T4B_FRACTIONS_79
+#ifndef T4B_FRACTIONS_89
+#define T4B_FRACTIONS_89
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -12,7 +12,7 @@
 #endif
 
 
-void fractions_79(vec3 p3, float time, peakamp audio) {
+void fractions_89(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   p3.x /= 8.0;
   p3 *= 3.0;
@@ -37,12 +37,16 @@ void fractions_79(vec3 p3, float time, peakamp audio) {
   // color += audio.notch * 3.0;
   // color += audio.notch * 3.0;
 
+  // color.r += audio.notch * 1.5;
+  // color.g *= audio.highpass * 2.5;
+  // color.b *= audio.notch * 2.5;
 
 
-  gl_FragColor = vec4(color, 1.0);
+
+  gl_FragColor = vec4(color.gbr, 1.0);
   // gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
-  // gl_FragColor += texture2D(u_fb, vec2(p3.yx/2.+.5) + vec2(0.001, 0.00)) - 0.002;
-  // gl_FragColor += texture2D(u_fb, vec2(p3.xy + 0.5));
+  // gl_FragColor -= texture2D(u_fb, vec2(p3.yx/2.+.5) + vec2(0.001, 0.00)) - 0.002;
+  // gl_FragColor -= texture2D(u_fb, vec2(p3.xy + 0.5));
 }
 
 #endif

@@ -1,7 +1,6 @@
 // #deni #relax #favdeni #chill
-// Ready, Able by Grizzly Bear
-#ifndef T4B_FRACTIONS_09
-#define T4B_FRACTIONS_09
+#ifndef T4B_FRACTIONS_76
+#define T4B_FRACTIONS_76
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -11,12 +10,7 @@
 #include "./lib/pxl/rotate-sdf.glsl"
 #endif
 
-
-float f_09_plot(vec2 p2, float m) {
-  return smoothstep(m - 0.15, m, p2.y) - smoothstep(m, m + 0.15, p2.y);
-}
-
-void fractions_09(vec3 p3, float time, peakamp audio) {
+void fractions_76(vec3 p3, float time, peakamp audio) {
   // time += 100.0;
   vec3 color = vec3(1.0);
   // p3 *= time * 0.5;
@@ -33,7 +27,7 @@ void fractions_09(vec3 p3, float time, peakamp audio) {
   // p3.xy *= rotate2d(time * 0.2);
 
   float y = 1.0 * (tan(p3.x * 10.0) + atan(p3.x * time));
-  // float m = f_09_plot(vec2(p3.x, p3.y), y) * 1.0;
+  // float m = f_76_plot(vec2(p3.x, p3.y), y) * 1.0;
   float m = plot(vec2(p3.x, 2.0 * p3.y), y, 1.20);
   color = vec3(5.0 * m);
   // color = vec3(m * p3.y) + 1.0 * m * vec3(audio.notch, audio.highpass, audio.lowpass);

@@ -1,7 +1,7 @@
 // Groundhog Day by Lane 8
 // #deni #denifav #chill
-#ifndef T4B_FRACTIONS_23
-#define T4B_FRACTIONS_23
+#ifndef T4B_FRACTIONS_88
+#define T4B_FRACTIONS_88
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -11,7 +11,7 @@
 #include "./lib/pxl/rotate-sdf.glsl"
 #endif
 
-float fractions_23_map(vec3 p3, float time) {
+float fractions_88_map(vec3 p3, float time) {
   p3.xz *= rotate2d(time * 0.3);
   p3.xy *= rotate2d(time * 0.2);
 
@@ -22,7 +22,7 @@ float fractions_23_map(vec3 p3, float time) {
   return x0 *  x1 + x2 * 5.0;
 }
 
-void fractions_23(vec3 p3, float time, peakamp audio) {
+void fractions_88(vec3 p3, float time, peakamp audio) {
   audio.lowpass *= 2.0;
   audio.highpass *= 2.0;
   audio.bandpass *= 2.0;
@@ -39,14 +39,14 @@ void fractions_23(vec3 p3, float time, peakamp audio) {
   p3.xy *= rotate2d(time * 0.2) * m1;
   p3.xy += 0.1;
 
-  float rz = fractions_23_map(p3, time);
+  float rz = fractions_88_map(p3, time);
   float y = 0.5 * abs(sin(p3.x + 1.0) + sin(p3.x * time));
   float m = plot(vec2(p3.x, p3.y), y, 1.50) * 1.0;
   float r_mul = 0.1;
   float g_mul = 2.0;
   float b_mul = 1.5;
-  // float f =rz - fractions_23_map(p3, wrap_time(time, 10.0));
-  float f =rz - (fractions_23_map(p3, sin(time* 1.0)) * 5.0);
+  // float f =rz - fractions_88_map(p3, wrap_time(time, 10.0));
+  float f =rz - (fractions_88_map(p3, sin(time* 1.0)) * 5.0);
   vec3 l = vec3(y);
   color *= l;
   // color = vec3((1.0 - m) * (p3.y * 5.0));

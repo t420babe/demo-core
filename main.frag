@@ -42,19 +42,16 @@ uniform sampler2D u_freq_slow;
 #include "lib/t420babe/fractions/fractions-35.glsl"
 #endif
 
-#ifndef T4B_FRACTIONS_77
-#include "lib/t420babe/fractions/fractions-77.glsl"
+#ifndef T4B_FRACTIONS_76
+#include "lib/t420babe/fractions/fractions-76.glsl"
 #endif
 
-// #ifndef T4B_FRACTIONS_94
-// #include "lib/t420babe/fractions/fractions-94.glsl"
-// #endif
+#ifndef T4B_FRACTIONS_88
+#include "lib/t420babe/fractions/fractions-88.glsl"
+#endif
 
 
 
-float plot(vec2 uv) {
-  return smoothstep(0.02, 0.0, abs(uv.y - uv.x));
-}
 
 void main(void) {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
@@ -67,8 +64,8 @@ void main(void) {
   // fractions_34(p3, time, audio);
   // fractions_33(p3, time, audio);
   // fractions_35(p3, time, audio);
-  fractions_77(p3, time, audio);
-  // fractions_94(p3, time, audio);
+  // fractions_76(p3, time, audio);
+  fractions_88(p3, time, audio);
 
   // gl_FragColor += texture2D(u_fb, vec2(p3.xy/ 2.0 + 0.5) - vec2(0.00, 0.001)) - 0.002;
 //
