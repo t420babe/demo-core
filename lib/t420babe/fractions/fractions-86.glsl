@@ -1,5 +1,4 @@
 // #deni #favdeni #fav5
-// Music: Sola by Nina Cobham
 #ifndef T4B_FRACTIONS_86
 #define T4B_FRACTIONS_86
 

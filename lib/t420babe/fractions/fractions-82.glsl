@@ -1,5 +1,4 @@
 // #deni #denifav #chill
-// Beech Street - Simon Doty Remix Extended
 #ifndef T4B_FRACTIONS_82
 #define T4B_FRACTIONS_82
 

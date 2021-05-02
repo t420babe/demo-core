@@ -1,7 +1,6 @@
 // #deni #favdeni #fav5
-// Music: Sola by Nina Cobham
-#ifndef T4B_FRACTIONS_22
-#define T4B_FRACTIONS_22
+#ifndef T4B_FRACTIONS_84
+#define T4B_FRACTIONS_84
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -11,7 +10,7 @@
 #include "./lib/pxl/rotate-sdf.glsl"
 #endif
 
-float fractions_22_map(vec3 p3, float time) {
+float fractions_84_map(vec3 p3, float time) {
   p3.xz *= rotate2d(time * 0.3);
   p3.xy *= rotate2d(time * 0.2);
 
@@ -22,7 +21,7 @@ float fractions_22_map(vec3 p3, float time) {
   return x0 *  x1 + x2 * 5.0;
 }
 
-void fractions_22(vec3 p3, float time, peakamp audio) {
+void fractions_84(vec3 p3, float time, peakamp audio) {
   audio.lowpass *= 2.0;
   audio.highpass *= 2.0;
   audio.bandpass *= 2.0;
@@ -39,7 +38,7 @@ void fractions_22(vec3 p3, float time, peakamp audio) {
   p3.xy *= rotate2d(time * 0.2) + m1;
   // p3.x += 0.5;
 
-  float rz = fractions_22_map(p3, time);
+  float rz = fractions_84_map(p3, time);
   float y = 1.0 * abs(sin(p3.x + 1.0) + sin(p3.x * time));
   float m = plot(vec2(p3.x, p3.y), y, 1.50) * 1.0;
 
@@ -49,7 +48,7 @@ void fractions_22(vec3 p3, float time, peakamp audio) {
   // c_mul.g *= audio.highpass;
   // c_mul.b *= audio.bandpass;
 
-  float f = clamp( ( rz - fractions_22_map(p3 + 0.5, wrap_time(time, 10.0)) ) * 1.0, 0.05, 10.0 );
+  float f = clamp( ( rz - fractions_84_map(p3 + 0.5, wrap_time(time, 10.0)) ) * 1.0, 0.05, 10.0 );
   vec3 l = vec3(1.0, 1.0, 1.0) * atan(f * p3.y * 0.1) ;
   color *= l;
 
