@@ -6,13 +6,9 @@
 #include "lib/common/00-common.glsl"
 #endif
 
-// float f_70_plot(vec2 p2, float m) {
-//   return smoothstep(m - 0.02, m, p2.y) - smoothstep(m, m + 0.02, p2.y);
-// }
-//
 void fractions_70(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
-  p3.y += 0.5;
+  // p3.y += 0.5;
   float y = (tan(2.0 * p3.x) + cos(p3.y * time));
   float m = plot(vec2(p3.x, p3.y), y, 0.02) * 50.0;
   color = (1.0 - m) * color + m * vec3(audio.notch, audio.highpass, audio.lowpass);

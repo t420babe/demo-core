@@ -1,6 +1,6 @@
 // #deni #relax #favdeni #chill
-#ifndef T4B_FRACTIONS_77
-#define T4B_FRACTIONS_77
+#ifndef T4B_FRACTIONS_96
+#define T4B_FRACTIONS_96
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -10,7 +10,7 @@
 #include "./lib/pxl/rotate-sdf.glsl"
 #endif
 
-void fractions_77(vec3 p3, float time, peakamp audio) {
+void fractions_96(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   time = wrap_time(time, 800.0);
 

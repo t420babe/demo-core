@@ -1,7 +1,6 @@
 // #deni #relax #favdeni #chill
-// Ready, Able by Grizzly Bear
-#ifndef T4B_FRACTIONS_09
-#define T4B_FRACTIONS_09
+#ifndef T4B_FRACTIONS_73
+#define T4B_FRACTIONS_73
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -12,11 +11,11 @@
 #endif
 
 
-float f_09_plot(vec2 p2, float m) {
+float f_73_plot(vec2 p2, float m) {
   return smoothstep(m - 0.15, m, p2.y) - smoothstep(m, m + 0.15, p2.y);
 }
 
-void fractions_09(vec3 p3, float time, peakamp audio) {
+void fractions_73(vec3 p3, float time, peakamp audio) {
   // time += 100.0;
   vec3 color = vec3(1.0);
   // p3 *= time * 0.5;
@@ -34,7 +33,7 @@ void fractions_09(vec3 p3, float time, peakamp audio) {
   // p3.xy *= rotate2d(time * 0.2);
 
   float y = 1.0 * (tan(p3.x * 10.0) + cos(p3.x * time));
-  // float m = f_09_plot(vec2(p3.x, p3.y), y) * 1.0;
+  // float m = f_73_plot(vec2(p3.x, p3.y), y) * 1.0;
   float m = plot(vec2(p3.x, 2.0 * p3.y), y, 1.20);
   color = vec3(5.0 * m);
   // color = vec3(m * p3.y) + 1.0 * m * vec3(audio.notch, audio.highpass, audio.lowpass);
@@ -43,6 +42,9 @@ void fractions_09(vec3 p3, float time, peakamp audio) {
   // color = 1.0 - color;
   // color *= audio.notch * 1.0;
 
+  color.r *= abs(sin(time * 0.1));
+  color.b *= abs(cos(time * 0.05));
+  color.g *= abs(sin(time * 0.05));
 
   gl_FragColor = vec4(1.0 - color, 1.0);
   // gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));

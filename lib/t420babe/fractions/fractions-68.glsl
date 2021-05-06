@@ -5,6 +5,11 @@
 #include "lib/common/00-common.glsl"
 #endif
 
+#ifndef PXL_ROTATE
+#include "./lib/pxl/rotate-sdf.glsl"
+#endif
+
+
 float fractions_68_map(vec3 p3, float time) {
   p3.xz *= rotate2d(time * 0.3);
   p3.xy *= rotate2d(time * 0.2);
