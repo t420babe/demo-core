@@ -30,14 +30,14 @@ uniform sampler2D u_freq_slow;
 #include "lib/common/s4y.glsl"
 #endif
 
-#ifndef T4B_FRACTIONS_101
-#include "lib/t420babe/fractions/fractions-101.glsl"
+#ifndef T4B_FRACTIONS_106
+#include "lib/t420babe/fractions/fractions-106.glsl"
 #endif
 
 void main(void) {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   audio = u_audio;
   float time = t;
-  fractions_101(p3, time, audio);
+  fractions_106(p3, time, audio);
 }
 
