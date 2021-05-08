@@ -1,4 +1,4 @@
-// Matcha Mistake by Lane 8, Kidnap
+// Matcha Mistake by Lane 8
 #ifndef T4B_FRACTIONS_101
 #define T4B_FRACTIONS_101
 
@@ -26,10 +26,10 @@ void fractions_101(vec3 p3, float time, peakamp audio) {
   time *= 0.1;
   time += 10.0;
   vec3 color = vec3(1.0);
-  audio.lowpass   *= 1.1;
-  audio.highpass  *= 1.1;
-  audio.bandpass  *= 1.1;
-  audio.notch     *= 1.1;
+  audio.lowpass   *= 2.0;
+  audio.highpass  *= 2.0;
+  audio.bandpass  *= 2.0;
+  audio.notch     *= 2.0;
 
   // p3 *= 55.0 * cos(p3.x) * sin(p3.x);
   // p3 *= time * exp(p3.y * exp(p3.x)) * 0.3;
@@ -38,9 +38,7 @@ void fractions_101(vec3 p3, float time, peakamp audio) {
   // p3 *= 13.0;
   // p3 *= 43.0;
   // p3 == time;
-  // p3 *= wrap_time(time * 0.05, 30.0) * cos(p3.y) * atan(p3.x);
-  // p3 *= wrap_time(time * 0.05, 30.0) * cos(p3.y) * atan(p3.y * p3.x);
-  p3 *= wrap_time(time * 0.05, 30.0) * cos(p3.y) * atan(p3.x * time * 0.05);
+  p3 *= wrap_time(time * 0.05, 30.0) * cos(p3.y) * atan(p3.x);
   p3.xz *= -rotate2d(p3.y);
   p3.yx *= rotate2d(time * 0.8);
 
@@ -60,13 +58,20 @@ void fractions_101(vec3 p3, float time, peakamp audio) {
 
   vec3 l = vec3(audio.notch) * asin(0.1 * f * p3.y) + cos(0.1 * f * p3.y);
 
-  color *= l * m;
-  color *= l * l;
+  color *= fract(l) * m;
+  color *= (l);
 
   color.r *= audio.notch;
   color.g *= audio.highpass;
   color.b *= audio.lowpass;
 
+  color.r *= 4.0;
+  color.g *= 4.0;
+  color.b *= 4.0;
+
+
+  // color = 1.0 - color;
+  // color = 1.0 / color;
   gl_FragColor = vec4(rgb2hsv(1.0 - color), 1.0);
 }
 
