@@ -32,7 +32,7 @@ void fractions_116(vec3 p3, float time, peakamp audio) {
 
   vec3 raw_p3 = p3;
   float raw_time = time;
-  time = wrap_time(time * 1.2, 50.0) + 10.0;
+  time = wrap_time(time * 1.2, 60.0) + 10.0;
   // time *= 0.5;
   vec3 color = vec3(1.0);
   vec3 p3_m1 = p3;
@@ -49,7 +49,7 @@ void fractions_116(vec3 p3, float time, peakamp audio) {
 
   float rz = fractions_116_map(p3, raw_time);
 
-  float y = 0.1 * (sin(p3.y) + (p3.z * time));
+  float y = 1.0 * (sin(p3.y) + (p3.z * time));
 
   float m = plot(vec2(p3.y, p3.x ), y * 10.0, 0.50) * 1.0;
   // float m = plot(vec2(p3.x, p3.y * audio.notch), y * 10.0  * audio.notch, 5.50) * 1.0;
@@ -61,17 +61,17 @@ void fractions_116(vec3 p3, float time, peakamp audio) {
   color *= m;
   color *= fract(l ) * l / m1;
 
-  // color.r /= sin(time) * 1.0;
-  color.r *= audio.highpass * 1.0;
-  color.g *= audio.lowpass * 1.0;
-  color.b *= audio.notch * 1.0;
-  // color = 2.5 - color;
-  color = 0.3 * audio.notch / color;
+  // color.r -= 0.5 * audio.highpass;
+  // color.b *= sin(time) * 5.0;
+  color.r *= audio.highpass * 3.0;
+  color.g *= audio.lowpass * 2.0;
+  color.b *= audio.notch * 3.0;
+  color = 0.5 * audio.notch / color;
   // gl_FragColor = vec4(color, 1.0);
   gl_FragColor = vec4(color.rbg, 1.0);
   // gl_FragColor = vec4(color.bgr, 1.0);
   // gl_FragColor = vec4(color.grb, 1.0);
-  gl_FragColor += texture2D(u_fb, vec2(p3.yx/2.+.5) + vec2(0.001, 0.00)) - 0.002;
+  gl_FragColor += texture2D(u_fb, vec2(p3.xy/2.+.5) + vec2(0.001, 0.00)) - 0.002;
 }
 
 #endif
