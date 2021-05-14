@@ -1,3 +1,4 @@
+// #chill #fav4
 // Music: Sola by Nina Cobham
 #ifndef T4B_FRACTIONS_22
 #define T4B_FRACTIONS_22
@@ -29,7 +30,7 @@ void fractions_22(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   // p3 *= time * 0.5;
   // p3 *= 5.0 * sin(time * 0.1);
-  p3 *= 10.0;
+  // p3 *= 10.0;
   // p3.y += 0.5;
   // p3.x *= 4.0;
   float y1 = 1.0 * (sin(p3.x + 1.0) * sin(p3.x * time));

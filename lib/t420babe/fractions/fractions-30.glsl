@@ -1,3 +1,4 @@
+// #katie #chill
 #ifndef T4B_FRACTIONS_30
 #define T4B_FRACTIONS_30
 
@@ -21,6 +22,8 @@ float fractions_30_map(vec3 p3, float time) {
 }
 
 void fractions_30(vec3 p3, float time, peakamp audio) {
+  // Add 10s to avoid solid black screen @ t=0
+  time += 10.0;
   audio.lowpass   *= 1.0;
   audio.highpass  *= 1.0;
   audio.bandpass  *= 1.0;

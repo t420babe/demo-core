@@ -41,7 +41,7 @@ void fractions_18(vec3 p3, float time, peakamp audio) {
   // color = (1.0-m)*p3.y+m*vec3(0.0,1.0,0.0);
 
 
-  gl_FragColor = vec4(color.gbr, 1.0);
+  gl_FragColor = vec4(color.gbr * 20.0, 1.0);
 }
 
 #endif

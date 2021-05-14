@@ -1,6 +1,7 @@
+// #katie0
 // Hot Like Sauce by Pretty Lights
-#ifndef T4B_FRACTIONS_35
-#define T4B_FRACTIONS_35
+#ifndef T4B_FRACTIONS_44
+#define T4B_FRACTIONS_44
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -10,7 +11,7 @@
 #include "./lib/pxl/rotate-sdf.glsl"
 #endif
 
-float fractions_35_map(vec3 p3, float time) {
+float fractions_44_map(vec3 p3, float time) {
   p3.xz *= rotate2d(time * 0.3);
   p3.xy *= -rotate2d(time * 0.2);
 
@@ -22,7 +23,7 @@ float fractions_35_map(vec3 p3, float time) {
   return log(x0 *  x1) * sin(x2) * 10.0;
 }
 
-void fractions_35(vec3 p3, float time, peakamp audio) {
+void fractions_44(vec3 p3, float time, peakamp audio) {
   // Add 10s to avoid solid black screen @ t=0
   time += 10.0;
   vec3 color = vec3(1.0);
@@ -44,14 +45,14 @@ void fractions_35(vec3 p3, float time, peakamp audio) {
   float m1 = plot(vec2(p3.x, p3.y), y1, 15.5);
   p3.xy *= m1;
 
-  float rz = fractions_35_map(p3, time);
+  float rz = fractions_44_map(p3, time);
 
   float y = 1.0 * (sin(p3.y) + sin(p3.z * time));
 
   float m = plot(vec2(p3.x, p3.y * audio.notch), y * 10.0  * audio.notch, 5.50) * 1.0;
   // float m = plot(vec2(p3.x, p3.y * audio.notch * 5.0), y * 10.0  * audio.notch, 10.50) * 1.0;
 
-  float f =  ( rz - fractions_35_map(p3 * 1.0, wrap_time(time, 10.0)) ) ;
+  float f =  ( rz - fractions_44_map(p3 * 1.0, wrap_time(time, 10.0)) ) ;
 
   vec3 l = vec3(audio.notch) * asin(0.1 * f * p3.y) + cos(0.1 * f * p3.y);
 

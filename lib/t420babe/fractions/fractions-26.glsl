@@ -52,13 +52,12 @@ void fractions_26(vec3 p3, float time, peakamp audio) {
   // color += ( 1.0 - smoothstep(0.0, 0.1, rz) ) * 0.6 * l * (abs(audio.notch) + 0.3);
 
 
-
-  gl_FragColor = vec4(color, 1.0);
+  gl_FragColor = vec4(color * 20.0, 1.0);
   // gl_FragColor += texture2D(u_fb, audio.notch * vec2(tan(p3.xy/ 2.0 + 0.5)) - vec2(0.00, 0.001)) - 0.002;
   // gl_FragColor += texture2D(u_fb, vec2(p3.xy/ 2.0 + 0.5) - vec2(0.00, 0.001)) - 0.002;
   // gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
   // gl_FragColor += texture2D(u_fb, vec2(p3.yx/2.+.5) + vec2(0.001, 0.00)) - 0.002;
-  // gl_FragColor += texture2D(u_fb, vec2(p3.xy + 0.5));
+  // gl_FragColor /= texture2D(u_fb, vec2(p3.xy + 0.5));
 }
 
 #endif
