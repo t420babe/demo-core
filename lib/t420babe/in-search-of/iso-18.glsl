@@ -1,5 +1,5 @@
-#ifndef T420BABE_IN_SEARCH_OF_06
-#define T420BABE_IN_SEARCH_OF_06
+#ifndef T420BABE_IN_SEARCH_OF_18
+#define T420BABE_IN_SEARCH_OF_18
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -9,15 +9,15 @@
 #include "./lib/common/plot.glsl"
 #endif
 
-#ifndef COMMON_PERMUTE
-#include "./lib/common/permute.glsl"
-#endif
-
 #ifndef COMMON_MATH_CONSTANTS
 #include "./lib/common/math-constants.glsl"
 #endif
 
-vec2 iso_06_cellular2x2x2(vec3 P, float time) {
+#ifndef COMMON_PERMUTE
+#include "./lib/common/permute.glsl"
+#endif
+
+vec2 iso_18_cellular2x2x2(vec3 P) {
 	float K = 0.142857142857; // 1/7
 	float Ko = 0.428571428571; // 1/2-K/2
 	float K2 = 0.020408163265306; // 1/(7*7)
@@ -48,7 +48,7 @@ vec2 iso_06_cellular2x2x2(vec3 P, float time) {
 	vec4 d2 = dx2 * dx2 + dy2 * dy2 + dz2 * dz2; // z+1
 
 	// Sort out the two smallest distances (F1, F2)
-#if 1
+#if 0
 	// Cheat and sort out only F1
 	d1 = min(d1, d2);
 	d1.xy = min(d1.xy, d1.wz);
@@ -68,46 +68,42 @@ vec2 iso_06_cellular2x2x2(vec3 P, float time) {
 	return sqrt(d.yz); // F1 and F2
 #endif
 }
-float iso_06_spiral_pxl_og(vec2 st, float t) {
-    float r = dot(st.yx, st.yx);
-    float a = atan(st.y,st.x);
-    return abs(((fract(r) * t / 1.0 * 1.000)));
-}
 
-float iso_06_spiral_pxl(vec2 st, float t) {
+float iso_18_spiral(vec2 st, float t) {
     float r = dot(st.yx, st.yx) * 0.5;
     float a = atan(st.y,st.x)  * 0.5;
-    return (((sin(r) * t  * log(a * sin(t)) / 1.0 * 1.000)));
+    return abs(((sin(r * t)   / r)));
 }
 
-vec3 iso_06(vec2 pos, float time, peakamp audio) {
-  // time -= 260.0;
+void iso_18(vec2 pos, float u_time, peakamp audio) {
   vec3 color = vec3(1.0);
-  audio.lowpass   *= 0.8;
-  audio.highpass  *= 0.8;
-  audio.bandpass  *= 0.8;
-  audio.notch     *= 0.8;
+  audio.lowpass   *= 3.0;
+  audio.highpass  *= 3.0;
+  audio.bandpass  *= 3.0;
+  audio.notch     *= 3.0;
 
   vec2 st = pos;
-  st.y += 10.0;
-  pos.y -= 1.0;
-  st *= 25.0 * abs(sin(time * 0.01));
-	vec2 F = iso_06_cellular2x2x2(vec3(st * 1.0, time), time);
-	float n = smoothstep(0.0, abs(sin(time * 0.05)) + 1.0, F.x) / ( abs(audio.notch * 0.5));
+  st.y += 1.0;
+  st *= 20.0;
+	vec2 F = iso_18_cellular2x2x2(vec3(st * 1.0, u_time));
+	float n = smoothstep(0.0, abs(sin(u_time * 0.05)) + 1.0, F.x) / ( abs(audio.notch * 0.018));
   // n = step(n, sin(pos.x));
   color = vec3(n);
-  pos *= 2.0;
-  // color -= iso_06_spiral_pxl(abs(sin(pos.yy) * cos(pos.xy)) * 3.0 * abs(audio.bandpass), 1.0 * wrap_time(time, 10.0) + 10.0);
-  color -= iso_06_spiral_pxl(3.0 * pos.yx * abs(audio.bandpass), 1.0 * wrap_time(time, 10.0) + 00.0);
+  pos *= 1.5;
+  pos.y += 1.5;
+  color -= abs(sin(u_time * 0.1) + 2.0) / iso_18_spiral(abs(sin(pos.yy) * cos(pos.xy)) * 3.0 * abs(audio.bandpass), 1.0 * wrap_time(u_time, 11.0) + 11.0);
+  // color -= iso_18_spiral(3.0 * pos.yx * abs(audio.bandpass), 1.0 * wrap_time(u_time, 11.0) + 11.0);
   color.b *= 1.053 / abs(audio.lowpass);
   // color.b -= 0.4;
-  color.r /= 0.4 * abs(audio.highpass);
+  color.r *= 4.5 * abs(audio.highpass);
   color = color.gbr;
   // color.g /= 0.4;
-  color.g *=  1.5 * abs(audio.highpass);
-  color = vec3(0.1, 0.5, 1.1) * color;
-  color = 0.5 - color;
+  color.g *=  4.0 * abs(audio.highpass);
+  color -= (0.8 - n * 0.5);
+  // color = vec3(0.1, 0.5, 1.1) * color;
+  // color -= 8.5;
+  color = 3.5 - color;
 
-  return color;
+  // return color;
 }
 #endif

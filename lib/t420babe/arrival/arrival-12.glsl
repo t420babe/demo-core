@@ -9,6 +9,10 @@
 #include "lib/pxl/00-pxl.glsl"
 #endif
 
+#ifndef PXL_ROTATE
+#include "lib/pxl/rotate-sdf.glsl"
+#endif
+
 float arrival_12_rays_audio(vec2 st, int N, peakamp audio) {
     // st.y -= 0.7;
     // st.x +=1.2;

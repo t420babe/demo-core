@@ -16,7 +16,7 @@
 #endif
 
 vec3 make_me_float(vec2 pos, float time, peakamp audio) {
-  vec2 pos_rot = rotate2d(sin(u_time) * 3.14 / 1.0) * pos;
+  vec2 pos_rot = rotate2d(sin(time) * 3.14 / 1.0) * pos;
 
   float x = pos.x * tan(pos.y);
   float y = pos.y * tan(pos.x);

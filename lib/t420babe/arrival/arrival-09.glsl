@@ -13,6 +13,10 @@
 #include "lib/common/square-position.glsl"
 #endif
 
+#ifndef PXL_ROTATE
+#include "lib/pxl/rotate-sdf.glsl"
+#endif
+
 void arrival_09(vec3 p3, float time, peakamp audio) {
   audio.bandpass  *= 2.0;
   audio.highpass  *= 2.0;

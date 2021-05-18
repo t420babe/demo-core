@@ -1,6 +1,6 @@
 // #fav5
-#ifndef T420BABE_IN_SEARCH_OF_00
-#define T420BABE_IN_SEARCH_OF_00
+#ifndef T420BABE_iso_00
+#define T420BABE_iso_00
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -120,7 +120,7 @@ float spiral_pxl(vec2 st, float t) {
     return abs(((fract(r) * t / 1.0 * 1.000)));
 }
 
-vec3 in_search_of_00(vec2 pos, float u_time, peakamp audio) {
+vec3 iso_00(vec2 pos, float u_time, peakamp audio) {
   vec3 color = vec3(1.0);
   audio.lowpass   *= 1.0;
   audio.highpass  *= 1.0;

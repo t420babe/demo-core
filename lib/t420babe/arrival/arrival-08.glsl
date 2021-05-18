@@ -9,6 +9,10 @@
 #include "lib/pxl/00-pxl.glsl"
 #endif
 
+#ifndef PXL_ROTATE
+#include "lib/pxl/rotate-sdf.glsl"
+#endif
+
 void arrival_08(vec3 p3, float time, peakamp audio) {
   audio.bandpass  *= 2.0;
   audio.highpass  *= 5.0;

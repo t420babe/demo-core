@@ -1,3 +1,4 @@
+// #fav5 #roli #katie
 #ifndef T4B_ARRIVAL_15
 #define T4B_ARRIVAL_15
 
@@ -62,23 +63,23 @@ void arrival_15(vec3 p3, float time, peakamp audio) {
   color.b *= bri;
   color.g *= bri;
 
-  color.r *= audio.highpass;
-  color.b *= audio.notch;
-  color.g *= audio.lowpass;
+  color.r *= audio.highpass * 3.0;
+  color.b *= audio.notch * 3.0;
+  color.g *= audio.lowpass * 3.0;
 
 
-  color.r /= abs(sin(time * PI  * 0.75));
-  color.g /= abs(cos(time * PI * 0.6667 ));
-  color.b /= abs(sin(time * PI * 0.125 ));
+  // color.r /= abs(sin(time * PI  * 0.75));
+  // color.g /= abs(cos(time * PI * 0.6667 ));
+  // color.b /= abs(sin(time * PI * 0.125 ));
   // color = color.bgr;
   // color = color.gbr;
   // color = color.grb;
 
 
-  gl_FragColor = vec4(color, bri);
+  gl_FragColor = vec4(rgb2hsv(1.0 - color), bri);
   gl_FragColor += texture2D(u_fb, vec2(p3.xy/ 1.96 + 0.50) - vec2(0.00, 0.0001)) - 0.020;
   // gl_FragColor += texture2D(u_fb, vec2(p3.xy/ 2.01 + 0.49) - vec2(0.00, 0.0001)) - 0.020;
-  // gl_FragColor -= texture2D(u_fb, vec2(p3.xy/ 2.0 + 0.5) - vec2(0.00, 0.0001)) - 0.020;
+  gl_FragColor -= texture2D(u_fb, vec2(p3.xy/ 2.0 + 0.5) - vec2(0.00, 0.0001)) - 0.020;
 }
 
 #endif
