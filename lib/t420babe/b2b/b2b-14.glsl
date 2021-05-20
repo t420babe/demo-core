@@ -1,0 +1,58 @@
+// # mixmag bicep yt set
+// https://www.youtube.com/watch?v=8fZ9P8tBgpw&t=329s
+#ifndef T4B_B2B_14
+#define T4B_B2B_14
+
+#ifndef PXL_ROTATE
+#include "./lib/pxl/rotate-sdf.glsl"
+#endif
+
+#ifndef COMMON_COMMON
+#include "lib/common/00-common.glsl"
+#endif
+
+float b2b_14_map(vec3 p3, float time){
+  p3.xz *= rotate2d(time * 0.3);
+  p3.xy *= rotate2d(time * 0.1);
+  vec3 q = p3 * 2.0 + time;
+  // float x0 = length( p3 + vec3( sin(time * 0.7) ) );
+  float x0 = length( p3 + vec3( sin(time * 0.7) ) );
+  float x1 = (length(p3) + 1.0);
+  float x2 = sin(q.x + tan(q.z * sin(q.y) ) ) * 5.5;
+  return x0 *  x1 + x2 * 5.0;
+}
+
+void b2b_14(vec3 p3, float time, peakamp audio) {
+  // time += 100.0;
+  vec3 color = vec3(1.0);
+  p3.y += 0.1;
+  // p3 *= 5.0;
+  // p3 *= time * 1.05;
+  // float y = mod(tan(2.0 * p3.x) * (cos(time), tan(time)), 0.75);
+
+  // float y = (atan(1.0 * p3.x) + cos(p3.x * time * PI * 0.5));
+  // float m = plot(vec2(p3.x, p3.y), y, abs(sin(time * 0.1) * 0.5) + 0.01) * 50.0;
+  float y = (tan(PI * p3.x) + cos(p3.x * time * 50.0));
+  float m = plot(vec2(p3), y, 0.25) * 1.0;
+  float rz = b2b_14_map(tan(p3.yxz), time);
+  // color = (m) * color + m * vec3(audio.lowpass * 3.0, rz * audio.bandpass * 2.0, 3.0 * audio.notch);
+  // color = (m) * color + m * vec3(rz);
+  color = (m) * color * m * vec3(1.0);
+  vec3 l = vec3(m);
+  color += (smoothstep(0.5, 0.5, rz) );
+
+  color.r *= audio.notch;
+  color.g *= audio.lowpass;
+  color.b *= audio.highpass;
+
+  color.r *= 2.0;
+  color.g *= 2.0;
+  color.b *= 2.0;
+
+  gl_FragColor = vec4(color, 1.0);
+  // gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
+  // gl_FragColor += texture2D(u_fb, vec2(rz* p3.yx/2.+.5) + vec2(0.001, 0.00)) - 0.002;
+  // gl_FragColor += texture2D(u_fb, vec2(p3.xy + 0.5));
+}
+
+#endif
