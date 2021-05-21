@@ -32,10 +32,6 @@ uniform sampler2D u_freq_slow;
 #include "lib/t420babe/b2b/b2b-00.glsl"
 #endif
 
-// #ifndef T4B_B2B_16
-// #include "lib/t420babe/b2b/b2b-16.glsl"
-// #endif
-
 void main(void) {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   audio = u_audio;
