@@ -32,8 +32,8 @@ uniform sampler2D u_freq_slow;
 // #include "lib/t420babe/b2b/b2b-00.glsl"
 // #endif
 
-#ifndef T4B_B2B_22
-#include "lib/t420babe/b2b/b2b-22.glsl"
+#ifndef T4B_B2B_23
+#include "lib/t420babe/b2b/b2b-23.glsl"
 #endif
 
 void main(void) {
@@ -42,7 +42,7 @@ void main(void) {
   float time = t;
   time += 100.0;
   // b2b_00(p3, time, audio);
-  b2b_22(p3, time, audio);
+  b2b_23(p3, time, audio);
   // fractions_06(p3, time, audio);
   // fractions_78(p3, time, audio);
 
