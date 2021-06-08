@@ -24,12 +24,12 @@ uniform sampler2D u_freq_slow;
 #include "lib/common/s4y.glsl"
 #endif
 
-// #ifndef T4B_FRACTIONS_17
-// #include "lib/t420babe/fractions/fractions-17.glsl"
+// #ifndef T4B_FRACTIONS_44
+// #include "lib/t420babe/fractions/fractions-44.glsl"
 // #endif
 
-#ifndef T4B_B2B_17
-#include "lib/t420babe/b2b/b2b-17.glsl"
+#ifndef T4B_B2B_44
+#include "lib/t420babe/b2b/b2b-44.glsl"
 #endif
 
 // #ifndef T4B_B2B_23
@@ -40,10 +40,10 @@ void main(void) {
   vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   audio = u_audio;
   float time = t;
-  time += 170.0;
-  b2b_17(p3, time, audio);
+  time += 440.0;
+  b2b_44(p3, time, audio);
   // b2b_23(p3, time, audio);
-  // fractions_17(p3, time, audio);
+  // fractions_44(p3, time, audio);
   // fractions_78(p3, time, audio);
 
   // vec3 color = vec3(audio.notch, audio.bandpass, audio.highpass) * 2.0;
