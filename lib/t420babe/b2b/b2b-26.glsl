@@ -19,8 +19,8 @@ mat2 b2b_26_blob_m(float a){
 
 float b2b_26_blob(vec3 p3, float time){
   vec3 p3_raw = p3;
-  p3.xz *= blob_m(time * 0.4);
-  p3.xy*= blob_m(time * 0.3);
+  p3.xz *= rotate2d(time * 0.4);
+  p3.xy*= rotate2d(time * 0.3);
   vec3 q = p3 * 2.0 + time;
   float x0 = length( p3.zyy + vec3( sin(time * 0.7) ) );
   float x1 = ( length(p3) + 1.0 );

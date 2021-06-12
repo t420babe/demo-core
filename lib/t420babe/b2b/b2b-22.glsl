@@ -13,14 +13,10 @@
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
 #endif
-mat2 b2b_22_blob_m(float a){
-  float c=cos(a), s=sin(a);
-  return mat2(c,-s,s,c);
-}
 
 float b2b_22_blob(vec3 p3, float time){
-    p3.xz *= blob_m(time * 0.4);
-    p3.xy*= blob_m(time * 0.3);
+    p3.xz *= rotate2d(time * 0.4);
+    p3.xy*= rotate2d(time * 0.3);
     vec3 q = p3 * 2.0 + time;
     float x0 = length( p3 + vec3( sin(time * 0.7) ) );
     float x1 = log( length(p3) + 1.0 );
@@ -30,10 +26,10 @@ float b2b_22_blob(vec3 p3, float time){
 
 
 void b2b_22(vec3 p3, float time, peakamp audio) {
-  // audio.lowpass = 0.05;
-  // audio.highpass = 0.05;
-  // audio.bandpass = 0.05;
-  // audio.notch = 0.05;
+  audio.lowpass = 0.05;
+  audio.highpass = 0.05;
+  audio.bandpass = 0.05;
+  audio.notch = 0.05;
   time += 100.0;
   vec3 color = vec3(1.0);
   p3 *= 1.5;

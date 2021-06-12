@@ -26,8 +26,8 @@ float b2b_11_map(vec3 p3, float time){
 void b2b_11(vec3 p3, float time, peakamp audio) {
   // time += 500.0;
   vec3 color = vec3(1.0);
-  p3.y += 0.1;
-  p3 *= time * 1.05;
+  p3.y += 0.2;
+  p3 *= time * 0.30;
   // float y = mod(tan(2.0 * p3.x) * (cos(time), tan(time)), 0.75);
 
   // float y = (atan(1.0 * p3.x) + cos(p3.x * time * PI * 0.5));

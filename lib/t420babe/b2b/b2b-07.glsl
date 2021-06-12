@@ -24,7 +24,7 @@ float b2b_07_map(vec3 p3, float time){
 }
 
 void b2b_07(vec3 p3, float time, peakamp audio) {
-  time += 8.0;
+  // time += 8.0;
   vec3 color = vec3(1.0);
   p3 *= time * 0.01;
   // p3.y += 0.5;
@@ -33,7 +33,7 @@ void b2b_07(vec3 p3, float time, peakamp audio) {
   float y = (atan(6.0 * p3.y) * cos(p3.x * time));
   // float m = plot(vec2(p3.x, p3.y), y, abs(sin(time * 0.1) * 0.5) + 0.01) * 50.0;
   float m = plot(vec2(p3.x, p3.y), y, 0.01) * 50.0;
-  color = (m) * color + m * vec3(1.0);
+  color = m * color + m * vec3(1.0);
 
   gl_FragColor = vec4(color, 1.0);
     float rz = b2b_07_map(p3, time);
