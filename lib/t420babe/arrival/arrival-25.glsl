@@ -1,5 +1,5 @@
-#ifndef T4B_ARRIVAL_09
-#define T4B_ARRIVAL_09
+#ifndef T4B_ARRIVAL_25
+#define T4B_ARRIVAL_25
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -17,7 +17,7 @@
 #include "lib/pxl/rotate-sdf.glsl"
 #endif
 
-void arrival_09(vec3 p3, float time, peakamp audio) {
+void arrival_25(vec3 p3, float time, peakamp audio) {
   audio.bandpass  *= 2.0;
   audio.highpass  *= 2.0;
   audio.lowpass   *= 2.0;

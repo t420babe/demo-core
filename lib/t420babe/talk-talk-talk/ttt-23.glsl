@@ -1,6 +1,6 @@
 // One by One - Elderbrook Chill Remix
-#ifndef T4B_TTT_04
-#define T4B_TTT_04
+#ifndef T4B_TTT_23
+#define T4B_TTT_23
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -55,7 +55,7 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-void ttt_04(vec3 p3, float time, peakamp audio) {
+void ttt_23(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy;
   // pos *= (abs(sin(time * 0.5))) * 500.0;
   // pos *= wrap_time(time * 30.0, 800.0) + 100.0;
@@ -74,7 +74,7 @@ void ttt_04(vec3 p3, float time, peakamp audio) {
   // color.b = hsv_color.b * abs(audio.highpass) * 1.5;
 
   // color.b /= abs(sin(time));
-  color =  (0.1 - color.gbr);
+  color =  (1.0 - color.gbr);
   gl_FragColor = vec4(color, 1.0);
   // gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
   // gl_FragColor += texture2D(u_fb, vec2(abs(sin(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) - audio.notch * 0.1;

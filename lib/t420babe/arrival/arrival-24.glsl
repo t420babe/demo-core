@@ -1,5 +1,5 @@
-#ifndef T4B_ARRIVAL_09
-#define T4B_ARRIVAL_09
+#ifndef T4B_ARRIVAL_24
+#define T4B_ARRIVAL_24
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -17,7 +17,7 @@
 #include "lib/pxl/rotate-sdf.glsl"
 #endif
 
-void arrival_09(vec3 p3, float time, peakamp audio) {
+void arrival_24(vec3 p3, float time, peakamp audio) {
   audio.bandpass  *= 2.0;
   audio.highpass  *= 2.0;
   audio.lowpass   *= 2.0;
@@ -29,7 +29,7 @@ void arrival_09(vec3 p3, float time, peakamp audio) {
   // rhom_p = rotate2d(time * 20.0) * rhom_p;
   rhom_p *= rotate2d(tan(time) * 3.14 / 1.0);
   // float flower_size = 6.5 * audio.lowpass;
-  float flower_size = 3.5 * audio.notch;
+  float flower_size = 1.5 * audio.notch;
   // float flower_size = 6.5 * audio.highpass;
   float flower = flower_sdf(vec2(rhom_p.x + flower_size / 2.0, rhom_p.y + flower_size / 2.0) / flower_size, 1000);
   float rhombus = rhombus_sdf(rhom_p, 1.0);
@@ -38,19 +38,19 @@ void arrival_09(vec3 p3, float time, peakamp audio) {
   rays_p.y += 1.0;
   float rays = rays_audio(rays_p, 20, audio);
   float bri = sharp(flower) - sin(hex);
-  bri *= (rhombus) * 2.0;
+  bri += (rhombus) * 1.0;
   color = 1.5 - color;
-  color = vec3(bri * audio.highpass, bri * audio.notch / 10.0, bri * audio.lowpass);
+  color = vec3(bri * audio.highpass, bri * audio.notch, bri * audio.lowpass);
   color.r *= abs(sin(time));
   color.g *= abs(cos(time));
   color.b *= abs(tan(time));
   // color = color.bgr;
   // color *= flash_add(color, time, 10.0);
   // color = color.gbr;
-  // color = color.grb;
+  color = color.grb;
 
 
-  gl_FragColor = vec4(1.0 / (0.01 - color), bri);
+  gl_FragColor = vec4(1.0 / (0.5 - color), bri);
   gl_FragColor += texture2D(u_fb, vec2(p3.xy/ 2.0 + 0.5) - vec2(0.00, 0.001)) - 0.002;
 }
 

@@ -1,6 +1,6 @@
-// One by One - Elderbrook Chill Remix
-#ifndef T4B_TTT_04
-#define T4B_TTT_04
+// Any Time
+#ifndef T4B_TTT_22
+#define T4B_TTT_22
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -19,9 +19,9 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   float y = pos.y;
   float iiTime= time;
   // vec3 color = vec3(0.3, 0.3, 0.3);
-  vec3 color = vec3(2.0);
+  vec3 color = vec3(1.0);
   float mul = 2.0;
-  float fill = 5.0;
+  float fill = 10.0;
   int v0 = int(abs(x));
   int v1 = int(abs(mul*(y+fill)));
   int v2 = int(abs(x));
@@ -45,23 +45,24 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   int v20 = int(abs(x));
   int v21 = int(abs(mul*y));
 
-  if (abs(x)>=iiTime+1.0 || abs(y) >= iiTime+1.0) {
-    color = vec3(0,1,0);
-    // color = vec3(cos(pos.x), sin(time), sin(pos.x));
-  } else if ( (v0 == v1 ) || (v2 == v3) || (v4 == v5) || (v6 == v7) || (v8 == v9) || (v10 == v11) || (v12 == v13) || (v14 == v15) || (v16 == v17) || (v18 == v19) || (v20 == v21) ) {
+  // if (abs(x)>=iiTime+1.0 || abs(y) >= iiTime+1.0) {
+  //   color = vec3(0,1,0);
+  //   // color = vec3(cos(pos.x), sin(time), sin(pos.x));
+  // } else if ( (v0 == v1 ) || (v2 == v3) || (v4 == v5) || (v6 == v7) || (v8 == v9) || (v10 == v11) || (v12 == v13) || (v14 == v15) || (v16 == v17) || (v18 == v19) || (v20 == v21) ) {
+  //   color = vec3(sin(pos.y), sin(pos.x), 1.0);
+  // }
     color = vec3(sin(pos.y), sin(pos.x), 1.0);
-  }
 
   return color;
 }
 
-void ttt_04(vec3 p3, float time, peakamp audio) {
+void ttt_22(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy;
   // pos *= (abs(sin(time * 0.5))) * 500.0;
   // pos *= wrap_time(time * 30.0, 800.0) + 100.0;
   // pos *= wrap_time(time, 80.0);
   // pos *= 80.0;
-  pos *= wrap_time(time, t2s(0, 3, 6) / 4.0);
+  pos *= wrap_time(time, t2s(0, 3, 5) / 4.0);
   pos *= rotate2d(time * 0.1);
 
   vec3 color = vec3(audio.highpass * 5.5, 1.5, 1.5);
@@ -74,7 +75,7 @@ void ttt_04(vec3 p3, float time, peakamp audio) {
   // color.b = hsv_color.b * abs(audio.highpass) * 1.5;
 
   // color.b /= abs(sin(time));
-  color =  (0.1 - color.gbr);
+  color =  1.0 - color.gbr;
   gl_FragColor = vec4(color, 1.0);
   // gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
   // gl_FragColor += texture2D(u_fb, vec2(abs(sin(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) - audio.notch * 0.1;

@@ -14,7 +14,8 @@
 #include "lib/pxl/rotate-sdf.glsl"
 #endif
 
-vec3 ttt_02(vec2 pos, float time, peakamp audio) {
+vec3 ttt_02(vec3 p3, float time, peakamp audio) {
+  vec2 pos = p3.xy;
 
   vec3 color = vec3(0.5, 0.0, 1.0);
   // color = flash_add(color, time, 5.0 + abs(audio.highpass));

@@ -13,7 +13,8 @@
 #include "lib/pxl/rotate-sdf.glsl"
 #endif
 
-vec3 ttt_00(vec2 pos, float time, peakamp audio) {
+vec3 ttt_00(vec3 p3, float time, peakamp audio) {
+  vec2 pos = p3.xy;
 
   // if (time < t2s(time
   // // 0:00 - 0:37
