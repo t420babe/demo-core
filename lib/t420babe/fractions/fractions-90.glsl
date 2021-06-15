@@ -14,8 +14,8 @@
 void fractions_90(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   p3.x /= 8.0;
-  // p3 *= time;
-  p3 *= 30.0;
+  p3 *= time * 0.5;
+  // p3 *= 30.0;
   float y1 = 1.0 * (tan(p3.x * 10.0) * cos(p3.x * time));
   float m1 = plot(vec2(p3.x, p3.y), y1, 2.20) * 1.0;
   p3.xz *= rotate2d(time * PI / 6.0 + PI / 4.0) * m1;

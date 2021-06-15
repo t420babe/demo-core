@@ -21,7 +21,7 @@ void arrival_09(vec3 p3, float time, peakamp audio) {
   audio.bandpass  *= 2.0;
   audio.highpass  *= 2.0;
   audio.lowpass   *= 2.0;
-  audio.notch     *= 10.5;
+  audio.notch     *= 2.5;
   vec3 color = vec3(1.0);
   vec2 rhom_p = p3.xy * 2.0;
   // rhom_p.x += 0.5;
