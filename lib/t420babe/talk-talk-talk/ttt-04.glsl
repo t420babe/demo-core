@@ -19,7 +19,7 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   float y = pos.y;
   float iiTime= time;
   // vec3 color = vec3(0.3, 0.3, 0.3);
-  vec3 color = vec3(2.0);
+  vec3 color = vec3(5.0);
   float mul = 2.0;
   float fill = 5.0;
   int v0 = int(abs(x));
