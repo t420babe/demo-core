@@ -1,7 +1,6 @@
-// Rabit Hole - Camel Phat
 // Satisfied by Catching Flies
-#ifndef T4B_TTT_07
-#define T4B_TTT_07
+#ifndef T4B_TTT_25
+#define T4B_TTT_25
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -15,7 +14,6 @@
 #include "lib/pxl/rotate-sdf.glsl"
 #endif
 
-// Forked this fn from somewhere but can't remember now :(
 vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   float x = tan(pos.x);
   float y = tan(pos.y);
@@ -53,10 +51,10 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-void ttt_07(vec3 p3, float time, peakamp audio) {
+void ttt_25(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy * 0.5;
   // pos *= (abs(sin(time * 0.5))) * 500.0;
-  pos *= wrap_time(time, 70.0);
+  pos *= wrap_time(time, 800.0);
   // pos *= 500.0;
 
   vec3 color = vec3(0.5, 0.6, 1.0);
@@ -64,15 +62,15 @@ void ttt_07(vec3 p3, float time, peakamp audio) {
   // color = flash_add(color, time, 0.5 * abs(audio.notch));
 
   vec3 hsv_color = rgb2hsv(color);
-  color.r /= abs(audio.bandpass) * 1.0;
-  color.g /= abs(audio.notch) * 1.5;
-  // color.r = hsv_color.b * abs(audio.bandpass) * 1.5;
-  // color.g = hsv_color.b * abs(audio.notch) * 1.0;
-  color.b /= abs(audio.highpass) * 1.5;
+  // color.r = color.b * abs(audio.bandpass) * 1.0;
+  // color.g = color.b * abs(audio.notch) * 1.5;
+  color.r = hsv_color.b * abs(audio.bandpass) * 1.5;
+  color.g = hsv_color.b * abs(audio.notch) * 1.0;
+  // color.b *= abs(audio.highpass) * 1.5;
   // color.b *= abs(sin(time)) - 0.1;
   // color = color.gbr;
   //
-  gl_FragColor = vec4(1.0 - (1.0 / color), 1.0);
+  gl_FragColor = vec4(color, 1.0);
   // gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
   gl_FragColor += texture2D(u_fb, vec2(abs(sin(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) ;
   gl_FragColor -= texture2D(u_fb, vec2(abs(tan(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) - 0.002;
