@@ -1,4 +1,5 @@
-// Prelude by Mooglie
+// On Hold - Jamie xx Remix by the xx, Jamie xx
+// OrderMore 
 #ifndef T4B_TTT_06
 #define T4B_TTT_06
 
@@ -14,11 +15,12 @@
 #include "lib/pxl/rotate-sdf.glsl"
 #endif
 
+// Forked this fn from somewhere but can't remember now :(
 vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   float x = pos.x;
   float y = pos.y;
   float iiTime= time;
-  vec3 color = vec3(0,0,0);
+  vec3 color = vec3(0.0);
   int v0 = int(abs(y * tan(x)));
   int v1 = int(abs(2.0*(y+100.0)));
   int v2 = int(abs(x));
@@ -51,21 +53,39 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-vec3 ttt_06(vec2 pos, float time, peakamp audio) {
-  // pos *= (abs(sin(time * 0.5))) * 500.0;
-  pos *= wrap_time(time * 30.0, 800.0) + 100.0;
+void ttt_06(vec3 p3, float time, peakamp audio) {
+  audio.notch *= 2.0;
+  audio.bandpass *= 2.0;
+  audio.highpass *= 2.0;
+  audio.lowpass *= 2.0;
+  // tim
+  // time = wrap_time(time * 5.0, t2s(0, 6, 20) / 6.0);
+  time = wrap_time(time, t2s(0, 6, 11) / 4.0);
+  p3.xy *= rotate2d(time * 0.15);
+  // p3.xy *= rotate2d(atan(p3.x) * tan(p3.y) * 1.0 * time);
+  // p3.yz *= rotate2d(time * 0.15);
 
-  vec3 color = vec3(0.5, 0.6, 1.0);
-  color = make_me_float(pos, time, audio) + 0.3;
+  vec2 pos = p3.xy;
+  // pos *= (abs(sin(time * 0.5))) * 500.0;
+  // pos *= wrap_time(time * 30.0, 800.0) + 100.0;
+
+  pos *= time;
+  vec3 color = vec3(1.0);
+  // vec3 color = vec3(1.5, 2.5, 1.5);
+  color *= make_me_float(pos, time, audio);
   // color = flash_add(color, time, 0.5 * abs(audio.notch));
 
-  vec3 hsv_color = rgb2hsv(color);
-  color.r = hsv_color.b * abs(audio.bandpass) * 1.5;
-  color.g = hsv_color.b * abs(audio.notch) * 1.0;
-  color.b *= abs(audio.highpass) * 1.5;
-  // color.b *= abs(sin(time)) - 0.1;
-  color = color.gbr;
+  // vec3 hsv_color = rgb2hsv(color);
+  color.b *= audio.highpass * 2.0;
+  color.g *= audio.bandpass * 2.0;
+  color.r *= audio.notch * 2.0;
+  color = color.rbg;
+  // color = color.gbr;
+  // color = color.brg;
 
-  return color;
+  gl_FragColor = vec4(color, 1.0);
+  // gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
+  gl_FragColor += texture2D(u_fb, vec2(abs(sin(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) ;
+  gl_FragColor -= texture2D(u_fb, vec2(abs(tan(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) - 0.002;
 }
 #endif

@@ -51,7 +51,8 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-vec3 ttt_05(vec2 pos, float time, peakamp audio) {
+void ttt_05(vec3 p3, float time, peakamp audio) {
+  vec2 pos = p3.xy;
   pos *= 500.0;
 
   vec3 color = vec3(0.5, 0.6, 1.0);
@@ -62,6 +63,9 @@ vec3 ttt_05(vec2 pos, float time, peakamp audio) {
   color.r = hsv_color.r * abs(audio.bandpass) * 3.5;
   color.g = hsv_color.b * abs(audio.notch) * 1.0 ;
 
-  return color;
+  gl_FragColor = vec4(color, 1.0);
+  // gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
+  // gl_FragColor += texture2D(u_fb, vec2(abs(sin(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) - audio.notch * 0.1;
+  // gl_FragColor += texture2D(u_fb, vec2(abs(tan(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) - 0.005;
 }
 #endif
