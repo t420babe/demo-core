@@ -7,10 +7,6 @@
 #include "lib/common/00-common.glsl"
 #endif
 
-#ifndef PXL_POLYGON
-#include "lib/pxl/polygon-sdf.glsl"
-#endif
-
 #ifndef PXL_ROTATE
 #include "lib/pxl/rotate-sdf.glsl"
 #endif

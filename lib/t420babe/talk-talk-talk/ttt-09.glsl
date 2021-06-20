@@ -1,3 +1,4 @@
+// Break My Love by Nicolas Jarr
 // Neon Jungle - Lane 8 Remix by CloZee, Lane 8 
 // Job Jobse set begin
 #ifndef T4B_TTT_09
@@ -58,27 +59,41 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-vec3 ttt_09(vec2 pos, float time, peakamp audio) {
+void ttt_09(vec3 p3, float time, peakamp audio) {
+  vec2 pos = p3.xy;
   // pos *= (abs(sin(time * 0.5))) * 500.0;
-  pos *= wrap_time(time, 10.0) + 100.0;
+  // pos *= wrap_time(time, 10.0) + 100.0;
+  pos *= wrap_time(time, 100.0);
+  // pos *= time;
+
+  // pos *= wrap_time(time, 30.0) + 100.0;
+
+
+  // pos *= wrap_time(time, 50.0) + (abs(sin(time * 0.1)) * 100.0);
+  // pos *= wrap_time(time, 50.0) + 70.0;
+  // pos *= wrap_time(time, 120.0);
   // pos *= 500.0;
 
-  vec3 color = vec3(0.5, 0.6, 1.0);
-  color = make_me_float(pos, time, audio) + 0.3;
+  vec3 color = vec3(1.0);
+  color = make_me_float(pos, time, audio);
   // color = flash_add(color, time, 0.5 * abs(audio.notch));
 
-  vec3 mix_color = vec3(0.8, 0.9, 0.8);
-  vec3 hsv_color = rgb2hsv(color);
-  // color.r = color.b * abs(audio.bandpass) * 1.0;
-  // color.g = color.b * abs(audio.notch) * 1.5;
-  color.r = hsv_color.b * abs(audio.bandpass) * 1.5;
-  // color.g *= color.b * abs(audio.notch) * 1.0;
-  color.g = hsv_color.b * abs(audio.notch) * 1.0;
-  // color.b *= abs(audio.highpass) * 1.5;
-  // color.b *= abs(sin(time)) - 0.1;
-  // color = color.gbr;
+  color.r *= audio.notch;
+  color.g *= audio.bandpass;
+  color.b *= audio.lowpass;
 
-  // color *= mix_color;
-  return color;
+  color.r *= 3.0;
+  color.g *= 3.0;
+  color.b *= 3.0;
+
+  vec2 rot_p = p3.xy;
+  rot_p *= rotate2d(time);
+  gl_FragColor = vec4(color.brg, 1.0);
+  gl_FragColor -= texture2D(u_fb, vec2(rot_p.yx/5.+.5) + vec2(0.001, 0.10)) - 0.002;
+  // gl_FragColor -= texture2D(u_fb, vec2(-p3.yx/2.+.5) + vec2(0.001, 0.00)) - 0.002;
+  gl_FragColor += texture2D(u_fb, vec2(p3.xy + 0.5));
+  // gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
+  // gl_FragColor += texture2D(u_fb, vec2(abs(sin(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) ;
+  // gl_FragColor -= texture2D(u_fb, vec2(abs(tan(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) - 0.002;
 }
 #endif
