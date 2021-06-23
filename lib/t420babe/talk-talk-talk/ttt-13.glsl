@@ -15,10 +15,10 @@
 #endif
 
 vec3 make_me_float(vec2 pos, float time, peakamp audio) {
-  vec2 pos_rot = rotate2d(sin(u_time) * 3.14 / 1.0) * pos;
+  vec2 pos_rot = rotate2d((time * 1.5)) * pos;
 
-  float x = pos.x * tan(pos.y);
-  float y = pos.y * tan(pos.x);
+  float x = sin(pos_rot.x);
+  float y = pos_rot.y;
   // float y = pos.y;
   // float x = cos(pos.x) * abs(audio.notch) * 5.0;
    // x += atan(pos.x + 500.0) * abs(audio.notch) * 20.0;
@@ -63,32 +63,42 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-vec3 ttt_13(vec2 pos, float time, peakamp audio) {
-  // pos *= (abs(sin(time * 0.5))) * 500.0;
-  pos *= wrap_time(time, 10.0) + 100.0;
-  // pos *= 500.0;
+void ttt_13(vec3 p3, float time, peakamp audio) {
+  vec2 pos = p3.xy;
+  // pos *= wrap_time(time * PI / 10.0, PI * 15.0) + PI + 15.0;
+  pos *= wrap_time(time, PI * 15.0) + PI * 25.0;
+  // pos *= time;
 
   vec3 color = vec3(0.0);
-  color = make_me_float(pos, time, audio) + 0.3;
+  color = make_me_float(pos, time, audio);
   // color = flash_add(color, time, 0.5 * abs(audio.notch));
 
-  vec3 mix_color = vec3(0.5, 0.1, 0.6);
-  vec3 hsv_color = rgb2hsv(color);
   color += 0.05;
-  color.r = color.r * abs(audio.bandpass) * 1.0;
-  color.b = color.g * abs(audio.notch) * 1.0;
-  color.r = hsv_color.b * abs(audio.lowpass) * 2.5;
-  // color.g *= color.b * abs(audio.notch) * 1.0;
-  // color.g = hsv_color.b * abs(audio.notch) * 1.0;
-  // color.b *= abs(audio.highpass) * 1.5;
-  // color.b *= abs(sin(time)) - 0.1;
-  // color = color.grb;
-  // color = color.rbg;
-  color = color.grb;
-  // color = color.bgr;
+  color.r = color.r * audio.bandpass;
+  color.b = color.g * audio.notch;
 
-  return (1.0 - color);
+  // color =  (1.0 / (0.1 - color)); // WHITE
+  // color =  (0.5 / (0.1 - color)); // WHITE
+  color =  (1.0 - (0.1 / color));
+  // color =  (1.5 - (0.1 / color));
+  // gl_FragColor = vec4(color.gbr, 1.0);
+  gl_FragColor = vec4(color.grb, 1.0);
+  // gl_FragColor = vec4(color.rbg, 1.0);
+  // gl_FragColor = vec4(color.brg, 1.0);
+  // gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
+  // gl_FragColor += texture2D(u_fb, vec2(abs(sin(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) - audio.notch * 0.1;
+  vec2 p_rot = pos * rotate2d(time);
+  vec2 p_fb = pos;
+  // p_fb.x = -p_rot.x;
+  p_fb.x = -p_fb.x;
+  gl_FragColor += texture2D(u_fb, vec2(sin(p3.yx/0.50) + 0.50) + vec2(0.001, 0.001)) - 0.005;
+  // return (1.0 - color);
   // return rgb2hsv(color * mix_color);
-  return hsv_color;
+  // return hsv_color;
+  // gl_FragColor = vec4(color, 1.0);
+  // gl_FragColor += texture2D(u_fb, vec2(abs(tan(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) - 0.005;
+  // gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
+  // gl_FragColor += texture2D(u_fb, vec2((sin(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.000)) ;
+  // gl_FragColor -= texture2D(u_fb, vec2((cos(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.000)) - 0.002;
 }
 #endif

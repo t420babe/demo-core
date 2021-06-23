@@ -1,4 +1,4 @@
-// Unconditional by Sonny Fodera
+// Walk This Way - Kant Remix by MO, KANT
 #ifndef T4B_TTT_14
 #define T4B_TTT_14
 
@@ -15,7 +15,7 @@
 #endif
 
 vec3 make_me_float(vec2 pos, float time, peakamp audio) {
-  vec2 pos_rot = rotate2d(sin(u_time) * 3.14 / 1.0) * pos;
+  vec2 pos_rot = rotate2d(sin(time) * 3.14 / 1.0) * pos;
 
   float x = pos.x * tan(pos.y);
   float y = pos.y * tan(pos.x);
@@ -63,7 +63,8 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-vec3 ttt_14(vec2 pos, float time, peakamp audio) {
+void ttt_14(vec3 p3, float time, peakamp audio) {
+  vec2 pos = p3.xy;
   // pos *= (abs(sin(time * 0.5))) * 500.0;
   pos *= wrap_time(time, 10.0) + 100.0;
   // pos *= 500.0;
@@ -75,9 +76,9 @@ vec3 ttt_14(vec2 pos, float time, peakamp audio) {
   vec3 mix_color = vec3(0.5, 0.1, 0.6);
   vec3 hsv_color = rgb2hsv(color);
   color += 0.05;
-  color.r = color.r * abs(audio.bandpass) * 1.0;
-  color.b = color.g * abs(audio.notch) * 1.0;
-  color.r = hsv_color.b * abs(audio.lowpass) * 2.5;
+  color.r = color.r * (audio.bandpass) * 2.0;
+  color.b = color.g * (audio.notch) * 2.0;
+  color.r = hsv_color.b * (audio.lowpass) * 1.5;
   // color.g *= color.b * abs(audio.notch) * 1.0;
   // color.g = hsv_color.b * abs(audio.notch) * 1.0;
   // color.b *= abs(audio.highpass) * 1.5;
@@ -85,10 +86,10 @@ vec3 ttt_14(vec2 pos, float time, peakamp audio) {
   // color = color.grb;
   // color = color.rbg;
   color = color.grb;
-  // color = color.bgr;
-
-  return (1.0 - color);
-  // return rgb2hsv(color * mix_color);
-  return hsv_color;
+  gl_FragColor = vec4(color, 1.0);
+  gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
+  // gl_FragColor -= texture2D(u_fb, vec2(abs(sin(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) - audio.notch * 0.1;
+  gl_FragColor -= texture2D(u_fb, vec2(abs(tan(p3.yx/ (PI * 0.60) + PI)) + 0.50) + vec2(0.001, 0.001)) - 0.005;
+  gl_FragColor -= texture2D(u_fb, vec2(abs(tan(p3.yx/ (PI))) + 0.50) + vec2(0.001, 0.001)) - 0.005;
 }
 #endif

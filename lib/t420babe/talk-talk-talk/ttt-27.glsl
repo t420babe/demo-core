@@ -1,8 +1,7 @@
-// Break My Love by Nicolas Jar
 // Job Jobse set
 // Transcendental Access Point (Mixed) by Eris Drew
-#ifndef T4B_TTT_10
-#define T4B_TTT_10
+#ifndef T4B_TTT_27
+#define T4B_TTT_27
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -17,7 +16,9 @@
 #endif
 
 vec3 make_me_float(vec2 pos, float time, peakamp audio) {
-  float x = pos.x * tan(pos.y);
+  vec2 pos_rot = rotate2d(sin(time) * 3.14 / 1.0) * pos;
+
+  float x = pos.x * sin(pos.x);
   float y = pos.y * tan(pos.x);
   // float y = pos.y;
   // float x = cos(pos.x) * abs(audio.notch) * 5.0;
@@ -25,7 +26,8 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
    // x += atan(pos.x - 500.0) * abs(audio.notch) * 20.0;
    // x += atan(pos.x + 1000.0) * (abs(audio.bandpass) + 0.1)* 100.0;
    // x += atan(pos.x - 1000.0) * (abs(audio.bandpass) + 0.1) * 100.0;
-  // float y = tan(pos.y * pos.x) + x;
+  // y *= (-pos_rot.y + pos_rot.y);
+
   float iiTime= time;
   vec3 color = vec3(0,0,0);
   int v0 = int(abs((y)));
@@ -60,37 +62,45 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-void ttt_10(vec3 p3, float time, peakamp audio) {
+void ttt_27(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy;
-  // pos *= ((sin(time * 0.1))) * 500.0;
-  pos *= wrap_time(time, t2s(0, 1, 6));
-  // pos *= wrap_time(time, 10.0) + 100.0;
-  // pos *= 500.0;
+  // pos *= (abs(sin(time * 0.5))) * 500.0;
+  // pos *= wrap_time(time, 100.0) + 100.0;
+  // time += 500.0;
+  pos *= time * 3.0;
+
 
   vec3 color = vec3(0.5, 0.6, 1.0);
   color = make_me_float(pos, time, audio) + 0.3;
   // color = flash_add(color, time, 0.5 * abs(audio.notch));
 
-  vec3 mix_color = vec3(0.7);
+  vec3 mix_color = vec3(0.8, 0.9, 0.8);
   vec3 hsv_color = rgb2hsv(color);
-  color = hsv_color;
-  // color.g = hsv_color.r * abs(audio.notch) * 1.0;
-  color.r *= audio.bandpass * 2.0;
-  color.g *= audio.notch * 2.0;
-  color.b *= audio.highpass * 2.0;
+  // // color.r = color.b * abs(audio.bandpass) * 1.0;
+  // // color.g = color.b * abs(audio.notch) * 1.5;
+  // color.r = hsv_color.b * abs(audio.bandpass) * 1.5;
+  // // color.g *= color.b * abs(audio.notch) * 1.0;
+  // color.g = hsv_color.b * abs(audio.notch) * 1.0;
+  // // color.b *= abs(audio.highpass) * 1.5;
+  // // color.b *= abs(sin(time)) - 0.1;
+  // // color = color.grb;
+  // // color = color.rbg;
+  // // color = color.brg;
+  // // color = color.bgr;
+  //
+  // color.r *= audio.notch;
+  // color.g *= audio.highpass;
+  // color.b *= audio.bandpass;
 
-  // color /= mix_color;
-  // gl_FragColor = vec4(color.brg, 1.0);
-  // gl_FragColor = vec4(color.brg, 1.0);
-  gl_FragColor = vec4(color.grb, 1.0);
-  // if (time > t2s(0, 3, 4)) {
-  if (time > t2s(0, 1, 6)) {
-      gl_FragColor -= texture2D(u_fb, vec2(p3.yx/5.+.5) + vec2(0.01, 0.01)) - 0.002;
-      gl_FragColor += texture2D(u_fb, vec2(abs(atan(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) ;
-      gl_FragColor -= texture2D(u_fb, vec2(abs(tan(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) - 0.002;
-  } else {
-    gl_FragColor -= texture2D(u_fb, vec2(abs(tan(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) - 0.002;
-    // gl_FragColor -= texture2D(u_fb, vec2(p3.yx/5.+.5) + vec2(0.01, 0.01)) - 0.002;
-  }
+  color.r *= audio.notch;
+  color.g *= audio.highpass;
+  color.b *= audio.lowpass;
+
+  color.r *= 2.0;
+  color.g *= 2.0;
+  color.b *= 2.0;
+  // color *= mix_color;
+  gl_FragColor = vec4(color.gbr, 1.0);
+  // gl_FragColor = vec4(color.bgr, 1.0);
 }
 #endif

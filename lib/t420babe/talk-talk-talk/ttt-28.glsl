@@ -1,7 +1,6 @@
-// Job Jobse set
-// Transcendental Access Point (Mixed) by Eris Drew
-#ifndef T4B_TTT_11
-#define T4B_TTT_11
+// Aura by Avoure
+#ifndef T4B_TTT_28
+#define T4B_TTT_28
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -64,7 +63,7 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-void ttt_11(vec3 p3, float time, peakamp audio) {
+void ttt_28(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy;
   // pos *= (abs(sin(time * 0.5))) * 500.0;
   // pos *= wrap_time(time, 100.0) + 100.0;
@@ -94,15 +93,15 @@ void ttt_11(vec3 p3, float time, peakamp audio) {
   // color.g *= audio.highpass;
   // color.b *= audio.bandpass;
 
-  // color.r *= audio.notch;
-  // color.g *= audio.highpass;
-  // color.b *= audio.lowpass;
+  color.r *= audio.notch;
+  color.g *= audio.highpass;
+  color.b *= audio.lowpass;
 
-  // color.r *= 2.0;
-  // color.g *= 2.0;
-  // color.b *= 1.5;
+  color.r *= 2.0;
+  color.g *= 2.0;
+  color.b *= 1.5;
   // color *= mix_color;
-  gl_FragColor = vec4(color.gbr, 1.0);
+  gl_FragColor = vec4(0.5 - color.gbr, 1.0);
   gl_FragColor += texture2D(u_fb, vec2(abs(sin(p3.yx/ (PI * 0.60) + PI)) + 0.01) + vec2(0.001, 0.00)) - 0.002;
   // gl_FragColor = vec4(color.bgr, 1.0);
   gl_FragColor -= texture2D(u_fb, vec2(p3.yx/2.+.5) + vec2(0.001, 0.00)) - 0.002;
