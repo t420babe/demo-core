@@ -72,9 +72,9 @@ void ttt_06(vec3 p3, float time, peakamp audio) {
   // color = flash_add(color, time, 0.5 * abs(audio.notch));
 
   // vec3 hsv_color = rgb2hsv(color);
-  color.b *= audio.highpass * 2.0;
-  color.g *= audio.bandpass * 2.0;
-  color.r *= audio.notch * 2.0;
+  color.b *= audio.highpass * 1.0;
+  color.g *= audio.bandpass * 1.0;
+  color.r *= audio.notch * 1.0;
   color = color.rbg;
   // color = color.gbr;
   // color = color.brg;

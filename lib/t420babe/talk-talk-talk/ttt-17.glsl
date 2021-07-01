@@ -35,21 +35,27 @@ vec3 party_starter(vec2 pos, float time, peakamp audio) {
   color = mix(
     col,
     bg,
-    1.0-smoothstep(0.0,abs(sin(time*0.05)*3.0), map(pos))
+    1.0-smoothstep(10.0,(sin(time*0.05)*3.0), map(pos))
   );   
 
   return color;
 }
 
-vec3 ttt_17(vec2 pos, float time, peakamp audio) {
+void ttt_17(vec3 p3, float time, peakamp audio) {
+  vec2 pos = p3.xy;
   pos *= 10.0;
-  vec3 color = vec3(0.5, 0.0, 1.0);
+  // vec3 color = vec3(0.5, 0.0, 1.0);
+  vec3 color = vec3(audio.highpass * 1.5, audio.notch * 1.5, audio.lowpass * 1.5);
   // pos = rotate2d(time * 5.0 * 10.0) * pos;
   // float poly = sharp(polygon(pos, 5, 5.0 * audio.bandpass));
   // color *= poly;
-  color = party_starter(pos, time, audio);
+  color *= party_starter(pos, time, audio);
   // color = flash_add(color, time, 0.0 + abs(audio.notch));
 
-  return color;
+  gl_FragColor = vec4(1.0 - color.bgr, 1.0);
+  // gl_FragColor = vec4(color, 1.0);
+  // gl_FragColor -= texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
+  // gl_FragColor += texture2D(u_fb, vec2(abs(sin(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) - audio.notch * 0.1;
+  gl_FragColor += texture2D(u_fb, vec2(abs(tan(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) - 0.005;
 }
 #endif
