@@ -1,9 +1,7 @@
-// post: Expressing What Matters - Dance
-// Tondo - Eko Roosevelt by Disclosure
-// Tondo by Disclosure
-// Ecstasy by Disclosure
-#ifndef T4B_TTT_20
-#define T4B_TTT_20
+// Country of the Mind by Greg Gonzalez (Audio by Patti Smith)
+// #trippy #rave
+#ifndef T4B_TTT_33
+#define T4B_TTT_33
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -27,18 +25,24 @@ vec3 party_starter(vec2 pos, float time, peakamp audio) {
       }
   }
   
-
-  vec3 bg = vec3(1.5, 2.0 * abs(audio.bandpass), 2.0 * abs(audio.notch));
+  vec3 bg = vec3(1.5 * audio.bandpass, 1.5 * audio.highpass, 1.5 * audio.notch);
   color = mix(
     col,
     bg,
-    1.0-smoothstep(0.0,abs(sin(time*0.05)*3.0 / abs(audio.bandpass)), map(pos * abs(audio.notch) * 4.0))
+    1.0-smoothstep(0.0,-abs(sin(time*0.05)*3.0 / (audio.notch)), map(pos * (audio.lowpass) * 4.0))
   );   
+
+  // vec3 bg = vec3(1.5, 2.0 * abs(audio.bandpass), 2.0 * abs(audio.notch));
+  // color = mix(
+  //   col,
+  //   bg,
+  //   1.0-smoothstep(0.0,abs(sin(time*0.05)*3.0 / abs(audio.bandpass)), map(pos * abs(audio.notch) * 4.0))
+  // );
 
   return color;
 }
 
-void ttt_20(vec3 p3, float time, peakamp audio) {
+void ttt_33(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy;
   float w_time = wrap_time(time, t2s(0.0, 4.0, 23.0)/ 2.0);
   // pos.x -= 0.5;
@@ -58,5 +62,9 @@ void ttt_20(vec3 p3, float time, peakamp audio) {
   // return color.bgr;
   // return color.rbg;
   gl_FragColor = vec4(color, 1.0);
+  // gl_FragColor /= vec4(1.0 - 1.0 / color, 1.0);
+  gl_FragColor -= texture2D(u_fb, vec2(p3.y + 0.5, p3.x + 0.5));
+  // gl_FragColor += texture2D(u_fb, vec2(abs(sin(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) - audio.notch * 0.1;
+  gl_FragColor += texture2D(u_fb, vec2(abs(tan(p3.xy/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) - 0.005;
 }
 #endif

@@ -142,7 +142,7 @@ Rule: everything in lib can reference each other except for the t420babe folder.
 - needsong - this shader is a great one and i need to put a song to it
 - needvid - this shader is a great one and i need record it and post it
 - lathe - that lathe effect, ya know
-- ecstasy - good visuals for when im rolling and/or have too much weed and nicotine in my system
+- ecstasy - good visuals for ya know
 - instagram - this shader is on instagram
 - youtube - this shader is on youtube
 
