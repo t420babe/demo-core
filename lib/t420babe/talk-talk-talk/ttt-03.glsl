@@ -14,7 +14,7 @@
 #include "lib/pxl/rotate-sdf.glsl"
 #endif
 
-vec3 ttt_03(vec3 p3, float time, peakamp audio) {
+void ttt_03(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy;
 
   vec3 color = vec3(0.5, 0.0, 1.0);
@@ -78,6 +78,7 @@ vec3 ttt_03(vec3 p3, float time, peakamp audio) {
   color.r = hsv_color.r * abs(audio.bandpass) * 3.5;
   color.g = hsv_color.b * abs(audio.notch) * 1.0 ;
 
-  return color;
+  gl_FragColor = vec4(color, 1.0);
+
 }
 #endif
