@@ -42,7 +42,8 @@ float ttt_21_map(vec3 pos, float time){
 
 
 // 2:46
-vec3 ttt_21(vec2 pos, float time, peakamp audio) {
+void ttt_21(vec3 p3, float time, peakamp audio) {
+  vec2 pos = p3.xy;
   // 365.0
   float start = t2s(0.0, 4.0, 20.0);
   time += start;
@@ -73,7 +74,7 @@ vec3 ttt_21(vec2 pos, float time, peakamp audio) {
   }
   color = rgb2hsv((wrap_time(time, 0.5) + 0.5) - color.grb);
 
+  gl_FragColor = vec4(color, 1.0);
 
-  return color;
 }
 #endif

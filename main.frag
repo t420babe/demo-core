@@ -24,8 +24,8 @@ uniform sampler2D u_freq_slow;
 #include "lib/common/s4y.glsl"
 #endif
 
-#ifndef T4B_TTT_38
-#include "lib/t420babe/talk-talk-talk/ttt-38.glsl"
+#ifndef T4B_TTT_35
+#include "lib/t420babe/talk-talk-talk/ttt-35.glsl"
 #endif
 
 void main(void) {
@@ -33,13 +33,13 @@ void main(void) {
   audio = u_audio;
   float time = t;
   // time += t2s(0, 5, 0);
-  // time += 388.0;
+  // time += 358.0;
   // time *= 4.0;
   // 11
-  // ttt_38(p3, time, audio);
+  // ttt_35(p3, time, audio);
   // left off @20
-  ttt_38(p3, time, audio);
+  ttt_35(p3, time, audio);
 
   // vec3 color = vec3(audio.notch, audio.bandpass, audio.highpass) * 2.0;
-  // gl_FragColor = vec4(color, 1.0);
+  // gl_FragColor = vec4(vec3(0.0), 1.0);
 }
