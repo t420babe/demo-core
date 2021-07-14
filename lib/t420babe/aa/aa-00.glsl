@@ -21,7 +21,7 @@ void aa_00(vec3 p3, float time, peakamp audio) {
   gl_FragColor = vec4(color, 1.0);
 }
 
-void aa_00(vec3 p3, float time) {
+vec3 aa_00_1(vec3 p3, float time) {
   vec2 pos = p3.xy;
   pos /= 2.0;
   float f = ONE_MINUS_ABS_POW(pos.x, 0.5);
@@ -30,6 +30,12 @@ void aa_00(vec3 p3, float time) {
   vec3 color = vec3(pct);
 
   // color = vec3(color.x + 0.3, 0.635, 0.8783);
+  return color;
+}
+
+void aa_00(vec3 p3, float time) {
+  vec3 color = aa_00_1(p3, time);
+
   gl_FragColor = vec4(color, 1.0);
   gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.5, p3.y + 0.5));
   gl_FragColor -= texture2D(u_fb, vec2(p3.xy/2.0 + 0.5));
