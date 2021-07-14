@@ -1,85 +1,31 @@
-#ifndef T4B_AA_00
-#define T4B_AA_00
-
-#ifndef COMMON_WRAP_TIME
-#include "./lib/common/wrap-time.glsl"
-#endif
-
-#ifndef COMMON_MATH_CONSTANTS
-#include "./lib/common/math-constants.glsl"
-#endif
-
-#ifndef COMMON_PEAKAMP
-#include "./lib/common/peakamp.glsl"
-#endif
+#ifndef T420BABE_UMBRELLA
+#define T420BABE_UMBRELLA
 
 #ifndef COMMON_PLOT
 #include "./lib/common/plot.glsl"
 #endif
 
+#ifndef COMMON_MATH_FUNCTIONS
+#include "./lib/common/math-functions.glsl"
+#endif
 
-// vec2 center = vec2(0.5,0.5);
-// float speed = 0.035;
-//
-// void mainImage( out vec4 fragColor, in vec2 fragCoord )
-// {
-//     float invAr = iResolution.y / iResolution.x;
-//
-//     vec2 uv = fragCoord.xy / iResolution.xy;
-//
-//   vec3 col = vec4(uv,0.5+0.5*sin(iTime),1.0).xyz;
-//
-//      vec3 texcol;
-//
-//   float x = (center.x-uv.x);
-//   float y = (center.y-uv.y) *invAr;
-//
-//   //float r = -sqrt(x*x + y*y); //uncoment this line to symmetric ripples
-//   float r = -(x*x + y*y);
-//   float z = 1.0 + 0.5*sin((r+iTime*speed)/0.013);
-//
-//   texcol.x = z;
-//   texcol.y = z;
-//   texcol.z = z;
-//
-//   fragColor = vec4(col*texcol,1.0);
-// }
+vec3 umbrella(vec2 pos, float u_time, peakamp audio) {
+  float mod_time = mod(u_time, 5.0);
+  float f = ONE_MINUS_ABS_POW(pos.x, 0.5);
+  float pct = fract(plot(pos, f, 1.8, 0.01) * mod_time * 1.0);
 
+  vec3 color = vec3(pct);
 
-
-
-void aa_00(vec3 p3, float u_time, peakamp audio, vec2 res) {
-  vec2 uv = p3.xy;
-  uv *= 3.5;
-  vec3 color = vec3(1.0);
-
-  float mul = 1.0;
-  audio.lowpass   *= mul;
-  audio.highpass  *= mul;
-  audio.bandpass  *= mul;
-  audio.notch     *= mul;
-
-  vec2 center = vec2(0.0, 0.0);
-  float speed = 0.05;
-  float invAr = (1.5 * res.y) / res.x;
-
-  vec3 texcol;
-
-  float x = (center.x + sin(uv.x));
-  float y = (center.y - sin(uv.x * uv.y)) *invAr;
-
-  //float r = -sqrt(x*x + y*y); //uncoment this line to symmetric ripples
-  float r = -(x*x * y*y);
-  float z = 0.0 + 0.5*sin((r+u_time*speed)/0.013);
-
-  texcol.x = z;
-  texcol.y = z;
-  texcol.z = z;
-
-  color *= texcol;
-  color.r *= abs(audio.notch * 10.0);
-  color.g *= abs(sin(u_time));
-
-  gl_FragColor = vec4(color, 1.0);
+  return vec3(color.r + abs(audio.lowpass), color.g * audio.notch, 0.8783);
 }
+
+vec3 umbrella(vec2 pos, float u_t) {
+  float f = ONE_MINUS_ABS_POW(pos.x, 0.5);
+  float pct = fract(plot(pos, f, 1.8, 0.01) * u_t * 1.0);
+
+  vec3 color = vec3(pct);
+
+  return vec3(color.x + 0.3, 0.635, 0.8783);
+}
+
 #endif
