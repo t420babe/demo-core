@@ -5,7 +5,10 @@
 #include "./lib/pxl/aastep-sdf.glsl"
 #endif
 
-vec3 soft_retro_step(vec2 pos) {
+// Soft retro step
+
+vec3 aa_15_1(vec3 p3) {
+  vec2 pos = p3.xy;
   // vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   float f = aastep(pos.x, 0.5);
   float x = 0.1;
@@ -15,4 +18,8 @@ vec3 soft_retro_step(vec2 pos) {
   return color;
 }
 
+void aa_15(vec3 p3) {
+  vec3 color = aa_15_1(p3);
+  gl_FragColor = vec4(color, 1.0);
+}
 #endif
