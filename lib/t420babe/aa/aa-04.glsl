@@ -1,14 +1,11 @@
-#ifndef T420BABE_RIDGE
-#define T420BABE_RIDGE
-// 2d6aaf21, 01:30
-// t420babe song suggestion: Brain Juice by DARK $
-// t420babe idea: black and white then when beat drop add in color
+#ifndef T4B_AA_04
+#define T44B_AA_04
 
 #ifndef COMMON_COMMON
 #include "./lib/common/00-common.glsl"
 #endif
-// Inspiration and original functions by @patriciogv - 2015, Tittle: Ridge
 
+// Forked from @patriciogv - 2015, Tittle: Ridge
 vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
 vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
 vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
@@ -106,7 +103,8 @@ float ridgedMF(vec2 p, float u_t) {
   return sum;
 }
 
-vec3 ridge_main(vec2 pos, float u_time, peakamp audio) {
+void aa_04(vec3 p3, float u_time, peakamp audio) {
+  vec2 pos = p3.xy;
   vec3 color = vec3(0.0);
 
   audio.highpass *= 100.0;
@@ -138,6 +136,6 @@ vec3 ridge_main(vec2 pos, float u_time, peakamp audio) {
     color = vec3(color.y, color.x + 0.3, 0.8 * abs(sin(u_time)));
   }
 
-  return color;
+  gl_FragColor = vec4(color, 1.0);
 }
 #endif
