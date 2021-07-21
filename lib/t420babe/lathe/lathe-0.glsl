@@ -60,8 +60,8 @@ void lathe_0(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
 
 }
 
-vec3 lathe_0(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
-  color = vec3(0.435, 0.9854, 0.9208);
+vec3 lathe_0(vec2 pos, float u_time, peakamp audio) {
+  vec3 color = vec3(0.435, 0.9854, 0.9208);
 
   float c_pct = circle_1(pos, abs(audio.notch) / 2.5);
 
