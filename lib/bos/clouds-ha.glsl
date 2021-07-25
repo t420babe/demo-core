@@ -26,13 +26,12 @@ float clouds_ha_noise (in vec2 _pos) {
 
 
 float clouds_ha_fbm ( in vec2 _pos) {
-  int num_octaves = 9;
     float v = 0.0;
     float a = 0.5;
     vec2 shift = vec2(5.0);
     // Rotate to reduce axial bias
     mat2 rot = mat2(tan(0.5), sin(0.5) * audio.bandpass * 2.0, sin(0.5), cos(0.50));
-    for (int i = 0; i < num_octaves; ++i) {
+    for (int i = 0; i < 9; ++i) {
         v += a * clouds_ha_noise(_pos);
         _pos = rot * _pos * 2.0 + shift;
         a *= 0.5;
