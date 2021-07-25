@@ -1,5 +1,5 @@
-#ifndef SOFT_RETRO_STEP
-#define SOFT_RETRO_STEP
+#ifndef T4B_AA_15
+#define T4B_AA_15
 
 #ifndef PXL_AASTEP
 #include "./lib/pxl/aastep-sdf.glsl"
