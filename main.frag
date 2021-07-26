@@ -28,8 +28,8 @@ uniform sampler2D u_freq_slow;
 #include "lib/t420babe/b2b/b2b-55.glsl"
 #endif
 
-#ifndef T4B_AB_06
-#include "lib/t420babe/ab/ab-06.glsl"
+#ifndef T4B_AC_12
+#include "lib/t420babe/ac/ac-12.glsl"
 #endif
 
 void main(void) {
@@ -37,7 +37,7 @@ void main(void) {
   audio = u_audio;
   float time = t;
   // b2b_55(p3, time, audio);
-  ab_06(p3, time, audio);
+  ac_12(p3, time, audio);
 
   // vec3 color = vec3(audio.notch, audio.bandpass, audio.highpass) * 2.0;
   // gl_FragColor = vec4(vec3(0.0), 1.0);
