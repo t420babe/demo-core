@@ -53,6 +53,10 @@
 #include "./lib/pxl/rhombus-sdf.glsl"
 #endif
 
+#ifndef PXL_ROTATE
+#include "./lib/pxl/rotate-sdf.glsl"
+#endif
+
 #ifndef PXL_SCALE
 #include "./lib/pxl/scale-sdf.glsl"
 #endif
