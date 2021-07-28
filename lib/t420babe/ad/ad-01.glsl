@@ -1,5 +1,5 @@
-#ifndef T4B_AC_02
-#define T4B_AC_02
+#ifndef T4B_AD_01
+#define T4B_AD_01
 
 #ifndef COMMON_COMMON
 #include "./lib/common/00-common.glsl"
@@ -10,7 +10,7 @@
 #endif
 
 // Choose between 3 `shader_id`s and 2 `color_id`s
-void ac_02(vec3 p3, float time, peakamp audio) {
+void ad_01(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy;
   vec3 color = vec3(1.0);
 

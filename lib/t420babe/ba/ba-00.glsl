@@ -10,6 +10,8 @@
 #include "./lib/common/plot.glsl"
 #endif
 
+#define NUM_OCTAVES_BA_00 5
+
 float clouds_random (in vec2 _pos) {
     return fract(sin(dot(_pos.xy, vec2(12.9898,78.233)))* 43758.5453123);
 }
@@ -41,7 +43,7 @@ float clouds_fbm ( in vec2 _pos) {
     vec2 shift = vec2(5.0);
     // Rotate to reduce axial bias
     mat2 rot = mat2(cos(0.5), sin(0.5), sin(0.5), cos(0.50));
-    for (int i = 0; i < num_octaves; ++i) {
+    for (int i = 0; i < NUM_OCTAVES_BA_00; ++i) {
         v += a * clouds_noise(_pos);
         _pos = rot * _pos * 2.0 + shift;
         a *= 0.5;
@@ -49,20 +51,20 @@ float clouds_fbm ( in vec2 _pos) {
     return v;
 }
 
-void clouds(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+void clouds(vec2 pos, float time, peakamp audio, out vec3 color) {
 
     pos *= 3.0;
     pos = sin(pos);
     vec2 q = vec2(2.);
-    q.x = clouds_fbm( pos + 0.00*u_time);
+    q.x = clouds_fbm( pos + 0.00*time);
     q.y = clouds_fbm( pos + vec2(1.0));
 
     vec2 r = vec2(0.0);
-    r.x = clouds_fbm( pos + 0.0 * q + vec2(0.7,9.2)+ 0.15 * u_time );
-    r.y = clouds_fbm( pos + 0.0 * q + vec2(0.3,2.8)+ 0.15 * u_time);
-    // r.y += fract(abs(sin(u_time * 0.5)));
-    r.y *- fract(u_time);
-    // r.x += abs(cos(u_time * 0.5)) * r.y;
+    r.x = clouds_fbm( pos + 0.0 * q + vec2(0.7,9.2)+ 0.15 * time );
+    r.y = clouds_fbm( pos + 0.0 * q + vec2(0.3,2.8)+ 0.15 * time);
+    // r.y += fract(abs(sin(time * 0.5)));
+    r.y *- fract(time);
+    // r.x += abs(cos(time * 0.5)) * r.y;
     r.x *- r.y;
 
     // float f = clouds_fbm(pos * r + smoothstep(audio.highpass, audio.highpass - 0.41, 0.1));
@@ -89,12 +91,12 @@ vec2 tile(vec2 _pos, float _zoom){
   return fract(_pos);
 }
 
-float jail(vec2 _pos, float _radius){
-  vec2 pos = vec2(0.5)-_pos;
-  _radius *= 5.75 * abs(audio.highpass);
-  return 1.0 - smoothstep(1.0 - (_radius * abs(audio.notch)), _radius + (_radius * 0.5), fract(pos.x * pos.y) * 0.05 * (abs(sin(u_time * 0.1)) + 0.1));
-  // return 1.0 - smoothstep(1.0 - (_radius * abs(audio.notch)), _radius + (_radius * 0.5), fract(pos.x * pos.y) * 3.14 * (abs(sin(u_time * 2.5)) +1.0));
-}
+// float jail(vec2 _pos, float _radius, float time){
+//   vec2 pos = vec2(0.5)-_pos;
+//   _radius *= 5.75 * abs(audio.highpass);
+//   return 1.0 - smoothstep(1.0 - (_radius * abs(audio.notch)), _radius + (_radius * 0.5), fract(pos.x * pos.y) * 0.05 * (abs(sin(time * 0.1)) + 0.1));
+//   // return 1.0 - smoothstep(1.0 - (_radius * abs(audio.notch)), _radius + (_radius * 0.5), fract(pos.x * pos.y) * 3.14 * (abs(sin(time * 2.5)) +1.0));
+// }
 
 float circle(vec2 pos, float _radius){
   _radius *= 0.75;
@@ -117,7 +119,9 @@ float rect_sdf(vec2 st, vec2 s) {
                 abs(st.y/s.y) );
 }
 
-void chain_00(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+vec3 chain_00(vec3 p3, float time, peakamp audio) {
+  vec2 pos = p3.xy;
+  vec3 color = vec3(1.0);
   audio.lowpass   *= 1.0;
   audio.highpass  *= 1.0;
   audio.bandpass  *= 1.0;
@@ -129,10 +133,11 @@ void chain_00(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
   color = vec3(1.0, 0.5, 0.5);
   // vec3 rect_color = vec3(rect_sdf(pos, vec2(1.1, 1.0)));
   // color = rect_color * audio.bandpass;
-  clouds((pos + vec2(0.35)) * 1.5, u_time, audio, color);
+  clouds((pos + vec2(0.35)) * 1.5, time, audio, color);
 
   // color = vec3(1.0) - color;
   color = color.bgr;
+  return color;
   // color = color.gbr;
 }
 
