@@ -15,9 +15,7 @@ void ac_12(vec3 p3, float time, peakamp audio) {
 
   pos -= 0.0;
   float rate = 3.0;
-  // pos *= 2.5 * circle_sdf(pos * mod(time, 4.0));
   pos *= 2.5 * circle_sdf(pos * tan(time * rate));
-
   color = vec3(1.1, 0.1234, 0.34);
   float pct = aastep(-pos.x, -pos.x);
   float pct2 = sharp(circle_sdf(pos.yy));
