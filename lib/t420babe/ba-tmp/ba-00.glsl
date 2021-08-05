@@ -1,6 +1,6 @@
 // #effect #fav5 #shadershoot
-#ifndef T420BABE_CHAIN_00
-#define T420BABE_CHAIN_00
+#ifndef T4B_BA_00
+#define T4B_BA_00
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -119,7 +119,7 @@ float rect_sdf(vec2 st, vec2 s) {
                 abs(st.y/s.y) );
 }
 
-vec3 chain_00(vec3 p3, float time, peakamp audio) {
+vec3 ba_00(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy;
   vec3 color = vec3(1.0);
   audio.lowpass   *= 1.0;
