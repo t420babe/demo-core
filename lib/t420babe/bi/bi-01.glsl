@@ -1,5 +1,5 @@
-#ifndef T4B_VIC_03
-#define T4B_VIC_03
+#ifndef T4B_BI_01
+#define T4B_BI_01
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -13,7 +13,7 @@
 #include "lib/pxl/rect-sdf.glsl"
 #endif
 
-void vic_03(vec3 p3, float time, peakamp audio) {
+void bi_01(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   // float bri = step(abs(tan( audio.notch * p3.x * 10. + t) * 0.3 + p3.x * sin(t)), 0.01);
 
@@ -32,9 +32,9 @@ void vic_03(vec3 p3, float time, peakamp audio) {
 
   gl_FragColor = vec4(color * 2.0, bri);
   float len_trail = 0.001;
-  vec2 p_offset = vec2(0.001, 0.01);
-  vec2 p_fb = vec2(p3.yx);
-  p_fb.y = p3.x / 2.0 + 0.51;
+  vec2 p_offset = vec2(0.001, 0.00);
+  vec2 p_fb = vec2(p3);
+  p_fb.x = p3.x / 2.0 + 0.51;
   gl_FragColor += texture2D(u_fb, p_fb + p_offset) - len_trail;
 }
 #endif

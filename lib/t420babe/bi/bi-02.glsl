@@ -1,5 +1,5 @@
-#ifndef T4B_VIC_02
-#define T4B_VIC_02
+#ifndef T4B_BI_02
+#define T4B_BI_02
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -13,7 +13,7 @@
 #include "lib/pxl/rect-sdf.glsl"
 #endif
 
-void vic_02(vec3 p3, float time, peakamp audio) {
+void bi_02(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   // float bri = step(abs(tan( audio.notch * p3.x * 10. + t) * 0.3 + p3.x * sin(t)), 0.01);
 
