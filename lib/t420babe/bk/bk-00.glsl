@@ -1,5 +1,5 @@
-#ifndef T420BABE_COMPLETE_00
-#define T420BABE_COMPETE_00
+#ifndef T4B_BK_00
+#define T4B_BK_00
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -70,7 +70,8 @@ float fbm(vec2 n) {
 	return total;
 }
 
-vec3 complete_00(vec2 pos, float time, peakamp audio) {
+void bk_00(vec3 p3, float time, peakamp audio) {
+  vec2 pos = p3.xy;
 	vec3 color = vec3(1.0);
 	audio.lowpass   *= 1.0;
 	audio.highpass  *= 1.0;
@@ -78,7 +79,7 @@ vec3 complete_00(vec2 pos, float time, peakamp audio) {
 	audio.notch     *= 1.0;
 	vec2 p = pos;
 	vec2 uv = pos * vec2(u_resolution.x / u_resolution.y, 1.0);
-	// float time = u_time * speed;
+	// float time = time * speed;
 	float q = fbm(uv * cloudscale * 0.5);
 
 	//ridged noise shape
@@ -108,7 +109,7 @@ vec3 complete_00(vec2 pos, float time, peakamp audio) {
 
 	//noise colour
 	float c = 0.0;
-	time = u_time * speed * 3.0;
+	time = time * speed * 3.0;
 	uv = p * vec2(pos);
 	uv *= cloudscale * 20.0;
 	uv -= q - time;
@@ -121,7 +122,7 @@ vec3 complete_00(vec2 pos, float time, peakamp audio) {
 
 	//noise ridge colour
 	float c1 = 0.0;
-	time = u_time * speed * 3.0;
+	time = time * speed * 3.0;
 	uv = p*vec2(u_resolution.x/u_resolution.y,1.0);
 	uv *= cloudscale*3.0;
 	uv -= q - time;
@@ -146,6 +147,6 @@ vec3 complete_00(vec2 pos, float time, peakamp audio) {
   result.g /= abs(audio.notch) * 10.0;
   result = rgb2hsv(0.5 - result);
 
-	return result;
+  gl_FragColor = vec4(result, 1.0);
 }
 #endif

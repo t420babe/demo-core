@@ -1,6 +1,5 @@
-// #effect #fav5
-#ifndef T420BABE_COMPLETE_01
-#define T420BABE_COMPETE_01
+#ifndef T4B_BK_01
+#define T4B_BK_01
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -112,7 +111,8 @@ vec3 complete_01_choice(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-vec3 complete_01(vec2 pos, float time, peakamp audio) {
+void bk_01(vec3 p3, float time, peakamp audio) {
+  vec2 pos = p3.xy;
 	vec3 color = vec3(1.0);
 	audio.lowpass   *= 1.0;
 	audio.highpass  *= 1.0;
@@ -197,8 +197,10 @@ vec3 complete_01(vec2 pos, float time, peakamp audio) {
   // complete_01_choice_color = rgb2hsv(complete_01_choice_color);
 
   // return 1.0 - result.gbr;
-  return (1.0 * abs(sin(time)) + 0.0) - result.bgr;
+  result = (1.0 * abs(sin(time)) + 0.0) - result.bgr;
   // return 2.0 - result.bgr;
 	// return 1.3 - result.rbg;
+  
+  gl_FragColor = vec4(result, 1.0);
 }
 #endif
