@@ -1,5 +1,5 @@
-#ifndef T4B_ARRIVAL_04
-#define T4B_ARRIVAL_04
+#ifndef T4B_BL_02
+#define T4B_BL_02
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -21,16 +21,14 @@
 #include "lib/pxl/rays-sdf.glsl"
 #endif
 
-void arrival_04(vec3 p3, float time, peakamp audio) {
+void arrival_02(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   vec2 rhom_p = p3.xy * 2.0;
-  // rhom_p.x += 0.5;
-  // rhom_p = rotate2d(time * audio.notch * 10.0) * rhom_p;
-  // rhom_p = rotate2d(sin(time) * 3.14 / 1.0) * rhom_p.yz;
+  rhom_p = rotate2d(time * audio.notch * 10.0) * rhom_p;
   float rhombus = rhombus_sdf(rhom_p, 1.0);
   float hex = hexagon_sdf(rhom_p, 10.0, audio.notch * 20.0);
   float rays = rays_audio(p3.xy, 10, audio);
-  float bri = sharp(hex) - sin(rays);
+  float bri = sharp(hex) * sin(rays);
   // bri /= (rhombus) * 1.0;
   // color = 1.0 - color;
   color = vec3(bri * audio.highpass, bri * audio.notch, bri * audio.lowpass);

@@ -1,6 +1,6 @@
 // Love at First Sight by TEEMID
-#ifndef T4B_ARRIVAL_05
-#define T4B_ARRIVAL_05
+#ifndef T4B_BL_05
+#define T4B_BL_05
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -51,7 +51,7 @@ void arrival_05(vec3 p3, float time, peakamp audio) {
 
 
   gl_FragColor = vec4(color, bri);
-  gl_FragColor += texture2D(u_fb, vec2(p3.xy/ 2.0 + 0.5) - vec2(0.00, 0.001)) - 0.002;
+  // gl_FragColor += texture2D(u_fb, vec2(p3.xy/ 2.0 + 0.5) - vec2(0.00, 0.001)) - 0.002;
 }
 
 #endif
