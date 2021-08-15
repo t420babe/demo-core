@@ -19,8 +19,8 @@ mat2 bg_00_blob_m(float a){
 }
 
 float bg_00_blob(vec3 p3, float time){
-    p3.xz *= blob_m(time * 0.4);
-    p3.xy*= blob_m(time * 0.3);
+    p3.xz *= bg_00_blob_m(time * 0.4);
+    p3.xy*= bg_00_blob_m(time * 0.3);
     vec3 q = p3 * 2.0 + time;
     float x0 = length( p3 + vec3( sin(time * 0.7) ) );
     float x1 = log( length(p3) + 1.0 );
