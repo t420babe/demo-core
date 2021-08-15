@@ -1,6 +1,6 @@
 // Something We All Adore (Original Mix) by Solumun
-#ifndef T4B_B2B_18
-#define T4B_B2B_18
+#ifndef T4B_BG_18
+#define T4B_BG_18
 
 #ifndef PXL_ROTATE
 #include "./lib/pxl/rotate-sdf.glsl"
@@ -13,12 +13,12 @@
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
 #endif
-mat2 b2b_18_blob_m(float a){
+mat2 bg_18_blob_m(float a){
   float c=cos(a), s=sin(a);
   return mat2(c,-s,s,c);
 }
 
-float b2b_18_blob(vec3 p3, float time){
+float bg_18_blob(vec3 p3, float time){
     p3.xz *= blob_m(time * 0.4);
     p3.xy*= blob_m(time * 0.3);
     vec3 q = p3 * 2.0 + time;
@@ -29,7 +29,7 @@ float b2b_18_blob(vec3 p3, float time){
 }
 
 
-void b2b_18(vec3 p3, float time, peakamp audio) {
+void bg_18(vec3 p3, float time, peakamp audio) {
   time += 100.0;
   vec3 color = vec3(1.0);
   p3 *= 1.5;
@@ -37,8 +37,8 @@ void b2b_18(vec3 p3, float time, peakamp audio) {
   float m = plot(vec2(p3), y, 0.25) * 1.0;
 
   p3.x -= 0.5;
-  float rz = b2b_18_blob(1.0 * p3, time);
-  float f = ( rz / b2b_18_blob(p3, y) ) * 10.0;
+  float rz = bg_18_blob(1.0 * p3, time);
+  float f = ( rz / bg_18_blob(p3, y) ) * 10.0;
   // color = (m) * color * m * vec3(1.0);
   vec3 l = vec3(0.35, 0.1, 0.3) + vec3(abs(audio.lowpass), abs(audio.bandpass), abs(audio.notch)) * f;
   color = l;

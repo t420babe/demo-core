@@ -2,8 +2,8 @@
 // https://www.youtube.com/watch?v=EnYmqdQA73s&t=1814s
 // 15:43 - 21:50
 // #fav5 #katie
-#ifndef T4B_B2B_13
-#define T4B_B2B_13
+#ifndef T4B_BG_13
+#define T4B_BG_13
 
 #ifndef PXL_ROTATE
 #include "./lib/pxl/rotate-sdf.glsl"
@@ -13,7 +13,7 @@
 #include "lib/common/00-common.glsl"
 #endif
 
-float b2b_13_map(vec3 p3, float time){
+float bg_13_map(vec3 p3, float time){
   p3.xz *= rotate2d(time * 0.3);
   p3.xy *= rotate2d(time * 0.1);
   vec3 q = p3 * 2.0 + time;
@@ -24,7 +24,7 @@ float b2b_13_map(vec3 p3, float time){
   return x0 *  x1 + x2 * 5.0;
 }
 
-void b2b_13(vec3 p3, float time, peakamp audio) {
+void bg_13(vec3 p3, float time, peakamp audio) {
   // time += 500.0;
   vec3 color = vec3(1.0);
   p3.y += 0.1;
@@ -36,7 +36,7 @@ void b2b_13(vec3 p3, float time, peakamp audio) {
   // float m = plot(vec2(p3.x, p3.y), y, abs(sin(time * 0.1) * 0.5) + 0.01) * 50.0;
   float y = (tan(PI * p3.x) + sin(p3.y * time * PI / 4.0));
   float m = plot(vec2(p3), y, 0.35) * 1.0;
-  float rz = b2b_13_map(p3, time);
+  float rz = bg_13_map(p3, time);
   // color = (m) * color + m * vec3(audio.lowpass * 3.0, rz * audio.bandpass * 2.0, 3.0 * audio.notch);
   // color = (m) * color + m * vec3(rz);
   color = (m) * color + m * vec3(1.0);

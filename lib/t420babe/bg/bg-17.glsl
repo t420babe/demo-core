@@ -1,7 +1,7 @@
 // Something We All Adore (Original Mix) by Solumun
 // #record, but pick different song now
-#ifndef T4B_B2B_17
-#define T4B_B2B_17
+#ifndef T4B_BG_17
+#define T4B_BG_17
 
 #ifndef PXL_ROTATE
 #include "./lib/pxl/rotate-sdf.glsl"
@@ -16,7 +16,7 @@
 #endif
 
 
-void b2b_17(vec3 p3, float time, peakamp audio) {
+void bg_17(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   p3 *= 5.0;
   float y = (tan(p3.x) + cos(p3.x * time * 3.0));

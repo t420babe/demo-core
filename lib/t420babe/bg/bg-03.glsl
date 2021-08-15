@@ -1,13 +1,13 @@
 // Honeydust by Of The Trees Feat. Kala - Clozee Remix
 // #fav5 #katie
-#ifndef T4B_B2B_00
-#define T4B_B2B_00
+#ifndef T4B_BG_00
+#define T4B_BG_00
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
 #endif
 
-void b2b_00(vec3 p3, float time, peakamp audio) {
+void bg_00(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   // p3 *= time * 0.1;
   // p3.x -= 0.5;

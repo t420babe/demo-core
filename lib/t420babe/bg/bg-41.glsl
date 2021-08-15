@@ -1,6 +1,6 @@
 // #chill 
-#ifndef T4B_B2B_41
-#define T4B_B2B_41
+#ifndef T4B_BG_41
+#define T4B_BG_41
 
 #ifndef PXL_ROTATE
 #include "./lib/pxl/rotate-sdf.glsl"
@@ -13,12 +13,12 @@
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
 #endif
-mat2 b2b_41_rotate2d(float a){
+mat2 bg_41_rotate2d(float a){
   float c=cos(a), s=sin(a);
   return mat2(c,-s,s,c);
 }
 
-float b2b_41_blob(vec3 p3, float time){
+float bg_41_blob(vec3 p3, float time){
   p3 = p3.yxz;
   p3.xz *= rotate2d(time * 0.4);
   p3.xy *= rotate2d(time * 0.3);
@@ -30,7 +30,7 @@ float b2b_41_blob(vec3 p3, float time){
 }
 
 
-void b2b_41(vec3 p3, float time, peakamp audio) {
+void bg_41(vec3 p3, float time, peakamp audio) {
   // audio.lowpass = 0.05;
   // audio.highpass = 0.05;
   // audio.bandpass = 0.05;
@@ -46,8 +46,8 @@ void b2b_41(vec3 p3, float time, peakamp audio) {
   float m = plot(vec2(p3), y, 0.15) * audio.notch * 2.0;
 
   // p3.x -= 0.5;
-  float rz = b2b_41_blob(p3, time);
-  float f = ( rz * b2b_41_blob(p3, y) ) * 1.0;
+  float rz = bg_41_blob(p3, time);
+  float f = ( rz * bg_41_blob(p3, y) ) * 1.0;
   vec3 l = vec3(1.0) + vec3(abs(audio.lowpass), abs(audio.bandpass), abs(audio.notch)) * rz;
   color = vec3(2.0 / m);
   color *= l;

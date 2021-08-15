@@ -2,8 +2,8 @@
 // https://www.youtube.com/watch?v=EnYmqdQA73s&t=1814s
 // 15:43 - 21:50
 // #fav5 #katie
-#ifndef T4B_B2B_04
-#define T4B_B2B_04
+#ifndef T4B_BG_04
+#define T4B_BG_04
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -13,7 +13,7 @@ mat2 rotate2d(float theta){
     return mat2(cos(theta), -sin(theta), sin(theta), cos(theta));
 }
 
-void b2b_04(vec3 p3, float time, peakamp audio) {
+void bg_04(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   p3.xz *= rotate2d(time * 0.4);
   p3.xy *= rotate2d(time * 0.3);
