@@ -21,7 +21,7 @@
 #include "lib/pxl/rays-sdf.glsl"
 #endif
 
-void arrival_04(vec3 p3, float time, peakamp audio) {
+void bl_04(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   vec2 rhom_p = p3.xy * 2.0;
   // rhom_p.x += 0.5;

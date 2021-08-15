@@ -21,7 +21,7 @@
 #include "lib/pxl/rays-sdf.glsl"
 #endif
 
-void arrival_13(vec3 p3, float time, peakamp audio) {
+void bl_13(vec3 p3, float time, peakamp audio) {
   // p3 *= 0.9;
   audio.notch     *= 1.5;
   audio.bandpass  *= 1.5;

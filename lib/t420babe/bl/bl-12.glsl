@@ -13,13 +13,13 @@
 #include "lib/pxl/rotate-sdf.glsl"
 #endif
 
-float arrival_12_rays_audio(vec2 st, int N, peakamp audio) {
+float bl_12_rays_audio(vec2 st, int N, peakamp audio) {
     // st.y -= 0.7;
     // st.x +=1.2;
     return log(atan(st.x,st.y) * audio.notch * 1.01 /TWO_PI*float(N)) * audio.notch;
 }
 
-vec4 arrival_12_05(vec3 p3, float time, peakamp audio) {
+vec4 bl_12_05(vec3 p3, float time, peakamp audio) {
   // audio.bandpass  *= 1.0;
   // audio.highpass  *= 1.0;
   // audio.lowpass   *= 1.0;
@@ -35,7 +35,7 @@ vec4 arrival_12_05(vec3 p3, float time, peakamp audio) {
   float rhombus = rhombus_sdf(rhom_p, 1.0);
   float hex = hexagon_sdf(rays_p, wrap_time(time * 0.5, 15.0) + 7.0, audio.notch * 40.0 + 1.0);
   rays_p.y += 1.0;
-  float rays = arrival_12_rays_audio(rays_p, 20, audio);
+  float rays = bl_12_rays_audio(rays_p, 20, audio);
   float bri = sharp(hex) - sin(rays);
   bri *= audio.notch;
   // bri /= (rhombus) * 1.0;
@@ -55,7 +55,7 @@ vec4 arrival_12_05(vec3 p3, float time, peakamp audio) {
   // gl_FragColor += texture2D(u_fb, vec2(p3.xy/ 2.0 + 0.5) - vec2(0.00, 0.001)) - 0.002;
 }
 
-vec4 arrival_12_11(vec3 p3, float time, peakamp audio) {
+vec4 bl_12_11(vec3 p3, float time, peakamp audio) {
   // p3 *= 0.9;
   // audio.notch     *= 1.5;
   // audio.bandpass  *= 1.5;
@@ -80,8 +80,8 @@ vec4 arrival_12_11(vec3 p3, float time, peakamp audio) {
 
   float hex = hexagon_sdf(rhom_p, 10.0, audio.notch * 20.0);
 
-  // float rays = arrival_12_rays_audio(-p3.xy, 10, audio);
-  float rays = arrival_12_rays_audio(rays_p, 10, audio);
+  // float rays = bl_12_rays_audio(-p3.xy, 10, audio);
+  float rays = bl_12_rays_audio(rays_p, 10, audio);
 
   float bri = sharp(hex) * sin(rays);
   bri *= audio.notch;
@@ -121,14 +121,14 @@ vec4 arrival_12_11(vec3 p3, float time, peakamp audio) {
   // gl_FragColor += texture2D(u_fb, vec2(p3.xy/ 2.0 + 0.5) - vec2(0.00, 0.001)) - 0.002;
 }
 
-void arrival_12(vec3 p3, float time, peakamp audio) {
+void bl_12(vec3 p3, float time, peakamp audio) {
   audio.bandpass  *= 0.1;
   audio.highpass  *= 0.1;
   audio.lowpass   *= 0.1;
   audio.notch     *= 0.1;
   vec3 color = vec3(1.0);
-  vec4 color_05 = arrival_12_05(p3, time, audio);
-  vec4 color_11 = arrival_12_11(p3, time, audio);
+  vec4 color_05 = bl_12_05(p3, time, audio);
+  vec4 color_11 = bl_12_11(p3, time, audio);
 
   float tr = wrap_time(time * 1.0, 1.0);
   color = mix(color_11.rgb, color_05.rgb, tr *audio.notch);

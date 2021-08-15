@@ -24,8 +24,8 @@ uniform sampler2D u_freq_slow;
 #include "lib/common/s4y.glsl"
 #endif
 
-#ifndef T4B_ARRIVAL_00
-#include "lib/t420babe/bl/arrival-00.glsl"
+#ifndef T4B_BL_04
+#include "lib/t420babe/bl/bl-04.glsl"
 #endif
 
 void main(void) {
@@ -33,5 +33,5 @@ void main(void) {
   audio = u_audio;
   float time = t;
   // zz_00(p3, time, audio, gl_FragCoord, u_resolution);
-  arrival_00(p3, time, audio);
+  bl_04(p3, time, audio);
 }

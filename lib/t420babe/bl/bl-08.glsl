@@ -13,7 +13,7 @@
 #include "lib/pxl/rotate-sdf.glsl"
 #endif
 
-void arrival_08(vec3 p3, float time, peakamp audio) {
+void bl_08(vec3 p3, float time, peakamp audio) {
   audio.bandpass  *= 2.0;
   audio.highpass  *= 5.0;
   audio.lowpass   *= 2.0;

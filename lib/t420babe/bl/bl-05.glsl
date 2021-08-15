@@ -22,7 +22,7 @@
 #include "lib/pxl/rays-sdf.glsl"
 #endif
 
-void arrival_05(vec3 p3, float time, peakamp audio) {
+void bl_05(vec3 p3, float time, peakamp audio) {
   audio.bandpass  *= 1.0;
   audio.highpass  *= 1.0;
   audio.lowpass   *= 1.0;

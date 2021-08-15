@@ -17,7 +17,7 @@
 #include "lib/pxl/rotate-sdf.glsl"
 #endif
 
-void arrival_01(vec3 p3, float time, peakamp audio) {
+void bl_01(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   vec2 rhom_p = p3.xy;
   // rhom_p.x += 0.5;

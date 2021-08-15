@@ -14,7 +14,7 @@
 #include "lib/pxl/rotate-sdf.glsl"
 #endif
 
-vec4 arrival_10_08a(vec3 p3, float time, peakamp audio) {
+vec4 bl_10_08a(vec3 p3, float time, peakamp audio) {
   audio.bandpass  *= 2.0;
   audio.highpass  *= 5.0;
   audio.lowpass   *= 2.0;
@@ -53,7 +53,7 @@ vec4 arrival_10_08a(vec3 p3, float time, peakamp audio) {
 }
 
 
-vec4 arrival_10_08b(vec3 p3, float time, peakamp audio) {
+vec4 bl_10_08b(vec3 p3, float time, peakamp audio) {
   audio.bandpass  *= 2.0;
   audio.highpass  *= 5.0;
   audio.lowpass   *= 2.0;
@@ -91,7 +91,7 @@ vec4 arrival_10_08b(vec3 p3, float time, peakamp audio) {
   gl_FragColor += texture2D(u_fb, vec2(p3.xy/ 2.0 + 0.5) - vec2(0.00, 0.001)) - 0.002;
 }
 
-vec4 arrival_10_05(vec3 p3, float time, peakamp audio) {
+vec4 bl_10_05(vec3 p3, float time, peakamp audio) {
   audio.bandpass  *= 2.0;
   audio.highpass  *= 2.0;
   audio.lowpass   *= 2.0;
@@ -125,10 +125,10 @@ vec4 arrival_10_05(vec3 p3, float time, peakamp audio) {
   gl_FragColor += texture2D(u_fb, vec2(p3.xy/ 2.0 + 0.5) - vec2(0.00, 0.001)) - 0.002;
 }
 
-void arrival_10(vec3 p3, float time, peakamp audio) {
+void bl_10(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
-  vec4 color_05 = arrival_10_05(p3, time, audio);
-  vec4 color_08 = arrival_10_08b(p3, time, audio);
+  vec4 color_05 = bl_10_05(p3, time, audio);
+  vec4 color_08 = bl_10_08b(p3, time, audio);
 
   float tr = wrap_time(time * 1.0, 1.0);
   color = mix(color_08.gbr, color_05.gbr, tr *audio.notch);
