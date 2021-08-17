@@ -20,8 +20,8 @@ mat2 bg_34_blob_m(float a){
 }
 
 float bg_34_blob(vec3 p3, float time){
-    p3.xz *= blob_m(time * 0.4);
-    p3.xy*= blob_m(time * 0.3);
+    p3.xz *= bg_34_blob_m(time * 0.4);
+    p3.xy*= bg_34_blob_m(time * 0.3);
     vec3 q = p3 * 2.0;
     float x0 = length( p3 );
     float x1 = sin( length(p3) + 1.0 );
@@ -39,15 +39,15 @@ void bg_34(vec3 p3, float time, peakamp audio) {
   // time += 100.0;
   // time *= 0.5;
   vec3 color = vec3(1.0);
-  p3 /= 2.0;
+  p3 *= 2.0;
   p3.xz *= rotate2d(p3.x);
   // float y = (5.0 * audio.notch + tan(p3.x)) * (cos(p3.x * time * 3.0) );
   float y = (tan(p3.x)) * (cos(p3.x * time * 3.0) );
   // float m = plot(vec2(p3), y, 0.25) * 1.0;
 
   p3.x -= 0.5;
-  float rz = bg_34_blob(p3, time);
-  float f = ( rz * bg_34_blob(p3, y) ) * 10.0;
+  float rz = blob(p3, time);
+  float f = ( rz * blob(p3, y) ) * 10.0;
   // color = (m) * color * m * vec3(1.0);
   // vec3 l = vec3(0.35, 0.1, 0.3) + vec3(abs(audio.lowpass), abs(audio.bandpass), abs(audio.notch)) * f;
   vec3 l = 1.0 * (vec3(audio.notch, audio.highpass, audio.bandpass)) + vec3(audio.lowpass, audio.bandpass, audio.notch) * f;

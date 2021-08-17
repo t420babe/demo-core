@@ -19,8 +19,8 @@ mat2 bg_32_blob_m(float a){
 }
 
 float bg_32_blob(vec3 p3, float time){
-    p3.xz *= blob_m(time * 0.4);
-    p3.xy*= blob_m(time * 0.3);
+    p3.xz *= bg_32_blob_m(time * 0.4);
+    p3.xy*= bg_32_blob_m(time * 0.3);
     vec3 q = p3 * 2.0;
     float x0 = length( p3 );
     float x1 = sin( length(p3) + 1.0 );
@@ -69,8 +69,8 @@ void bg_32(vec3 p3, float time, peakamp audio) {
   // gl_FragColor = vec4( color.grb, 1.0);
 
   // gl_FragColor = vec4( 1.0 - color, 1.0);
-  gl_FragColor = vec4( color, 1.0);
-  // gl_FragColor = vec4( 1.0 / color.brg, 1.0);
+  // gl_FragColor = vec4(1.0 - color.brg, 1.0);
+  gl_FragColor = vec4( 1.0 / color.brg, 1.0);
   // gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
   gl_FragColor -= texture2D(u_fb, vec2(rz* p3.yx/2.+.5) + vec2(0.001, 0.00)) - 0.002;
   gl_FragColor += texture2D(u_fb, vec2(p3.xy + 0.5));

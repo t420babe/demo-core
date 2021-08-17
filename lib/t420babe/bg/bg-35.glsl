@@ -20,8 +20,8 @@ mat2 bg_35_blob_m(float a){
 }
 
 float bg_35_blob(vec3 p3, float time){
-    p3.xz *= blob_m(time * 0.4);
-    p3.xy*= blob_m(time * 0.3);
+    p3.xz *= bg_35_blob_m(time * 0.4);
+    p3.xy*= bg_35_blob_m(time * 0.3);
     vec3 q = p3 * 2.0;
     float x0 = length( p3 );
     float x1 = sin( length(p3) + 1.0 );

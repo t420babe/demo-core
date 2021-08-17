@@ -14,16 +14,6 @@
 #include "lib/common/00-common.glsl"
 #endif
 
-float bg_22_blob(vec3 p3, float time){
-    p3.xz *= rotate2d(time * 0.4);
-    p3.xy*= rotate2d(time * 0.3);
-    vec3 q = p3 * 2.0 + time;
-    float x0 = length( p3 + vec3( sin(time * 0.7) ) );
-    float x1 = log( length(p3) + 1.0 );
-    float x2 = sin( q.x + sin( q.z + sin(q.y) ) ) * 0.5 - 1.0;
-    return x0 * x1 + x2;
-}
-
 
 void bg_22(vec3 p3, float time, peakamp audio) {
   audio.lowpass = 0.05;
@@ -37,8 +27,8 @@ void bg_22(vec3 p3, float time, peakamp audio) {
   // float m = plot(vec2(p3), y, 0.25) * 1.0;
 
   p3.x -= 0.5;
-  float rz = bg_22_blob(1.0 * p3, time);
-  float f = ( rz / bg_22_blob(p3, y) ) * 10.0;
+  float rz = blob(1.0 * p3, time);
+  float f = ( rz / blob(p3, y) ) * 10.0;
   // color = (m) * color * m * vec3(1.0);
   vec3 l = vec3(0.35, 0.1, 0.3) + vec3(abs(audio.lowpass), abs(audio.bandpass), abs(audio.notch)) * f;
   color = l;

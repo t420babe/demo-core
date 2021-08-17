@@ -39,7 +39,7 @@ void bg_33(vec3 p3, float time, peakamp audio) {
   // time += 100.0;
   // time *= 0.5;
   vec3 color = vec3(1.0);
-  // p3 /= 2.0;
+  p3 *= 15.0;
   p3.xz *= rotate2d(p3.x);
   // float y = (5.0 * audio.notch + tan(p3.x)) * (cos(p3.x * time * 3.0) );
   float y = (tan(p3.x)) * (cos(p3.x * time * 3.0) );
@@ -70,8 +70,8 @@ void bg_33(vec3 p3, float time, peakamp audio) {
   // gl_FragColor = vec4( color.grb, 1.0);
 
   // gl_FragColor = vec4( 1.0 - color, 1.0);
-  gl_FragColor = vec4( color, 1.0);
-  // gl_FragColor = vec4( 1.0 / color.brg, 1.0);
+  // gl_FragColor = vec4( color, 1.0);
+  gl_FragColor = vec4( 1.0 / color.brg, 1.0);
   // gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
   gl_FragColor -= texture2D(u_fb, vec2(rz* p3.yx/2.+.5) + vec2(0.001, 0.00)) - 0.002;
   gl_FragColor += texture2D(u_fb, vec2(p3.xy + 0.5));
