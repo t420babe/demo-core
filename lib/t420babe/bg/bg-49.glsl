@@ -27,7 +27,7 @@ void bg_49(vec3 p3, float time, peakamp audio) {
 
   gl_FragColor = vec4(color, 1.0);
     // float rz = bg_49_map(p3, time);
-48  // gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
+  // gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
   // gl_FragColor += texture2D(u_fb, vec2(p3.yx/(1.0 * PI) + 0.5) + vec2(0.001, 0.00)) - 0.000;
   // gl_FragColor += texture2D(u_fb, vec2(p3.xy + 0.5));
 }
