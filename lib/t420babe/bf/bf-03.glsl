@@ -1,6 +1,6 @@
 // Any Time
-#ifndef T4B_TTT_03
-#define T4B_TTT_03
+#ifndef T4B_BF_03
+#define T4B_BF_03
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -14,7 +14,7 @@
 #include "lib/pxl/rotate-sdf.glsl"
 #endif
 
-void ttt_03(vec3 p3, float time, peakamp audio) {
+void bf_03(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy;
 
   vec3 color = vec3(0.5, 0.0, 1.0);
