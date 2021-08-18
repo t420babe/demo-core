@@ -24,8 +24,8 @@ uniform sampler2D u_freq_slow;
 #include "lib/common/s4y.glsl"
 #endif
 
-#ifndef T4B_BG_53
-#include "lib/t420babe/bg/bg-53.glsl"
+#ifndef T4B_BG_56
+#include "lib/t420babe/bg/bg-56.glsl"
 #endif
 
 void main(void) {
@@ -33,5 +33,5 @@ void main(void) {
   audio = u_audio;
   float time = t;
   time += 100.0;
-  bg_53(p3, time, audio);
+  bg_56(p3, time, audio);
 }

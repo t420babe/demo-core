@@ -1,5 +1,18 @@
 ## Fun Colors
 ```
+#ifndef T4B_BG_56
+#include "lib/t420babe/bg/bg-56.glsl"
+#endif
+
+// Include
+#ifndef T4B_BG_55
+#include "lib/t420babe/bg/bg-55.glsl"
+#endif
+
+#ifndef T4B_BG_39
+#include "lib/t420babe/bg/bg-39.glsl"
+#endif
+
 #ifndef T4B_BG_49
 #include "lib/t420babe/bg/bg-49.glsl"
 #endif
