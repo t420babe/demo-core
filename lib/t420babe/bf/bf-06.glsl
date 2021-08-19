@@ -1,7 +1,7 @@
 // On Hold - Jamie xx Remix by the xx, Jamie xx
 // OrderMore 
-#ifndef T4B_TTT_06
-#define T4B_TTT_06
+#ifndef T4B_BF_06
+#define T4B_BF_06
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -49,7 +49,7 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-void ttt_06(vec3 p3, float time, peakamp audio) {
+void bf_06(vec3 p3, float time, peakamp audio) {
   audio.notch *= 2.0;
   audio.bandpass *= 2.0;
   audio.highpass *= 2.0;

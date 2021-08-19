@@ -1,7 +1,7 @@
 // Rabit Hole - Camel Phat
 // Satisfied by Catching Flies
-#ifndef T4B_TTT_07
-#define T4B_TTT_07
+#ifndef T4B_BF_07
+#define T4B_BF_07
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -53,7 +53,7 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-void ttt_07(vec3 p3, float time, peakamp audio) {
+void bf_07(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy * 0.5;
   // pos *= (abs(sin(time * 0.5))) * 500.0;
   pos *= wrap_time(time, 70.0);

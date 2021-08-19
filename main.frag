@@ -24,13 +24,13 @@ uniform sampler2D u_freq_slow;
 #include "lib/common/s4y.glsl"
 #endif
 
-#ifndef T4B_BF_04
-#include "lib/t420babe/bf/bf-04.glsl"
+#ifndef T4B_BF_06
+#include "lib/t420babe/bf/bf-06.glsl"
 #endif
 
 void main(void) {
   vec2 p2 = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   audio = u_audio;
   float time = t;
-  bf_04(p3, time, audio);
+  bf_06(p3, time, audio);
 }
