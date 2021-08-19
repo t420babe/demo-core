@@ -25,7 +25,7 @@ uniform sampler2D u_freq_slow;
 #endif
 
 #ifndef T4B_BF_06
-#include "lib/t420babe/bf/bf-06.glsl"
+#include "lib/t420babe/abg/bf-06.glsl"
 #endif
 
 void main(void) {
