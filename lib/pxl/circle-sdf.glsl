@@ -19,4 +19,15 @@ float circle_sdf(vec2 pos, float radius) {
 float circle_sdf(vec2 st) {
     return length(st-.5)*2.;
 }
+
+// https://www.shadertoy.com/view/Ndt3z7
+float circle(in vec2 st, in vec2 center, float r, float smoothing_factor) {
+  //*sin(atan(st.y,st.x))); //*TWO_PI*6.) + smoothstep(0.,1.,fract(st.x))));
+  return 1.0 - smoothstep(r - smoothing_factor, r + smoothing_factor, distance(st, center));
+}
+
+// https://www.shadertoy.com/view/Ndt3z7
+float circle_outline(in vec2 st, in vec2 center, float r, float stroke_weight){
+  return smoothstep(r - stroke_weight, r + stroke_weight, distance(st, center)) * (1.0 - smoothstep(r, r + stroke_weight, distance(st, center)));
+}
 #endif

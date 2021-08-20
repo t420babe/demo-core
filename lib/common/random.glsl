@@ -13,4 +13,9 @@ vec2 random2(vec2 pos) {
 float random(in float x) {
   return fract(sin(x) * 43758.0);
 }
+
+// https://www.shadertoy.com/view/Ndt3z7
+float rand(float x){
+  return fract(sin(12.59585855*PI*x)+4102200.398383);
+}
 #endif

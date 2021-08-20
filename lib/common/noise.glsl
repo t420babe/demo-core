@@ -48,4 +48,43 @@ float snoise(vec2 v) {
   return 130.0 * dot(m, g);
 }
 
+float fbm(vec2 x)
+{    
+  float G = 0.5; //exp2(-H);
+  float freq = 1.0;
+  float a = 1.0;
+  float t = 0.0;
+  for( int i=0; i<8; i++ )
+  {
+    t += a*snoise(freq*x);
+    freq = pow(2.0, float(i));
+    // f += 2.0;
+    a *= G;
+  }
+  return t;
+}
+
+float cellular_noise(vec2 st, float abp_00_scale){
+  st *= abp_00_scale;
+  vec2 i_st = floor(st);
+  vec2 f_st = fract(st);
+  float m_dist = 100.;
+  //loop through neighboring cells to check points
+  for(int i=-1; i<=1; i++){
+    for(int j=-1; j<=1; j++){
+      //find the neighbor
+      vec2 neighbor = vec2(float(i), float(j));
+      //random (deterministicallly) point
+      vec2 point = random2(i_st+neighbor);
+      // point = 0.5 + 0.5*sin(u_time + 6.2831*point); //animate
+      //vector from pixel to point 
+      vec2 diff = neighbor + point - f_st;
+      //dist 
+      float dist = length(diff);
+      //keep closer distance 
+      m_dist=min(m_dist, dist);
+    }
+  }
+  return m_dist;
+}
 #endif
