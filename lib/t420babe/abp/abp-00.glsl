@@ -107,7 +107,7 @@ float spinning_cirlces_illusion(vec2 st, float time, float time_abp_00_scale, fl
 void abp_00(vec3 p3, float time, peakamp audio) {
   // vec2 st = fragCoord.xy/iResolution.xy;
   vec2 st = p3.xy;
-  vec2 xy=st;
+  vec2 xy = st;
   float abp_00_scale_factor = 2.0;
   st = abp_00_scale(vec2(abp_00_scale_factor))*st;
   st = fract(st); //wrap arouncd 1 to create tiles 
