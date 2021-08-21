@@ -56,7 +56,8 @@ void bf_06(vec3 p3, float time, peakamp audio) {
   audio.lowpass *= 2.0;
   // tim
   // time = wrap_time(time * 5.0, t2s(0, 6, 20) / 6.0);
-  time = wrap_time(time, t2s(0, 6, 11) / 4.0);
+  // time = wrap_time(time, t2s(0, 6, 11) / 4.0);
+  time = wrap_time(time, 30.0);
   p3.xy *= rotate2d(time * 0.15);
   // p3.xy *= rotate2d(atan(p3.x) * tan(p3.y) * 1.0 * time);
   // p3.yz *= rotate2d(time * 0.15);

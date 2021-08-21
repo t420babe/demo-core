@@ -51,7 +51,7 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-void ttt_05(vec3 p3, float time, peakamp audio) {
+void bf_05(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy;
   pos *= 500.0;
 

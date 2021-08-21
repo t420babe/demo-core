@@ -1,6 +1,6 @@
 // Walk This Way - Kant Remix by MO, KANT
-#ifndef T4B_TTT_14
-#define T4B_TTT_14
+#ifndef T4B_BF_14
+#define T4B_BF_14
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -63,7 +63,8 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-void ttt_14(vec3 p3, float time, peakamp audio) {
+void bf_14(vec3 p3, float time, peakamp audio) {
+  time = wrap_time(time, 30.0);
   vec2 pos = p3.xy;
   // pos *= (abs(sin(time * 0.5))) * 500.0;
   pos *= wrap_time(time, 10.0) + 100.0;
@@ -86,7 +87,7 @@ void ttt_14(vec3 p3, float time, peakamp audio) {
   // color = color.grb;
   // color = color.rbg;
   color = color.grb;
-  gl_FragColor = vec4(color, 1.0);
+  gl_FragColor = vec4(1.0 - color, 1.0);
   gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
   // gl_FragColor -= texture2D(u_fb, vec2(abs(sin(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) - audio.notch * 0.1;
   gl_FragColor -= texture2D(u_fb, vec2(abs(tan(p3.yx/ (PI * 0.60) + PI)) + 0.50) + vec2(0.001, 0.001)) - 0.005;

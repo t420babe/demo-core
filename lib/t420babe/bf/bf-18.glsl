@@ -1,6 +1,6 @@
 // Ecstasy - Disclosure
-#ifndef T4B_TTT_18
-#define T4B_TTT_18
+#ifndef T4B_BF_18
+#define T4B_BF_18
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -42,7 +42,8 @@ vec3 party_starter(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-void ttt_18(vec3 p3, float time, peakamp audio) {
+void bf_18(vec3 p3, float time, peakamp audio) {
+  time = wrap_time(time, 30.0);
   vec2 pos = p3.xy;
   pos *= 8.0;
   vec3 color = vec3(0.5, 0.0, 1.0);

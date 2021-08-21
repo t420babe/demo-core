@@ -1,5 +1,5 @@
-#ifndef T4B_TTT_16
-#define T4B_TTT_16
+#ifndef T4B_BF_16
+#define T4B_BF_16
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -41,7 +41,7 @@ vec3 party_starter(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-void ttt_16(vec3 p3, float time, peakamp audio) {
+void bf_16(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy;
   // pos /= PI;
   vec3 color = vec3(0.0);

@@ -1,5 +1,5 @@
-#ifndef T4B_TTT_17
-#define T4B_TTT_17
+#ifndef T4B_BF_17
+#define T4B_BF_17
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -41,7 +41,8 @@ vec3 party_starter(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-void ttt_17(vec3 p3, float time, peakamp audio) {
+void bf_17(vec3 p3, float time, peakamp audio) {
+  time = wrap_time(time, 30.0);
   vec2 pos = p3.xy;
   pos *= 10.0;
   // vec3 color = vec3(0.5, 0.0, 1.0);
@@ -52,7 +53,7 @@ void ttt_17(vec3 p3, float time, peakamp audio) {
   color *= party_starter(pos, time, audio);
   // color = flash_add(color, time, 0.0 + abs(audio.notch));
 
-  gl_FragColor = vec4(1.0 - color.bgr, 1.0);
+  gl_FragColor = vec4(color.bgr - 0.5, 1.0);
   // gl_FragColor = vec4(color, 1.0);
   // gl_FragColor -= texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
   // gl_FragColor += texture2D(u_fb, vec2(abs(sin(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) - audio.notch * 0.1;

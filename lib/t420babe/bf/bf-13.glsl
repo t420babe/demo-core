@@ -1,6 +1,6 @@
 // Unconditional by Sonny Fodera
-#ifndef T4B_TTT_13
-#define T4B_TTT_13
+#ifndef T4B_BF_13
+#define T4B_BF_13
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -63,7 +63,7 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-void ttt_13(vec3 p3, float time, peakamp audio) {
+void bf_13(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy;
   // pos *= wrap_time(time * PI / 10.0, PI * 15.0) + PI + 15.0;
   pos *= wrap_time(time, PI * 15.0) + PI * 25.0;

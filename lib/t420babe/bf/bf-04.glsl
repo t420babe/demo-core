@@ -61,7 +61,8 @@ void bf_04(vec3 p3, float time, peakamp audio) {
   // pos *= wrap_time(time * 30.0, 800.0) + 100.0;
   // pos *= wrap_time(time, 80.0);
   // pos *= 80.0;
-  pos *= wrap_time(time, t2s(0, 3, 6) / 4.0);
+  // pos *= wrap_time(time, t2s(0, 3, 6) / 4.0);
+  pos *= wrap_time(time, 30.0);
   pos *= rotate2d(time * 0.1);
 
   vec3 color = vec3(audio.highpass * 5.5, 1.5, 1.5);

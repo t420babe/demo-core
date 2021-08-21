@@ -1,6 +1,6 @@
 // step
-#ifndef T4B_TTT_21
-#define T4B_TTT_21
+#ifndef T4B_BF_21
+#define T4B_BF_21
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -30,7 +30,7 @@
 // https://www.shadertoy.com/view/MsjSW3
 
 
-float ttt_21_map(vec3 pos, float time){
+float bf_21_map(vec3 pos, float time){
   pos.xz *= rotate2d(time * 0.3);
   pos.xy *= rotate2d(time * 0.1);
   vec3 q = pos * 3.0 + time;
@@ -42,7 +42,7 @@ float ttt_21_map(vec3 pos, float time){
 
 
 // 2:46
-void ttt_21(vec3 p3, float time, peakamp audio) {
+void bf_21(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy;
   // 365.0
   float start = t2s(0.0, 4.0, 20.0);
@@ -62,9 +62,9 @@ void ttt_21(vec3 p3, float time, peakamp audio) {
   for(int i = 0; i <= 1; i++)	{
     vec3 pos = vec3(0.0, 0.0, 5.0) + normalize( vec3(pos, -1.0) ) * d;
     // pos *= sin(time * 0.1) * 30.0 + 10.0;
-    float rz = ttt_21_map(pos, time);
+    float rz = bf_21_map(pos, time);
     float dim = 1.0;
-    float f = clamp( ( rz - ttt_21_map(pos + 0.5, time * 1.5) ) * dim, 0.5, 5.0 );
+    float f = clamp( ( rz - bf_21_map(pos + 0.5, time * 1.5) ) * dim, 0.5, 5.0 );
     float r_mul = 1.0;
     float g_mul = 1.0;
     float b_mul = 1.0;

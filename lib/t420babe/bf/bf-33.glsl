@@ -1,7 +1,7 @@
 // Country of the Mind by Greg Gonzalez (Audio by Patti Smith)
 // #trippy #rave
-#ifndef T4B_TTT_33
-#define T4B_TTT_33
+#ifndef T4B_BF_33
+#define T4B_BF_33
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -42,9 +42,10 @@ vec3 party_starter(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-void ttt_33(vec3 p3, float time, peakamp audio) {
+void bf_33(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy;
-  float w_time = wrap_time(time, t2s(0.0, 4.0, 23.0)/ 2.0);
+  // float w_time = wrap_time(time, t2s(0.0, 4.0, 23.0)/ 2.0);
+  float w_time = wrap_time(time, 30.0);
   // pos.x -= 0.5;
   pos *= 3.0;
   vec3 color = vec3(0.0);

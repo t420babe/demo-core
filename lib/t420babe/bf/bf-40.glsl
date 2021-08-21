@@ -1,5 +1,5 @@
-#ifndef T4B_TTT_40
-#define T4B_TTT_40
+#ifndef T4B_BF_40
+#define T4B_BF_40
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -63,7 +63,7 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-void ttt_40(vec3 p3, float time, peakamp audio) {
+void bf_40(vec3 p3, float time, peakamp audio) {
   time += 30.0;
   audio.notch     = 0.8;
   audio.bandpass  = 0.8;

@@ -1,6 +1,6 @@
 // I Can See It In Your Face - Pretty Lights
-#ifndef T4B_TTT_31
-#define T4B_TTT_31
+#ifndef T4B_BF_31
+#define T4B_BF_31
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -64,7 +64,8 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-void ttt_31(vec3 p3, float time, peakamp audio) {
+void bf_31(vec3 p3, float time, peakamp audio) {
+  time = wrap_time(time, 30.0);
   vec2 pos = p3.xy;
   // pos *= (abs(sin(time * 0.5))) * 500.0;
   pos *= wrap_time(time, 10.0) + 100.0;

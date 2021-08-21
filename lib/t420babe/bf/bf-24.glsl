@@ -1,6 +1,6 @@
 // Tunnel - Polo & Pan, Channel Tres
-#ifndef T4B_TTT_24
-#define T4B_TTT_24
+#ifndef T4B_BF_24
+#define T4B_BF_24
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -55,13 +55,14 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-void ttt_24(vec3 p3, float time, peakamp audio) {
+void bf_24(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy;
   // pos *= (abs(sin(time * 0.5))) * 500.0;
   // pos *= wrap_time(time * 30.0, 800.0) + 100.0;
   // pos *= wrap_time(time, 80.0);
   // pos *= 80.0;
-  pos *= wrap_time(time, t2s(0, 3, 6) / 4.0);
+  // pos *= wrap_time(time, t2s(0, 3, 6) / 4.0);
+  pos *= wrap_time(time, 30.0);
   pos *= rotate2d(time * 0.1);
 
   vec3 color = vec3(audio.highpass * 10.5, 1.5, 1.5 * audio.bandpass);

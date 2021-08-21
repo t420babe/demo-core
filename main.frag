@@ -24,13 +24,28 @@ uniform sampler2D u_freq_slow;
 #include "lib/common/s4y.glsl"
 #endif
 
-#ifndef T4B_BF_06
-#include "lib/t420babe/bf/bf-06.glsl"
+#ifndef T4B_BF
+#include "lib/t420babe/bf/bf.glsl"
 #endif
 
 void main(void) {
-  vec2 p2 = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
-  audio = u_audio;
   float time = t;
-  bf_06(p3, time, audio);
+  // time = wrap_time(time, 30.0);
+  bf_16(p3, time, u_audio);
+  // bf_17(p3, time, u_audio);
+  // bf_18(p3, time, u_audio);
+  // bf_32(p3, time, u_audio);
+  // bf_31(p3, time, u_audio);
+  // bf_28(p3, time, u_audio);
+  // bf_11(p3, time, u_audio);
+  // bf_26(p3, time, u_audio);
+  // bf_12(p3, time, u_audio);
+  // bf_41(p3, time, u_audio);
+  // bf_10(p3, time, u_audio);
+  // bf_25(p3, time, u_audio);
+  // bf_33(p3, time, u_audio);
+  // bf_34(p3, time, u_audio);
+  // bf_06(p3, time, u_audio);
+  // bf_04(p3, time, u_audio); // prob END here
+  // bf_23(p3, time, u_audio); // for a BRIGHT finish maybe
 }

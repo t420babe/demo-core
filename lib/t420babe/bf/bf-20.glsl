@@ -2,8 +2,8 @@
 // Tondo - Eko Roosevelt by Disclosure
 // Tondo by Disclosure
 // Ecstasy by Disclosure
-#ifndef T4B_TTT_20
-#define T4B_TTT_20
+#ifndef T4B_BF_20
+#define T4B_BF_20
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -38,7 +38,7 @@ vec3 party_starter(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-void ttt_20(vec3 p3, float time, peakamp audio) {
+void bf_20(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy;
   float w_time = wrap_time(time, t2s(0.0, 4.0, 23.0)/ 2.0);
   // pos.x -= 0.5;

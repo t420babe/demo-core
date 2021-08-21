@@ -1,8 +1,8 @@
 // minor sunrise by elderflower
 // escape
 // #trippy #rave
-#ifndef T4B_TTT_36
-#define T4B_TTT_36
+#ifndef T4B_BF_36
+#define T4B_BF_36
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -57,7 +57,7 @@ vec3 party_starter(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-void ttt_36(vec3 p3, float time, peakamp audio) {
+void bf_36(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy;
   // float w_time = wrap_time(time, t2s(0.0, 4.0, 23.0)/ 2.0);
   // float w_time = wrap_time(time, 30.0) + 10.0;

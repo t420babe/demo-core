@@ -1,8 +1,8 @@
 // Break My Love by Nicolas Jar
 // Job Jobse set
 // Transcendental Access Point (Mixed) by Eris Drew
-#ifndef T4B_TTT_10
-#define T4B_TTT_10
+#ifndef T4B_BF_10
+#define T4B_BF_10
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -60,10 +60,11 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-void ttt_10(vec3 p3, float time, peakamp audio) {
+void bf_10(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy;
   // pos *= ((sin(time * 0.1))) * 500.0;
-  pos *= wrap_time(time, t2s(0, 1, 6));
+  // pos *= wrap_time(time, t2s(0, 1, 6));
+  pos *= wrap_time(time, 30.0);
   // pos *= wrap_time(time, 10.0) + 100.0;
   // pos *= 500.0;
 

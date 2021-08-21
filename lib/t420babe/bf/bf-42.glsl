@@ -1,5 +1,5 @@
-#ifndef T4B_TTT_42
-#define T4B_TTT_42
+#ifndef T4B_BF_42
+#define T4B_BF_42
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -63,13 +63,13 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-void ttt_42(vec3 p3, float time, peakamp audio) {
+void bf_42(vec3 p3, float time, peakamp audio) {
   audio.notch     = 0.8;
   audio.bandpass  = 0.8;
   audio.lowpass   = 0.8;
   audio.highpass  = 0.8;
   // time += 200.0;
-  vec2 pos = p3.xy * 0.5;
+  vec2 pos = p3.xy * 0.3;
   // pos *= (abs(sin(time * 0.5))) * 500.0;
   // pos *= wrap_time(time, 10.0) + 100.0;
   pos *=time * 2.0;
