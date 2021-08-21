@@ -31,7 +31,8 @@ mat2 abp_01_scale(vec2 _abp_01_scale) {
   return mat2(_abp_01_scale.x, 0.0, 0.0, _abp_01_scale.y);
 }
 
-mat2 abp_01_scale(float _abp_01_scale) { //overload for scalar 
+// Overload for scalar 
+mat2 abp_01_scale(float _abp_01_scale) {
   return mat2(_abp_01_scale, 0.0, 0.0, _abp_01_scale);
 }
 
@@ -63,7 +64,7 @@ float spinning_cirlces_illusion(vec2 st, float time, float time_abp_01_scale, fl
 
     circle += circle_outline(st, new_center, 0.25, smoothing_factor); //circle centered at 0,0 since already translated
     // Untranslate coords 
-    st += center;
+    st -= center;
   }
 
   return circle;
