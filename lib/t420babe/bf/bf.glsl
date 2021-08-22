@@ -1,9 +1,9 @@
 #ifndef T4B_BF
 #define T4B_BF
 
-#ifndef T4B_BF_16
-#include "lib/t420babe/bf/bf-16.glsl"
-#endif
+// #ifndef T4B_BF_16
+// #include "lib/t420babe/bf/bf-16.glsl"
+// #endif
 
 // // wt=30
 // #ifndef T4B_BF_17
@@ -49,7 +49,7 @@
 // #ifndef T4B_BF_41
 // #include "lib/t420babe/bf/bf-41.glsl"
 // #endif
-
+//
 // // wt=30, t=0
 // #ifndef T4B_BF_10
 // #include "lib/t420babe/bf/bf-10.glsl"
@@ -61,26 +61,26 @@
 // #endif
 
 // // wt=30, maybe not here????
-// // Good transition between colors and squares
+// // // Good transition between colors and squares
 // #ifndef T4B_BF_33
 // #include "lib/t420babe/bf/bf-33.glsl"
 // #endif
 
 // // wt=30 -> can slow gpu down
-// // Good transition between colors and squares
+// // // Good transition between colors and squares
 // #ifndef T4B_BF_34
 // #include "lib/t420babe/bf/bf-34.glsl"
 // #endif
 
-// // wt=30
+// // // wt=30
 // #ifndef T4B_BF_06
 // #include "lib/t420babe/bf/bf-06.glsl"
 // #endif
 
-// // wt=30
-// #ifndef T4B_BF_04
-// #include "lib/t420babe/bf/bf-04.glsl"
-// #endif
+// wt=30
+#ifndef T4B_BF_04
+#include "lib/t420babe/bf/bf-04.glsl"
+#endif
 
 // // Maybe don't include
 // #ifndef T4B_BF_23

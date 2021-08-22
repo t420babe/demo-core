@@ -30,22 +30,31 @@ uniform sampler2D u_freq_slow;
 
 void main(void) {
   float time = t;
+  peakamp audio = u_audio;
+  float mul = 0.1;
+  audio.notch *= mul;
+  audio.highpass *= mul;
+  audio.bandpass *= mul;
+  audio.lowpass *= mul;
   // time = wrap_time(time, 30.0);
-  bf_16(p3, time, u_audio);
+  // bf_16(p3, time, u_audio);
   // bf_17(p3, time, u_audio);
   // bf_18(p3, time, u_audio);
   // bf_32(p3, time, u_audio);
-  // bf_31(p3, time, u_audio);
+  // bf_31(p3, time, audio);
   // bf_28(p3, time, u_audio);
-  // bf_11(p3, time, u_audio);
+  // bf_11(p3, time, u_audio);  // // too bright for future ref
   // bf_26(p3, time, u_audio);
   // bf_12(p3, time, u_audio);
+  //
+  // // HALF
+  //
   // bf_41(p3, time, u_audio);
   // bf_10(p3, time, u_audio);
   // bf_25(p3, time, u_audio);
   // bf_33(p3, time, u_audio);
   // bf_34(p3, time, u_audio);
   // bf_06(p3, time, u_audio);
-  // bf_04(p3, time, u_audio); // prob END here
+  bf_04(p3, time, u_audio); // prob END here
   // bf_23(p3, time, u_audio); // for a BRIGHT finish maybe
 }
