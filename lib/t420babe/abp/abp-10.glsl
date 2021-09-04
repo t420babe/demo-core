@@ -1,5 +1,5 @@
-#ifndef T4B_ABP_01
-#define T4B_ABP_01
+#ifndef T4B_ABP_10
+#define T4B_ABP_10
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -27,40 +27,43 @@ precision mediump float;
 
 // Forked from: https://www.shadertoy.com/view/Ndt3z7
 
-mat2 abp_01_scale(vec2 _abp_01_scale) {
-  return mat2(_abp_01_scale.x, 0.0, 0.0, _abp_01_scale.y);
+mat2 abp_10_scale(vec2 _abp_10_scale) {
+  return mat2(_abp_10_scale.x, 0.0, 0.0, _abp_10_scale.y);
 }
 
 // Overload for scalar 
-mat2 abp_01_scale(float _abp_01_scale) {
-  return mat2(_abp_01_scale, 0.0, 0.0, _abp_01_scale);
+mat2 abp_10_scale(float _abp_10_scale) {
+  return mat2(_abp_10_scale, 0.0, 0.0, _abp_10_scale);
 }
 
-float spinning_cirlces_illusion(vec2 st, float time, float time_abp_01_scale, float offset, float smoothing_factor){
+#define RATE_TIME 0.3
+float spinning_cirlces_illusion(vec2 st, float time, float smoothing_factor) {
   // Translate to center of screen (assumes normalized st coords)
   vec2 center = vec2(0.5);
  // Translate coords - remember origin in in the btm left
   st -= center;
-  st = rotate2d((offset)) * st;
+  st = rotate2d((time)) * st;
   // float circle = (0.);
-  // Circle centered at 0,0 since already translated
-  float circle = circle_outline(st, vec2(0.0), 0.25, 0.005);
+  float circle = 0.0;
   // Untranslate coords 
   st += center;
 
-  int t = 12;
-  for(int i = 0; i < 12; i++){
-    float r = 0.25;
-    // st = abp_01_scale(1.5)*st;
-    float new_center_x = r * cos(float(i) * TWO_PI / 18.);
-    float new_center_y = r * sin(float(i) * TWO_PI / 18.);
+  // int t = 12;
+  for(int i = 0; i < 20; i++){
+    // float r = 0.25;
+    // float r = 0.5;
+    float r = wrap_time(time * RATE_TIME, 0.5);
+    // st = abp_10_scale(1.5)*st;
+    float new_center_x = r * cos(float(i) * PI );
+    float new_center_y = r * sin(float(i) * PI );
  // Relative to translated coord sys (dividing with numbers with various common factors leads to more symmetric or chaotic ring resonance)
     vec2 new_center = vec2(new_center_x, new_center_y);
     // Translate coords - remember origin in in the btm left
     st -= center;
-    st = rotate2d(time * time_abp_01_scale) * st;
-    // circle += plot(st, r);
-    vec2 travelling_center = vec2(0.0);
+    st = rotate2d(time * RATE_TIME * 0.5) * st;
+    // st = rotate2d(time * RATE_TIME) * st;
+    // circle += (plot(acos(st), r, 0.005));
+    circle += (plot(st, r, 0.005));
 
     circle += circle_outline(st, new_center, 0.25, smoothing_factor); //circle centered at 0,0 since already translated
     // Untranslate coords 
@@ -70,20 +73,22 @@ float spinning_cirlces_illusion(vec2 st, float time, float time_abp_01_scale, fl
   return circle;
 }
 
-void abp_01(vec3 p3, float time, peakamp audio) {
+void abp_10(vec3 p3, float time, peakamp audio) {
   vec2 st = p3.xy;
   st += 0.5;
   vec2 xy = st;
   // st = fract(st); //wrap arouncd 1 to create tiles
 
   // float warp = fbm(xy*cellular_noise(st, 5.));
-  vec2 warp = rotate2d(0.3 * fbm(xy * cellular_noise(st, 5.0) ) ) * st; //rotate
-  float circle = circle(warp, vec2(0.5), 0.25, .035) + circle_outline(warp, vec2(0.5) + vec2(0.25,0), 0.25, 0.05);
+  // vec2 warp = rotate2d(0.3 * fbm(xy * cellular_noise(st, 5.0) ) ) * st; //rotate
+  vec2 warp = rotate2d(RATE_TIME * time) * st; //rotate
+  // float circle = circle_outline(warp, vec2(0.5);
+  float circle = circle(warp, vec2(0.5), 0.25, 0.135);
 
   vec3 color = vec3(0);
 
   // color += circle;
-  color += spinning_cirlces_illusion(st, time, 0.15, fbm(xy * cellular_noise(st, 5.0) * sin(time)), 0.005);
+  color += spinning_cirlces_illusion(st, time, 0.005);
 
   gl_FragColor = vec4(color, 1.0);
 }

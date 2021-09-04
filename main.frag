@@ -24,10 +24,10 @@ uniform sampler2D u_freq_slow;
 #include "lib/common/s4y.glsl"
 #endif
 
-#ifndef T4B_ABP_01
-#include "lib/t420babe/abp/abp-01.glsl"
+#ifndef T4B_ABP_02
+#include "lib/t420babe/abp/abp-02.glsl"
 #endif
 
 void main(void) {
-  abp_01(p3, t, u_audio);
+  abp_02(p3, t, u_audio);
 }
