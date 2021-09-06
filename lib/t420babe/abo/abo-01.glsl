@@ -1,5 +1,5 @@
-#ifndef T4B_BN_04
-#define T4B_BN_04
+#ifndef T4B_ABO_01
+#define T4B_ABO_01
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -21,6 +21,7 @@
 vec4 map(vec3 p, float time, peakamp audio) {
   float pd = 9.;
   p.z += 0.5;
+  float cs = length(p)-0.1;
   p.z -= 0.5;
   p.x += sin(time*0.3)*0.3;
   p.z += sin(time*0.3)*0.4;
@@ -32,20 +33,21 @@ vec4 map(vec3 p, float time, peakamp audio) {
   p = (fract(p*pd)-0.5)/pd;
   p = abs(p);
 
-  // p.xz *= rotate2d(sin(time*.05)*20.5);
+  p.xz *= rotate2d(sin(time*.05)*20.5);
 
   p.yz *= rotate2d(cos(time*.07)*0.5);
 
+  //float cs = length(p);
   //p.xz *= rotate2d(sin(time*1.+c*13.));
   //p.xy *= rotate2d(sin(c*20+time)*0.2);
   //p = (fract(p*pd)-0.5)/pd;
   //p.xz *= rotate2d(sin(log(c*3.)-time*0.3)*4.);
-  // p.xy = vec2(length(p.xy),atan(p.x,p.y));
+  p.xy = vec2(length(p.xy),atan(p.x,p.y));
 
   //p.y = abs(p.y);
   //p.y *= 8./3.14159;
   p.y *= 4./(3.14159*2.);
-  // p.y = (fract(p.y)-0.5);
+  p.y = (fract(p.y)-0.5);
   p.y = abs(p.y)-sin(o.z*0.2);
 
   p.xy = vec2(p.x*sin(p.y),p.x*cos(p.y));
@@ -54,12 +56,11 @@ vec4 map(vec3 p, float time, peakamp audio) {
   p.xy *= rotate2d(sin(time*1.)+time);
   vec3 m = p;
 
-  float dot_radius = 0.005;
-  // float dot_radius = 0.010 * audio.notch;
+  // float dot_radius = 0.005;
+  float dot_radius = 0.010 * audio.notch;
   float d = length(p)- dot_radius;
-  // d = max(d, length(o.xy) - 3.3);
-  float zoom = 2.0;
-  d = max(d,-(length(o.xy) - zoom + o.z * 2.1));
+  d = max(d,-(length(o.xy) - 0.3 + o.z * 2.1));
+  d = max(d,-(cs));
   return vec4(vec3(m.x,o.z,m.z),d);
 }
 
@@ -80,7 +81,7 @@ vec2 RM(vec3 ro, vec3 rd, float time, peakamp audio) {
 }
 
 
-void bn_04(vec3 p3, float time, peakamp audio, vec4 frag_coord, vec2 u_res) {
+void abo_01(vec3 p3, float time, peakamp audio, vec4 frag_coord, vec2 u_res) {
   vec3 col = vec3(1.0);
 
   // Normalized pixel coordinates (from 0 to 1)

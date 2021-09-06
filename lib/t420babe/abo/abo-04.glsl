@@ -1,5 +1,5 @@
-#ifndef T4B_BN_03
-#define T4B_BN_03
+#ifndef T4B_ABO_04
+#define T4B_ABO_04
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -40,12 +40,12 @@ vec4 map(vec3 p, float time, peakamp audio) {
   //p.xy *= rotate2d(sin(c*20+time)*0.2);
   //p = (fract(p*pd)-0.5)/pd;
   //p.xz *= rotate2d(sin(log(c*3.)-time*0.3)*4.);
-  p.xy = vec2(length(p.xy),atan(p.x,p.y));
+  // p.xy = vec2(length(p.xy),atan(p.x,p.y));
 
   //p.y = abs(p.y);
   //p.y *= 8./3.14159;
   p.y *= 4./(3.14159*2.);
-  p.y = (fract(p.y)-0.5);
+  // p.y = (fract(p.y)-0.5);
   p.y = abs(p.y)-sin(o.z*0.2);
 
   p.xy = vec2(p.x*sin(p.y),p.x*cos(p.y));
@@ -80,7 +80,7 @@ vec2 RM(vec3 ro, vec3 rd, float time, peakamp audio) {
 }
 
 
-void bn_03(vec3 p3, float time, peakamp audio, vec4 frag_coord, vec2 u_res) {
+void abo_04(vec3 p3, float time, peakamp audio, vec4 frag_coord, vec2 u_res) {
   vec3 col = vec3(1.0);
 
   // Normalized pixel coordinates (from 0 to 1)

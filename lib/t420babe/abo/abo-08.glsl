@@ -1,5 +1,5 @@
-#ifndef T4B_BN_08
-#define T4B_BN_08
+#ifndef T4B_ABO_08
+#define T4B_ABO_08
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -80,7 +80,7 @@ vec2 RM(vec3 ro, vec3 rd, float time, peakamp audio) {
 }
 
 
-void bn_08(vec3 p3, float time, peakamp audio, vec4 frag_coord, vec2 u_res) {
+void abo_08(vec3 p3, float time, peakamp audio, vec4 frag_coord, vec2 u_res) {
   vec3 col = vec3(1.0);
 
   // Normalized pixel coordinates (from 0 to 1)

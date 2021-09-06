@@ -1,5 +1,5 @@
-#ifndef T4B_BN_00
-#define T4B_BN_00
+#ifndef T4B_ABO_00
+#define T4B_ABO_00
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -137,9 +137,7 @@ vec3 mainImage(vec3 p3, float time, peakamp audio, vec4 frag_coord, vec2 u_res) 
   return col;
 }
 
-
-
-void bn_00(vec3 p3, float time, peakamp audio, vec4 frag_coord, vec2 u_res) {
+void abo_00(vec3 p3, float time, peakamp audio, vec4 frag_coord, vec2 u_res) {
   vec3 color = vec3(1.0);
   // vec2 rhom_p = p3.xy;
   // // rhom_p *= 5.0;
