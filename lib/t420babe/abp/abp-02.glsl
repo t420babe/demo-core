@@ -30,7 +30,7 @@ precision mediump float;
 float spinning_cirlces_illusion(vec2 st, float time, peakamp audio){
   // float f_smooth = 0.020;
   float f_smooth = 0.05 * audio.notch;
-  float rate_time = 0.15;
+  float rate_time = 0.05;
 
   vec2 center = vec2(0.5);
   st -= center;
@@ -44,9 +44,9 @@ float spinning_cirlces_illusion(vec2 st, float time, peakamp audio){
   for(int i = 0; i < 20; i++){
     float r = 0.15;
 
-    float new_center_x = r * cos(float(i) * PI);
-    float new_center_y = r * sin(float(i) * PI);
-    vec2 new_center = vec2(cos(new_center_x), sin(new_center_y));
+    float new_center_x = r * cos(float(i) * PI * 2.0);
+    float new_center_y = r * sin(float(i) * PI * 2.0);
+    vec2 new_center = vec2(sin(new_center_x), sin(new_center_y));
 
     st -= center;
     st = rotate2d(time * rate_time) * st;
@@ -71,12 +71,14 @@ void abp_02(vec3 p3, float time, peakamp audio) {
 
   // float warp = fbm(xy*cellular_noise(st, 5.));
   // vec2 warp = rotate2d(0.3 * fbm(xy * cellular_noise(st, 5.0) ) ) * st; //rotate
-  vec2 warp = rotate2d(0.3 * time) * st; //rotate
+  vec2 warp = rotate2d(1.5 * time) * st; //rotate
 
   vec3 color = vec3(0);
 
   // color += circle;
   color += spinning_cirlces_illusion(st, time, audio);
+  color.r *= audio.notch;
+  // color.g *= audio.lowpass;
 
   gl_FragColor = vec4(color, 1.0);
 }

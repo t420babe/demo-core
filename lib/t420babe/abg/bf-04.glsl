@@ -61,7 +61,7 @@ void bf_04(vec3 p3, float time, peakamp audio) {
   // pos *= wrap_time(time * 30.0, 800.0) + 100.0;
   // pos *= wrap_time(time, 80.0);
   // pos *= 80.0;
-  pos *= wrap_time(time, t2s(0, 3, 6) / 4.0);
+  pos *= wrap_time(time, t2s(0, 1, 0) / 1.0);
   pos *= rotate2d(time * 0.1);
 
   vec3 color = vec3(audio.highpass * 5.5, 1.5, 1.5);
@@ -74,8 +74,8 @@ void bf_04(vec3 p3, float time, peakamp audio) {
   // color.b = hsv_color.b * abs(audio.highpass) * 1.5;
 
   // color.b /= abs(sin(time));
-  color =  (0.1 - color.gbr);
-  gl_FragColor = vec4(color, 1.0);
+  color =  (0.1 - color);
+  gl_FragColor = vec4(color.brg, 1.0);
   // gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
   // gl_FragColor += texture2D(u_fb, vec2(abs(sin(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) - audio.notch * 0.1;
   gl_FragColor += texture2D(u_fb, vec2(abs(tan(p3.yx/ (PI * 0.60) + PI)) + 0.10) + vec2(0.001, 0.001)) - 0.005;
