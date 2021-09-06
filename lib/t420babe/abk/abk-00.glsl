@@ -1,5 +1,5 @@
-#ifndef T4B_BJ_00
-#define T4B_BJ_00
+#ifndef T4B_ABK_00
+#define T4B_ABK_00
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -13,7 +13,7 @@
 #include "lib/pxl/rotate-sdf.glsl"
 #endif
 
-void bj_00(vec3 p3, float time, peakamp audio) {
+void abk_00(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy;
   vec3 color = vec3(0.5, 0.0, 1.0);
   color = flash_mul(color, time, 5.0 + abs(audio.highpass));
