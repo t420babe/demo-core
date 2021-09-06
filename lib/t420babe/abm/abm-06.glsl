@@ -1,5 +1,5 @@
-#ifndef T4B_BL_06
-#define T4B_BL_06
+#ifndef T4B_ABM_06
+#define T4B_ABM_06
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -9,7 +9,7 @@
 #include "lib/pxl/00-pxl.glsl"
 #endif
 
-void bl_06(vec3 p3, float time, peakamp audio) {
+void abm_06(vec3 p3, float time, peakamp audio) {
   audio.bandpass  *= 2.0;
   audio.highpass  *= 2.0;
   audio.lowpass   *= 2.0;

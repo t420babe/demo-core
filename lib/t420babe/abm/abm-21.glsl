@@ -1,6 +1,8 @@
+// 61 min the sun the yung the yin the yang
+// https://www.youtube.com/watch?v=bk6Xst6euQk
 // #fav5 #roli #katie1
-#ifndef T4B_BL_17
-#define T4B_BL_17
+#ifndef T4B_ABM_21
+#define T4B_ABM_21
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -22,7 +24,7 @@
 #include "lib/pxl/rays-sdf.glsl"
 #endif
 
-void bl_17(vec3 p3, float time, peakamp audio) {
+void abm_21(vec3 p3, float time, peakamp audio) {
   time *= 0.5;
   // p3 *= 0.9;
   audio.notch     *= 1.0;
@@ -50,7 +52,7 @@ void bl_17(vec3 p3, float time, peakamp audio) {
   float bri = sharp(hex) * fract(rays);
 
   // verse
-  bri /= (rhombus) * 1.0;
+  bri /= (rhombus) * 2.0;
 
   // main
  // bri /= (rhombus) * 1.0 * audio.notch;
@@ -63,9 +65,9 @@ void bl_17(vec3 p3, float time, peakamp audio) {
   color.b *= bri;
   color.g *= bri;
 
-  color.r *= audio.highpass * 3.0;
-  color.b *= audio.notch * 3.0;
-  color.g *= audio.lowpass * 3.0;
+  color.r *= audio.highpass * 1.0;
+  color.b *= audio.notch * 1.0;
+  color.g *= audio.lowpass * 1.0;
 
 
   // color.r /= abs(sin(time * PI  * 0.75));
@@ -76,10 +78,10 @@ void bl_17(vec3 p3, float time, peakamp audio) {
   // color = color.grb;
 
 
-  gl_FragColor = vec4(rgb2hsv(1.0 - color), bri);
+  gl_FragColor = vec4(1.0 - 100.0 * color.rgb, bri);
   gl_FragColor += texture2D(u_fb, vec2(p3.xy/ 1.96 + 0.50) - vec2(0.00, 0.0001)) - 0.020;
   // gl_FragColor += texture2D(u_fb, vec2(p3.xy/ 2.01 + 0.49) - vec2(0.00, 0.0001)) - 0.020;
-  gl_FragColor /= texture2D(u_fb, vec2(p3.xy/ 2.0 + 0.5) - vec2(0.00, 0.0000)) - 0.220;
+  gl_FragColor *= texture2D(u_fb, vec2(p3.yx/ 2.0 + 0.5) - vec2(0.00, 0.0001)) - 0.080 * sin(p3.x);
 }
 
 #endif

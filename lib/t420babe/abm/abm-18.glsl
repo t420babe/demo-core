@@ -1,6 +1,6 @@
-// #fav5 #roli #katie
-#ifndef T4B_BL_15
-#define T4B_BL_15
+// #fav5 #roli #katie1
+#ifndef T4B_ABM_18
+#define T4B_ABM_18
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -22,7 +22,7 @@
 #include "lib/pxl/rays-sdf.glsl"
 #endif
 
-void bl_15(vec3 p3, float time, peakamp audio) {
+void abm_18(vec3 p3, float time, peakamp audio) {
   time *= 0.5;
   // p3 *= 0.9;
   audio.notch     *= 1.0;
@@ -63,9 +63,9 @@ void bl_15(vec3 p3, float time, peakamp audio) {
   color.b *= bri;
   color.g *= bri;
 
-  color.r *= audio.highpass * 3.0;
-  color.b *= audio.notch * 3.0;
-  color.g *= audio.lowpass * 3.0;
+  color.r *= audio.highpass * 5.0;
+  color.b *= audio.notch * 5.0;
+  color.g *= audio.lowpass * 5.0;
 
 
   // color.r /= abs(sin(time * PI  * 0.75));
@@ -76,10 +76,10 @@ void bl_15(vec3 p3, float time, peakamp audio) {
   // color = color.grb;
 
 
-  gl_FragColor = vec4(rgb2hsv(1.0 - color), bri);
+  gl_FragColor = vec4(rgb2hsv(1.0 - color).bgr, bri);
   gl_FragColor += texture2D(u_fb, vec2(p3.xy/ 1.96 + 0.50) - vec2(0.00, 0.0001)) - 0.020;
   // gl_FragColor += texture2D(u_fb, vec2(p3.xy/ 2.01 + 0.49) - vec2(0.00, 0.0001)) - 0.020;
-  gl_FragColor -= texture2D(u_fb, vec2(p3.xy/ 2.0 + 0.5) - vec2(0.00, 0.0001)) - 0.020;
+  gl_FragColor /= texture2D(u_fb, vec2(p3.xy/ 2.0 + 0.5) - vec2(0.00, 0.0001)) - 0.080;
 }
 
 #endif

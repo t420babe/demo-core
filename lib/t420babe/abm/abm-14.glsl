@@ -1,5 +1,5 @@
-#ifndef T4B_BL_14
-#define T4B_BL_14
+#ifndef T4B_ABM_14
+#define T4B_ABM_14
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -21,7 +21,7 @@
 #include "lib/pxl/rays-sdf.glsl"
 #endif
 
-void bl_14(vec3 p3, float time, peakamp audio) {
+void abm_14(vec3 p3, float time, peakamp audio) {
   time *= 0.5;
   // p3 *= 0.9;
   audio.notch     *= 1.0;

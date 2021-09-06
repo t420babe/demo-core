@@ -1,6 +1,6 @@
 // #fav5 #roli #katie1
-#ifndef T4B_BL_20
-#define T4B_BL_20
+#ifndef T4B_ABM_20
+#define T4B_ABM_20
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -22,7 +22,7 @@
 #include "lib/pxl/rays-sdf.glsl"
 #endif
 
-void bl_20(vec3 p3, float time, peakamp audio) {
+void abm_20(vec3 p3, float time, peakamp audio) {
   time *= 0.5;
   // p3 *= 0.9;
   audio.notch     *= 1.0;

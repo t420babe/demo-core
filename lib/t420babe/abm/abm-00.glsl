@@ -1,5 +1,5 @@
-#ifndef T4B_BL_00
-#define T4B_BL_00
+#ifndef T4B_ABM_00
+#define T4B_ABM_00
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -17,7 +17,7 @@
 #include "lib/pxl/rotate-sdf.glsl"
 #endif
 
-void bl_00(vec3 p3, float time, peakamp audio) {
+void abm_00(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   vec2 rhom_p = p3.xy;
   // rhom_p *= 5.0;

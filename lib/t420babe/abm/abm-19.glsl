@@ -1,8 +1,8 @@
 // 61 min the sun the yung the yin the yang
 // https://www.youtube.com/watch?v=bk6Xst6euQk
 // #fav5 #roli #katie1
-#ifndef T4B_BL_19
-#define T4B_BL_19
+#ifndef T4B_ABM_19
+#define T4B_ABM_19
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -24,7 +24,7 @@
 #include "lib/pxl/rays-sdf.glsl"
 #endif
 
-void bl_19(vec3 p3, float time, peakamp audio) {
+void abm_19(vec3 p3, float time, peakamp audio) {
   time *= 0.5;
   // p3 *= 0.9;
   audio.notch     *= 1.0;

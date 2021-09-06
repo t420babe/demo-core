@@ -1,5 +1,5 @@
-#ifndef T4B_BL_13
-#define T4B_BL_13
+#ifndef T4B_ABM_11
+#define T4B_ABM_11
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -21,7 +21,7 @@
 #include "lib/pxl/rays-sdf.glsl"
 #endif
 
-void bl_13(vec3 p3, float time, peakamp audio) {
+void abm_11(vec3 p3, float time, peakamp audio) {
   // p3 *= 0.9;
   audio.notch     *= 1.5;
   audio.bandpass  *= 1.5;
@@ -38,14 +38,14 @@ void bl_13(vec3 p3, float time, peakamp audio) {
   vec2 rhom_p = p3.xy * 2.0;
   rhom_p = rotate2d(time * audio.notch * 10.0) * rhom_p;
 
-  float rhombus = rhombus_sdf(rhom_p, 5.0);
+  float rhombus = rhombus_sdf(rhom_p, 1.0);
 
   float hex = hexagon_sdf(rhom_p, 10.0, audio.notch * 20.0);
 
   // float rays = rays_audio(-p3.xy, 10, audio);
   float rays = rays_audio(-rhom_p, 10, audio);
 
-  float bri = sharp(hex) * fract(rays);
+  float bri = sharp(hex) * sin(rays);
 
   // verse
   bri /= (rhombus) * 1.0;
@@ -65,9 +65,9 @@ void bl_13(vec3 p3, float time, peakamp audio) {
   color.b *= audio.notch;
   color.g *= audio.lowpass;
 
-  color.r *= 1.0;
-  color.g *= 1.0;
-  color.b *= 1.0;
+  color.r *= 2.0;
+  color.g *= 2.0;
+  color.b *= 2.0;
 
   // color.r *= abs(sin(time)) + 0.05;
   // color.g *= abs(cos(time)) + 0.05;
