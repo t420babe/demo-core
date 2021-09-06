@@ -1,7 +1,7 @@
 // #effectshape #trippy #fav
 // Stay - Henry Kinkle
-#ifndef T420BABE_ZZ_05
-#define T420BABE_ZZ_05
+#ifndef T4B_ABN_05
+#define T4B_ABN_05
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -32,19 +32,19 @@ float fillY(vec2 _pos, float _pct,float _antia){
   return  smoothstep( _pct-_antia, _pct, _pos.y);
 }
 
-float _zigzag(vec2 pos, float u_time, peakamp audio) {
+float _zigzag(vec2 pos, float time, peakamp audio) {
 
   float zoom = 5.5;
   pos = mirror_tile(pos*vec2(1.,2.), zoom);
   float x = pos.x*2.;
   float a = sin(1.+sin(x*3.14));
-  float b = sin(1.+sin((x+1.)*3.14 * sin(u_time)));
+  float b = sin(1.+sin((x+1.)*3.14 * sin(time)));
   float f = sin(x);
 
   return fillY(pos,mix(a,b,f),0.01) ;
 }
-void zigzag(vec2 pos, float u_time, peakamp audio, inout vec3 color){
-  color = vec3( _zigzag(pos, u_time, audio));
+void zigzag(vec2 pos, float time, peakamp audio, inout vec3 color){
+  color = vec3( _zigzag(pos, time, audio));
 }
 
 float circle_1(vec2 st, float radius) {
@@ -52,21 +52,25 @@ float circle_1(vec2 st, float radius) {
 }
 
 
-void zz_05(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+void abn_05(vec3 p3, float time, peakamp audio) {
+  vec2 pos = p3.xy;
+  vec3 color = vec3(0.0);
+
   color = vec3(0.435, 0.9854, 0.9208);
 
   float c_pct = circle_1(pos, abs(audio.notch) / 3.0);
 
-  // color.r = _zigzag(pos, u_time, audio);
-  vec3 zz_color = vec3(1.0);
-  zigzag(pos, u_time, audio, zz_color);
-  color.g *= 0.5 * abs(audio.bandpass) + zz_color.b;
-  color.r = abs(tan(audio.bandpass)) + zz_color.r * 0.5;
-  color.b = abs(sin(u_time));
-  // color.b *= zz_color.r + audio.bandpass;
+  // color.r = _zigzag(pos, time, audio);
+  vec3 abn_color = vec3(1.0);
+  zigzag(pos, time, audio, abn_color);
+  color.g *= 0.5 * abs(audio.bandpass) + abn_color.b;
+  color.r = abs(tan(audio.bandpass)) + abn_color.r * 0.5;
+  color.b = abs(sin(time));
+  // color.b *= abn_color.r + audio.bandpass;
   // color += sharp(c_pct);
   color /= c_pct;
-  // color /= zz_color;
+  // color /= abn_color;
+  gl_FragColor = vec4(color, 1.0);
 
 }
 #endif
