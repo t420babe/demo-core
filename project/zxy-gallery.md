@@ -31,8 +31,8 @@ Fidem Community - Zero Nine
 
 - #ifndef T4B_B2B_02 - trippy - shorter song END HERE
 
-#ifndef T4B_FRACTIONS_90
-#include "lib/t420babe/fractions/fractions-90.glsl"
+#ifndef T4B_ABF_90
+#include "lib/t420babe/abf/abf-90.glsl"
 #endif
 
 
@@ -45,8 +45,8 @@ Fidem Community - Zero Nine
 
 ## PARTY SET 2
 ```
-#ifndef T4B_FRACTIONS_94
-#include "lib/t420babe/fractions/fractions-94.glsl"
+#ifndef T4B_ABF_94
+#include "lib/t420babe/abf/abf-94.glsl"
 #endif
 ```
 
@@ -58,14 +58,14 @@ Fidem Community - Zero Nine
 ```
 - #ifndef T4B_B2B_04 - mathy
 ```
-#ifndef T4B_FRACTIONS_86
-#include "lib/t420babe/fractions/fractions-86.glsl"
+#ifndef T4B_ABF_86
+#include "lib/t420babe/abf/abf-86.glsl"
 #endif
 
-#ifndef T4B_FRACTIONS_88 // -> 75, 97
-#include "lib/t420babe/fractions/fractions-88.glsl"
+#ifndef T4B_ABF_88 // -> 75, 97
+#include "lib/t420babe/abf/abf-88.glsl"
 #endif
 
-#ifndef T4B_FRACTIONS_96
-#include "lib/t420babe/fractions/fractions-96.glsl"
+#ifndef T4B_ABF_96
+#include "lib/t420babe/abf/abf-96.glsl"
 #endif

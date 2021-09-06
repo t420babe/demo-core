@@ -1,5 +1,5 @@
 // The Kármán Line by Paolo Nouvelle
-// #ifndef T4B_FRACTIONS_126
+// #ifndef T4B_ABF_126
 mat2 rotate2d(float theta){
     return mat2(cos(theta),-sin(theta),sin(theta),cos(theta));
 }
