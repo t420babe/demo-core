@@ -25,10 +25,10 @@ uniform sampler2D u_freq_slow;
 #endif
 
 
-#ifndef T4B_ABJ_04
-#include "lib/t420babe/abj/abj-04.glsl"
+#ifndef T4B_ABI_01
+#include "lib/t420babe/abi/abi-01.glsl"
 #endif
 
 void main(void) {
-  abj_04(p3, t, u_audio);
+  abi_01(p3, t, u_audio, u_resolution);
 }

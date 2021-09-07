@@ -1,5 +1,6 @@
-#ifndef COMMON_ELECTRON_MATH_FUNCTIONS
-#define COMMON_ELECTRON_MATH_FUNCTIONS
+#ifndef COMMON_ABI_MATH_FUNCTIONS
+#define COMMON_ABI_MATH_FUNCTIONS
+// ELECTRONS -> ABI
 // Factorial
 int fac(int n) {
   int f = 1;
