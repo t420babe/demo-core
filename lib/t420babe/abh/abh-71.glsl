@@ -1,6 +1,6 @@
 // The Way Back by Solumun
-#ifndef T4B_ABH_67
-#define T4B_ABH_67
+#ifndef T4B_ABH_71
+#define T4B_ABH_71
 
 #ifndef PXL_ROTATE
 #include "./lib/pxl/rotate-sdf.glsl"
@@ -13,14 +13,14 @@
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
 #endif
-mat2 abh_67_blob_m(float a){
+mat2 abh_71_blob_m(float a){
   float c=cos(a), s=sin(a);
   return mat2(c,-s,s,c);
 }
 
-float abh_67_blob(vec3 p3, float time){
-    p3.xz *= abh_67_blob_m(time * 0.4);
-    p3.xy*= abh_67_blob_m(time * 0.3);
+float abh_71_blob(vec3 p3, float time){
+    p3.xz *= abh_71_blob_m(time * 0.4);
+    p3.xy*= abh_71_blob_m(time * 0.3);
     vec3 q = p3 * 2.0 + time;
     float x0 = length( p3 + vec3( sin(time * 0.7) ) );
     float x1 = log( length(p3) + 1.0 );
@@ -29,15 +29,18 @@ float abh_67_blob(vec3 p3, float time){
 }
 
 
-void abh_67(vec3 p3, float time, peakamp audio) {
+void abh_71(vec3 p3, float time, peakamp audio) {
 
   time *= 1.1;
+  // time += 50.0;
   vec3 color = vec3(1.0);
   p3 *= 1.5;
   float y = (tan(p3.x) * cos(p3.x * time * 3.0));
+  float m = plot(vec2(p3), y, 0.25) * 1.0;
 
-  float rz = abh_67_blob(p3, time);
-  float f = ( rz / abh_67_blob(p3, y) ) * 10.0;
+  // p3.x -= 0.5;
+  float rz = abh_71_blob(p3, time) * m;
+  float f = ( rz / abh_71_blob(p3, y) ) * 10.0;
   // color = (m) * color * m * vec3(1.0);
   vec3 l = vec3(0.35, 0.1, 0.3) + vec3(abs(audio.lowpass), abs(audio.bandpass), abs(audio.notch)) * f;
   color = l;

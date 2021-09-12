@@ -1,5 +1,6 @@
 // Ferris Wheel - Maya Jane Cole Remix by Sylvan Esso,Maya Jane Cole
 // #ifndef T4B_ABH_66
+// named by Tim Garrity
 mat2 rot(float a){
     return mat2(cos(a),-sin(a),sin(a),cos(a));
 }

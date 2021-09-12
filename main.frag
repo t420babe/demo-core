@@ -25,10 +25,10 @@ uniform sampler2D u_freq_slow;
 #endif
 
 
-#ifndef T4B_ABH_66
-#include "lib/t420babe/abh/abh-66.glsl"
+#ifndef T4B_ABH_67
+#include "lib/t420babe/abh/abh-67.glsl"
 #endif
 
 void main(void) {
-  abh_66(p3, t, u_audio);
+  abh_67(p3, t, u_audio);
 }
