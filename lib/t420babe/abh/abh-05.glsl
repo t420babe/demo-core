@@ -2,14 +2,14 @@
 // https://www.youtube.com/watch?v=EnYmqdQA73s&t=1814s
 // 15:43 - 21:50
 // #fav5 #katie
-#ifndef T4B_BG_05
-#define T4B_BG_05
+#ifndef T4B_ABH_05
+#define T4B_ABH_05
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
 #endif
 
-void bg_05(vec3 p3, float time, peakamp audio) {
+void abh_05(vec3 p3, float time, peakamp audio) {
   time += 8.0;
   vec3 color = vec3(1.0);
   p3 *= time * 0.01;

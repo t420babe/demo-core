@@ -2,8 +2,8 @@
 // https://www.youtube.com/watch?v=EnYmqdQA73s&t=1814s
 // 15:43 - 21:50
 // #fav5 #katie
-#ifndef T4B_BG_06
-#define T4B_BG_06
+#ifndef T4B_ABH_06
+#define T4B_ABH_06
 
 #ifndef PXL_ROTATE
 #include "./lib/pxl/rotate-sdf.glsl"
@@ -13,7 +13,7 @@
 #include "lib/common/00-common.glsl"
 #endif
 
-void bg_06(vec3 p3, float time, peakamp audio) {
+void abh_06(vec3 p3, float time, peakamp audio) {
   time += 8.0;
   vec3 color = vec3(1.0);
   p3 *= time * 0.01;

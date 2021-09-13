@@ -1,6 +1,6 @@
 // The Way Back by Solumun
-#ifndef T4B_BG_22
-#define T4B_BG_22
+#ifndef T4B_ABH_22
+#define T4B_ABH_22
 
 #ifndef PXL_ROTATE
 #include "./lib/pxl/rotate-sdf.glsl"
@@ -15,7 +15,7 @@
 #endif
 
 
-void bg_22(vec3 p3, float time, peakamp audio) {
+void abh_22(vec3 p3, float time, peakamp audio) {
   audio.lowpass = 0.05;
   audio.highpass = 0.05;
   audio.bandpass = 0.05;

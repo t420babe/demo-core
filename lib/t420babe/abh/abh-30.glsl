@@ -1,6 +1,6 @@
 // # fav5, watch for a while
-#ifndef T4B_BG_30
-#define T4B_BG_30
+#ifndef T4B_ABH_30
+#define T4B_ABH_30
 
 #ifndef PXL_ROTATE
 #include "./lib/pxl/rotate-sdf.glsl"
@@ -14,7 +14,7 @@
 #include "lib/common/00-common.glsl"
 #endif
 
-void bg_30(vec3 p3, float time, peakamp audio) {
+void abh_30(vec3 p3, float time, peakamp audio) {
   // audio.lowpass   *= 2.0;
   // audio.highpass  *= 2.0;
   // audio.bandpass  *= 2.0;

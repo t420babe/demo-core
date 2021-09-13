@@ -1,6 +1,6 @@
 // Ani Kuni by Polo and Pan
-#ifndef T4B_BG_45
-#define T4B_BG_45
+#ifndef T4B_ABH_45
+#define T4B_ABH_45
 
 #ifndef PXL_ROTATE
 #include "./lib/pxl/rotate-sdf.glsl"
@@ -15,7 +15,7 @@
 #endif
 
 
-void bg_45(vec3 p3, float time, peakamp audio) {
+void abh_45(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   p3 *= 5.0;
   float y = (tan(p3.x) + cos(p3.x * time * 3.0));

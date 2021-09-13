@@ -1,6 +1,6 @@
 // #chill 
-#ifndef T4B_BG_64
-#define T4B_BG_64
+#ifndef T4B_ABH_64
+#define T4B_ABH_64
 
 #ifndef PXL_ROTATE
 #include "./lib/pxl/rotate-sdf.glsl"
@@ -14,7 +14,7 @@
 #include "lib/common/00-common.glsl"
 #endif
 
-float bg_64_blob(vec3 p3, float time){
+float abh_64_blob(vec3 p3, float time){
   p3 = p3.yxz * 0.8;
   p3.xz *= rotate2d(time * 0.4);
   p3.xy *= rotate2d(time * 0.3);
@@ -26,7 +26,7 @@ float bg_64_blob(vec3 p3, float time){
 }
 
 
-void bg_64(vec3 p3, float time, peakamp audio) {
+void abh_64(vec3 p3, float time, peakamp audio) {
   // audio.lowpass = 0.05;
   // audio.highpass = 0.05;
   // audio.bandpass = 0.05;
@@ -42,9 +42,9 @@ void bg_64(vec3 p3, float time, peakamp audio) {
   float m = plot(vec2(p3), y, 0.25) * 1.0;
 
   // p3.x -= 0.5;
-  float rz = bg_64_blob(p3, time);
-  float rz_2 = bg_64_blob(p3 + vec3(0.5), time);
-  float f = ( rz * bg_64_blob(p3, y) ) * 1.0;
+  float rz = abh_64_blob(p3, time);
+  float rz_2 = abh_64_blob(p3 + vec3(0.5), time);
+  float f = ( rz * abh_64_blob(p3, y) ) * 1.0;
   vec3 l = vec3(0.0) + vec3(abs(audio.lowpass), abs(audio.bandpass), abs(audio.notch)) * rz;
   vec3 l_2 = vec3(0.0) + vec3(abs(audio.lowpass), abs(audio.bandpass), abs(audio.notch)) * rz_2;
   // color = vec3(1.0 / m);

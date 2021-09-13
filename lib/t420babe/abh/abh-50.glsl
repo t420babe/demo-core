@@ -2,8 +2,8 @@
 // https://www.youtube.com/watch?v=EnYmqdQA73s&t=1814s
 // 15:43 - 21:50
 // #fav5 #katie
-#ifndef T4B_BG_50
-#define T4B_BG_50
+#ifndef T4B_ABH_50
+#define T4B_ABH_50
 
 #ifndef PXL_ROTATE
 #include "./lib/pxl/rotate-sdf.glsl"
@@ -13,7 +13,7 @@
 #include "lib/common/00-common.glsl"
 #endif
 
-void bg_50(vec3 p3, float time, peakamp audio) {
+void abh_50(vec3 p3, float time, peakamp audio) {
   // time += 200.0;
   // time += t2s(0, 6, 0);
   time += 10.0;
@@ -28,7 +28,7 @@ void bg_50(vec3 p3, float time, peakamp audio) {
   color = m * color + m * vec3(1.0);
 
   gl_FragColor = vec4(color, 1.0);
-    // float rz = bg_50_map(p3, time);
+    // float rz = abh_50_map(p3, time);
   // gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
   // gl_FragColor += texture2D(u_fb, vec2(p3.yx/(1.0 * PI) + 0.5) + vec2(0.001, 0.00)) - 0.000;
   // gl_FragColor += texture2D(u_fb, vec2(p3.xy + 0.5));

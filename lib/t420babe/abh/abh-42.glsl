@@ -1,6 +1,6 @@
 // #chill 
-#ifndef T4B_BG_42
-#define T4B_BG_42
+#ifndef T4B_ABH_42
+#define T4B_ABH_42
 
 
 #ifndef PXL_ROTATE
@@ -16,7 +16,7 @@
 #endif
 
 
-void bg_42(vec3 p3, float time, peakamp audio) {
+void abh_42(vec3 p3, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   p3 *= 10.0;
   float y = (tan(p3.x) + cos(p3.x * time * 3.0));
