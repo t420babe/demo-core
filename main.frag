@@ -24,10 +24,11 @@ uniform sampler2D u_freq_slow;
 #include "lib/common/s4y.glsl"
 #endif
 
-#ifndef T4B_ABH_13
-#include "lib/t420babe/abh/abh-13.glsl"
+#ifndef T4B_ABH_49
+#include "lib/t420babe/abh/abh-49.glsl"
 #endif
 
 void main(void) {
-  abh_13(p3, t, u_audio);
+  float time = t + 10.0;
+  abh_49(p3, time, u_audio);
 }
