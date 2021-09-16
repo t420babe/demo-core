@@ -39,8 +39,11 @@ void abh_45(vec3 p3, float time, peakamp audio) {
   color.g /= 1.2;
   color.b /= 1.2;
 
-  // gl_FragColor = vec4(rgb2hsv(color), 1.0);
-  gl_FragColor = vec4(color, 1.0);
+  gl_FragColor = vec4(rgb2hsv(color), 1.0);
+  // gl_FragColor = vec4(color, 1.0);
+  // gl_FragColor = vec4(color, 1.0);
+  // gl_FragColor = vec4(color.brg, 1.0);
+  // gl_FragColor = vec4(color.bgr, 1.0);
 }
 
 #endif

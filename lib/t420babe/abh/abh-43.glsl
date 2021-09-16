@@ -43,11 +43,11 @@ void abh_43(vec3 p3, float time, peakamp audio) {
   color.g *= audio.lowpass;
   color.b *= audio.highpass;
 
-  color.r *= 2.0;
-  color.g *= 2.0;
-  color.b *= 2.0;
+  color.r *= 1.2;
+  color.g *= 1.5;
+  color.b *= 1.2;
 
-  gl_FragColor = vec4(color.grb, 1.0);
+  gl_FragColor = vec4(color.bgr, 1.0);
   // gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
   // gl_FragColor += texture2D(u_fb, vec2(rz* p3.yx/2.+.5) + vec2(0.001, 0.00)) - 0.002;
   // gl_FragColor += texture2D(u_fb, vec2(p3.xy + 0.5));

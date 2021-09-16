@@ -24,11 +24,19 @@ uniform sampler2D u_freq_slow;
 #include "lib/common/s4y.glsl"
 #endif
 
-#ifndef T4B_ABH_49
-#include "lib/t420babe/abh/abh-49.glsl"
+#ifndef T4B_ABH_75
+#include "lib/t420babe/abh/abh-75.glsl"
 #endif
 
 void main(void) {
-  float time = t + 10.0;
-  abh_49(p3, time, u_audio);
+  peakamp audio = u_audio;
+  float audio_mul = 1.0;
+  audio.notch *= audio_mul;
+  audio.bandpass *= audio_mul;
+  audio.highpass *= audio_mul;
+  audio.lowpass *= audio_mul;
+  // 82
+  float time = t * 1.0;
+  abh_75(p3, time, audio);
+  // gl_FragColor = vec4(2.0 * audio.notch, 0.3, 0.2, 1.0);
 }
