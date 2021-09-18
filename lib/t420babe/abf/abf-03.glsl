@@ -21,7 +21,7 @@ void abf_03(vec3 p3, float time, peakamp audio) {
   color = (1.0 - m) * color + m * vec3(audio.notch, audio.highpass, audio.lowpass);
 
   gl_FragColor = vec4(1.0 - color, 1.0);
-  // gl_FragColor += texture2D(u_fb, vec2(p3.x + 0.0, p3.y + 0.5));
+  // gl_FragColor += texture2D(u_fb, p3.xy + sin(time * 0.5));
   // gl_FragColor += texture2D(u_fb, vec2(p3.yx/2.+.5) + vec2(0.001, 0.00)) - 0.002;
   // gl_FragColor += texture2D(u_fb, vec2(p3.xy + 0.5));
 }

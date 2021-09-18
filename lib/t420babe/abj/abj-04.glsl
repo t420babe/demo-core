@@ -30,7 +30,7 @@ void abj_04(vec3 p3, float time, peakamp audio) {
   bri = rect;
   color = vec3(bri * audio.highpass, bri * audio.notch, bri * audio.lowpass);
 
-  gl_FragColor = vec4(color * 2.0, bri);
+  gl_FragColor = vec4(color.gbr * 2.0, bri);
   float len_trail = 0.001;
   vec2 p_offset = vec2(0.001, 0.001);
   vec2 p_fb = vec2(p3.yx) + 0.5;
