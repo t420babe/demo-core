@@ -9,9 +9,6 @@
 #ifndef COMMON_PERMUTE
 #include "./lib/common/permute.glsl"
 #endif
-#ifndef CELLULAR_NOISE_2_X_2_X_2
-#include "lib/cellular-noise/cellular-2x2x2.glsl"
-#endif
 
 // // Permutation polynomial: (34x^2 + x) mod 289
 // vec4 permute(vec4 x) {

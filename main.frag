@@ -28,9 +28,9 @@ uniform sampler2D u_freq_slow;
 // #include "lib/t420babe/abd/abd-02.glsl"
 // #endif
 
-// #ifndef CELLULAR_NOISE_2_X_2_X_2
-// #include "lib/cellular-noise/cellular-2x2x2.glsl"
-// #endif
+#ifndef CELLULAR_NOISE_2_X_2_X_2
+#include "lib/cellular-noise/cellular-2x2x2.glsl"
+#endif
 
 void main(void) {
   // peakamp audio = u_audio;
@@ -43,8 +43,8 @@ void main(void) {
   // float time = t * 1.0 + 00.0;
   // abd_02(p3, t, u_audio);
   // gl_FragColor = vec4(2.0 * audio.notch, 0.3, 0.2, 1.0);
-  gl_FragColor = vec4(sin(t), 0.4, 0.8, 1.0);
-  // vec2 F = cellular2x2x2(p3.xyz);
-  // float n = smoothstep(0.4, 0.5, F.x);
-  // gl_FragColor = vec4(n, n, n, 1.0);
+  // gl_FragColor = vec4(sin(t), 0.4, 0.8, 1.0);
+  vec2 F = cellular2x2x2(p3.xyz);
+  float n = smoothstep(0.4, 0.5, F.x);
+  gl_FragColor = vec4(n, n, n, 1.0);
 }
