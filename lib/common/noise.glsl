@@ -48,7 +48,7 @@ float snoise(vec2 v) {
   return 130.0 * dot(m, g);
 }
 
-float fbm(vec2 x)
+float noice_fbm(vec2 x)
 {    
   float G = 0.5; //exp2(-H);
   float freq = 1.0;
