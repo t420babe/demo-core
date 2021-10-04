@@ -10,6 +10,10 @@ precision highp float;
 #include "lib/common/00-common.glsl"
 #endif
 
+#ifndef COMMON_PLOT_AUDIO
+#include "lib/common/plot-signal.glsl"
+#endif
+
 uniform vec2 u_resolution;
 
 uniform float t;
@@ -19,24 +23,20 @@ uniform sampler2D u_fb;
 uniform sampler2D u_freq_fast;
 uniform sampler2D u_freq_med;
 uniform sampler2D u_freq_slow;
+//
+// #ifndef COMMON_S4Y
+// #include "lib/common/s4y.glsl"
+// #endif
 
-#ifndef COMMON_S4Y
-#include "lib/common/s4y.glsl"
-#endif
-
-#ifndef T4B_ABB_00
-#include "lib/t420babe/abb/abb-00.glsl"
-#endif
+// #ifndef T4B_ABA_26
+// #include "lib/t420babe/aba/aba-26.glsl"
+// #endif
 
 
 void main(void) {
+  float time = t;
   peakamp audio = u_audio;
-  float audio_mul = 1.0;
-  audio.notch *= audio_mul;
-  audio.bandpass *= audio_mul;
-  audio.highpass *= audio_mul;
-  audio.lowpass *= audio_mul;
-  // 82
-  float time = t * 1.0 + 00.0;
-  abb_00(p3, t, u_audio);
+  vec3 color = plot_peakamp(p3.xy, audio);
+
+  gl_FragColor = vec4(color, 1.0);
 }
