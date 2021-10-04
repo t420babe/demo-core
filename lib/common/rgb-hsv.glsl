@@ -32,4 +32,9 @@ vec4 addHsv(vec4 c, vec3 add) {
 vec4 hsv(float h, float s, float v) {
   return vec4(hsv2rgb(vec3(h, s, v)), 1.);
 }
+
+void from_255(inout vec3 rgb) {
+  rgb /= 255.0;
+}
+
 #endif

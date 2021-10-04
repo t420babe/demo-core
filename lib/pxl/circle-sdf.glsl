@@ -30,4 +30,9 @@ float circle(in vec2 st, in vec2 center, float r, float smoothing_factor) {
 float circle_outline(in vec2 st, in vec2 center, float r, float stroke_weight){
   return smoothstep(r - stroke_weight, r + stroke_weight, distance(st, center)) * (1.0 - smoothstep(r, r + stroke_weight, distance(st, center)));
 }
+
+float place(vec2 p, float r, vec2 off) {
+  p += off;
+  return circle_1(p, r);
+}
 #endif
