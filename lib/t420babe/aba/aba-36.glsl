@@ -19,16 +19,12 @@
 #include "./lib/common/plot.glsl"
 #endif
 
-float aba_36_circle_1(vec2 st, float radius) {
-    return length(st) * radius;
-}
+#ifndef PXL_CIRCLE
+#include "./lib/pxl/circle-sdf.glsl"
+#endif
 
-float place(vec2 p, float r, vec2 off) {
-  p += off;
- return aba_36_circle_1(p, r);
-}
 
-vec3 four_dots(vec2 pos, vec3 color, peakamp audio) {
+vec3 aba_36_four_dots(vec2 pos, vec3 color, peakamp audio) {
   float r = 1.0 * abs(audio.notch);
 
   float c0 = place(pos, r, vec2(1.5, 0.0));
@@ -44,11 +40,7 @@ vec3 four_dots(vec2 pos, vec3 color, peakamp audio) {
   return color;
 }
 
-void from_255(inout vec3 rgb) {
-  rgb /= 255.0;
-}
-
-vec3 alternate(in vec2 pos, vec3 color, peakamp audio) {
+vec3 aba_36_alternate(in vec2 pos, vec3 color, peakamp audio) {
   // pos = pos.yx;
   // vec3 fill = vec3(222.0, 200.0, 91.0);
   vec3 fill = vec3(1.0);
@@ -101,9 +93,9 @@ void aba_36(vec3 p3, float time, peakamp audio) {
   audio.bandpass  *= 1.0;
   audio.notch     *= 1.0;
 
-  color = alternate(pos, color, audio);
+  color = aba_36_alternate(pos, color, audio);
 
    gl_FragColor = vec4(color, 1.0);
-   gl_FragColor -= texture2D(u_fb, vec2(tan(p3.x + 0.0), aba_36_circle_1(p3.xy, p3.y)) + 0.5);
+   gl_FragColor -= texture2D(u_fb, vec2(tan(p3.x + 0.0), circle_1(p3.xy, p3.y)) + 0.5);
 }
 #endif

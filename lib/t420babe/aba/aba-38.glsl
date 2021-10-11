@@ -19,22 +19,14 @@
 #include "./lib/common/plot.glsl"
 #endif
 
-float l38_circle_1(vec2 st, float radius) {
-    return length(st) * radius;
-}
+#ifndef PXL_ROTATE
+#include "./lib/pxl/rotate-sdf.glsl"
+#endif
 
-float l38_place(vec2 p, float r, vec2 off) {
-  p += off;
-  return l38_circle_1(p, r);
-}
+#ifndef PXL_CIRCLE
+#include "lib/pxl/circle-sdf.glsl"
+#endif
 
-void l38_from_255(inout vec3 rgb) {
-  rgb /= 255.0;
-}
-
-mat2 l38_rotate2d(float theta) {
-  return mat2(cos(theta), -sin(theta), sin(theta), cos(theta));
-}
 
 vec3 l38_alternate(in vec2 pos, vec3 color, float time, peakamp audio) {
   // pos = abs(sin(pos * 0.8) * (wrap_time(time, 4.0) + 4.5));
@@ -42,38 +34,38 @@ vec3 l38_alternate(in vec2 pos, vec3 color, float time, peakamp audio) {
   fill = vec3(233.0, 255.0, 384.0);
   if (abs(audio.notch) < 2.0) {
     fill = vec3(200.0, 174.0, 117.0);
-    l38_from_255(fill);
+    from_255(fill);
     fill = 1.0 - fill;
   } else {
     fill = vec3(233.0, 255.0, 384.0);
-    l38_from_255(fill);
+    from_255(fill);
   }
-  l38_from_255(fill);
+  from_255(fill);
   float r = 1.0 * abs(audio.highpass * audio.lowpass + abs(audio.notch));
   float mul = (clamp(sin(time * 0.5), 0.5, 1.0) + 0.05) * 0.38;
   // float r = 1.5 * abs(audio.bandpass * audio.notch);
   // pos = pos.yx;
   // pos /= 2.5;
-  pos = l38_rotate2d(sin(time) * 3.14 / 0.1) * pos;
-  // pos = l38_rotate2d(fract(time) * tan(time) *0.14) * pos.yx;
+  pos = rotate2d(sin(time) * 3.14 / 0.1) * pos;
+  // pos = rotate2d(fract(time) * tan(time) *0.14) * pos.yx;
 
-  float c00 = l38_place(pos, r, vec2(1.0,  -0.75));
-  float c01 = l38_place(pos, r, vec2(0.0,  -0.75));
-  float c02 = l38_place(pos, r, vec2(-1.0, -0.75));
-  float c03 = l38_place(pos, r, vec2(-1.5, -0.75));
-  float c04 = l38_place(pos, r, vec2(1.5, -0.75));
+  float c00 = place(pos, r, vec2(1.0,  -0.75));
+  float c01 = place(pos, r, vec2(0.0,  -0.75));
+  float c02 = place(pos, r, vec2(-1.0, -0.75));
+  float c03 = place(pos, r, vec2(-1.5, -0.75));
+  float c04 = place(pos, r, vec2(1.5, -0.75));
 
-  float c10 = l38_place(pos, r * mul, vec2(1.0,  0.0));
-  float c11 = l38_place(pos, r * mul, vec2(0.0,  0.0));
-  float c12 = l38_place(pos, r * mul, vec2(-1.0, 0.0));
-  float c13 = l38_place(pos, r * mul, vec2(-1.5, 0.0));
-  float c14 = l38_place(pos, r * mul, vec2(1.5, 0.0));
+  float c10 = place(pos, r * mul, vec2(1.0,  0.0));
+  float c11 = place(pos, r * mul, vec2(0.0,  0.0));
+  float c12 = place(pos, r * mul, vec2(-1.0, 0.0));
+  float c13 = place(pos, r * mul, vec2(-1.5, 0.0));
+  float c14 = place(pos, r * mul, vec2(1.5, 0.0));
 
-  float c20 = l38_place(pos, r, vec2(1.0,  0.75));
-  float c21 = l38_place(pos, r, vec2(0.0,  0.75));
-  float c22 = l38_place(pos, r, vec2(0.0, 0.75));
-  float c23 = l38_place(pos, r, vec2(-1.5, 0.75));
-  float c24 = l38_place(pos, r, vec2(1.5, 0.75));
+  float c20 = place(pos, r, vec2(1.0,  0.75));
+  float c21 = place(pos, r, vec2(0.0,  0.75));
+  float c22 = place(pos, r, vec2(0.0, 0.75));
+  float c23 = place(pos, r, vec2(-1.5, 0.75));
+  float c24 = place(pos, r, vec2(1.5, 0.75));
 
   color *= vec3(c01 * (c11) * c13 * (c14));
   color /= vec3((c01 * c03 * c04));

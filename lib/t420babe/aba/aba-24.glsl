@@ -19,20 +19,15 @@
 #include "./lib/common/plot.glsl"
 #endif
 
-float circle_1(vec2 st, float radius) {
-    return length(st) * radius;
-}
+#ifndef PXL_CIRCLE
+#include "lib/pxl/circle-sdf.glsl"
+#endif
 
-float place(vec2 p, float r, vec2 off) {
-  p += off;
-  return circle_1(p, r);
-}
+#ifndef PXL_ROTATE
+#include "./lib/pxl/rotate-sdf.glsl"
+#endif
 
-mat2 rotate2d(float theta) {
-  return mat2(cos(theta), -sin(theta), sin(theta), cos(theta));
-}
-
-vec3 alternate(in vec2 pos, vec3 color, float time, peakamp audio) {
+vec3 aba_24_alternate(in vec2 pos, vec3 color, float time, peakamp audio) {
   // pos = pos.yx * pos.yx * 0.5;
   pos = abs(sin(pos * 0.8) * (wrap_time(time, 4.0) + 4.5));
   // pos = abs(sin(pos * 0.8)) * 4.0;
@@ -92,9 +87,8 @@ void aba_24(vec3 p3, float time, peakamp audio) {
   audio.bandpass  *= mul;
   audio.notch     *= mul;
 
-  color = alternate(pos, color, time, audio);
+  color = aba_24_alternate(pos, color, time, audio);
   color = 1.0 - color;
-
 
   gl_FragColor = vec4(color, 1.0);
 }

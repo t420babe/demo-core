@@ -1,5 +1,5 @@
-#ifndef T420BABE_LIGHTS_28
-#define T420BABE_LIGHTS_28
+#ifndef T4B_ABA_29
+#define T4B_ABA_29
 
 #ifndef COMMON_WRAP_TIME
 #include "./lib/common/wrap-time.glsl"
@@ -21,16 +21,11 @@
 #include "./lib/pxl/rotate-sdf.glsl"
 #endif
 
-float circle_1(vec2 st, float radius) {
-    return length(st) * radius;
-}
+#ifndef PXL_CIRCLE
+#include "lib/pxl/circle-sdf.glsl"
+#endif
 
-float place(vec2 p, float r, vec2 off) {
-  p += off;
-  return circle_1(p, r);
-}
-
-vec3 four_dots(vec2 pos, vec3 color, peakamp audio) {
+vec3 aba_29_four_dots(vec2 pos, vec3 color, peakamp audio) {
   float r = 1.0 * abs(audio.notch);
 
   float c0 = place(pos, r, vec2(1.5, 0.0));
@@ -46,11 +41,7 @@ vec3 four_dots(vec2 pos, vec3 color, peakamp audio) {
   return color;
 }
 
-void from_255(inout vec3 rgb) {
-  rgb /= 255.0;
-}
-
-vec3 alternate(in vec2 pos, vec3 color, peakamp audio) {
+vec3 aba_29_alternate(in vec2 pos, vec3 color, float time, peakamp audio) {
   // pos = pos.yx;
   vec3 fill = vec3(222.0, 200.0, 91.0);
   // vec3 fill = vec3(33.0, 55.0, 164.0);
@@ -59,13 +50,13 @@ vec3 alternate(in vec2 pos, vec3 color, peakamp audio) {
   // float r = 5.0 * abs(audio.highpass * audio.lowpass);
 
 
-  // vec2 pos1 = rotate2d(abs(sin(u_time) * 3.14 * cos(u_time) * 3.14)) * pos;
-  // vec2 translate = vec2(atan(u_time * 2.0), tan(u_time * 2.0));
-  vec2 translate = vec2(sin(u_time), sin(u_time * 1.0));  
+  // vec2 pos1 = rotate2d(abs(sin(time) * 3.14 * cos(time) * 3.14)) * pos;
+  // vec2 translate = vec2(atan(time * 2.0), tan(time * 2.0));
+  vec2 translate = vec2(sin(time), sin(time * 1.0));  
   vec2 pos1 = pos * 3.5;
   pos1 /= translate;
   pos1.y += 1.0;
-  pos1 = rotate2d((cos(u_time) * pos1.y)) * pos1;
+  pos1 = rotate2d((cos(time) * pos1.y)) * pos1;
   pos1 *= 0.4;
 
   float c00 = place(pos, r, vec2(1.0,  0.0));
@@ -89,16 +80,17 @@ vec3 alternate(in vec2 pos, vec3 color, peakamp audio) {
   return color;
 }
 
-vec3 lights_28(vec2 pos, float u_time, peakamp audio) {
+void aba_29(vec3 p3, float time, peakamp audio) {
+  vec2 pos = p3.xy;
   vec3 color = vec3(1.0);
   audio.lowpass   *= 1.0;
   audio.highpass  *= 1.0;
   audio.bandpass  *= 1.0;
   audio.notch     *= 1.0;
 
-  color = alternate(pos, color, audio);
+  color = aba_29_alternate(pos, color, time, audio);
   color = 1.0 - color;
 
-  return color;
+  gl_FragColor = vec4(color, 1.0);
 }
 #endif

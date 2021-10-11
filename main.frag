@@ -28,14 +28,14 @@ uniform sampler2D u_freq_slow;
 #include "lib/common/signal.glsl"
 #endif
 
-#ifndef T4B_ABA_26
-#include "lib/t420babe/aba/aba-26.glsl"
+#ifndef T4B_ABA_44
+#include "lib/t420babe/aba/aba-44.glsl"
 #endif
 
 
 void main(void) {
   peakamp audio = u_audio;
   float time = t;
-  vec3 color = plot_peakamp(p3.xy, audio);
-  gl_FragColor = vec4(color, 1.0);
+  aba_44(p3, time, audio);
+  // plot_signal(p3.xy, audio);
 }

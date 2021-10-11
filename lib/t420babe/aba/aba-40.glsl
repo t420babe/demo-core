@@ -19,62 +19,59 @@
 #include "./lib/common/plot.glsl"
 #endif
 
-float l40_circle_1(vec2 st, float radius) {
-    return length(st) * radius;
-}
+#ifndef PXL_ROTATE
+#include "./lib/pxl/rotate-sdf.glsl"
+#endif
 
-float l40_place(vec2 p, float r, vec2 off) {
+#ifndef PXL_CIRCLE
+#include "./lib/pxl/circle-sdf.glsl"
+#endif
+
+
+float aba_40_place(vec2 p, float r, vec2 off) {
   p += off;
-  return sharp(l40_circle_1(p, r));
+  return sharp(circle_1(p, r));
 }
 
-void l40_from_255(inout vec3 rgb) {
-  rgb /= 255.0;
-}
-
-mat2 l40_rotate2d(float theta) {
-  return mat2(cos(theta), -sin(theta), sin(theta), cos(theta));
-}
-
-vec3 l40_alternate(in vec2 pos, vec3 color, float time, peakamp audio) {
+vec3 aba_40_alternate(in vec2 pos, vec3 color, float time, peakamp audio) {
   // pos = abs(sin(pos * 0.8) * (wrap_time(time, 4.0) + 4.5));
   vec3 fill = vec3(1.0);
   fill = vec3(233.0, 255.0, 404.0);
   if (abs(audio.notch) < 2.0) {
     fill = vec3(200.0, 174.0, 117.0);
-    l40_from_255(fill);
+    from_255(fill);
     fill = 1.0 - fill;
   } else {
     fill = vec3(233.0, 255.0, 404.0);
-    l40_from_255(fill);
+    from_255(fill);
   }
-  l40_from_255(fill);
+  from_255(fill);
   float r = 1.0 * abs(audio.highpass * audio.lowpass + abs(audio.notch));
   float mul = 1.0;
   // float mul = (clamp(sin(time * 0.5), 0.5, 1.0) + 0.05) * 0.38;
   // float r = 1.5 * abs(audio.bandpass * audio.notch);
   // pos = pos.yx;
   pos *= wrap_time(time, 2.5);
-  pos = l40_rotate2d(sin(time) * 3.14 / 0.1) * pos;
-  // pos = l40_rotate2d(fract(time) * tan(time) *0.14) * pos.yx;
+  pos = rotate2d(sin(time) * 3.14 / 0.1) * pos;
+  // pos = rotate2d(fract(time) * tan(time) *0.14) * pos.yx;
 
-  float c00 = l40_place(pos, r, vec2(1.0,  -0.75));
-  float c01 = l40_place(pos, r, vec2(0.0,  -0.75));
-  float c02 = l40_place(pos, r, vec2(-1.0, -0.75));
-  float c03 = l40_place(pos, r, vec2(-1.5, -0.75));
-  float c04 = l40_place(pos, r, vec2(1.5, -0.75));
+  float c00 = aba_40_place(pos, r, vec2(1.0,  -0.75));
+  float c01 = aba_40_place(pos, r, vec2(0.0,  -0.75));
+  float c02 = aba_40_place(pos, r, vec2(-1.0, -0.75));
+  float c03 = aba_40_place(pos, r, vec2(-1.5, -0.75));
+  float c04 = aba_40_place(pos, r, vec2(1.5, -0.75));
 
-  float c10 = l40_place(pos, r * mul, vec2(1.0,  0.0));
-  float c11 = l40_place(pos, r * mul, vec2(0.0,  0.0));
-  float c12 = l40_place(pos, r * mul, vec2(-1.0, 0.0));
-  float c13 = l40_place(pos, r * mul, vec2(-1.5, 0.0));
-  float c14 = l40_place(pos, r * mul, vec2(1.5, 0.0));
+  float c10 = aba_40_place(pos, r * mul, vec2(1.0,  0.0));
+  float c11 = aba_40_place(pos, r * mul, vec2(0.0,  0.0));
+  float c12 = aba_40_place(pos, r * mul, vec2(-1.0, 0.0));
+  float c13 = aba_40_place(pos, r * mul, vec2(-1.5, 0.0));
+  float c14 = aba_40_place(pos, r * mul, vec2(1.5, 0.0));
 
-  float c20 = l40_place(pos, r, vec2(1.0,  0.75));
-  float c21 = l40_place(pos, r, vec2(0.0,  0.75));
-  float c22 = l40_place(pos, r, vec2(0.0, 0.75));
-  float c23 = l40_place(pos, r, vec2(-1.5, 0.75));
-  float c24 = l40_place(pos, r, vec2(1.5, 0.75));
+  float c20 = aba_40_place(pos, r, vec2(1.0,  0.75));
+  float c21 = aba_40_place(pos, r, vec2(0.0,  0.75));
+  float c22 = aba_40_place(pos, r, vec2(0.0, 0.75));
+  float c23 = aba_40_place(pos, r, vec2(-1.5, 0.75));
+  float c24 = aba_40_place(pos, r, vec2(1.5, 0.75));
 
   color *= vec3(c01 * (c11) * c13 * (c14));
   color /= vec3((c01 * c03 * c04));
@@ -100,7 +97,7 @@ void aba_40(vec3 p3, float time, peakamp audio) {
   audio.bandpass  *= mul;
   audio.notch     *= mul;
 
-  color = l40_alternate(pos, color, time, audio);
+  color = aba_40_alternate(pos, color, time, audio);
   if (audio.notch / mul > 0.3) {
     color = 2.0 * audio.notch - color;
   }

@@ -34,7 +34,7 @@ vec3 signal_lines(vec2 p2, float offset) {
   return (1.0 - pct) * vec3(1.0) + pct * vec3(0.5);
 }
 
-vec3 plot_peakamp(vec2 p2, peakamp audio) {
+vec3 plot_peakamp_staggered(vec2 p2, peakamp audio) {
   vec3 color = vec3(0.0);
   float offset = 0.25;
 
@@ -59,5 +59,39 @@ vec3 plot_peakamp(vec2 p2, peakamp audio) {
   color *= signal(p2, audio.bandpass, bp_o, vec3(0.5, 0.8, 0.5));
 
   return color;
+}
+
+vec3 plot_peakamp(vec2 p2, peakamp audio) {
+  vec3 color = vec3(0.0);
+  float signal_o = 0.0;
+  float offset = 0.25;
+
+  color = signal_lines(p2, signal_o + offset);
+  color *= signal_lines(p2, signal_o);
+  color *= signal_lines(p2, -offset);
+
+  color *= signal(p2, audio.notch, signal_o, vec3(0.8, 0.0, 0.8));
+  color *= signal(p2, audio.lowpass, signal_o, vec3(0.8, 0.8, 0.0));
+  color *= signal(p2, audio.highpass, signal_o, vec3(0.0, 0.8, 0.8));
+  color *= signal(p2, audio.bandpass, signal_o, vec3(0.5, 0.8, 0.5));
+
+  return color;
+}
+
+void plot_signal(vec2 p2, peakamp audio) {
+  vec3 color = vec3(0.0);
+  float signal_o = 0.0;
+  float offset = 0.25;
+
+  color = signal_lines(p2, signal_o + offset);
+  color *= signal_lines(p2, signal_o);
+  color *= signal_lines(p2, -offset);
+
+  color *= signal(p2, audio.notch, signal_o, vec3(0.8, 0.0, 0.8));
+  color *= signal(p2, audio.lowpass, signal_o, vec3(0.8, 0.8, 0.0));
+  color *= signal(p2, audio.highpass, signal_o, vec3(0.0, 0.8, 0.8));
+  color *= signal(p2, audio.bandpass, signal_o, vec3(0.5, 0.8, 0.5));
+
+  gl_FragColor = vec4(color, 1.0);
 }
 #endif

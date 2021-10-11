@@ -24,10 +24,6 @@
 #include "./lib/pxl/rotate-sdf.glsl"
 #endif
 
-#ifndef COMMON_RGB_HSV
-#include "lib/common/rgb-hsv.glsl"
-#endif
-
 #ifndef PXL_CIRCLE
 #include "lib/pxl/circle-sdf.glsl"
 #endif

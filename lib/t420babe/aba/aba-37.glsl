@@ -1,7 +1,7 @@
 // #effectshape #xtc #feb #fav5
 // Infinite Moment by Go Freak & Ben Miller (AUS)
-#ifndef T4B_ABA_16
-#define T4B_ABA_16
+#ifndef T4B_ABA_37
+#define T4B_ABA_37
 
 #ifndef COMMON_WRAP_TIME
 #include "./lib/common/wrap-time.glsl"
@@ -19,21 +19,17 @@
 #include "./lib/common/plot.glsl"
 #endif
 
-float l16_circle_1(vec2 st, float radius) {
-    return length(st) * radius;
-}
+#ifndef PXL_ROTATE
+#include "./lib/pxl/rotate-sdf.glsl"
+#endif
 
-float l16_place(vec2 p, float r, vec2 off) {
+#ifndef PXL_CIRCLE
+#include "lib/pxl/circle-sdf.glsl"
+#endif
+
+float aba_37_place(vec2 p, float r, vec2 off) {
   p += off;
-  return sharp(l16_circle_1(p, r));
-}
-
-void l16_from_255(inout vec3 rgb) {
-  rgb /= 255.0;
-}
-
-mat2 l16_rotate2d(float theta) {
-  return mat2(cos(theta), -sin(theta), sin(theta), cos(theta));
+  return sharp(circle_1(p, r));
 }
 
 vec3 l16_alternate(in vec2 pos, vec3 color, float time, peakamp audio) {
@@ -42,38 +38,38 @@ vec3 l16_alternate(in vec2 pos, vec3 color, float time, peakamp audio) {
   fill = vec3(233.0, 255.0, 164.0);
   if (abs(audio.notch) < 2.0) {
     fill = vec3(200.0, 174.0, 117.0);
-    l16_from_255(fill);
+    from_255(fill);
     fill = 1.0 - fill;
   } else {
     fill = vec3(233.0, 255.0, 164.0);
-    l16_from_255(fill);
+    from_255(fill);
   }
-  l16_from_255(fill);
+  from_255(fill);
   float r = 1.0 * abs(audio.highpass * audio.lowpass + abs(audio.notch));
   float mul = (clamp(sin(time * 0.5), 0.5, 1.0) + 0.05) * 0.38;
   // float r = 1.5 * abs(audio.bandpass * audio.notch);
   // pos = pos.yx;
   // pos /= 2.5;
-  pos = l16_rotate2d(sin(time) * 3.14 / 0.1) * pos;
-  // pos = l16_rotate2d(fract(time) * tan(time) *0.14) * pos.yx;
+  pos = rotate2d(sin(time) * 3.14 / 0.1) * pos;
+  // pos = rotate2d(fract(time) * tan(time) *0.14) * pos.yx;
 
-  float c00 = l16_place(pos, r, vec2(1.0,  -0.75));
-  float c01 = l16_place(pos, r, vec2(0.0,  -0.75));
-  float c02 = l16_place(pos, r, vec2(-1.0, -0.75));
-  float c03 = l16_place(pos, r, vec2(-1.5, -0.75));
-  float c04 = l16_place(pos, r, vec2(1.5, -0.75));
+  float c00 = aba_37_place(pos, r, vec2(1.0,  -0.75));
+  float c01 = aba_37_place(pos, r, vec2(0.0,  -0.75));
+  float c02 = aba_37_place(pos, r, vec2(-1.0, -0.75));
+  float c03 = aba_37_place(pos, r, vec2(-1.5, -0.75));
+  float c04 = aba_37_place(pos, r, vec2(1.5, -0.75));
 
-  float c10 = l16_place(pos, r * mul, vec2(1.0,  0.0));
-  float c11 = l16_place(pos, r * mul, vec2(0.0,  0.0));
-  float c12 = l16_place(pos, r * mul, vec2(-1.0, 0.0));
-  float c13 = l16_place(pos, r * mul, vec2(-1.5, 0.0));
-  float c14 = l16_place(pos, r * mul, vec2(1.5, 0.0));
+  float c10 = aba_37_place(pos, r * mul, vec2(1.0,  0.0));
+  float c11 = aba_37_place(pos, r * mul, vec2(0.0,  0.0));
+  float c12 = aba_37_place(pos, r * mul, vec2(-1.0, 0.0));
+  float c13 = aba_37_place(pos, r * mul, vec2(-1.5, 0.0));
+  float c14 = aba_37_place(pos, r * mul, vec2(1.5, 0.0));
 
-  float c20 = l16_place(pos, r, vec2(1.0,  0.75));
-  float c21 = l16_place(pos, r, vec2(0.0,  0.75));
-  float c22 = l16_place(pos, r, vec2(0.0, 0.75));
-  float c23 = l16_place(pos, r, vec2(-1.5, 0.75));
-  float c24 = l16_place(pos, r, vec2(1.5, 0.75));
+  float c20 = aba_37_place(pos, r, vec2(1.0,  0.75));
+  float c21 = aba_37_place(pos, r, vec2(0.0,  0.75));
+  float c22 = aba_37_place(pos, r, vec2(0.0, 0.75));
+  float c23 = aba_37_place(pos, r, vec2(-1.5, 0.75));
+  float c24 = aba_37_place(pos, r, vec2(1.5, 0.75));
 
   color *= vec3(c01 * (c11) * c13 * (c14));
   color /= vec3((c01 * c03 * c04));
@@ -90,7 +86,7 @@ vec3 l16_alternate(in vec2 pos, vec3 color, float time, peakamp audio) {
   return color;
 }
 
-void aba_16(vec3 p3, float time, peakamp audio) {
+void aba_37(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy * 5.5;
   vec3 color = vec3(1.0);
   float mul = 3.5;

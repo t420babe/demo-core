@@ -17,22 +17,18 @@
 #include "./lib/common/plot.glsl"
 #endif
 
-float aba_32_circle_1(vec2 st, float radius) {
-    return length(st) * radius;
-}
+#ifndef PXL_CIRCLE
+#include "lib/pxl/circle-sdf.glsl"
+#endif
 
-float aba_32_place(vec2 p, float r, vec2 off) {
-  p += off;
-  return aba_32_circle_1(p, r);
-}
 
 vec3 aba_32_four_dots(vec2 pos, vec3 color, peakamp audio) {
   float r = 1.0 * abs(audio.notch);
 
-  float c0 = aba_32_place(pos, r, vec2(1.5, 0.0));
-  float c1 = aba_32_place(pos, r, vec2(0.5, 0.0));
-  float c2 = aba_32_place(pos, r, vec2(-0.5, 0.0));
-  float c3 = aba_32_place(pos, r, vec2(-1.5, 0.0));
+  float c0 = place(pos, r, vec2(1.5, 0.0));
+  float c1 = place(pos, r, vec2(0.5, 0.0));
+  float c2 = place(pos, r, vec2(-0.5, 0.0));
+  float c3 = place(pos, r, vec2(-1.5, 0.0));
 
   color *= sharp(c0);
   color *= sharp(c1);
@@ -42,28 +38,24 @@ vec3 aba_32_four_dots(vec2 pos, vec3 color, peakamp audio) {
   return color;
 }
 
-void aba_32_from_255(inout vec3 rgb) {
-  rgb /= 255.0;
-}
-
 vec3 aba_32_alternate(in vec2 pos, vec3 color, peakamp audio) {
   pos = pos.yx;
   // vec3 fill = vec3(222.0, 200.0, 91.0);
   vec3 fill = vec3(33.0, 55.0, 164.0);
-  aba_32_from_255(fill);
+  from_255(fill);
   float r = 5.0 * abs(audio.highpass * audio.lowpass);
 
-  float c00 = aba_32_place(pos, r, vec2(1.0,  -0.75));
-  float c01 = aba_32_place(pos, r, vec2(0.0,  -0.75));
-  float c02 = aba_32_place(pos, r, vec2(-1.0, -0.75));
+  float c00 = place(pos, r, vec2(1.0,  -0.75));
+  float c01 = place(pos, r, vec2(0.0,  -0.75));
+  float c02 = place(pos, r, vec2(-1.0, -0.75));
 
-  float c10 = aba_32_place(pos, r, vec2(1.0,  0.0));
-  float c11 = aba_32_place(pos, r, vec2(0.0,  0.0));
-  float c12 = aba_32_place(pos, r, vec2(-1.0, 0.0));
+  float c10 = place(pos, r, vec2(1.0,  0.0));
+  float c11 = place(pos, r, vec2(0.0,  0.0));
+  float c12 = place(pos, r, vec2(-1.0, 0.0));
 
-  float c20 = aba_32_place(pos, r, vec2(1.0,  0.75));
-  float c21 = aba_32_place(pos, r, vec2(0.0,  0.75));
-  float c22 = aba_32_place(pos, r, vec2(-1.0, 0.75));
+  float c20 = place(pos, r, vec2(1.0,  0.75));
+  float c21 = place(pos, r, vec2(0.0,  0.75));
+  float c22 = place(pos, r, vec2(-1.0, 0.75));
 
   color *= vec3(c00 * 1.0 / c01 * c02);
   color *= vec3(c10 * 1.0 / c11 * c12);

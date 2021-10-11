@@ -1,5 +1,5 @@
-#ifndef T420BABE_LIGHTS_28
-#define T420BABE_LIGHTS_28
+#ifndef T4B_ABA_28
+#define T4B_ABA_28
 
 #ifndef COMMON_WRAP_TIME
 #include "./lib/common/wrap-time.glsl"
@@ -18,27 +18,18 @@
 #endif
 
 #ifndef PXL_ROTATE
-#include "./lib/pxl/rotate-sdf.glsl"
+#include "lib/pxl/rotate-sdf.glsl"
 #endif
 
 #ifndef T420BABE_MISX_18
-#include "./lib/t420babe/misc/misx-18.glsl"
+#include "lib/t420babe/aax/aax-18.glsl"
 #endif
-
-// #ifndef T420BABE_DESTINED_04
-// #include "./lib/t420babe/destined/destined-04.glsl"
-// #endif
 
 #ifndef PXL_CIRCLE
-#include "./lib/pxl/circle-sdf.glsl"
+#include "lib/pxl/circle-sdf.glsl"
 #endif
 
-float place(vec2 p, float r, vec2 off) {
-  p += off;
-  return circle_1(p, r);
-}
-
-vec3 four_dots(vec2 pos, vec3 color, peakamp audio) {
+vec3 aba_28_four_dots(vec2 pos, vec3 color, peakamp audio) {
   float r = 1.0 * abs(audio.notch);
 
   float c0 = place(pos, r, vec2(1.5, 0.0));
@@ -54,68 +45,75 @@ vec3 four_dots(vec2 pos, vec3 color, peakamp audio) {
   return color;
 }
 
-void from_255(inout vec3 rgb) {
-  rgb /= 255.0;
-}
-
-vec3 alternate(in vec2 pos, vec3 color, peakamp audio) {
-  // pos = pos.yx;
-  // vec3 fill = vec3(222.0, 200.0, 91.0);
-  // vec3 fill = vec3(133.0, 155.0, 224.0); // gold
-  // vec3 fill = vec3(133.0, 155.0, 124.0); // purple
-  vec3 fill = vec3(133.0, 155.0, 100.0); // purple
+vec3 aba_28_alternate(in vec2 pos, vec3 color, float time, peakamp audio) {
+  // pos = pos.yx * pos.x * 0.5;
+  pos = abs(sin(pos * 0.8) * (wrap_time(time, 4.0) + 4.5));
+  vec3 fill = vec3(1.0);
+  fill = vec3(233.0, 255.0, 164.0);
   from_255(fill);
-  float r = 1.0 * audio.bandpass;
-  // float r = 5.0 * abs(audio.highpass * audio.lowpass);
+  if (abs(audio.notch) > 0.4) {
+    fill = vec3(200.0, 174.0, 117.0);
+    from_255(fill);
+    fill = 1.0 - fill;
+  }
+  // fill.r *= abs(sin(time) + 0.1);
+  fill.b *= abs(cos(time) + 0.4);
+  fill.r *= abs(audio.notch);
+  // fill.g *= abs(audio.notch) * abs(sin(time)) * 1.0;
+  float r = 1.0 * abs(audio.highpass * audio.lowpass + abs(audio.notch));
+  float mul = (clamp(sin(time * 0.5), 0.5, 1.0) + 0.05) * 0.25;
+  // float r = 1.5 * abs(audio.bandpass * audio.notch);
+  // pos = pos.yx;
+  pos /= 2.5;
+  // pos = rotate2d(sin(time) * 3.14 / 0.5) * pos;
+  // pos = rotate2d(fract(time) * tan(time) *0.14) * pos.yx;
+  //
+  float play = abs(sin(time / 0.8)) + 0.1;
+  float f0 = (sin(time / 0.8)) + 0.1;
 
+  float c00 = place(pos, r, vec2(f0 * 1.0,  f0 * -0.75));
+  float c01 = place(pos, r, vec2(f0,        f0 * -0.75));
+  float c02 = place(pos, r, vec2(f0 * -2.0, f0 * -0.75));
+  float c03 = place(pos, r, vec2(f0 * -1.5, f0 * -1.75));
+  float c04 = place(pos, r, vec2(f0 * 1.5,  f0 * -0.75));
 
-  // vec2 pos1 = rotate2d(abs(sin(u_time) * 3.14 * cos(u_time) * 3.14)) * pos;
-  // vec2 translate = vec2(atan(u_time * 2.0), tan(u_time * 2.0));
-  vec2 translate = vec2(sin(u_time * 4.5), sin(u_time * 4.5));  
-  vec2 pos1 = pos * 5.0;
-  // pos1 /= translate;
-  // pos1.y += 1.0;
-  pos1 = rotate2d((cos(u_time * 2.0) * sin(pos1.x))) * pos1;
-  pos1 *= 0.3;
+  float c10 = place(pos, r * mul, vec2(f0 * 1.0,  play));
+  float c11 = place(pos, r * mul, vec2(f0,        play));
+  float c12 = place(pos, r * mul, vec2(f0 * -1.0, play));
+  float c13 = place(pos, r * mul, vec2(f0 * -1.5, play));
+  float c14 = place(pos, r * mul, vec2(f0 * 1.5,  play));
 
-  float c00 = place(pos, r, vec2(1.5,  0.0));
-  float c01 = place(pos, r, vec2(0.0,  0.0));
-  float c02 = place(pos, r, vec2(-1.5, 0.0));
+  float c20 = place(pos, r, vec2(f0 * 1.0,  f0 * 0.75));
+  float c21 = place(pos, r, vec2(f0 * 0.0,  f0 * 0.75));
+  float c22 = place(pos, r, vec2(f0 * 0.0,  f0 * 0.75));
+  float c23 = place(pos, r, vec2(f0 * -1.5, f0 * 0.75));
+  float c24 = place(pos, r, vec2(f0 * 1.5,  f0 * 0.75));
 
-  float c10 = place(pos1, r, vec2(1.5,  0.0));
-  float c11 = place(pos1, r, vec2(0.0,  0.0));
-  float c12 = place(pos1, r, vec2(-1.5, 0.0));
+  color /= vec3((c01 * c02 * c03 / c04));
+  color *= vec3(c01 * (c11) * c13 * (c14));
+  color /= vec3((c20 * c21 * c23 * c24));
+  color /= fill;
 
-  float c20 = place(pos, r, vec2(1.5,  0.0));
-  float c21 = place(pos, r, vec2(0.0,  0.0));
-  float c22 = place(pos, r, vec2(-1.5, 0.0));
-
-  // float c20 = place(pos, r, vec2(1.0,  0.75));
-  // float c21 = place(pos, r, vec2(0.0,  0.75));
-  // float c22 = place(pos, r, vec2(-1.0, 0.75));
-
-  color *= vec3(sharp(1.0 / c10 * 1.0 / c11 * 1.0 / c12));
-  color -= vec3((c00 * c01 * c02));
-  // color /= vec3(c20 * c21 * c22);
-  // color /= fill;
-
-  vec3 effect_color = misx_18(pos, u_time, audio);
-  // effect_color = effect_color.bgr;
-  color *= effect_color;
   // color = 1.0 - color;
+  // return color;
+
+ vec3 effect_color = aax_18_color(vec3(pos, p3.z), time, audio);
+  color -= effect_color;
+  // color += effect_color;
   return color;
 }
 
-vec3 lights_28(vec2 pos, float u_time, peakamp audio) {
+void aba_28(vec3 p3, float time, peakamp audio) {
+  vec2 pos = p3.xy;
   vec3 color = vec3(1.0);
-  audio.lowpass   *= 0.8;
-  audio.highpass  *= 0.8;
-  audio.bandpass  *= 0.8;
-  audio.notch     *= 0.8;
+  audio.lowpass   *= 1.0;
+  audio.highpass  *= 1.0;
+  audio.bandpass  *= 1.0;
+  audio.notch     *= 1.0;
 
-  color = alternate(pos, color, audio);
+  color = aba_28_alternate(pos, color, time, audio);
   // color = 1.0 - color;
 
-  return color;
+  gl_FragColor = vec4(color, 1.0);
 }
 #endif

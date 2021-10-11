@@ -1,68 +1,60 @@
 // #effect #shadershoot #faveffect3
-#ifndef T420BABE_DESTINED_04
-#define T420BABE_DESTINED_04
+#ifndef T4B_AAT_04
+#define T4B_AAT_04
 
 #ifndef COMMON_PEAKAMP
-#include "./lib/common/peakamp.glsl"
+#include "lib/common/peakamp.glsl"
 #endif
 
 #ifndef COMMON_PLOT
-#include "./lib/common/plot.glsl"
+#include "lib/common/plot.glsl"
 #endif
 
 #ifndef COMMON_PERMUTE
-#include "./lib/common/permute.glsl"
+#include "lib/common/permute.glsl"
 #endif
-
 
 #ifndef PXL_CIRCLE
-#include "./lib/pxl/circle-sdf.glsl"
+#include "lib/pxl/circle-sdf.glsl"
 #endif
 
-float destined_04_circle(vec2 _pos, float _radius){
+float aat_04_circle(vec2 _pos, float _radius, float time){
   vec2 pos = vec2(0.5) - _pos;
-  // _radius *= tan(u_time * 0.1) * -0.10;
-  _radius *= 1.0 / cos(pos.x * pos.y) * sin(u_time);
+  // _radius *= tan(time * 0.1) * -0.10;
+  _radius *= 1.0 / cos(pos.x * pos.y) * sin(time);
 
-  // _radius *= tan(u_time * 1.0) * -0.10;
+  // _radius *= tan(time * 1.0) * -0.10;
   // _radius *= 3.00;
   // return smoothstep(_radius-(_radius*0.01),_radius+(_radius*0.01),dot(pos,pos)*3.14);
   // return 1.0 - smoothstep(_radius - (_radius * 1.1), (_radius * 0.1), dot(pos, pos) * 0.14);
-  // return 1.0 - smoothstep(_radius - (_radius * (abs(sin(u_time * 0.3))) - 0.5), _radius + (_radius*0.01), dot(pos, pos) * 3.14);
+  // return 1.0 - smoothstep(_radius - (_radius * (abs(sin(time * 0.3))) - 0.5), _radius + (_radius*0.01), dot(pos, pos) * 3.14);
   return 1.0 - smoothstep(_radius - (_radius   - 1.5), _radius * (_radius * 0.01), dot(acos(pos), acos(pos)) * 0.01);
 }
 
-vec3 damier(vec2 pos, float u_time) {
-  vec3 color = vec3(1.0);
-  color *= 7.0;
-  // vec3 color = vec3(abs(audio.notch) * 1.5, 1.0, 1.0);
-  // vec3 color = vec3(1.0, abs(audio.notch) * 1.5, 1.0);
-
-  float zoom = 1.0;
-  pos *= zoom;
-  pos.y += 0.5;
-  pos.x += 0.5;
-  color -= vec3(destined_04_circle(pos + vec2(0.,0.1), 1.000)+
-                    destined_04_circle(pos+vec2(0.00,-0.1), 1.000)+
-                    destined_04_circle(pos+vec2(-0.1,0.), -1.000)+
-                    destined_04_circle(pos+vec2(0.1,0), 0.007));
-
-  return color;
-}
+// vec3 damier(vec2 pos, float time) {
+//   vec3 color = vec3(1.0);
+//   color *= 7.0;
+//   // vec3 color = vec3(abs(audio.notch) * 1.5, 1.0, 1.0);
+//   // vec3 color = vec3(1.0, abs(audio.notch) * 1.5, 1.0);
+//
+//   float zoom = 1.0;
+//   pos *= zoom;
+//   pos.y += 0.5;
+//   pos.x += 0.5;
+//   color -= vec3(aat_04_circle(pos + vec2(0.,0.1), 1.000, time)+
+//                     aat_04_circle(pos+vec2(0.00,-0.1), 1.000, time)+
+//                     aat_04_circle(pos+vec2(-0.1,0.), -1.000, time)+
+//                     aat_04_circle(pos+vec2(0.1,0), 0.007, time));
+//
+//   return color;
+// }
 
 
 /* AUDIO_CIRCLE BEGIN */
 #ifndef T420BABE_AUDIO_CIRCLE
 
-/* PXL_CIRCLE BEGIN */
-#ifndef PXL_CIRCLE
-float circle_1(vec2 st, float radius) {
-    return length(st) * radius;
-}
-#endif
-/* PXL_CIRCLE END */
 
-void purple_circle_oh_yes_he_is_mio(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+void purple_circle_oh_yes_he_is_mio(vec2 pos, float time, peakamp audio, out vec3 color) {
   // vec2 pos = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   color = vec3(0.2, 0.243, 0.0234);
 
@@ -97,13 +89,12 @@ float clouds_noise (in vec2 _pos) {
 
 
 float clouds_fbm ( in vec2 _pos) {
-  int num_octaves = 5;
     float v = 0.0;
     float a = 0.5;
     vec2 shift = vec2(5.0);
     // Rotate to reduce axial bias
     mat2 rot = mat2(cos(0.5), sin(0.5), sin(0.5), cos(0.50));
-    for (int i = 0; i < num_octaves; ++i) {
+    for (int i = 0; i < 5; ++i) {
         v += a * clouds_noise(_pos);
         _pos = rot * _pos * 2.0 + shift;
         a *= 0.5;
@@ -111,10 +102,10 @@ float clouds_fbm ( in vec2 _pos) {
     return v;
 }
 
-void clouds(vec2 pos, float u_time, peakamp audio, out vec3 color) {
+void clouds(vec2 pos, float time, peakamp audio, out vec3 color) {
 
     vec2 q = vec2(0.);
-    q.x = clouds_fbm( pos + 0.00*u_time);
+    q.x = clouds_fbm( pos + 0.00*time);
     q.y = clouds_fbm( pos + vec2(1.0));
 
     vec2 r = vec2(0.);
@@ -142,29 +133,23 @@ void clouds(vec2 pos, float u_time, peakamp audio, out vec3 color) {
 
 /* T420BABE_SHARP_HEART BEGIN */
 #ifndef T420BABE_SHARP_HEART
-void say_nothing_none(vec2 pos, float u_time, peakamp audio, out vec3 color) {
-  clouds(pos, u_time, audio, color);
-  // float vesica_wrap = wrap_time(u_time, 100.0);
+void say_nothing_none(vec2 pos, float time, peakamp audio, out vec3 color) {
+  clouds(pos, time, audio, color);
+  // float vesica_wrap = wrap_time(time, 100.0);
   // float tri_wrap = 1.5;
-  // float tri = (triangle_web_0(pos, audio, u_time * 0.1));
+  // float tri = (triangle_web_0(pos, audio, time * 0.1));
   // color *= (tri);
 
   color.g *= audio.bandpass;
   color.g /= audio.bandpass * 4.0;
   color.b *= audio.lowpass * 1.0;
   // color.b *= audio.highpass * 2.5;
-  color.b *= abs(sin(u_time));
+  color.b *= abs(sin(time));
   // color += heart_color;
   color.r *= abs(audio.bandpass);
 }
 #endif
 /* T420BABE_SHARP_HEART END */
-
-// // Permutation polynomial: (34x^2 + x) mod 289
-// vec3 permute(vec3 x) {
-//   return mod((34.0 * x + 1.0) * x, 289.0);
-// }
-
 
 // Cellular noise, returning F1 and F2 in a vec2.
 // Standard 3x3 search window for good F1 and F2 values
@@ -210,17 +195,17 @@ vec2 cellular(vec2 P) {
 }
 
 varying vec2 v_texcoord;
-float cellular_2d(vec2 pos, float u_time, peakamp audio, inout vec3 color) {
+float cellular_2d(vec2 pos, float time, peakamp audio, inout vec3 color) {
   float n = 1.0;
   vec2 F = cellular((pos));
   float facets = 0.01 + (F.y-F.x);
   float dots = smoothstep(0.05, 0.1, F.x);
   // n = facets * dots;
-  n = facets * abs(atan(u_time));
+  n = facets * abs(atan(time));
   return n;
 }
 
-vec3 destined_04(vec2 pos, float u_time, peakamp audio) {
+vec3 aat_04(vec2 pos, float time, peakamp audio) {
   vec3 color = vec3(1.0);
   vec3 n_color;
   audio.notch     *= 1.5;
@@ -228,11 +213,11 @@ vec3 destined_04(vec2 pos, float u_time, peakamp audio) {
   audio.highpass  *= 1.5;
   audio.bandpass  *= 1.5;
 
-  float n = cellular_2d(3.0 * pos, u_time, audio, n_color);
-  say_nothing_none(5.0 * pos, u_time, audio, color);
+  float n = cellular_2d(3.0 * pos, time, audio, n_color);
+  say_nothing_none(5.0 * pos, time, audio, color);
   // color += 0.1;
   color /= n + 0.05;
-  // vec3 damier_color = damier(1.75 * pos, u_time);
+  // vec3 damier_color = damier(1.75 * pos, time);
   // color *= clamp(damier_color, 2.5, 10.0);
   // color *= damier_color;
   // color += 0.05;

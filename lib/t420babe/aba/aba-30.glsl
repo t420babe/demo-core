@@ -1,5 +1,5 @@
-#ifndef T420BABE_LIGHTS_28
-#define T420BABE_LIGHTS_28
+#ifndef T4B_ABA_30
+#define T4B_ABA_30
 
 #ifndef COMMON_WRAP_TIME
 #include "./lib/common/wrap-time.glsl"
@@ -21,21 +21,13 @@
 #include "./lib/pxl/rotate-sdf.glsl"
 #endif
 
-// #ifndef T420BABE_MISX_18
-// #include "./lib/t420babe/misc/misx-18.glsl"
-// #endif
-#ifndef T420BABE_DESTINED_04
-#include "./lib/t420babe/destined/destined-04.glsl"
-#endif
-
 #ifndef PXL_CIRCLE
 #include "./lib/pxl/circle-sdf.glsl"
 #endif
 
-float place(vec2 p, float r, vec2 off) {
-  p += off;
-  return circle_1(p, r);
-}
+#ifndef T4B_AAT_04
+#include "lib/t420babe/aat/att-04.glsl"
+#endif
 
 vec3 four_dots(vec2 pos, vec3 color, peakamp audio) {
   float r = 1.0 * abs(audio.notch);
@@ -53,11 +45,7 @@ vec3 four_dots(vec2 pos, vec3 color, peakamp audio) {
   return color;
 }
 
-void from_255(inout vec3 rgb) {
-  rgb /= 255.0;
-}
-
-vec3 alternate(in vec2 pos, vec3 color, peakamp audio) {
+vec3 alternate(in vec2 pos, vec3 color, float time, peakamp audio) {
   // pos = pos.yx;
   // vec3 fill = vec3(222.0, 200.0, 91.0);
   // vec3 fill = vec3(133.0, 155.0, 224.0); // gold
@@ -68,13 +56,13 @@ vec3 alternate(in vec2 pos, vec3 color, peakamp audio) {
   // float r = 5.0 * abs(audio.highpass * audio.lowpass);
 
 
-  // vec2 pos1 = rotate2d(abs(sin(u_time) * 3.14 * cos(u_time) * 3.14)) * pos;
-  // vec2 translate = vec2(atan(u_time * 2.0), tan(u_time * 2.0));
-  vec2 translate = vec2(sin(u_time * 4.5), sin(u_time * 4.5));  
+  // vec2 pos1 = rotate2d(abs(sin(time) * 3.14 * cos(time) * 3.14)) * pos;
+  // vec2 translate = vec2(atan(time * 2.0), tan(time * 2.0));
+  vec2 translate = vec2(sin(time * 4.5), sin(time * 4.5));  
   vec2 pos1 = pos * 5.0;
   pos1 /= translate;
   pos1.y += 1.0;
-  pos1 = rotate2d((cos(u_time * 2.0) * pos1.y * pos.x)) * pos1;
+  pos1 = rotate2d((cos(time * 2.0) * pos1.y * pos.x)) * pos1;
   pos1 *= 0.4;
 
   float c00 = place(pos, r, vec2(1.5,  0.0));
@@ -98,23 +86,24 @@ vec3 alternate(in vec2 pos, vec3 color, peakamp audio) {
   color /= vec3(c20 * c21 * c22);
   // color /= fill;
 
-  vec3 effect_color = destined_04(pos, u_time, audio) * 0.5;
+  vec3 effect_color = aat_04(pos, time, audio) * 0.5;
   // effect_color = effect_color.bgr;
-  color /= effect_color;
+  color *= effect_color;
   // color = 1.0 - color;
   return color;
 }
 
-vec3 lights_28(vec2 pos, float u_time, peakamp audio) {
+void aba_30(vec3 p3, float time, peakamp audio) {
+  vec2 pos = p3.xy;
   vec3 color = vec3(1.0);
-  audio.lowpass   *= 4.0;
-  audio.highpass  *= 4.0;
-  audio.bandpass  *= 4.0;
-  audio.notch     *= 4.0;
+  audio.lowpass   *= 1.0;
+  audio.highpass  *= 1.0;
+  audio.bandpass  *= 1.0;
+  audio.notch     *= 1.0;
 
-  color = alternate(pos, color, audio);
+  color = alternate(pos * 2.0, color, time, audio);
   color = 1.0 - color;
 
-  return color;
+  gl_FragColor = vec4(color, 1.0);
 }
 #endif
