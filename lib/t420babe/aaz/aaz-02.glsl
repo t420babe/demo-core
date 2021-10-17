@@ -1,5 +1,5 @@
-#ifndef T420BABE_IN_SEARCH_OF_02
-#define T420BABE_IN_SEARCH_OF_02
+#ifndef T4B_AAZ_02
+#define T4B_AAZ_02
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -17,7 +17,7 @@
 #include "./lib/common/math-constants.glsl"
 #endif
 
-vec2 iso_02_cellular2x2x2(vec3 P) {
+vec2 aaz_02_cellular2x2x2(vec3 P) {
 	float K = 0.142857142857; // 1/7
 	float Ko = 0.428571428571; // 1/2-K/2
 	float K2 = 0.020408163265306; // 1/(7*7)
@@ -69,14 +69,15 @@ vec2 iso_02_cellular2x2x2(vec3 P) {
 #endif
 }
 
-float iso_02_spiral(vec2 st, float t) {
+float aaz_02_spiral(vec2 st, float t) {
     float r = dot(st.yx, st.yx);
     float a = atan(st.y,st.x);
     return abs(((fract(r) * t / 1.0 * 1.000)));
 }
 
 
-vec3 iso_02(vec2 pos, float u_time, peakamp audio) {
+void aaz_02(vec3 p3, float time, peakamp audio) {
+  vec2 pos = p3.xy;
   vec3 color = vec3(1.0);
   audio.lowpass   *= 1.0;
   audio.highpass  *= 1.0;
@@ -85,12 +86,12 @@ vec3 iso_02(vec2 pos, float u_time, peakamp audio) {
 
   vec2 st = pos;
   st.y += 1.0;
-  st *= 25.0 * abs(sin(u_time * 0.01));
-	vec2 F = iso_02_cellular2x2x2(vec3(st * 1.0, u_time));
-	float n = smoothstep(0.0, abs(sin(u_time * 0.05)) + 1.0, F.x) / ( abs(audio.notch * 1.0));
+  st *= 25.0 * abs(sin(time * 0.01));
+	vec2 F = aaz_02_cellular2x2x2(vec3(st * 1.0, time));
+	float n = smoothstep(0.0, abs(sin(time * 0.05)) + 1.0, F.x) / ( abs(audio.notch * 1.0));
   // n = step(n, sin(pos.x));
   color = vec3(n);
-  color -= iso_02_spiral(pos.yx * 7.0 * abs(audio.bandpass * 0.5), wrap_time(u_time, 10.0) + 10.0);
+  color -= aaz_02_spiral(pos.yx * 7.0 * abs(audio.bandpass * 0.5), wrap_time(time, 10.0) + 10.0);
   color.b *= 1.053 / abs(audio.lowpass * 0.9);
   // color.b -= 0.4;
   color.r *= 3.7 * abs(audio.highpass * 2.0);
@@ -101,6 +102,6 @@ vec3 iso_02(vec2 pos, float u_time, peakamp audio) {
   // color = 1.5 - color;
 
 
-  return color;
+  gl_FragColor = vec4(color, 1.0);
 }
 #endif

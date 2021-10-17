@@ -1,5 +1,5 @@
-#ifndef T420BABE_IN_SEARCH_OF_07
-#define T420BABE_IN_SEARCH_OF_07
+#ifndef T4B_AAZ_07
+#define T4B_AAZ_07
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -17,7 +17,7 @@
 #include "./lib/common/permute.glsl"
 #endif
 
-vec2 iso_07_cellular2x2x2(vec3 P) {
+vec2 aaz_07_cellular2x2x2(vec3 P) {
 	float K = 0.142857142857; // 1/7
 	float Ko = 0.428571428571; // 1/2-K/2
 	float K2 = 0.020408163265306; // 1/(7*7)
@@ -69,15 +69,16 @@ vec2 iso_07_cellular2x2x2(vec3 P) {
 #endif
 }
 
-float iso_07_spiral_pxll(vec2 st, float t) {
+float aaz_07_spiral_pxll(vec2 st, float t) {
     float r = dot(st.yx, st.yx) * 0.5;
     float a = atan(st.y,st.x)  * 0.5;
     return abs(((sin(r * t)   / r)));
 }
 
 
-vec3 iso_07(vec2 pos, float u_time, peakamp audio) {
-  u_time += 100.0;
+void aaz_07(vec3 p3, float time, peakamp audio) {
+  vec2 pos = p3.xy;
+  time += 100.0;
   vec3 color = vec3(1.0);
   audio.lowpass   *= 1.0;
   audio.highpass  *= 1.0;
@@ -86,14 +87,14 @@ vec3 iso_07(vec2 pos, float u_time, peakamp audio) {
 
   vec2 st = pos;
   st.y += 1.0;
-  st *= 25.0 * abs(sin(u_time * 0.01));
-	vec2 F = iso_07_cellular2x2x2(vec3(st * 1.0, u_time));
-	float n = smoothstep(0.0, abs(sin(u_time * 0.05)) + 1.0, F.x) / ( abs(audio.notch * 0.5));
+  st *= 25.0 * abs(sin(time * 0.01));
+	vec2 F = aaz_07_cellular2x2x2(vec3(st * 1.0, time));
+	float n = smoothstep(0.0, abs(sin(time * 0.05)) + 1.0, F.x) / ( abs(audio.notch * 0.5));
   // n = step(n, sin(pos.x));
   color = vec3(n);
   pos *= 2.0;
-  // color -= iso_07_spiral_pxll(abs(sin(pos.yy) * cos(pos.xy)) * 3.0 * abs(audio.bandpass), 1.0 * wrap_time(u_time, 10.0) + 10.0);
-  color -= iso_07_spiral_pxll(3.0 * pos.yx * abs(audio.bandpass), 1.0 * wrap_time(u_time, 10.0) + 10.0);
+  // color -= aaz_07_spiral_pxll(abs(sin(pos.yy) * cos(pos.xy)) * 3.0 * abs(audio.bandpass), 1.0 * wrap_time(time, 10.0) + 10.0);
+  color -= aaz_07_spiral_pxll(3.0 * pos.yx * abs(audio.bandpass), 1.0 * wrap_time(time, 10.0) + 10.0);
   color.b *= 1.053 / abs(audio.lowpass);
   // color.b -= 0.4;
   color.r /= 0.4 * abs(audio.highpass);
@@ -112,6 +113,6 @@ vec3 iso_07(vec2 pos, float u_time, peakamp audio) {
   color = color.bgr;
   }
 
-  return color;
+  gl_FragColor = vec4(color, 1.0);
 }
 #endif

@@ -1,5 +1,5 @@
-#ifndef T420BABE_IN_SEARCH_OF_06
-#define T420BABE_IN_SEARCH_OF_06
+#ifndef T4B_AAZ_06
+#define T4B_AAZ_06
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -17,7 +17,7 @@
 #include "./lib/common/math-constants.glsl"
 #endif
 
-vec2 iso_06_cellular2x2x2(vec3 P, float time) {
+vec2 aaz_06_cellular2x2x2(vec3 P, float time) {
 	float K = 0.142857142857; // 1/7
 	float Ko = 0.428571428571; // 1/2-K/2
 	float K2 = 0.020408163265306; // 1/(7*7)
@@ -68,19 +68,20 @@ vec2 iso_06_cellular2x2x2(vec3 P, float time) {
 	return sqrt(d.yz); // F1 and F2
 #endif
 }
-float iso_06_spiral_pxl_og(vec2 st, float t) {
+float aaz_06_spiral_pxl_og(vec2 st, float t) {
     float r = dot(st.yx, st.yx);
     float a = atan(st.y,st.x);
     return abs(((fract(r) * t / 1.0 * 1.000)));
 }
 
-float iso_06_spiral_pxl(vec2 st, float t) {
+float aaz_06_spiral_pxl(vec2 st, float t) {
     float r = dot(st.yx, st.yx) * 0.5;
     float a = atan(st.y,st.x)  * 0.5;
     return (((sin(r) * t  * log(a * sin(t)) / 1.0 * 1.000)));
 }
 
-vec3 iso_06(vec2 pos, float time, peakamp audio) {
+void aaz_06(vec3 p3, float time, peakamp audio) {
+  vec2 pos = p3.xy;
   // time -= 260.0;
   vec3 color = vec3(1.0);
   audio.lowpass   *= 0.8;
@@ -92,13 +93,13 @@ vec3 iso_06(vec2 pos, float time, peakamp audio) {
   st.y += 10.0;
   pos.y -= 1.0;
   st *= 25.0 * abs(sin(time * 0.01));
-	vec2 F = iso_06_cellular2x2x2(vec3(st * 1.0, time), time);
+	vec2 F = aaz_06_cellular2x2x2(vec3(st * 1.0, time), time);
 	float n = smoothstep(0.0, abs(sin(time * 0.05)) + 1.0, F.x) / ( abs(audio.notch * 0.5));
   // n = step(n, sin(pos.x));
   color = vec3(n);
   pos *= 2.0;
-  // color -= iso_06_spiral_pxl(abs(sin(pos.yy) * cos(pos.xy)) * 3.0 * abs(audio.bandpass), 1.0 * wrap_time(time, 10.0) + 10.0);
-  color -= iso_06_spiral_pxl(3.0 * pos.yx * abs(audio.bandpass), 1.0 * wrap_time(time, 10.0) + 00.0);
+  // color -= aaz_06_spiral_pxl(abs(sin(pos.yy) * cos(pos.xy)) * 3.0 * abs(audio.bandpass), 1.0 * wrap_time(time, 10.0) + 10.0);
+  color -= aaz_06_spiral_pxl(3.0 * pos.yx * abs(audio.bandpass), 1.0 * wrap_time(time, 10.0) + 00.0);
   color.b *= 1.053 / abs(audio.lowpass);
   // color.b -= 0.4;
   color.r /= 0.4 * abs(audio.highpass);
@@ -108,6 +109,6 @@ vec3 iso_06(vec2 pos, float time, peakamp audio) {
   color = vec3(0.1, 0.5, 1.1) * color;
   color = 0.5 - color;
 
-  return color;
+  gl_FragColor = vec4(color, 1.0);
 }
 #endif

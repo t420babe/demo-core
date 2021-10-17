@@ -28,14 +28,14 @@ uniform sampler2D u_freq_slow;
 #include "lib/common/signal.glsl"
 #endif
 
-#ifndef T4B_ABA_44
-#include "lib/t420babe/aba/aba-44.glsl"
+#ifndef T4B_AAZ_19
+#include "lib/t420babe/aaz/aaz-19.glsl"
 #endif
 
 
 void main(void) {
   peakamp audio = u_audio;
   float time = t;
-  aba_44(p3, time, audio);
+  aaz_19(p3, time, audio);
   // plot_signal(p3.xy, audio);
 }
