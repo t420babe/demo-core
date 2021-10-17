@@ -28,14 +28,14 @@ uniform sampler2D u_freq_slow;
 #include "lib/common/signal.glsl"
 #endif
 
-#ifndef T4B_AAZ_19
-#include "lib/t420babe/aaz/aaz-19.glsl"
+#ifndef T4B_AAZ_00
+#include "lib/t420babe/aaz/aaz-00.glsl"
 #endif
 
 
 void main(void) {
+  vec2 p2 = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   peakamp audio = u_audio;
   float time = t;
-  aaz_19(p3, time, audio);
-  // plot_signal(p3.xy, audio);
+  aaz_00(vec3(p2, p3.z), time, audio);
 }

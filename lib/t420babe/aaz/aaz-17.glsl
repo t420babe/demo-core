@@ -9,14 +9,6 @@
 #include "./lib/common/plot.glsl"
 #endif
 
-#ifndef COMMON_PERMUTE
-#include "./lib/common/permute.glsl"
-#endif
-
-#ifndef COMMON_MATH_CONSTANTS
-#include "./lib/common/math-constants.glsl"
-#endif
-
 #ifndef CELLULAR_NOISE_2_X_2_X_2
 #include "lib/cellular-noise/cellular-2x2x2.glsl"
 #endif
