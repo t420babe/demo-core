@@ -1,5 +1,5 @@
-#ifndef AAY_00
-#define AAY_00
+#ifndef AAY_22
+#define AAY_22
 
 #ifndef COMMON_WRAP_TIME
 #include "./lib/common/wrap-time.glsl"
@@ -18,14 +18,14 @@
 #endif
 
 
-float aay_00_spiral_pxl(vec2 st, float t) {
+float aay_22_spiral_pxl(vec2 st, float t) {
     float r = dot(st.yx, st.yx) * 0.5;
     float a = atan(st.y,st.x)  * 0.5;
     return abs(((sin(r * t)   / r)));
 }
 
 
-void aay_00(vec3 p3, float time, peakamp audio) {
+void aay_22(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy;
   vec3 color = vec3(1.0);
   audio.lowpass   *= 2.0;
@@ -43,8 +43,8 @@ void aay_00(vec3 p3, float time, peakamp audio) {
   color = vec3(n);
   pos *= 1.5;
   pos.y += 1.5;
-  color -= abs(sin(time * 0.1) + 2.0) + 5.0 * aay_00_spiral_pxl(abs(sin(pos.yy) * cos(pos.xy)) * 4.5 * abs(1.0 * audio.bandpass), 0.1 * wrap_time(time, 10.0) + 10.0);
-  // color -= aay_00_spiral_pxl(3.0 * pos.yx * abs(audio.bandpass), 1.0 * wrap_time(time, 10.0) + 10.0);
+  color -= abs(sin(time * 0.1) + 2.0) + 5.0 * aay_22_spiral_pxl(abs(sin(pos.yy) * cos(pos.xy)) * 4.5 * abs(1.0 * audio.bandpass), 0.1 * wrap_time(time, 10.0) + 10.0);
+  // color -= aay_22_spiral_pxl(3.0 * pos.yx * abs(audio.bandpass), 1.0 * wrap_time(time, 10.0) + 10.0);
   color.b *= 4.5 * abs(audio.lowpass);
   color.b += 5.4;
   color.r /= 1.5 * abs(audio.highpass);

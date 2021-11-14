@@ -1,7 +1,7 @@
 // #effect #effectshape #fav4 #shadershoot
 // Smells So Good by Mike Mango
-#ifndef T420BABE_DAY_0_19
-#define T420BABE_DAY_0_19
+#ifndef AAY_19
+#define AAY_19
 
 #ifndef COMMON_WRAP_TIME
 #include "./lib/common/wrap-time.glsl"
@@ -80,7 +80,7 @@ float spiral_pxl(vec2 st, float t) {
     return abs(((sin(r * t)   / r)));
 }
 
-vec3 shapes(vec2 pos, float u_time, peakamp audio) {
+vec3 shapes(vec2 pos, float time, peakamp audio) {
     float x = pos.x;
     float y = pos.y;
 
@@ -104,7 +104,8 @@ vec3 shapes(vec2 pos, float u_time, peakamp audio) {
     return rgb;
 }
 
-vec3 day_0_19(vec2 pos, float u_time, peakamp audio) {
+void aay_19(vec3 p3, float time, peakamp audio) {
+  vec2 pos = p3.xy;
   vec3 color = vec3(1.0);
   audio.lowpass = abs(audio.lowpass);
   audio.highpass = abs(audio.highpass);
@@ -120,18 +121,18 @@ vec3 day_0_19(vec2 pos, float u_time, peakamp audio) {
   vec2 st = pos;
   st.y += 1.0;
   st *= 20.0;
-	vec2 F = cellular2x2x2(vec3(st * 1.0, u_time));
-  float n = smoothstep(0.0, abs(sin(u_time * 0.05)) + 1.0, F.y) / ( clamp(audio.bandpass * 0.545, 0.01, 10.0));
-  // float n = smoothstep(0.0, abs(sin(u_time * 0.05)) + 1.0, F.y) / ( (audio.bandpass * 0.015));
+	vec2 F = cellular2x2x2(vec3(st * 1.0, time));
+  float n = smoothstep(0.0, abs(sin(time * 0.05)) + 1.0, F.y) / ( clamp(audio.bandpass * 0.545, 0.01, 10.0));
+  // float n = smoothstep(0.0, abs(sin(time * 0.05)) + 1.0, F.y) / ( (audio.bandpass * 0.015));
   // n = step(n, sin(pos.x));
   color = vec3(n);
   // pos = pos.yx;
-  pos *= 3.0 * abs(sin(u_time * pos.x * 10.0));
+  pos *= 3.0 * abs(sin(time * pos.x * 10.0));
   pos.y *= 1.5 * sin(pos.y);
   // pos.y += abs(audio.notch) * 5.0;
   pos.x *= 5.5 * sin(pos.y);
-  color -= abs(sin(u_time * 0.1) + 2.0) + 5.0 * spiral_pxl(abs(sin(pos.yy) * cos(pos.xy)) * 4.5 * abs(1.0 * audio.bandpass), 0.1 * wrap_time(u_time, 10.0) + 10.0);
-  color /= spiral_pxl(3.0 * pos.yx * abs(audio.bandpass), 1.0 * wrap_time(u_time, 10.0) + 10.0);
+  color -= abs(sin(time * 0.1) + 2.0) + 5.0 * spiral_pxl(abs(sin(pos.yy) * cos(pos.xy)) * 4.5 * abs(1.0 * audio.bandpass), 0.1 * wrap_time(time, 10.0) + 10.0);
+  color /= spiral_pxl(3.0 * pos.yx * abs(audio.bandpass), 1.0 * wrap_time(time, 10.0) + 10.0);
   color.b *= 2.5 * (audio.lowpass);
   color.b += 5.4;
   color.r /= 2.5 * 1.5 * (audio.highpass);
@@ -142,7 +143,7 @@ vec3 day_0_19(vec2 pos, float u_time, peakamp audio) {
   // color -= (0.1 - n * 0.8);
   color += 1.5;
   ux.y += 1.5;
-  color /= 0.5 * shapes(ux * 20.0, u_time, audio);
+  color /= 0.5 * shapes(ux * 20.0, time, audio);
 
   // color /= vec3(15.08345, 0.0385, 10.6534);
 
@@ -153,7 +154,7 @@ vec3 day_0_19(vec2 pos, float u_time, peakamp audio) {
   } else if (audio.notch > 0.4) {
     color = color.gbr;
   }
-  return color;
+  gl_FragColor = vec4(color, 1.0);
 }
 #endif
 
