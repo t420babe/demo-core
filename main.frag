@@ -28,8 +28,8 @@ uniform sampler2D u_freq_slow;
 #include "lib/common/signal.glsl"
 #endif
 
-#ifndef T4B_ABQ_16
-#include "lib/t420babe/abq/abq-16.glsl"
+#ifndef T4B_ABQ_23
+#include "lib/t420babe/abq/abq-23.glsl"
 #endif
 
 
@@ -37,5 +37,5 @@ void main(void) {
   vec2 p2 = (2.0 * gl_FragCoord.xy - u_resolution.xy) / u_resolution.y;
   peakamp audio = u_audio;
   float time = t;
-  abq_16(vec3(p2, p3.z), time, audio);
+  abq_23(vec3(p2, p3.z), time, audio);
 }

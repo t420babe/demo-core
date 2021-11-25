@@ -1,5 +1,5 @@
-#ifndef T4B_ABQ_16
-#define T4B_ABQ_16
+#ifndef T4B_ABQ_22
+#define T4B_ABQ_22
 // Gelatinous
 
 
@@ -58,9 +58,9 @@ float hraymarch(vec3 ro, vec3 rd) {
   return t;
 }
 
-void abq_16(vec3 p3, float time, peakamp audio) {
+void abq_22(vec3 p3, float time, peakamp audio) {
   // vec2 uv = (2.0*fragCoord.xy-iResolution.xy)/max(iResolution.x, iResolution.y);
-  vec2 uv = p3.xy * 5.0;
+  vec2 uv = p3.xy;
   // Rotation position
   vec3 at = vec3(0, 0, 0);
   // vec3 ro = vec3(cos(time * 0.25) * 3.0, 2, sin(time * 0.25) * 3.0);
@@ -82,7 +82,7 @@ void abq_16(vec3 p3, float time, peakamp audio) {
 
   // float a = dot(nor, normalize(ro)) * 0.9 + 0.1;
   float a = dot(nor, normalize(ro));
-  vec3 a_v = vec3((a));
+  vec3 a_v = vec3(tan(a * audio.notch));
   a_v.r *= audio.notch * 4.0;
   a_v.g *= audio.lowpass * 3.0;
   a_v.b *= audio.highpass * 2.0;
