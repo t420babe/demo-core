@@ -56,17 +56,18 @@ float hraymarch(vec3 ro, vec3 rd) {
 void abq_32(vec3 p3, float time, peakamp audio) {
   // vec2 uv = (2.0*fragCoord.xy-iResolution.xy)/max(iResolution.x, iResolution.y);
   vec2 uv = p3.xy;
-  vec3 at = vec3(0, 0, 0);
-  vec3 ro = vec3(cos(time * 0.25) * 3.0, 2, sin(time * 0.25) * 3.0);
+  vec3 at = vec3(sin(time), cos(time), 0.0);
+  vec3 ro = vec3(tan(time * 0.25) * 3.0, 2, cos(time * 0.25) * 3.0);
   vec3 z = normalize(at - ro);
   vec3 x = normalize(cross(vec3(0, 1, 0), z));
   vec3 y = cross(z, x);
   vec3 rd = normalize(uv.x * x + uv.y * y + 1.0 * z);
-  float t = uv.x < 0.0 ? raymarch(ro, rd) : hraymarch(ro, rd);
+  // float t = uv.x < 0.0 ? raymarch(ro, rd) : hraymarch(ro, rd);
+  float t = raymarch(ro, rd);
   vec3 p = ro + rd * t;
   vec3 nor = normal(p);
   vec3 col = t < MAX_T ? vec3(dot(nor, normalize(ro)) * 0.9+0.1) : vec3((rd.y * 0.5 + 0.5) * 0.4);
 
-  gl_FragColor = vec4(sqrt(col)*smoothstep(0.0005, 0.005, abs(uv.x)), 1.0);
+  gl_FragColor = vec4(col, 1.0);
 }
 #endif
