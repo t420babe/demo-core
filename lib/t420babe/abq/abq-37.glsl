@@ -1,5 +1,5 @@
-#ifndef T4B_ABQ_32
-#define T4B_ABQ_32
+#ifndef T4B_ABQ_37
+#define T4B_ABQ_37
 
 #ifdef GL_ES
 precision mediump float;
@@ -11,26 +11,25 @@ precision mediump float;
 #define MIN_T 1e-4
 #define MAX_T 8.0
 
-float map(vec3 p, peakamp audio) {
+float map(vec3 p) {
   return ((length(p) - 1.0) + 
-      // (fract(8.0 * p.x) * cos(audio.notch * 2.0 * p.y) * fract(8.0 * p.z)) * 0.5) * 0.7;
-      (fract(8.0 * p.x) * cos(1.0 * p.y) * fract(8.0 * p.z)) * 0.5) * 0.7;
+      (sin(8.0 * p.x) * sin(8.0 * p.y) * sin(8.0 * p.z)) * 0.5) * 0.7;
 }
 
-vec3 normal(vec3 p, peakamp audio) {
+vec3 normal(vec3 p) {
   const float e = MIN_T;
   const vec2 h = vec2(1, -1);
-  return normalize(h.xyy * map(p + h.xyy*e, audio) +
-      h.yyx * map(p + h.yyx*e, audio) +
-      h.yxy * map(p + h.yxy*e, audio) +
-      h.xxx * map(p + h.xxx*e, audio));
+  return normalize(h.xyy * map(p + h.xyy*e) +
+      h.yyx * map(p + h.yyx*e) +
+      h.yxy * map(p + h.yxy*e) +
+      h.xxx * map(p + h.xxx*e));
 }
 
 // Common technique, total distance summed by estimation.
-float raymarch(vec3 ro, vec3 rd, peakamp audio) {
+float raymarch(vec3 ro, vec3 rd) {
   float t = 0.0;
   for (int i = 0; i < STEPS; i++) {
-    float d = map(ro + rd * t, audio);
+    float d = map(ro + rd * t);
     t += d;
     if (d < MIN_T || t > MAX_T) break;
   }
@@ -40,11 +39,11 @@ float raymarch(vec3 ro, vec3 rd, peakamp audio) {
 // Original Code : https://iquilezles.org/www/articles/rmshadows/rmshadows.htm
 // New technique, smaller steps near estimated distance.
 // Also the artifact is there but not obvious as common one.
-float hraymarch(vec3 ro, vec3 rd, peakamp audio) {
+float hraymarch(vec3 ro, vec3 rd) {
   float t = 0.0;
   float pd = 1e19;
   for (int i = 0; i < STEPS; i++) {
-    float d = map(ro + rd * t, audio);
+    float d = map(ro + rd * t);
     float y = d*d/(2.0*pd);
     float h = sqrt(d*d-y*y);
     pd = d;
@@ -54,7 +53,7 @@ float hraymarch(vec3 ro, vec3 rd, peakamp audio) {
   return t;
 }
 
-void abq_32(vec3 p3, float time, peakamp audio) {
+void abq_37(vec3 p3, float time, peakamp audio) {
   // vec2 uv = (2.0*fragCoord.xy-iResolution.xy)/max(iResolution.x, iResolution.y);
   vec2 uv = p3.xy;
   vec3 at = vec3(0, 0, 0);
@@ -64,29 +63,26 @@ void abq_32(vec3 p3, float time, peakamp audio) {
   vec3 x = normalize(cross(vec3(0, 0, 1), z));
   vec3 y = cross(z, x);
   vec3 rd = normalize(uv.x * x + uv.y * y + 1.0 * z);
-  // float t = uv.x < 0.0 ? fract(raymarch(ro, rd, audio)) : fract(hraymarch(ro, rd, audio));
-  // float t = fract(hraymarch(ro, rd, audio));
-  float t = (raymarch(ro, rd, audio));
+  float t = uv.x < 0.0 ? fract(raymarch(ro, rd)) : fract(hraymarch(ro, rd));
+  // float t = fract(hraymarch(ro, rd));
+  // float t = fract(raymarch(ro, rd));
   vec3 p = ro + rd * t;
-  vec3 nor = normal(p, audio) * audio.notch * 4.0;
+  vec3 nor = normal(p);
 
-  // vec3 bg_shading = vec3((rd.y * 0.5 + 0.5) * 0.8);
-  vec3 bg_shading = vec3(0.0);
-  // vec3 fg_shading = vec3(dot(nor, normalize(ro)) * 0.9+0.0) ;
-  vec3 fg_shading = vec3(dot(nor, normalize(ro)));
+  vec3 bg_shading = vec3((rd.y * 0.5 + 0.5) * 0.4);
+  // vec3 bg_shading = vec3(0.0);
+  vec3 fg_shading = vec3(dot(nor, normalize(ro)) * 0.9+0.1) ;
   // vec3 fg_shading = vec3(0.0);
 
-  // vec3 col = t < MAX_T ? fg_shading: bg_shading;
-  vec3 col= fg_shading;
-  col -= normalize(nor);
-  // col *= audio.notch * 1.0;
+  vec3 col = t < MAX_T ? fg_shading: bg_shading;
+  // col *= audio.highpass * 2.5;
 
   // col.r *= audio.lowpass * 2.0;
   // col.g *= audio.highpass * 2.0;
   // col.b *= audio.notch * 2.0;
 
 
-  // gl_FragColor = vec4(col.bgr, 1.0);
-  gl_FragColor = vec4(col.rbg, 1.0);
+  gl_FragColor = vec4(col, 1.0);
+  // gl_FragColor = vec4(sqrt(col)*smoothstep(0.0005, 0.005, abs(uv.x)), 1.0);
 }
 #endif
