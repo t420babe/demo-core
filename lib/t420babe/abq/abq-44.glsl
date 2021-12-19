@@ -1,5 +1,5 @@
-#ifndef T4B_ABQ_00
-#define T4B_ABQ_00
+#ifndef T4B_ABQ_44
+#define T4B_ABQ_44
 
 #ifdef GL_ES
 precision mediump float;
@@ -7,7 +7,7 @@ precision mediump float;
 
 // Forked from: @playbyan1453 https://www.shadertoy.com/view/ft3GDX
 
-#define STEPS 1024
+#define STEPS 28
 #define MIN_T 1e-4
 #define MAX_T 8.0
 
@@ -53,20 +53,31 @@ float hraymarch(vec3 ro, vec3 rd) {
   return t;
 }
 
-void abq_00(vec3 p3, float time, peakamp audio) {
+void abq_44(vec3 p3, float time, peakamp audio) {
   // vec2 uv = (2.0*fragCoord.xy-iResolution.xy)/max(iResolution.x, iResolution.y);
   vec2 uv = p3.xy;
   vec3 at = vec3(0, 0, 0);
-  vec3 ro = vec3(cos(time * 0.25) * 3.0, 2, sin(time * 0.25) * 3.0);
+  // vec3 ro = vec3(sin(time * 0.25) * 3.0, sin(time * 0.25), cos(time * 0.25) * 3.0);
+  vec3 ro = vec3(sin(time * 0.25) * 2.0, cos(time * 0.25) * 2.0, 2.0);
   vec3 z = normalize(at - ro);
   vec3 x = normalize(cross(vec3(0, 1, 0), z));
   vec3 y = cross(z, x);
-  vec3 rd = normalize(uv.x * x + uv.y * y + 1.0 * z);
-  float t = uv.x < 0.0 ? raymarch(ro, rd) : hraymarch(ro, rd);
-  vec3 p = ro + rd * t;
-  vec3 nor = normal(p);
-  vec3 col = t < MAX_T ? vec3(dot(nor, normalize(ro)) * 0.9+0.1) : vec3((rd.y * 0.5 + 0.5) * 0.4);
+  vec3 rd = normalize(uv.x * x + uv.y * y + z);
 
-  gl_FragColor = vec4(sqrt(col)*smoothstep(0.0005, 0.005, abs(uv.x)), 1.0);
+  // float t = uv.x < 0.0 ? raymarch(ro, rd) : hraymarch(ro, rd);
+  // float t = uv.x < 1.0 ? raymarch(ro, rd) : hraymarch(ro, rd);
+  float t = hraymarch(ro, rd);
+  vec3 p = ro - rd * t;
+  vec3 nor = normal(p);
+  float a = dot(nor, normalize(ro)) * 0.9 + 0.1;
+  float b = (rd.y * 0.5 + 0.5) * 0.4;
+  vec3 col = t < MAX_T ? vec3(a) : vec3(b, sin(time), b);
+
+  col.r *= audio.notch;
+  col.g *= audio.lowpass;
+  col.b *= audio.highpass;
+  col *= 3.0;
+
+  gl_FragColor = vec4(col, 1.0);
 }
 #endif
