@@ -1,8 +1,8 @@
 // Country of the Mind by Greg Gonzalez (Patti Smith Audio)
 // Ecstasy - Disclosure
 // time @ 10,000
-#ifndef T4B_TTT_19
-#define T4B_TTT_19
+#ifndef T4B_ABG_19
+#define T4B_ABG_19
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -45,7 +45,7 @@ vec3 party_starter(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-void ttt_19(vec3 p3, float time, peakamp audio) {
+void abg_19(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy;
   pos *= 8.0;
   // vec3 color = vec3(0.5, 0.0, 1.0);

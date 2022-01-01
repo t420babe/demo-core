@@ -1,6 +1,6 @@
 // Tough as nails by Mindchatter, but song is too short
-#ifndef T4B_TTT_41
-#define T4B_TTT_41
+#ifndef T4B_ABG_41
+#define T4B_ABG_41
 
 #ifndef COMMON_COMMON
 #include "lib/common/00-common.glsl"
@@ -64,7 +64,7 @@ vec3 make_me_float(vec2 pos, float time, peakamp audio) {
   return color;
 }
 
-void ttt_41(vec3 p3, float time, peakamp audio) {
+void abg_41(vec3 p3, float time, peakamp audio) {
   // time += 200.0;
   vec2 pos = p3.xy;
   // pos *= (abs(sin(time * 0.5))) * 500.0;

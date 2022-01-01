@@ -1,6 +1,6 @@
 // step
-#ifndef T4B_TTT_21
-#define T4B_TTT_21
+#ifndef T4B_ABG_21
+#define T4B_ABG_21
 
 #ifndef COMMON_PEAKAMP
 #include "./lib/common/peakamp.glsl"
@@ -42,7 +42,7 @@ float ttt_21_map(vec3 pos, float time){
 
 
 // 2:46
-void ttt_21(vec3 p3, float time, peakamp audio) {
+void abg_21(vec3 p3, float time, peakamp audio) {
   vec2 pos = p3.xy;
   // 365.0
   float start = t2s(0.0, 4.0, 20.0);
