@@ -30,13 +30,13 @@ void abs_03(vec3 p3, float time, peakamp audio) {
   float r = 0.283 * (2.0 + smoothstep(0.0, 0.25, u) * 0.5);
   vec2 q = mod( p * rot(0.25 * PI) + r * 0.5, r) - r * 0.5;
   q *= rot( (0.25 + (smoothstep(0.75, 0.5, u) * 0.5) * sq(q)-0.5 * sq(p * rot(0.25 * PI) ) ) * PI);
-  vec3 o = vec3(smoothstep(0.0, 0.1, cos( mix(q.x, q.y, step(0.5, t) ) * PI * 20.0 - 0.5 * PI) ) );
+  vec3 o = vec3(smoothstep(0.0, 0.1, log( mix(q.x, q.y, step(0.5, t) ) * PI * 20.0 - 0.5 * PI) ) );
   // vec3 o = vec3(smoothstep(0.,smoothstep(0.,1.,length(p)),sin(mix(q.x,q.y,step(.5,t))*PI*20.-.5*PI)));
 
   vec3 color = o;
   color.r *= audio.notch * 5.0;
   color.g *= audio.highpass * 4.0;
-  color.b *= audio.lowpass * 5.0;
+  // color.b *= audio.lowpass * 2.0;
   gl_FragColor = vec4(color.rgb, 1.0);
 }
 #endif

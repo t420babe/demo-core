@@ -33,7 +33,7 @@ void abs_02(vec3 p3, float time, peakamp audio) {
   vec2 q = mod( p * rot(0.05 * PI) + r * 0.5, r) ;
   // vec2 q = ;
   // vec2 q = vec2(u);
-  q *= rot( (0.25 + (smoothstep(0.75, 0.5, u) * 0.5) * sq(q)-0.5 * sq(p * rot(0.25 * PI) ) ) * PI);
+  q *= rot( (0.25 + (smoothstep(0.81, 0.5, q.x) * 1.5) * sq(q)-0.5 * sq(p * rot(0.25 * PI) ) ) * PI);
   vec3 o = vec3(smoothstep(0.0, 0.1, cos( mix(q.x, q.y, u ) * PI * 20.0 - 0.5 * PI) ) );
   // vec3 o = vec3(smoothstep(0.,smoothstep(0.,1.,length(p)),sin(mix(q.x,q.y,step(.5,t))*PI*20.-.5*PI)));
 
